@@ -13,12 +13,12 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Design of Experiments
-tagline: STAT 720
+title: Analysis of Messy Data
+tagline: STAT 870
 description: a
 author: Josefina Lacasa
-baseurl: '/summer2025' # the subpath of your site, e.g. /blog
-url: 'https://stat720.github.io' # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: '/fall2025' # the subpath of your site, e.g. /blog
+url: 'https://stat870.github.io' # the base hostname & protocol for your site, e.g. http://example.com
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE"]
 
 # Theme settings
