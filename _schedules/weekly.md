@@ -30,6 +30,7 @@ schedule:
         end: 1:50 PM
         location: 107 Dickens
   - name: Tuesday
+    events:
   - name: Wednesday
       - name: Lecture
         start: 11:30 AM
@@ -40,5 +41,7 @@ schedule:
         end: 1:50 PM
         location: 107 Dickens
   - name: Thursday
+    events:
   - name: Friday
+    events:
 ---
