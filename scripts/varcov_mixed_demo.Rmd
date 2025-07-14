@@ -1,0 +1,17 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+Z <- matrix(c(1, 0, 0,
+              0, 0, 1,
+              0, 1, 0,
+              1, 0, 0, 
+              1, 0,0), ncol = 3, byrow = T)
+
+G <- diag(c(1, 1.5, 1.8))
+
+Z%*%G%*%t(Z)
+```
+

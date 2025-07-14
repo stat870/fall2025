@@ -1,0 +1,86 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+date: "2025-06-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(agridat)
+library(emmeans)
+library(multcomp)
+```
+
+
+```{r}
+data("omer.sorghum")
+df <- omer.sorghum %>% filter(env == "E3")
+```
+
+```{r}
+n_distinct(df$gen)
+n_distinct(df$rep)
+
+df %>% 
+  ggplot(aes(gen, yield))+
+  geom_point()
+
+```
+
+```{r}
+lm(yield ~ 1 + gen + rep, data = df)
+
+options(contrasts = c("contr.sum", "contr.poly"))
+
+m1 <- lm(yield ~ 1 + gen + rep, data = df)
+
+summary(m1)
+
+# glmmTMB(yield ~ 1 + gen + rep, data = df,
+#         family = gaussian())
+```
+
+```{r}
+# constant variance
+plot(x = m1$fitted.values, y = abs(m1$residuals))
+
+summary(lm(abs(m1$residuals)  ~ m1$fitted.values))
+```
+
+```{r}
+car::qqPlot(m1)
+```
+
+```{r}
+car::Anova(m1, type = 2)
+```
+
+```{r}
+sqrt(1306996/51)
+
+summary(m1)$sigma
+```
+
+```{r}
+m2 <- lm(yield ~ gen , data = df)
+car::Anova(m2)
+```
+
+```{r}
+sqrt(1540802/54)
+summary(m2)$sigma
+```
+
+```{r}
+means_1<-emmeans(m1, ~gen)
+means_2<-emmeans(m2, ~gen)
+
+cld(means_1, method = "sidak", Letters = letters)
+cld(means_2, method = "sidak", Letters = letters)
+```
+

@@ -1,0 +1,48 @@
+---
+title: "Muffin Data Analysis"
+author: "J Lacasa"
+date: "2025-07-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r  warning = FALSE}
+library(tidyverse)
+library(lme4)
+library(emmeans)
+```
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat720/summer2025/refs/heads/main/data/muffin_data.csv"
+muffins <- read.csv(url)
+muffins$oven_temp <- as.factor(muffins$oven_temp)
+muffins$rep <- as.factor(muffins$rep)
+```
+
+```{r}
+muffins %>% 
+  ggplot(aes(paste(oven_temp, recipe), height_cm))+
+  geom_boxplot()
+
+```
+
+```{r}
+model_nosubsampling <- 
+  lmer(height_cm ~ oven_temp*recipe + (1|rep), data = muffins)
+
+model_subsampling <- 
+  lmer(height_cm ~ oven_temp*recipe + (1|rep/recipe), data = muffins)
+```
+
+```{r}
+emmeans::emmeans(model_nosubsampling, ~recipe,
+        contr = list(c(1, -1)) )
+emmeans::emmeans(model_subsampling, ~recipe,
+        contr = list(c(1, -1)) )
+```
+
+

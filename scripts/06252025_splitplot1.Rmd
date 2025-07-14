@@ -1,0 +1,60 @@
+---
+title: "Week 3/Day 3: Split plot demo"
+author: "J Lacasa"
+date: "2025-06-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(agridat)
+library(tidyverse)
+library(glmmTMB)
+```
+
+```{r}
+data("durban.splitplot")
+df <- durban.splitplot
+```
+
+Grown in 1995-1996 at the Scottish Crop Research Institute. Split-plot design with 4 blocks, **2 whole-plot fungicide treatments**, and 70 barley varieties or variety mixes. Total area was 10 rows (north/south) by 56 beds (east/west).
+
+Let's look at their distribution: 
+```{r}
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = block))
+
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = fung))
+
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = gen))
+```
+
+```{r}
+model1 <- glmmTMB(yield ~ 1 + fung*gen + (1|block/fung), data = df)
+
+summary(model1)
+
+car::Anova(model1)
+```
+
+```{r}
+plot(predict(model1), residuals(model1));abline(a=0, b=0)
+
+hist(residuals(model1))
+```
+
+Get the realized values for the random effects 
+
+```{r}
+getME(model1, "b")
+```
+

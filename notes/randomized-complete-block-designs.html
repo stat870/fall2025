@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 23 Randomized complete block designs | STAT 720 - Design of Experiments</title>
+  <meta name="description" content="Day 23 Randomized complete block designs | STAT 720 - Design of Experiments" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 23 Randomized complete block designs | STAT 720 - Design of Experiments" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 23 Randomized complete block designs | STAT 720 - Design of Experiments" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="review-friday.html"/>
+<link rel="next" href="split-plot-designs.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 720</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 720!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.3</b> On notation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#why-do-designed-experiments-exist"><i class="fa fa-check"></i><b>1.4</b> Why do designed experiments exist?</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#example"><i class="fa fa-check"></i><b>1.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#the-golden-rules-of-designed-experiments"><i class="fa fa-check"></i><b>1.5</b> The golden rules of designed experiments</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#other-concepts-in-designed-experiments"><i class="fa fa-check"></i><b>1.6</b> Other concepts in designed experiments</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#for-tomorrow"><i class="fa fa-check"></i><b>1.7</b> For tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html"><i class="fa fa-check"></i><b>2</b> Basic types of designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#review"><i class="fa fa-check"></i><b>2.2</b> Review</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#types-of-designs---the-basics"><i class="fa fa-check"></i><b>2.3</b> Types of designs - the basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#completely-randomized-design-crd"><i class="fa fa-check"></i><b>2.3.1</b> Completely randomized design (CRD)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#randomized-complete-block-design-rcbd"><i class="fa fa-check"></i><b>2.3.2</b> Randomized complete block design (RCBD)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#incomplete-block-design-ibd"><i class="fa fa-check"></i><b>2.3.3</b> Incomplete block design (IBD)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#skeleton-anova-tables"><i class="fa fa-check"></i><b>2.4</b> Skeleton ANOVA tables</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#practice-examples"><i class="fa fa-check"></i><b>2.4.1</b> Practice examples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#homeworks"><i class="fa fa-check"></i><b>2.5</b> Homeworks</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html"><i class="fa fa-check"></i><b>3</b> Basic types of designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#review-1"><i class="fa fa-check"></i><b>3.1</b> Review</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#types-of-designs"><i class="fa fa-check"></i><b>3.2</b> Types of designs</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#completely-randomized-design-crd-1"><i class="fa fa-check"></i><b>3.2.1</b> Completely randomized design (CRD)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#randomized-complete-block-design-rcbd-1"><i class="fa fa-check"></i><b>3.2.2</b> Randomized complete block design (RCBD)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#building-an-anova-skeleton-using-design-aka-topographical-and-treatment-elements"><i class="fa fa-check"></i><b>3.3</b> Building an ANOVA skeleton using design (aka topographical) and treatment elements</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#linear-model-good-old-friend"><i class="fa fa-check"></i><b>3.4</b> Linear model good old friend</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#the-most-common-assumptions-behind-most-software"><i class="fa fa-check"></i><b>3.4.1</b> The most common assumptions behind most software</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#some-practice"><i class="fa fa-check"></i><b>3.5</b> Some Practice</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#to-do"><i class="fa fa-check"></i><b>3.6</b> To do</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><i class="fa fa-check"></i><b>4</b> Linear models, ANOVA shells applied to the more basic experiment designs</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#review-2"><i class="fa fa-check"></i><b>4.1</b> Review</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#linear-models"><i class="fa fa-check"></i><b>4.2</b> Linear models</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#the-most-common-model---assumptions"><i class="fa fa-check"></i><b>4.2.1</b> The most common model - Assumptions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#connection-between-this-and-your-classical-anova-table"><i class="fa fa-check"></i><b>4.2.2</b> Connection between this and your classical ANOVA table</a></li>
+<li class="chapter" data-level="4.2.3" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#sorghum-example"><i class="fa fa-check"></i><b>4.2.3</b> Sorghum example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#takehomes"><i class="fa fa-check"></i><b>4.3</b> Takehomes</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#if-you-dont-include-the-design-elements-blocks-their-portion-of-the-variance-goes-to-the-error"><i class="fa fa-check"></i><b>4.3.1</b> If you don’t include the design elements (blocks), their portion of the variance goes to the error</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#tomorrow"><i class="fa fa-check"></i><b>4.4</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html"><i class="fa fa-check"></i><b>5</b> Review, organizing data and other helpful tips</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html#kahoot-as-review"><i class="fa fa-check"></i><b>5.1</b> Kahoot! as review</a></li>
+<li class="chapter" data-level="5.2" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html#organizing-data"><i class="fa fa-check"></i><b>5.2</b> Organizing data</a></li>
+<li class="chapter" data-level="5.3" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html#homework"><i class="fa fa-check"></i><b>5.3</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html"><i class="fa fa-check"></i><b>6</b> The treatment structure</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#announcements-1"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#review-3"><i class="fa fa-check"></i><b>6.2</b> Review</a></li>
+<li class="chapter" data-level="6.3" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#treatment-structure"><i class="fa fa-check"></i><b>6.3</b> Treatment structure</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#types-of-treatment-structures"><i class="fa fa-check"></i><b>6.3.1</b> Types of treatment structures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#where-is-the-treatment-structure-connected-to-the-statistical-model"><i class="fa fa-check"></i><b>6.4</b> Where is the treatment structure connected to the statistical model?</a></li>
+<li class="chapter" data-level="6.5" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#tomorrow-1"><i class="fa fa-check"></i><b>6.5</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html"><i class="fa fa-check"></i><b>7</b> What you ask of a designed experiment</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#announcements-2"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#review-4"><i class="fa fa-check"></i><b>7.2</b> Review</a></li>
+<li class="chapter" data-level="7.3" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#anova"><i class="fa fa-check"></i><b>7.3</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#in-case-you-were-wondering-anova-and-types-of-sums-of-squares"><i class="fa fa-check"></i><b>7.3.1</b> In case you were wondering: ANOVA and types of sums of squares</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#setting-the-stage-estimated-marginal-means-aka-least-squares-means"><i class="fa fa-check"></i><b>7.4</b> Setting the stage: Estimated marginal means aka least squares means</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example:</a></li>
+<li class="chapter" data-level="7.4.2" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#discussion"><i class="fa fa-check"></i><b>7.4.2</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#tomorrow-2"><i class="fa fa-check"></i><b>7.5</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="applied-examples.html"><a href="applied-examples.html"><i class="fa fa-check"></i><b>8</b> Applied examples</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="applied-examples.html"><a href="applied-examples.html#announcements-3"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="applied-examples.html"><a href="applied-examples.html#applied-example-for-today"><i class="fa fa-check"></i><b>8.2</b> Applied example for today</a></li>
+<li class="chapter" data-level="8.3" data-path="applied-examples.html"><a href="applied-examples.html#tomorrow-3"><i class="fa fa-check"></i><b>8.3</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="review-5.html"><a href="review-5.html"><i class="fa fa-check"></i><b>9</b> Review</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="review-5.html"><a href="review-5.html#announcements-4"><i class="fa fa-check"></i><b>9.1</b> Announcements</a></li>
+<li class="chapter" data-level="9.2" data-path="review-5.html"><a href="review-5.html#next-week"><i class="fa fa-check"></i><b>9.2</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html"><i class="fa fa-check"></i><b>10</b> Applied Linear Mixed Models I</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#announcements-5"><i class="fa fa-check"></i><b>10.1</b> Announcements</a></li>
+<li class="chapter" data-level="10.2" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#applied-linear-mixed-models"><i class="fa fa-check"></i><b>10.2</b> Applied Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#review-random-variables"><i class="fa fa-check"></i><b>10.2.1</b> Review: random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#review-designs"><i class="fa fa-check"></i><b>10.3</b> Review: Designs</a></li>
+<li class="chapter" data-level="10.4" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#tomorrow-4"><i class="fa fa-check"></i><b>10.4</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html"><i class="fa fa-check"></i><b>11</b> Applied Linear Mixed Models II</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html#review-designs-1"><i class="fa fa-check"></i><b>11.1</b> Review: Designs</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html#lets-look-at-the-anova-table"><i class="fa fa-check"></i><b>11.1.1</b> Let’s look at the anova table</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html#tomorrow-5"><i class="fa fa-check"></i><b>11.2</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html"><i class="fa fa-check"></i><b>12</b> Practice: Hierarchical (Multilevel) Designs</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#review-hierarchical-designs"><i class="fa fa-check"></i><b>12.1</b> Review: Hierarchical Designs</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#more-pictures"><i class="fa fa-check"></i><b>12.1.1</b> More pictures:</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#r-demo"><i class="fa fa-check"></i><b>12.2</b> R demo</a></li>
+<li class="chapter" data-level="12.3" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#tomorrow-6"><i class="fa fa-check"></i><b>12.3</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html"><i class="fa fa-check"></i><b>13</b> More practice: Hierarchical (Multilevel) Designs</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#review-hierarchical-designs-1"><i class="fa fa-check"></i><b>13.1</b> Review: Hierarchical Designs</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#remember-our-example"><i class="fa fa-check"></i><b>13.1.1</b> Remember our example:</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#building-the-anova-skeleton-using-design-aka-topographical-and-treatment-elements"><i class="fa fa-check"></i><b>13.2</b> Building the ANOVA skeleton using design (aka topographical) and treatment elements</a></li>
+<li class="chapter" data-level="13.3" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#r-demo-1"><i class="fa fa-check"></i><b>13.3</b> R demo</a></li>
+<li class="chapter" data-level="13.4" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#tomorrow-7"><i class="fa fa-check"></i><b>13.4</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="review-6.html"><a href="review-6.html"><i class="fa fa-check"></i><b>14</b> Review</a></li>
+<li class="chapter" data-level="15" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html"><i class="fa fa-check"></i><b>15</b> Review: RCBD and split-plot</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#background"><i class="fa fa-check"></i><b>15.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#baseline-recipe-for-banana-muffins"><i class="fa fa-check"></i><b>15.1.1</b> Baseline recipe for banana muffins:</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#study-research-question"><i class="fa fa-check"></i><b>15.2</b> Study / Research question</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#proposed-design-experiment-rcbd"><i class="fa fa-check"></i><b>15.2.1</b> Proposed design experiment: RCBD</a></li>
+<li class="chapter" data-level="15.2.2" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#treatment-means-and-confidence-intervals"><i class="fa fa-check"></i><b>15.2.2</b> Treatment means and confidence intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#tomorrow-8"><i class="fa fa-check"></i><b>15.3</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html"><i class="fa fa-check"></i><b>16</b> Review: Applied split-plot</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#announcements-6"><i class="fa fa-check"></i><b>16.1</b> Announcements</a></li>
+<li class="chapter" data-level="16.2" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#background-1"><i class="fa fa-check"></i><b>16.2</b> Background</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#research-question"><i class="fa fa-check"></i><b>16.2.1</b> Research question</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#what-is-the-best-design"><i class="fa fa-check"></i><b>16.3</b> What is the best design?</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#option-a-another-rcbd"><i class="fa fa-check"></i><b>16.3.1</b> Option A: another RCBD</a></li>
+<li class="chapter" data-level="16.3.2" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#option-b-split-plot-design"><i class="fa fa-check"></i><b>16.3.2</b> Option B: split-plot design</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#treatment-means-and-confidence-intervals-for-the-split-plot-design"><i class="fa fa-check"></i><b>16.4</b> Treatment means and confidence intervals for the split-plot design</a></li>
+<li class="chapter" data-level="16.5" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#tomorrow-9"><i class="fa fa-check"></i><b>16.5</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html"><i class="fa fa-check"></i><b>17</b> Analyzing data from a split-plot design</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#announcements-7"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
+<li class="chapter" data-level="17.2" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#background-2"><i class="fa fa-check"></i><b>17.2</b> Background</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#research-question-1"><i class="fa fa-check"></i><b>17.2.1</b> Research question</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#analyzing-the-data"><i class="fa fa-check"></i><b>17.3</b> Analyzing the data</a></li>
+<li class="chapter" data-level="17.4" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#treatment-means-and-confidence-intervals-for-the-split-plot-design-1"><i class="fa fa-check"></i><b>17.4</b> Treatment means and confidence intervals for the split-plot design</a></li>
+<li class="chapter" data-level="17.5" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#tomorrow-10"><i class="fa fa-check"></i><b>17.5</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html"><i class="fa fa-check"></i><b>18</b> Analysis and inference for a split-plot design</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#announcements-8"><i class="fa fa-check"></i><b>18.1</b> Announcements</a></li>
+<li class="chapter" data-level="18.2" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#review-of-our-experiment"><i class="fa fa-check"></i><b>18.2</b> Review of our experiment</a></li>
+<li class="chapter" data-level="18.3" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#anova-tables"><i class="fa fa-check"></i><b>18.3</b> ANOVA tables</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#split-plot-in-a-crd"><i class="fa fa-check"></i><b>18.3.1</b> Split-plot in a CRD</a></li>
+<li class="chapter" data-level="18.3.2" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#other-possible-designs"><i class="fa fa-check"></i><b>18.3.2</b> Other possible designs</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#applied-analysis-in-r"><i class="fa fa-check"></i><b>18.4</b> Applied analysis in R</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html"><i class="fa fa-check"></i><b>19</b> Analysis and inference for a split-plot design - Part II</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#announcements-9"><i class="fa fa-check"></i><b>19.1</b> Announcements</a></li>
+<li class="chapter" data-level="19.2" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#review-of-our-experiment-1"><i class="fa fa-check"></i><b>19.2</b> Review of our experiment</a></li>
+<li class="chapter" data-level="19.3" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#anova-tables-1"><i class="fa fa-check"></i><b>19.3</b> ANOVA tables</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#split-plot-in-a-crd-1"><i class="fa fa-check"></i><b>19.3.1</b> Split-plot in a CRD</a></li>
+<li class="chapter" data-level="19.3.2" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#same-design-as-above-with-subsampling"><i class="fa fa-check"></i><b>19.3.2</b> Same design as above, with subsampling</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#applied-analysis-in-r-1"><i class="fa fa-check"></i><b>19.4</b> Applied analysis in R</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="power-analysis.html"><a href="power-analysis.html"><i class="fa fa-check"></i><b>20</b> Power analysis</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="power-analysis.html"><a href="power-analysis.html#announcements-10"><i class="fa fa-check"></i><b>20.1</b> Announcements</a></li>
+<li class="chapter" data-level="20.2" data-path="power-analysis.html"><a href="power-analysis.html#review-of-everything-so-far"><i class="fa fa-check"></i><b>20.2</b> Review of everything so far</a></li>
+<li class="chapter" data-level="20.3" data-path="power-analysis.html"><a href="power-analysis.html#power-of-an-experiment"><i class="fa fa-check"></i><b>20.3</b> Power of an experiment</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="power-analysis.html"><a href="power-analysis.html#power-calculations"><i class="fa fa-check"></i><b>20.3.1</b> Power calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="power-analysis.html"><a href="power-analysis.html#reminders"><i class="fa fa-check"></i><b>20.4</b> Reminders</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html"><i class="fa fa-check"></i><b>21</b> Power analysis II</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#announcements-11"><i class="fa fa-check"></i><b>21.1</b> Announcements</a></li>
+<li class="chapter" data-level="21.2" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#what-are-simulations"><i class="fa fa-check"></i><b>21.2</b> What are simulations?</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#simulation-demo"><i class="fa fa-check"></i><b>21.2.1</b> Simulation demo</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#power-analysis-demonstration"><i class="fa fa-check"></i><b>21.3</b> Power analysis demonstration</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#crd---2-reps"><i class="fa fa-check"></i><b>21.3.1</b> CRD - 2 reps</a></li>
+<li class="chapter" data-level="21.3.2" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#crd---3-reps"><i class="fa fa-check"></i><b>21.3.2</b> CRD - 3 reps</a></li>
+<li class="chapter" data-level="21.3.3" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---2-reps"><i class="fa fa-check"></i><b>21.3.3</b> Split-plot - 2 reps</a></li>
+<li class="chapter" data-level="21.3.4" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---3-reps"><i class="fa fa-check"></i><b>21.3.4</b> Split-plot - 3 reps</a></li>
+<li class="chapter" data-level="21.3.5" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---2-reps-subsampling"><i class="fa fa-check"></i><b>21.3.5</b> Split-plot - 2 reps + subsampling</a></li>
+<li class="chapter" data-level="21.3.6" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---3-reps-subsampling"><i class="fa fa-check"></i><b>21.3.6</b> Split-plot - 3 reps + subsampling</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="review-friday.html"><a href="review-friday.html"><i class="fa fa-check"></i><b>22</b> Review Friday</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="review-friday.html"><a href="review-friday.html#announcements-12"><i class="fa fa-check"></i><b>22.1</b> Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html"><i class="fa fa-check"></i><b>23</b> Randomized complete block designs</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#announcements-13"><i class="fa fa-check"></i><b>23.1</b> Announcements</a></li>
+<li class="chapter" data-level="23.2" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#randomized-complete-block-designs-1"><i class="fa fa-check"></i><b>23.2</b> Randomized complete block designs</a></li>
+<li class="chapter" data-level="23.3" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#blocks---fixed-or-random"><i class="fa fa-check"></i><b>23.3</b> Blocks - fixed or random?</a>
+<ul>
+<li class="chapter" data-level="23.3.1" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#applied-design-and-analysis-of-an-rcbd"><i class="fa fa-check"></i><b>23.3.1</b> Applied design and analysis of an RCBD</a></li>
+</ul></li>
+<li class="chapter" data-level="23.4" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#incomplete-block-designs"><i class="fa fa-check"></i><b>23.4</b> Incomplete block designs</a>
+<ul>
+<li class="chapter" data-level="23.4.1" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#applied-design-and-analysis-of-a-balanced-ibd"><i class="fa fa-check"></i><b>23.4.1</b> Applied design and analysis of a Balanced IBD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="split-plot-designs.html"><a href="split-plot-designs.html"><i class="fa fa-check"></i><b>24</b> Split plot designs</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="split-plot-designs.html"><a href="split-plot-designs.html#announcements-14"><i class="fa fa-check"></i><b>24.1</b> Announcements</a></li>
+<li class="chapter" data-level="24.2" data-path="split-plot-designs.html"><a href="split-plot-designs.html#split-plot-designs-1"><i class="fa fa-check"></i><b>24.2</b> Split plot designs</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="semester-project.html"><a href="semester-project.html"><i class="fa fa-check"></i><b>25</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="semester-project.html"><a href="semester-project.html#learning-objectives"><i class="fa fa-check"></i><b>25.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="25.2" data-path="semester-project.html"><a href="semester-project.html#partial-deadlines"><i class="fa fa-check"></i><b>25.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="semester-project.html"><a href="semester-project.html#project-proposal---due-friday-june-20-at-2pm-ct"><i class="fa fa-check"></i><b>25.2.1</b> Project proposal - Due Friday June 20 at 2pm CT</a></li>
+<li class="chapter" data-level="25.2.2" data-path="semester-project.html"><a href="semester-project.html#written-report---due-wednesday-july-23-at-2pm-ct-for-peer-review"><i class="fa fa-check"></i><b>25.2.2</b> Written report - Due Wednesday July 23 at 2pm CT for peer review</a></li>
+<li class="chapter" data-level="25.2.3" data-path="semester-project.html"><a href="semester-project.html#oral-presentation---somewhere-between-july-21---august-1"><i class="fa fa-check"></i><b>25.2.3</b> Oral presentation - Somewhere between July 21 - August 1</a></li>
+<li class="chapter" data-level="25.2.4" data-path="semester-project.html"><a href="semester-project.html#practical-reads"><i class="fa fa-check"></i><b>25.2.4</b> Practical reads</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 720 - Design of Experiments</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="randomized-complete-block-designs" class="section level1 hasAnchor" number="23">
+<h1><span class="header-section-number">Day 23</span> Randomized complete block designs<a href="randomized-complete-block-designs.html#randomized-complete-block-designs" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>July 14th, 2025</p>
+<div id="announcements-13" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Announcements<a href="randomized-complete-block-designs.html#announcements-13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>HW 4 due Friday</li>
+<li>Topics for the week of July 21 - <a href="https://forms.gle/SGVCcH8X7WrpFTW99">survey</a></li>
+</ul>
+</div>
+<div id="randomized-complete-block-designs-1" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Randomized complete block designs<a href="randomized-complete-block-designs.html#randomized-complete-block-designs-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Blocks are groups of approximately similar experimental units.</li>
+<li>Data generated by blocked designs may be analyzed as <span class="math inline">\(y_{ij} = \mu +\tau_i + b_j + \varepsilon_{ij}\)</span>, where <span class="math inline">\(y_{ij}\)</span> is the observed response for the <span class="math inline">\(i\)</span>th treatment in the <span class="math inline">\(j\)</span>th block, <span class="math inline">\(\tau_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th treatment (<span class="math inline">\(i = 1, 2, ..., t\)</span>), <span class="math inline">\(b_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th block, <span class="math inline">\(\varepsilon_{ij}\)</span> is the residual of the <span class="math inline">\(i\)</span>th treatment in the <span class="math inline">\(j\)</span>th block.</li>
+<li>Most RCBDs have <span class="math inline">\(k = t\)</span>, where <span class="math inline">\(k\)</span> is the number of experimental units per block, and <span class="math inline">\(t\)</span> is the number of treatments.</li>
+</ul>
+</div>
+<div id="blocks---fixed-or-random" class="section level2 hasAnchor" number="23.3">
+<h2><span class="header-section-number">23.3</span> Blocks - fixed or random?<a href="randomized-complete-block-designs.html#blocks---fixed-or-random" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>The assumptions behind <span class="math inline">\(b_j\)</span> vary:</li>
+<li>Fundamentals of mixed models
+<ul>
+<li>Assumption behind blocks as fixed effects: there is a ‘true’ block effect out there.</li>
+<li>Assumption behind blocks as random effects:</li>
+</ul></li>
+<li>Confidence intervals of the means differ depending on the model:
+<ul>
+<li>Blocks as fixed: <span class="math inline">\(\hat\mu \pm t \cdot \sqrt{\frac{\sigma_{\varepsilon}^2 }{b}}\)</span></li>
+<li>Blocks as random: <span class="math inline">\(\hat\mu \pm t \cdot \sqrt{\frac{\sigma_{\varepsilon}^2 + \sigma^2_{b}}{b}}\)</span></li>
+</ul></li>
+<li>Confidence intervals of the means differences don’t differ depending on the model:
+<ul>
+<li>Blocks as fixed/as random: <span class="math inline">\(\hat\mu \pm t \cdot \sqrt{\frac{2 \sigma_{\varepsilon}^2 }{n}}\)</span><br />
+</li>
+</ul></li>
+<li>More on the differences between blocks as fixed vs random: <a href="https://newprairiepress.org/cgi/viewcontent.cgi?article=1474&amp;context=agstatconference">Dixon 2016</a>.</li>
+</ul>
+<div id="applied-design-and-analysis-of-an-rcbd" class="section level3 hasAnchor" number="23.3.1">
+<h3><span class="header-section-number">23.3.1</span> Applied design and analysis of an RCBD<a href="randomized-complete-block-designs.html#applied-design-and-analysis-of-an-rcbd" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An experiment was run in South Australia to compare for 107 different wheat varieties, in a randomized complete block design with 3 blocks.</p>
+<p>Get R code <a href="../scripts/07142025_rcbd.Rmd">here</a>.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-120">Table 23.1: </span>ANOVA table for the RCBD</caption>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">df</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Blocks</td>
+<td align="left">b-1 = 2</td>
+</tr>
+<tr class="even">
+<td align="left">Genotype</td>
+<td align="left">g-1 = 106</td>
+</tr>
+<tr class="odd">
+<td align="left">Error</td>
+<td align="left">N-b-g+1 = 221</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="left">N-1 = 329</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="randomized-complete-block-designs.html#cb142-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb142-2"><a href="randomized-complete-block-designs.html#cb142-2" tabindex="-1"></a><span class="fu">library</span>(agridat)</span>
+<span id="cb142-3"><a href="randomized-complete-block-designs.html#cb142-3" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb142-4"><a href="randomized-complete-block-designs.html#cb142-4" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb142-5"><a href="randomized-complete-block-designs.html#cb142-5" tabindex="-1"></a></span>
+<span id="cb142-6"><a href="randomized-complete-block-designs.html#cb142-6" tabindex="-1"></a>dat_wheat_rcbd <span class="ot">&lt;-</span> agridat<span class="sc">::</span>gilmour.serpentine</span>
+<span id="cb142-7"><a href="randomized-complete-block-designs.html#cb142-7" tabindex="-1"></a></span>
+<span id="cb142-8"><a href="randomized-complete-block-designs.html#cb142-8" tabindex="-1"></a>dat_wheat_rcbd <span class="sc">%&gt;%</span> </span>
+<span id="cb142-9"><a href="randomized-complete-block-designs.html#cb142-9" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
+<span id="cb142-10"><a href="randomized-complete-block-designs.html#cb142-10" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> rep))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="randomized-complete-block-designs.html#cb143-1" tabindex="-1"></a>m_block.as.fixed <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> rep, <span class="at">data =</span> dat_wheat_rcbd)</span>
+<span id="cb143-2"><a href="randomized-complete-block-designs.html#cb143-2" tabindex="-1"></a></span>
+<span id="cb143-3"><a href="randomized-complete-block-designs.html#cb143-3" tabindex="-1"></a>m_block.as.random <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>rep), <span class="at">data =</span> dat_wheat_rcbd)</span>
+<span id="cb143-4"><a href="randomized-complete-block-designs.html#cb143-4" tabindex="-1"></a></span>
+<span id="cb143-5"><a href="randomized-complete-block-designs.html#cb143-5" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.fixed, <span class="sc">~</span>gen)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code></pre></div>
+<pre><code>##  gen          emmean   SE  df lower.CL upper.CL
+##  (WWH*MM)*WR*    709 66.7 221      577      841
+##  (WqKPWmH*3Ag    733 66.7 221      602      865
+##  AMERY           616 66.7 221      484      747
+##  ANGAS           576 66.7 221      445      708
+##  AROONA          555 66.7 221      424      687
+##  BATAVIA         534 66.7 221      402      665
+##  BD231           639 66.7 221      507      770
+##  BEULAH          535 66.7 221      404      667
+##  BLADE           439 66.7 221      307      571
+##  BT_SCHOMBURG    660 66.7 221      528      792
+## 
+## Results are averaged over the levels of: rep 
+## Confidence level used: 0.95</code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="randomized-complete-block-designs.html#cb145-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.random, <span class="sc">~</span>gen)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code></pre></div>
+<pre><code>##  gen          emmean   SE   df lower.CL upper.CL
+##  (WWH*MM)*WR*    709 93.3 8.16      495      923
+##  (WqKPWmH*3Ag    733 93.3 8.16      519      948
+##  AMERY           616 93.3 8.16      401      830
+##  ANGAS           576 93.3 8.16      362      791
+##  AROONA          555 93.3 8.16      341      770
+##  BATAVIA         534 93.3 8.16      319      748
+##  BD231           639 93.3 8.16      424      853
+##  BEULAH          535 93.3 8.16      321      750
+##  BLADE           439 93.3 8.16      225      653
+##  BT_SCHOMBURG    660 93.3 8.16      446      874
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.95</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="randomized-complete-block-designs.html#cb147-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.fixed, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">2</span>))))<span class="sc">$</span>contr</span></code></pre></div>
+<pre><code>##  contrast                                                        estimate   SE  df t.ratio p.value
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     -24.3 94.4 221  -0.258  0.7968
+## 
+## Results are averaged over the levels of: rep</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="randomized-complete-block-designs.html#cb149-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.random, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">2</span>))))<span class="sc">$</span>contr</span></code></pre></div>
+<pre><code>##  contrast                                                        estimate   SE  df t.ratio p.value
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     -24.3 94.4 221  -0.258  0.7968
+## 
+## Degrees-of-freedom method: kenward-roger</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="randomized-complete-block-designs.html#cb151-1" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_block.as.fixed, <span class="sc">~</span>gen)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]) <span class="sc">%&gt;%</span> <span class="fu">transmute</span>(gen, emmean, SE, <span class="at">blocks =</span> <span class="st">&quot;fixed&quot;</span>),</span>
+<span id="cb151-2"><a href="randomized-complete-block-designs.html#cb151-2" tabindex="-1"></a>          <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_block.as.random, <span class="sc">~</span>gen)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]) <span class="sc">%&gt;%</span> <span class="fu">transmute</span>(gen, emmean, SE, <span class="at">blocks =</span> <span class="st">&quot;random&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb151-3"><a href="randomized-complete-block-designs.html#cb151-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(gen, emmean))<span class="sc">+</span></span>
+<span id="cb151-4"><a href="randomized-complete-block-designs.html#cb151-4" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> emmean <span class="sc">-</span> SE, <span class="at">ymax =</span> emmean <span class="sc">+</span> SE, <span class="at">color =</span> blocks), <span class="at">width =</span> .<span class="dv">1</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb151-5"><a href="randomized-complete-block-designs.html#cb151-5" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb151-6"><a href="randomized-complete-block-designs.html#cb151-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;tomato&quot;</span>, <span class="st">&quot;#1282A2&quot;</span>))<span class="sc">+</span></span>
+<span id="cb151-7"><a href="randomized-complete-block-designs.html#cb151-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb151-8"><a href="randomized-complete-block-designs.html#cb151-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Difference in Mean SE between fixed blocks and random blocks analyses&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-123-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="randomized-complete-block-designs.html#cb152-1" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_block.as.fixed, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">2</span>)), </span>
+<span id="cb152-2"><a href="randomized-complete-block-designs.html#cb152-2" tabindex="-1"></a>                                                                     <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">3</span>))))<span class="sc">$</span>contr) <span class="sc">%&gt;%</span> </span>
+<span id="cb152-3"><a href="randomized-complete-block-designs.html#cb152-3" tabindex="-1"></a>            <span class="fu">transmute</span>(estimate, SE, <span class="at">blocks =</span> <span class="st">&quot;fixed&quot;</span>, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&quot;t1 vs. t2&quot;</span>, <span class="st">&quot;t1 vs. t3&quot;</span>)),</span>
+<span id="cb152-4"><a href="randomized-complete-block-designs.html#cb152-4" tabindex="-1"></a>          <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_block.as.random, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">2</span>)), </span>
+<span id="cb152-5"><a href="randomized-complete-block-designs.html#cb152-5" tabindex="-1"></a>                                                                     <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">3</span>))))<span class="sc">$</span>contr) <span class="sc">%&gt;%</span> </span>
+<span id="cb152-6"><a href="randomized-complete-block-designs.html#cb152-6" tabindex="-1"></a>            <span class="fu">transmute</span>(estimate, SE, <span class="at">blocks =</span> <span class="st">&quot;random&quot;</span>, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&quot;t1 vs. t2&quot;</span>, <span class="st">&quot;t1 vs. t3&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb152-7"><a href="randomized-complete-block-designs.html#cb152-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(contrast, estimate))<span class="sc">+</span></span>
+<span id="cb152-8"><a href="randomized-complete-block-designs.html#cb152-8" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> estimate <span class="sc">-</span> SE, <span class="at">ymax =</span> estimate <span class="sc">+</span> SE, <span class="at">color =</span> blocks), <span class="at">width =</span> <span class="fl">0.05</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(.<span class="dv">05</span>))<span class="sc">+</span></span>
+<span id="cb152-9"><a href="randomized-complete-block-designs.html#cb152-9" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb152-10"><a href="randomized-complete-block-designs.html#cb152-10" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;tomato&quot;</span>, <span class="st">&quot;#1282A2&quot;</span>))<span class="sc">+</span></span>
+<span id="cb152-11"><a href="randomized-complete-block-designs.html#cb152-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>))<span class="sc">+</span></span>
+<span id="cb152-12"><a href="randomized-complete-block-designs.html#cb152-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Difference in Contrast SE between fixed blocks and random blocks analyses&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-123-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Mean standard error, blocks as fixed: <span class="math inline">\(\sqrt{\frac{\sigma_{\varepsilon}^2 }{b}}\)</span></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="randomized-complete-block-designs.html#cb153-1" tabindex="-1"></a>n_blocks <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(dat_wheat_rcbd<span class="sc">$</span>rep)</span>
+<span id="cb153-2"><a href="randomized-complete-block-designs.html#cb153-2" tabindex="-1"></a>sigma2_blocks.as.fixed <span class="ot">&lt;-</span> <span class="fu">sigma</span>(m_block.as.fixed)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb153-3"><a href="randomized-complete-block-designs.html#cb153-3" tabindex="-1"></a></span>
+<span id="cb153-4"><a href="randomized-complete-block-designs.html#cb153-4" tabindex="-1"></a><span class="fu">sqrt</span>(sigma2_blocks.as.fixed <span class="sc">/</span> n_blocks)</span></code></pre></div>
+<pre><code>## [1] 66.73095</code></pre>
+<p>Blocks as random: <span class="math inline">\(\hat\mu \pm t \cdot \sqrt{\frac{\sigma_{\varepsilon}^2 + \sigma^2_{b}}{b}}\)</span></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="randomized-complete-block-designs.html#cb155-1" tabindex="-1"></a>sigma2_blocks.as.random <span class="ot">&lt;-</span> <span class="fu">sigma</span>(m_block.as.random)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb155-2"><a href="randomized-complete-block-designs.html#cb155-2" tabindex="-1"></a>sigma2b_blocks.as.random <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(m_block.as.random))[<span class="dv">1</span>, <span class="st">&#39;sdcor&#39;</span>]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb155-3"><a href="randomized-complete-block-designs.html#cb155-3" tabindex="-1"></a></span>
+<span id="cb155-4"><a href="randomized-complete-block-designs.html#cb155-4" tabindex="-1"></a><span class="fu">sqrt</span>((sigma2b_blocks.as.random <span class="sc">+</span> sigma2_blocks.as.random) <span class="sc">/</span> n_blocks)</span></code></pre></div>
+<pre><code>## [1] 93.26549</code></pre>
+</div>
+</div>
+<div id="incomplete-block-designs" class="section level2 hasAnchor" number="23.4">
+<h2><span class="header-section-number">23.4</span> Incomplete block designs<a href="randomized-complete-block-designs.html#incomplete-block-designs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Same model as before: <span class="math inline">\(y_{ij} = \mu +\tau_i + b_j + \varepsilon_{ij}\)</span>, where <span class="math inline">\(y_{ij}\)</span> is the observed response for the <span class="math inline">\(i\)</span>th treatment in the <span class="math inline">\(j\)</span>th block, <span class="math inline">\(\tau_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th treatment (<span class="math inline">\(i = 1, 2, ..., t\)</span>), <span class="math inline">\(b_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th block, <span class="math inline">\(\varepsilon_{ij}\)</span> is the residual of the <span class="math inline">\(i\)</span>th treatment in the <span class="math inline">\(j\)</span>th block.</li>
+<li>In IBDs, <span class="math inline">\(k &lt; t\)</span>, where <span class="math inline">\(k\)</span> is the number of experimental units per block, and <span class="math inline">\(t\)</span> is the number of treatments.</li>
+<li>Better interblock information recovery with random <span class="math inline">\(b_j\)</span>.</li>
+</ul>
+<div id="applied-design-and-analysis-of-a-balanced-ibd" class="section level3 hasAnchor" number="23.4.1">
+<h3><span class="header-section-number">23.4.1</span> Applied design and analysis of a Balanced IBD<a href="randomized-complete-block-designs.html#applied-design-and-analysis-of-a-balanced-ibd" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data below correspond to a study comparing soybean genotypes in a balanced incomplete block designed experiment.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-126">Table 23.2: </span>ANOVA table for the soybean BIBD</caption>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">df</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Blocks</td>
+<td align="left">b-1 = 30</td>
+</tr>
+<tr class="even">
+<td align="left">Genotype</td>
+<td align="left">g-1 = 30</td>
+</tr>
+<tr class="odd">
+<td align="left">Error</td>
+<td align="left">N-b-g+1 = 125</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="left">N-1 = 185</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="randomized-complete-block-designs.html#cb157-1" tabindex="-1"></a>dat_soy_ibd <span class="ot">&lt;-</span> agridat<span class="sc">::</span>weiss.incblock</span>
+<span id="cb157-2"><a href="randomized-complete-block-designs.html#cb157-2" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="randomized-complete-block-designs.html#cb157-3" tabindex="-1"></a>dat_soy_ibd <span class="sc">%&gt;%</span> </span>
+<span id="cb157-4"><a href="randomized-complete-block-designs.html#cb157-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
+<span id="cb157-5"><a href="randomized-complete-block-designs.html#cb157-5" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> block))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="randomized-complete-block-designs.html#cb158-1" tabindex="-1"></a>m_block.as.fixed <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> block, <span class="at">data =</span> dat_soy_ibd)</span>
+<span id="cb158-2"><a href="randomized-complete-block-designs.html#cb158-2" tabindex="-1"></a></span>
+<span id="cb158-3"><a href="randomized-complete-block-designs.html#cb158-3" tabindex="-1"></a>m_block.as.random <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>block), <span class="at">data =</span> dat_soy_ibd)</span>
+<span id="cb158-4"><a href="randomized-complete-block-designs.html#cb158-4" tabindex="-1"></a></span>
+<span id="cb158-5"><a href="randomized-complete-block-designs.html#cb158-5" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.fixed, <span class="sc">~</span>gen)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code></pre></div>
+<pre><code>##  gen emmean    SE  df lower.CL upper.CL
+##  G01   24.6 0.831 125     22.9     26.2
+##  G02   26.9 0.831 125     25.3     28.6
+##  G03   32.6 0.831 125     31.0     34.3
+##  G04   27.0 0.831 125     25.3     28.6
+##  G05   26.0 0.831 125     24.4     27.7
+##  G06   32.0 0.831 125     30.3     33.6
+##  G07   24.2 0.831 125     22.5     25.8
+##  G08   27.6 0.831 125     26.0     29.3
+##  G09   29.3 0.831 125     27.6     30.9
+##  G10   24.4 0.831 125     22.8     26.1
+## 
+## Results are averaged over the levels of: block 
+## Confidence level used: 0.95</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="randomized-complete-block-designs.html#cb160-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.random, <span class="sc">~</span>gen)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,]</span></code></pre></div>
+<pre><code>##  gen emmean    SE  df lower.CL upper.CL
+##  G01   24.6 0.923 153     22.7     26.4
+##  G02   27.0 0.923 153     25.2     28.8
+##  G03   32.6 0.923 153     30.8     34.4
+##  G04   26.9 0.923 153     25.1     28.8
+##  G05   26.2 0.923 153     24.4     28.0
+##  G06   32.0 0.923 153     30.1     33.8
+##  G07   24.2 0.923 153     22.3     26.0
+##  G08   27.6 0.923 153     25.8     29.4
+##  G09   29.4 0.923 153     27.6     31.2
+##  G10   24.5 0.923 153     22.7     26.4
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.95</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="randomized-complete-block-designs.html#cb162-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.fixed, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_soy_ibd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">2</span>))))<span class="sc">$</span>contr</span></code></pre></div>
+<pre><code>##  contrast                                                        estimate   SE  df t.ratio p.value
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     -2.34 1.18 125  -1.982  0.0496
+## 
+## Results are averaged over the levels of: block</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="randomized-complete-block-designs.html#cb164-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_block.as.random, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">n_distinct</span>(dat_soy_ibd<span class="sc">$</span>gen)<span class="sc">-</span><span class="dv">2</span>))))<span class="sc">$</span>contr</span></code></pre></div>
+<pre><code>##  contrast                                                        estimate   SE  df t.ratio p.value
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,      -2.4 1.17 129  -2.054  0.0420
+## 
+## Degrees-of-freedom method: kenward-roger</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="review-friday.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="split-plot-designs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/24-rcbd_review.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/24-rcbd_review.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

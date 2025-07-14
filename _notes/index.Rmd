@@ -1,0 +1,60 @@
+--- 
+title: "STAT NNN - Design of Experiments"
+author: "Josefina Lacasa"
+date: Semester Year #"`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+# Welcome to STAT 720!  
+June 9th, 2025  
+
+## About this course:  
+
+- [About me](https://jlacasa.github.io/) 
+- About you: 
+
+```{r message=F, warning=FALSE}
+library(tidyverse)
+# read.csv("../../students_STAT_720_C.csv") %>% 
+#   ggplot(aes(x = degreeProgram))+
+#   geom_bar(fill = "#B388EB")+
+#   theme_bw()+
+#   theme(panel.grid.minor = element_blank(),
+#         panel.border = element_blank(),
+#         axis.title.x = element_blank(), 
+#         axis.text.x = element_text(angle = 50, vjust = 1, hjust=1))
+```
+
+- In rounds: What's your major, what do you expect to learn?  
+
+### Logistics  
+
+- [Website](#)
+- Syllabus
+- Statistical programming requirements  
+- Rough mindmap of the course (on whiteboard)  
+- [Semester project - design your own experiment.](https://stat720.github.io/2025summer/summer2025/notes/semester-project.html)   
+- Grades: A (100-89.999999999(!!!)), B (89.99-79.99), C (79.99-69.99), D (69.99-59.99), F (<59.99).
+- Attendance policies  
+- Semester projects
+
+## Learning goals   
+
+By the end of this course, you should be able to:  
+- Be able to identify the treatment design, experiment design, experimental unit and observational unit.  
+- Be able to write the statistical model that corresponds to (simple) designed experiments.  
+- Be able to write the Materials and Methods section in a paper (or thesis) that describes the designed experiment.  
+- Distinguish the benefits/disadvantages of different experiment designs.  
+
+
+## On notation  
+
+- scalars: $y$, $\sigma$, $\beta_0$  
+- vectors: $\mathbf{y} \equiv [y_1, y_2, ..., y_n]'$, $\boldsymbol{\beta} \equiv [\beta_1, \beta_2, ..., \beta_p]'$, $\boldsymbol{u}$  
+- matrices: $\mathbf{X}$, $\Sigma$  
+- probability distribution: $y \sim N(0, \sigma^2)$, $\mathbf{y} \sim N(\boldsymbol{0}, \sigma^2\mathbf{I})$.     
+
+
+## For tomorrow    
+
+- Install R and RStudio. 

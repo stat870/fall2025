@@ -1,0 +1,71 @@
+---
+title: "Class of Wed June 18th"
+author: "J Lacasa"
+date: "2025-06-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(emmeans)
+```
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat720/summer2025/refs/heads/main/data/blood_study_pigs.csv"
+df_pigs <- read.csv(url)
+```
+
+```{r}
+m1 <- lm(Serum_haptoglobin_mg.dL ~ Trt*factor(Day), data = df_pigs)
+
+plot(x = m1$fitted.values, y = m1$residuals)
+car::qqPlot(m1)
+```
+
+```{r}
+anova(m1)
+```
+
+```{r}
+car::Anova(m1, type = 2)
+```
+
+```{r}
+df_pred <- data.frame(Trt = "B", Day = 38)
+predict(m1, newdata = df_pred)
+```
+
+```{r}
+coef(m1)[1] + coef(m1)[2] + coef(m1)[7] + coef(m1)[8]
+```
+```{r}
+sum((df_pigs$Serum_haptoglobin_mg.dL - predict(m1))^2)
+```
+
+```{r}
+summary(m1)
+```
+
+```{r}
+means_all <- emmeans(m1, ~Trt:Day)
+```
+
+```{r}
+means_all %>% 
+  as.data.frame() %>% 
+  ggplot(aes(emmean, Trt))+
+  geom_errorbarh(aes(xmin = lower.CL, xmax = upper.CL, color = factor(Day)), height = 0)+
+  geom_point(aes(color = factor(Day)))
+```
+
+```{r}
+means_38 <- emmeans(m1, ~Day:Trt, at = list(Day = 38))
+
+multcomp::cld(means_38, Letters = letters)
+```
+

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 21 Power analysis II | STAT 720 - Design of Experiments</title>
+  <meta name="description" content="Day 21 Power analysis II | STAT 720 - Design of Experiments" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 21 Power analysis II | STAT 720 - Design of Experiments" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 21 Power analysis II | STAT 720 - Design of Experiments" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="power-analysis.html"/>
+<link rel="next" href="review-friday.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 720</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 720!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.3</b> On notation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#why-do-designed-experiments-exist"><i class="fa fa-check"></i><b>1.4</b> Why do designed experiments exist?</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#example"><i class="fa fa-check"></i><b>1.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#the-golden-rules-of-designed-experiments"><i class="fa fa-check"></i><b>1.5</b> The golden rules of designed experiments</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#other-concepts-in-designed-experiments"><i class="fa fa-check"></i><b>1.6</b> Other concepts in designed experiments</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#for-tomorrow"><i class="fa fa-check"></i><b>1.7</b> For tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html"><i class="fa fa-check"></i><b>2</b> Basic types of designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#review"><i class="fa fa-check"></i><b>2.2</b> Review</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#types-of-designs---the-basics"><i class="fa fa-check"></i><b>2.3</b> Types of designs - the basics</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#completely-randomized-design-crd"><i class="fa fa-check"></i><b>2.3.1</b> Completely randomized design (CRD)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#randomized-complete-block-design-rcbd"><i class="fa fa-check"></i><b>2.3.2</b> Randomized complete block design (RCBD)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#incomplete-block-design-ibd"><i class="fa fa-check"></i><b>2.3.3</b> Incomplete block design (IBD)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#skeleton-anova-tables"><i class="fa fa-check"></i><b>2.4</b> Skeleton ANOVA tables</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#practice-examples"><i class="fa fa-check"></i><b>2.4.1</b> Practice examples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basic-types-of-designed-experiments.html"><a href="basic-types-of-designed-experiments.html#homeworks"><i class="fa fa-check"></i><b>2.5</b> Homeworks</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html"><i class="fa fa-check"></i><b>3</b> Basic types of designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#review-1"><i class="fa fa-check"></i><b>3.1</b> Review</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#types-of-designs"><i class="fa fa-check"></i><b>3.2</b> Types of designs</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#completely-randomized-design-crd-1"><i class="fa fa-check"></i><b>3.2.1</b> Completely randomized design (CRD)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#randomized-complete-block-design-rcbd-1"><i class="fa fa-check"></i><b>3.2.2</b> Randomized complete block design (RCBD)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#building-an-anova-skeleton-using-design-aka-topographical-and-treatment-elements"><i class="fa fa-check"></i><b>3.3</b> Building an ANOVA skeleton using design (aka topographical) and treatment elements</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#linear-model-good-old-friend"><i class="fa fa-check"></i><b>3.4</b> Linear model good old friend</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#the-most-common-assumptions-behind-most-software"><i class="fa fa-check"></i><b>3.4.1</b> The most common assumptions behind most software</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#some-practice"><i class="fa fa-check"></i><b>3.5</b> Some Practice</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-types-of-designed-experiments-1.html"><a href="basic-types-of-designed-experiments-1.html#to-do"><i class="fa fa-check"></i><b>3.6</b> To do</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><i class="fa fa-check"></i><b>4</b> Linear models, ANOVA shells applied to the more basic experiment designs</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#review-2"><i class="fa fa-check"></i><b>4.1</b> Review</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#linear-models"><i class="fa fa-check"></i><b>4.2</b> Linear models</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#the-most-common-model---assumptions"><i class="fa fa-check"></i><b>4.2.1</b> The most common model - Assumptions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#connection-between-this-and-your-classical-anova-table"><i class="fa fa-check"></i><b>4.2.2</b> Connection between this and your classical ANOVA table</a></li>
+<li class="chapter" data-level="4.2.3" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#sorghum-example"><i class="fa fa-check"></i><b>4.2.3</b> Sorghum example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#takehomes"><i class="fa fa-check"></i><b>4.3</b> Takehomes</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#if-you-dont-include-the-design-elements-blocks-their-portion-of-the-variance-goes-to-the-error"><i class="fa fa-check"></i><b>4.3.1</b> If you don’t include the design elements (blocks), their portion of the variance goes to the error</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html"><a href="linear-models-anova-shells-applied-to-the-more-basic-experiment-designs.html#tomorrow"><i class="fa fa-check"></i><b>4.4</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html"><i class="fa fa-check"></i><b>5</b> Review, organizing data and other helpful tips</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html#kahoot-as-review"><i class="fa fa-check"></i><b>5.1</b> Kahoot! as review</a></li>
+<li class="chapter" data-level="5.2" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html#organizing-data"><i class="fa fa-check"></i><b>5.2</b> Organizing data</a></li>
+<li class="chapter" data-level="5.3" data-path="review-organizing-data-and-other-helpful-tips.html"><a href="review-organizing-data-and-other-helpful-tips.html#homework"><i class="fa fa-check"></i><b>5.3</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html"><i class="fa fa-check"></i><b>6</b> The treatment structure</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#announcements-1"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#review-3"><i class="fa fa-check"></i><b>6.2</b> Review</a></li>
+<li class="chapter" data-level="6.3" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#treatment-structure"><i class="fa fa-check"></i><b>6.3</b> Treatment structure</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#types-of-treatment-structures"><i class="fa fa-check"></i><b>6.3.1</b> Types of treatment structures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#where-is-the-treatment-structure-connected-to-the-statistical-model"><i class="fa fa-check"></i><b>6.4</b> Where is the treatment structure connected to the statistical model?</a></li>
+<li class="chapter" data-level="6.5" data-path="the-treatment-structure.html"><a href="the-treatment-structure.html#tomorrow-1"><i class="fa fa-check"></i><b>6.5</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html"><i class="fa fa-check"></i><b>7</b> What you ask of a designed experiment</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#announcements-2"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#review-4"><i class="fa fa-check"></i><b>7.2</b> Review</a></li>
+<li class="chapter" data-level="7.3" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#anova"><i class="fa fa-check"></i><b>7.3</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#in-case-you-were-wondering-anova-and-types-of-sums-of-squares"><i class="fa fa-check"></i><b>7.3.1</b> In case you were wondering: ANOVA and types of sums of squares</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#setting-the-stage-estimated-marginal-means-aka-least-squares-means"><i class="fa fa-check"></i><b>7.4</b> Setting the stage: Estimated marginal means aka least squares means</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example:</a></li>
+<li class="chapter" data-level="7.4.2" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#discussion"><i class="fa fa-check"></i><b>7.4.2</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="what-you-ask-of-a-designed-experiment.html"><a href="what-you-ask-of-a-designed-experiment.html#tomorrow-2"><i class="fa fa-check"></i><b>7.5</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="applied-examples.html"><a href="applied-examples.html"><i class="fa fa-check"></i><b>8</b> Applied examples</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="applied-examples.html"><a href="applied-examples.html#announcements-3"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="applied-examples.html"><a href="applied-examples.html#applied-example-for-today"><i class="fa fa-check"></i><b>8.2</b> Applied example for today</a></li>
+<li class="chapter" data-level="8.3" data-path="applied-examples.html"><a href="applied-examples.html#tomorrow-3"><i class="fa fa-check"></i><b>8.3</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="review-5.html"><a href="review-5.html"><i class="fa fa-check"></i><b>9</b> Review</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="review-5.html"><a href="review-5.html#announcements-4"><i class="fa fa-check"></i><b>9.1</b> Announcements</a></li>
+<li class="chapter" data-level="9.2" data-path="review-5.html"><a href="review-5.html#next-week"><i class="fa fa-check"></i><b>9.2</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html"><i class="fa fa-check"></i><b>10</b> Applied Linear Mixed Models I</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#announcements-5"><i class="fa fa-check"></i><b>10.1</b> Announcements</a></li>
+<li class="chapter" data-level="10.2" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#applied-linear-mixed-models"><i class="fa fa-check"></i><b>10.2</b> Applied Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#review-random-variables"><i class="fa fa-check"></i><b>10.2.1</b> Review: random variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#review-designs"><i class="fa fa-check"></i><b>10.3</b> Review: Designs</a></li>
+<li class="chapter" data-level="10.4" data-path="applied-linear-mixed-models-i.html"><a href="applied-linear-mixed-models-i.html#tomorrow-4"><i class="fa fa-check"></i><b>10.4</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html"><i class="fa fa-check"></i><b>11</b> Applied Linear Mixed Models II</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html#review-designs-1"><i class="fa fa-check"></i><b>11.1</b> Review: Designs</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html#lets-look-at-the-anova-table"><i class="fa fa-check"></i><b>11.1.1</b> Let’s look at the anova table</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="applied-linear-mixed-models-ii.html"><a href="applied-linear-mixed-models-ii.html#tomorrow-5"><i class="fa fa-check"></i><b>11.2</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html"><i class="fa fa-check"></i><b>12</b> Practice: Hierarchical (Multilevel) Designs</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#review-hierarchical-designs"><i class="fa fa-check"></i><b>12.1</b> Review: Hierarchical Designs</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#more-pictures"><i class="fa fa-check"></i><b>12.1.1</b> More pictures:</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#r-demo"><i class="fa fa-check"></i><b>12.2</b> R demo</a></li>
+<li class="chapter" data-level="12.3" data-path="practice-hierarchical-multilevel-designs.html"><a href="practice-hierarchical-multilevel-designs.html#tomorrow-6"><i class="fa fa-check"></i><b>12.3</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html"><i class="fa fa-check"></i><b>13</b> More practice: Hierarchical (Multilevel) Designs</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#review-hierarchical-designs-1"><i class="fa fa-check"></i><b>13.1</b> Review: Hierarchical Designs</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#remember-our-example"><i class="fa fa-check"></i><b>13.1.1</b> Remember our example:</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#building-the-anova-skeleton-using-design-aka-topographical-and-treatment-elements"><i class="fa fa-check"></i><b>13.2</b> Building the ANOVA skeleton using design (aka topographical) and treatment elements</a></li>
+<li class="chapter" data-level="13.3" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#r-demo-1"><i class="fa fa-check"></i><b>13.3</b> R demo</a></li>
+<li class="chapter" data-level="13.4" data-path="more-practice-hierarchical-multilevel-designs.html"><a href="more-practice-hierarchical-multilevel-designs.html#tomorrow-7"><i class="fa fa-check"></i><b>13.4</b> Tomorrow</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="review-6.html"><a href="review-6.html"><i class="fa fa-check"></i><b>14</b> Review</a></li>
+<li class="chapter" data-level="15" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html"><i class="fa fa-check"></i><b>15</b> Review: RCBD and split-plot</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#background"><i class="fa fa-check"></i><b>15.1</b> Background</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#baseline-recipe-for-banana-muffins"><i class="fa fa-check"></i><b>15.1.1</b> Baseline recipe for banana muffins:</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#study-research-question"><i class="fa fa-check"></i><b>15.2</b> Study / Research question</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#proposed-design-experiment-rcbd"><i class="fa fa-check"></i><b>15.2.1</b> Proposed design experiment: RCBD</a></li>
+<li class="chapter" data-level="15.2.2" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#treatment-means-and-confidence-intervals"><i class="fa fa-check"></i><b>15.2.2</b> Treatment means and confidence intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="review-rcbd-and-split-plot.html"><a href="review-rcbd-and-split-plot.html#tomorrow-8"><i class="fa fa-check"></i><b>15.3</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html"><i class="fa fa-check"></i><b>16</b> Review: Applied split-plot</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#announcements-6"><i class="fa fa-check"></i><b>16.1</b> Announcements</a></li>
+<li class="chapter" data-level="16.2" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#background-1"><i class="fa fa-check"></i><b>16.2</b> Background</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#research-question"><i class="fa fa-check"></i><b>16.2.1</b> Research question</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#what-is-the-best-design"><i class="fa fa-check"></i><b>16.3</b> What is the best design?</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#option-a-another-rcbd"><i class="fa fa-check"></i><b>16.3.1</b> Option A: another RCBD</a></li>
+<li class="chapter" data-level="16.3.2" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#option-b-split-plot-design"><i class="fa fa-check"></i><b>16.3.2</b> Option B: split-plot design</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#treatment-means-and-confidence-intervals-for-the-split-plot-design"><i class="fa fa-check"></i><b>16.4</b> Treatment means and confidence intervals for the split-plot design</a></li>
+<li class="chapter" data-level="16.5" data-path="review-applied-split-plot.html"><a href="review-applied-split-plot.html#tomorrow-9"><i class="fa fa-check"></i><b>16.5</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html"><i class="fa fa-check"></i><b>17</b> Analyzing data from a split-plot design</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#announcements-7"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
+<li class="chapter" data-level="17.2" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#background-2"><i class="fa fa-check"></i><b>17.2</b> Background</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#research-question-1"><i class="fa fa-check"></i><b>17.2.1</b> Research question</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#analyzing-the-data"><i class="fa fa-check"></i><b>17.3</b> Analyzing the data</a></li>
+<li class="chapter" data-level="17.4" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#treatment-means-and-confidence-intervals-for-the-split-plot-design-1"><i class="fa fa-check"></i><b>17.4</b> Treatment means and confidence intervals for the split-plot design</a></li>
+<li class="chapter" data-level="17.5" data-path="analyzing-data-from-a-split-plot-design.html"><a href="analyzing-data-from-a-split-plot-design.html#tomorrow-10"><i class="fa fa-check"></i><b>17.5</b> Tomorrow:</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html"><i class="fa fa-check"></i><b>18</b> Analysis and inference for a split-plot design</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#announcements-8"><i class="fa fa-check"></i><b>18.1</b> Announcements</a></li>
+<li class="chapter" data-level="18.2" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#review-of-our-experiment"><i class="fa fa-check"></i><b>18.2</b> Review of our experiment</a></li>
+<li class="chapter" data-level="18.3" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#anova-tables"><i class="fa fa-check"></i><b>18.3</b> ANOVA tables</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#split-plot-in-a-crd"><i class="fa fa-check"></i><b>18.3.1</b> Split-plot in a CRD</a></li>
+<li class="chapter" data-level="18.3.2" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#other-possible-designs"><i class="fa fa-check"></i><b>18.3.2</b> Other possible designs</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="analysis-and-inference-for-a-split-plot-design.html"><a href="analysis-and-inference-for-a-split-plot-design.html#applied-analysis-in-r"><i class="fa fa-check"></i><b>18.4</b> Applied analysis in R</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html"><i class="fa fa-check"></i><b>19</b> Analysis and inference for a split-plot design - Part II</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#announcements-9"><i class="fa fa-check"></i><b>19.1</b> Announcements</a></li>
+<li class="chapter" data-level="19.2" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#review-of-our-experiment-1"><i class="fa fa-check"></i><b>19.2</b> Review of our experiment</a></li>
+<li class="chapter" data-level="19.3" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#anova-tables-1"><i class="fa fa-check"></i><b>19.3</b> ANOVA tables</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#split-plot-in-a-crd-1"><i class="fa fa-check"></i><b>19.3.1</b> Split-plot in a CRD</a></li>
+<li class="chapter" data-level="19.3.2" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#same-design-as-above-with-subsampling"><i class="fa fa-check"></i><b>19.3.2</b> Same design as above, with subsampling</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="analysis-and-inference-for-a-split-plot-design---part-ii.html"><a href="analysis-and-inference-for-a-split-plot-design---part-ii.html#applied-analysis-in-r-1"><i class="fa fa-check"></i><b>19.4</b> Applied analysis in R</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="power-analysis.html"><a href="power-analysis.html"><i class="fa fa-check"></i><b>20</b> Power analysis</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="power-analysis.html"><a href="power-analysis.html#announcements-10"><i class="fa fa-check"></i><b>20.1</b> Announcements</a></li>
+<li class="chapter" data-level="20.2" data-path="power-analysis.html"><a href="power-analysis.html#review-of-everything-so-far"><i class="fa fa-check"></i><b>20.2</b> Review of everything so far</a></li>
+<li class="chapter" data-level="20.3" data-path="power-analysis.html"><a href="power-analysis.html#power-of-an-experiment"><i class="fa fa-check"></i><b>20.3</b> Power of an experiment</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="power-analysis.html"><a href="power-analysis.html#power-calculations"><i class="fa fa-check"></i><b>20.3.1</b> Power calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="power-analysis.html"><a href="power-analysis.html#reminders"><i class="fa fa-check"></i><b>20.4</b> Reminders</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html"><i class="fa fa-check"></i><b>21</b> Power analysis II</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#announcements-11"><i class="fa fa-check"></i><b>21.1</b> Announcements</a></li>
+<li class="chapter" data-level="21.2" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#what-are-simulations"><i class="fa fa-check"></i><b>21.2</b> What are simulations?</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#simulation-demo"><i class="fa fa-check"></i><b>21.2.1</b> Simulation demo</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#power-analysis-demonstration"><i class="fa fa-check"></i><b>21.3</b> Power analysis demonstration</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#crd---2-reps"><i class="fa fa-check"></i><b>21.3.1</b> CRD - 2 reps</a></li>
+<li class="chapter" data-level="21.3.2" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#crd---3-reps"><i class="fa fa-check"></i><b>21.3.2</b> CRD - 3 reps</a></li>
+<li class="chapter" data-level="21.3.3" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---2-reps"><i class="fa fa-check"></i><b>21.3.3</b> Split-plot - 2 reps</a></li>
+<li class="chapter" data-level="21.3.4" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---3-reps"><i class="fa fa-check"></i><b>21.3.4</b> Split-plot - 3 reps</a></li>
+<li class="chapter" data-level="21.3.5" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---2-reps-subsampling"><i class="fa fa-check"></i><b>21.3.5</b> Split-plot - 2 reps + subsampling</a></li>
+<li class="chapter" data-level="21.3.6" data-path="power-analysis-ii.html"><a href="power-analysis-ii.html#split-plot---3-reps-subsampling"><i class="fa fa-check"></i><b>21.3.6</b> Split-plot - 3 reps + subsampling</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="review-friday.html"><a href="review-friday.html"><i class="fa fa-check"></i><b>22</b> Review Friday</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="review-friday.html"><a href="review-friday.html#announcements-12"><i class="fa fa-check"></i><b>22.1</b> Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html"><i class="fa fa-check"></i><b>23</b> Randomized complete block designs</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#announcements-13"><i class="fa fa-check"></i><b>23.1</b> Announcements</a></li>
+<li class="chapter" data-level="23.2" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#randomized-complete-block-designs-1"><i class="fa fa-check"></i><b>23.2</b> Randomized complete block designs</a></li>
+<li class="chapter" data-level="23.3" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#blocks---fixed-or-random"><i class="fa fa-check"></i><b>23.3</b> Blocks - fixed or random?</a>
+<ul>
+<li class="chapter" data-level="23.3.1" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#applied-design-and-analysis-of-an-rcbd"><i class="fa fa-check"></i><b>23.3.1</b> Applied design and analysis of an RCBD</a></li>
+</ul></li>
+<li class="chapter" data-level="23.4" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#incomplete-block-designs"><i class="fa fa-check"></i><b>23.4</b> Incomplete block designs</a>
+<ul>
+<li class="chapter" data-level="23.4.1" data-path="randomized-complete-block-designs.html"><a href="randomized-complete-block-designs.html#applied-design-and-analysis-of-a-balanced-ibd"><i class="fa fa-check"></i><b>23.4.1</b> Applied design and analysis of a Balanced IBD</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="split-plot-designs.html"><a href="split-plot-designs.html"><i class="fa fa-check"></i><b>24</b> Split plot designs</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="split-plot-designs.html"><a href="split-plot-designs.html#announcements-14"><i class="fa fa-check"></i><b>24.1</b> Announcements</a></li>
+<li class="chapter" data-level="24.2" data-path="split-plot-designs.html"><a href="split-plot-designs.html#split-plot-designs-1"><i class="fa fa-check"></i><b>24.2</b> Split plot designs</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="semester-project.html"><a href="semester-project.html"><i class="fa fa-check"></i><b>25</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="semester-project.html"><a href="semester-project.html#learning-objectives"><i class="fa fa-check"></i><b>25.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="25.2" data-path="semester-project.html"><a href="semester-project.html#partial-deadlines"><i class="fa fa-check"></i><b>25.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="25.2.1" data-path="semester-project.html"><a href="semester-project.html#project-proposal---due-friday-june-20-at-2pm-ct"><i class="fa fa-check"></i><b>25.2.1</b> Project proposal - Due Friday June 20 at 2pm CT</a></li>
+<li class="chapter" data-level="25.2.2" data-path="semester-project.html"><a href="semester-project.html#written-report---due-wednesday-july-23-at-2pm-ct-for-peer-review"><i class="fa fa-check"></i><b>25.2.2</b> Written report - Due Wednesday July 23 at 2pm CT for peer review</a></li>
+<li class="chapter" data-level="25.2.3" data-path="semester-project.html"><a href="semester-project.html#oral-presentation---somewhere-between-july-21---august-1"><i class="fa fa-check"></i><b>25.2.3</b> Oral presentation - Somewhere between July 21 - August 1</a></li>
+<li class="chapter" data-level="25.2.4" data-path="semester-project.html"><a href="semester-project.html#practical-reads"><i class="fa fa-check"></i><b>25.2.4</b> Practical reads</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 720 - Design of Experiments</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="power-analysis-ii" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Day 21</span> Power analysis II<a href="power-analysis-ii.html#power-analysis-ii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>July 10th, 2025</p>
+<div id="announcements-11" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> Announcements<a href="power-analysis-ii.html#announcements-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>HW 3 due tomorrow</li>
+</ul>
+</div>
+<div id="what-are-simulations" class="section level2 hasAnchor" number="21.2">
+<h2><span class="header-section-number">21.2</span> What are simulations?<a href="power-analysis-ii.html#what-are-simulations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A lot the concepts we’re learning in STAT 720 are based on asymptotic properties, or what would happen, <em>generally speaking</em>.
+For example, a 95% confidence interval will include the true value only 95% of the times. That means that 5% of the times, it will not.
+Likewise, a hypothesis test with an <span class="math inline">\(\alpha=0.05\)</span> will incorrectly reject the null hypothesis 5% <span class="math inline">\((=\alpha)\)</span> of the times.
+That hypothesis test will also have an associated <span class="math inline">\(\beta\)</span>, that will depend on factors like sample size and experiment design.<br />
+If we wish to study how a design would work, we should test it many many times and not just once.</p>
+<p>Simulation studies are helpful to evaluate how a method performs, generally speaking.</p>
+<div id="simulation-demo" class="section level3 hasAnchor" number="21.2.1">
+<h3><span class="header-section-number">21.2.1</span> Simulation demo<a href="power-analysis-ii.html#simulation-demo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>1. Open the required packages</strong></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="power-analysis-ii.html#cb80-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># data wrangling &amp; data viz  </span></span>
+<span id="cb80-2"><a href="power-analysis-ii.html#cb80-2" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># model fitting</span></span>
+<span id="cb80-3"><a href="power-analysis-ii.html#cb80-3" tabindex="-1"></a><span class="fu">library</span>(emmeans) <span class="co"># marginal means </span></span>
+<span id="cb80-4"><a href="power-analysis-ii.html#cb80-4" tabindex="-1"></a><span class="fu">library</span>(latex2exp) <span class="co"># math notation for plots</span></span></code></pre></div>
+<p><strong>2. Set the “true” values</strong></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="power-analysis-ii.html#cb81-1" tabindex="-1"></a><span class="co"># set the true state</span></span>
+<span id="cb81-2"><a href="power-analysis-ii.html#cb81-2" tabindex="-1"></a>b0.truth <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># true intercept value</span></span>
+<span id="cb81-3"><a href="power-analysis-ii.html#cb81-3" tabindex="-1"></a>b1.truth <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># true slope value </span></span>
+<span id="cb81-4"><a href="power-analysis-ii.html#cb81-4" tabindex="-1"></a>sigma.truth <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># true variance</span></span>
+<span id="cb81-5"><a href="power-analysis-ii.html#cb81-5" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="power-analysis-ii.html#cb81-6" tabindex="-1"></a><span class="co"># create predictor</span></span>
+<span id="cb81-7"><a href="power-analysis-ii.html#cb81-7" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">60</span>, <span class="at">by =</span> <span class="dv">7</span>)</span></code></pre></div>
+<p><strong>Demo: what happens if we simulate data based on known true values for the parameters, and then try to estimate the parameters again?</strong><br />
+Most likely, the confidence intervals will contain the true value. Let’s try it once:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="power-analysis-ii.html#cb82-1" tabindex="-1"></a><span class="co"># generate &quot;fake data&quot; based on the mean and some random error </span></span>
+<span id="cb82-2"><a href="power-analysis-ii.html#cb82-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22</span>)</span>
+<span id="cb82-3"><a href="power-analysis-ii.html#cb82-3" tabindex="-1"></a>random_error <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, sigma.truth)</span>
+<span id="cb82-4"><a href="power-analysis-ii.html#cb82-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> b0.truth <span class="sc">+</span> x<span class="sc">*</span>b1.truth <span class="sc">+</span> random_error</span>
+<span id="cb82-5"><a href="power-analysis-ii.html#cb82-5" tabindex="-1"></a>  </span>
+<span id="cb82-6"><a href="power-analysis-ii.html#cb82-6" tabindex="-1"></a><span class="co"># fit the model to the data</span></span>
+<span id="cb82-7"><a href="power-analysis-ii.html#cb82-7" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb82-8"><a href="power-analysis-ii.html#cb82-8" tabindex="-1"></a></span>
+<span id="cb82-9"><a href="power-analysis-ii.html#cb82-9" tabindex="-1"></a><span class="co"># 95% confidence intervals</span></span>
+<span id="cb82-10"><a href="power-analysis-ii.html#cb82-10" tabindex="-1"></a><span class="fu">confint</span>(m)</span></code></pre></div>
+<pre><code>##                2.5 %   97.5 %
+## (Intercept) 1.410706 4.592939
+## x           3.936110 4.029237</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="power-analysis-ii.html#cb84-1" tabindex="-1"></a><span class="fu">between</span>(b0.truth, <span class="fu">confint</span>(m)[<span class="dv">1</span>,<span class="dv">1</span>], <span class="fu">confint</span>(m)[<span class="dv">1</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="power-analysis-ii.html#cb86-1" tabindex="-1"></a><span class="fu">between</span>(b1.truth, <span class="fu">confint</span>(m)[<span class="dv">2</span>,<span class="dv">1</span>], <span class="fu">confint</span>(m)[<span class="dv">2</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p><strong>3. Do that 1000 times</strong><br />
+The test above worked - the 95% CIs included the true values. Based on our knowledge though, we would expect some error rate. Let’s check out what happens if we repeat this 1000 times:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="power-analysis-ii.html#cb88-1" tabindex="-1"></a><span class="fu">hist</span>(b0.hat, <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">beta}_0$&quot;</span>),</span>
+<span id="cb88-2"><a href="power-analysis-ii.html#cb88-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;Histogram of the different $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">beta}_0$ estimated in the synthetic datasets&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="power-analysis-ii.html#cb89-1" tabindex="-1"></a><span class="fu">hist</span>(b1.hat, <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">beta}_1$&quot;</span>),</span>
+<span id="cb89-2"><a href="power-analysis-ii.html#cb89-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;Histogram of the different $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">beta}_1$ estimated in the synthetic datasets&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="power-analysis-ii.html#cb90-1" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;In the 1000 simulated scenarios, the confidence interval included the true beta_0 &quot;</span>,</span>
+<span id="cb90-2"><a href="power-analysis-ii.html#cb90-2" tabindex="-1"></a>       <span class="dv">100</span><span class="sc">*</span><span class="fu">mean</span>(b0.hat.calib), <span class="st">&quot;% of the times.&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;In the 1000 simulated scenarios, the confidence interval included the true beta_0 95.9% of the times.&quot;</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="power-analysis-ii.html#cb92-1" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;In the 1000 simulated scenarios, the confidence interval included the true beta_1 &quot;</span>,</span>
+<span id="cb92-2"><a href="power-analysis-ii.html#cb92-2" tabindex="-1"></a>       <span class="dv">100</span><span class="sc">*</span><span class="fu">mean</span>(b1.hat.calib), <span class="st">&quot;% of the times.&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;In the 1000 simulated scenarios, the confidence interval included the true beta_1 95.9% of the times.&quot;</code></pre>
+</div>
+</div>
+<div id="power-analysis-demonstration" class="section level2 hasAnchor" number="21.3">
+<h2><span class="header-section-number">21.3</span> Power analysis demonstration<a href="power-analysis-ii.html#power-analysis-demonstration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’ll simulate the design of an experiment.
+Let’s assume the following:</p>
+<ul>
+<li><p>3 <span class="math inline">\(\times\)</span> 2 factorial treatment structure, with temperature at 250, 400, and 500 F, and 2 muffin recipes.</p></li>
+<li><p>Treatment means: <span class="math inline">\(\mu_{11}=2\)</span>, <span class="math inline">\(\mu_{21}=2.4\)</span>, <span class="math inline">\(\mu_{31}=2.6\)</span>, <span class="math inline">\(\mu_{12}=2.4\)</span>, <span class="math inline">\(\mu_{22}=2.8\)</span>, <span class="math inline">\(\mu_{32}=3\)</span>.</p></li>
+<li><p>Which means: <span class="math inline">\(\mu_{1\cdot} - \mu_{2\cdot} = -0.4\)</span>, <span class="math inline">\(\mu_{1\cdot} - \mu_{2\cdot} = -0.4\)</span>.</p></li>
+</ul>
+<p><strong>Consider these competing designs:</strong></p>
+<ul>
+<li>CRD</li>
+<li>split-plot design</li>
+<li>split-plot design with subsampling</li>
+</ul>
+<p>All examples below generate 100 designs with the means described above, the designs with 2 or 3 repetitions, and the corresponding variances for each design (e.g., <span class="math inline">\(\sigma^2_\varepsilon\)</span>, <span class="math inline">\(\sigma^2_{whole plot}\)</span>, etc.).</p>
+<div id="crd---2-reps" class="section level3 hasAnchor" number="21.3.1">
+<h3><span class="header-section-number">21.3.1</span> CRD - 2 reps<a href="power-analysis-ii.html#crd---2-reps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="power-analysis-ii.html#cb94-1" tabindex="-1"></a>df_crd <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">oven_temp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">400</span>, <span class="dv">500</span>)),</span>
+<span id="cb94-2"><a href="power-analysis-ii.html#cb94-2" tabindex="-1"></a>                      <span class="at">recipe =</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), </span>
+<span id="cb94-3"><a href="power-analysis-ii.html#cb94-3" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb94-4"><a href="power-analysis-ii.html#cb94-4" tabindex="-1"></a>df_crd <span class="ot">&lt;-</span> df_crd <span class="sc">%&gt;%</span></span>
+<span id="cb94-5"><a href="power-analysis-ii.html#cb94-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">case_when</span>(oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb94-6"><a href="power-analysis-ii.html#cb94-6" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb94-7"><a href="power-analysis-ii.html#cb94-7" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.6</span>, </span>
+<span id="cb94-8"><a href="power-analysis-ii.html#cb94-8" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb94-9"><a href="power-analysis-ii.html#cb94-9" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.8</span>, </span>
+<span id="cb94-10"><a href="power-analysis-ii.html#cb94-10" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="dv">3</span>))</span>
+<span id="cb94-11"><a href="power-analysis-ii.html#cb94-11" tabindex="-1"></a></span>
+<span id="cb94-12"><a href="power-analysis-ii.html#cb94-12" tabindex="-1"></a>sigma_epsilon <span class="ot">&lt;-</span> <span class="fl">0.26</span></span>
+<span id="cb94-13"><a href="power-analysis-ii.html#cb94-13" tabindex="-1"></a></span>
+<span id="cb94-14"><a href="power-analysis-ii.html#cb94-14" tabindex="-1"></a></span>
+<span id="cb94-15"><a href="power-analysis-ii.html#cb94-15" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb94-16"><a href="power-analysis-ii.html#cb94-16" tabindex="-1"></a>p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb94-17"><a href="power-analysis-ii.html#cb94-17" tabindex="-1"></a>p_mu1._mu2. <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb94-18"><a href="power-analysis-ii.html#cb94-18" tabindex="-1"></a></span>
+<span id="cb94-19"><a href="power-analysis-ii.html#cb94-19" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_crd)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="power-analysis-ii.html#cb95-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb95-2"><a href="power-analysis-ii.html#cb95-2" tabindex="-1"></a></span>
+<span id="cb95-3"><a href="power-analysis-ii.html#cb95-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb95-4"><a href="power-analysis-ii.html#cb95-4" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> df_crd <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> mu <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma_epsilon))</span>
+<span id="cb95-5"><a href="power-analysis-ii.html#cb95-5" tabindex="-1"></a>  </span>
+<span id="cb95-6"><a href="power-analysis-ii.html#cb95-6" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> oven_temp <span class="sc">*</span> recipe, <span class="at">data =</span> df_temp)</span>
+<span id="cb95-7"><a href="power-analysis-ii.html#cb95-7" tabindex="-1"></a>  p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>recipe, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb95-8"><a href="power-analysis-ii.html#cb95-8" tabindex="-1"></a>  p_mu1._mu2.[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>oven_temp, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb95-9"><a href="power-analysis-ii.html#cb95-9" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="power-analysis-ii.html#cb96-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>,</span>
+<span id="cb96-2"><a href="power-analysis-ii.html#cb96-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb96-3"><a href="power-analysis-ii.html#cb96-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$&quot;</span>),</span>
+<span id="cb96-4"><a href="power-analysis-ii.html#cb96-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$ under a CRD with 2 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="power-analysis-ii.html#cb97-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu1._mu2., </span>
+<span id="cb97-2"><a href="power-analysis-ii.html#cb97-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb97-3"><a href="power-analysis-ii.html#cb97-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$&quot;</span>),</span>
+<span id="cb97-4"><a href="power-analysis-ii.html#cb97-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$ under a CRD with 2 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="power-analysis-ii.html#cb98-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span><span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference in recipe</span></span></code></pre></div>
+<pre><code>## [1] 0.002</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="power-analysis-ii.html#cb100-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu1._mu2.<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference in temp</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+<div id="crd---3-reps" class="section level3 hasAnchor" number="21.3.2">
+<h3><span class="header-section-number">21.3.2</span> CRD - 3 reps<a href="power-analysis-ii.html#crd---3-reps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="power-analysis-ii.html#cb102-1" tabindex="-1"></a>df_crd <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">oven_temp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">400</span>, <span class="dv">500</span>)),</span>
+<span id="cb102-2"><a href="power-analysis-ii.html#cb102-2" tabindex="-1"></a>                      <span class="at">recipe =</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), </span>
+<span id="cb102-3"><a href="power-analysis-ii.html#cb102-3" tabindex="-1"></a>                      <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb102-4"><a href="power-analysis-ii.html#cb102-4" tabindex="-1"></a>df_crd <span class="ot">&lt;-</span> df_crd <span class="sc">%&gt;%</span></span>
+<span id="cb102-5"><a href="power-analysis-ii.html#cb102-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">case_when</span>(oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb102-6"><a href="power-analysis-ii.html#cb102-6" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb102-7"><a href="power-analysis-ii.html#cb102-7" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.6</span>, </span>
+<span id="cb102-8"><a href="power-analysis-ii.html#cb102-8" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb102-9"><a href="power-analysis-ii.html#cb102-9" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.8</span>, </span>
+<span id="cb102-10"><a href="power-analysis-ii.html#cb102-10" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="dv">3</span>))</span>
+<span id="cb102-11"><a href="power-analysis-ii.html#cb102-11" tabindex="-1"></a></span>
+<span id="cb102-12"><a href="power-analysis-ii.html#cb102-12" tabindex="-1"></a>sigma_epsilon <span class="ot">&lt;-</span> <span class="fl">0.26</span></span>
+<span id="cb102-13"><a href="power-analysis-ii.html#cb102-13" tabindex="-1"></a></span>
+<span id="cb102-14"><a href="power-analysis-ii.html#cb102-14" tabindex="-1"></a></span>
+<span id="cb102-15"><a href="power-analysis-ii.html#cb102-15" tabindex="-1"></a>p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb102-16"><a href="power-analysis-ii.html#cb102-16" tabindex="-1"></a>p_mu1._mu2. <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb102-17"><a href="power-analysis-ii.html#cb102-17" tabindex="-1"></a></span>
+<span id="cb102-18"><a href="power-analysis-ii.html#cb102-18" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_crd)</span>
+<span id="cb102-19"><a href="power-analysis-ii.html#cb102-19" tabindex="-1"></a></span>
+<span id="cb102-20"><a href="power-analysis-ii.html#cb102-20" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="power-analysis-ii.html#cb103-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb103-2"><a href="power-analysis-ii.html#cb103-2" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> df_crd <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> mu <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma_epsilon))</span>
+<span id="cb103-3"><a href="power-analysis-ii.html#cb103-3" tabindex="-1"></a>  </span>
+<span id="cb103-4"><a href="power-analysis-ii.html#cb103-4" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> oven_temp <span class="sc">*</span> recipe, <span class="at">data =</span> df_temp)</span>
+<span id="cb103-5"><a href="power-analysis-ii.html#cb103-5" tabindex="-1"></a>  p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>recipe, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb103-6"><a href="power-analysis-ii.html#cb103-6" tabindex="-1"></a>  p_mu1._mu2.[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>oven_temp, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb103-7"><a href="power-analysis-ii.html#cb103-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="power-analysis-ii.html#cb104-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>, </span>
+<span id="cb104-2"><a href="power-analysis-ii.html#cb104-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb104-3"><a href="power-analysis-ii.html#cb104-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$&quot;</span>),</span>
+<span id="cb104-4"><a href="power-analysis-ii.html#cb104-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$ under a CRD with 3 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="power-analysis-ii.html#cb105-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu1._mu2., </span>
+<span id="cb105-2"><a href="power-analysis-ii.html#cb105-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb105-3"><a href="power-analysis-ii.html#cb105-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$&quot;</span>),</span>
+<span id="cb105-4"><a href="power-analysis-ii.html#cb105-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$ under a CRD with 3 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="power-analysis-ii.html#cb106-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span><span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference in recipe</span></span></code></pre></div>
+<pre><code>## [1] 0.81</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="power-analysis-ii.html#cb108-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu1._mu2.<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference in temperature</span></span></code></pre></div>
+<pre><code>## [1] 0.71</code></pre>
+</div>
+<div id="split-plot---2-reps" class="section level3 hasAnchor" number="21.3.3">
+<h3><span class="header-section-number">21.3.3</span> Split-plot - 2 reps<a href="power-analysis-ii.html#split-plot---2-reps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="power-analysis-ii.html#cb110-1" tabindex="-1"></a>df_splitplot <span class="ot">&lt;-</span> </span>
+<span id="cb110-2"><a href="power-analysis-ii.html#cb110-2" tabindex="-1"></a>  <span class="fu">expand.grid</span>(<span class="at">oven_temp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">400</span>, <span class="dv">500</span>)),</span>
+<span id="cb110-3"><a href="power-analysis-ii.html#cb110-3" tabindex="-1"></a>              <span class="at">recipe =</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>),</span>
+<span id="cb110-4"><a href="power-analysis-ii.html#cb110-4" tabindex="-1"></a>              <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb110-5"><a href="power-analysis-ii.html#cb110-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wp_id =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">paste</span>(oven_temp, rep))))</span>
+<span id="cb110-6"><a href="power-analysis-ii.html#cb110-6" tabindex="-1"></a></span>
+<span id="cb110-7"><a href="power-analysis-ii.html#cb110-7" tabindex="-1"></a>df_splitplot <span class="ot">&lt;-</span> df_splitplot <span class="sc">%&gt;%</span></span>
+<span id="cb110-8"><a href="power-analysis-ii.html#cb110-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">case_when</span>(oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb110-9"><a href="power-analysis-ii.html#cb110-9" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb110-10"><a href="power-analysis-ii.html#cb110-10" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.6</span>, </span>
+<span id="cb110-11"><a href="power-analysis-ii.html#cb110-11" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb110-12"><a href="power-analysis-ii.html#cb110-12" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.8</span>, </span>
+<span id="cb110-13"><a href="power-analysis-ii.html#cb110-13" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="dv">3</span>))</span>
+<span id="cb110-14"><a href="power-analysis-ii.html#cb110-14" tabindex="-1"></a></span>
+<span id="cb110-15"><a href="power-analysis-ii.html#cb110-15" tabindex="-1"></a>sigma_epsilon <span class="ot">&lt;-</span> <span class="fl">0.26</span></span>
+<span id="cb110-16"><a href="power-analysis-ii.html#cb110-16" tabindex="-1"></a>sigma_oven <span class="ot">&lt;-</span> .<span class="dv">12</span></span>
+<span id="cb110-17"><a href="power-analysis-ii.html#cb110-17" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_splitplot)</span>
+<span id="cb110-18"><a href="power-analysis-ii.html#cb110-18" tabindex="-1"></a>n_wp <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>oven_temp) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>rep)</span>
+<span id="cb110-19"><a href="power-analysis-ii.html#cb110-19" tabindex="-1"></a></span>
+<span id="cb110-20"><a href="power-analysis-ii.html#cb110-20" tabindex="-1"></a>p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb110-21"><a href="power-analysis-ii.html#cb110-21" tabindex="-1"></a>p_mu1._mu2. <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="power-analysis-ii.html#cb111-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb111-2"><a href="power-analysis-ii.html#cb111-2" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="power-analysis-ii.html#cb111-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb111-4"><a href="power-analysis-ii.html#cb111-4" tabindex="-1"></a>  oven_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_wp, <span class="dv">0</span>, sigma_oven)</span>
+<span id="cb111-5"><a href="power-analysis-ii.html#cb111-5" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> df_splitplot <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> mu <span class="sc">+</span> oven_re[wp_id] <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma_epsilon) )</span>
+<span id="cb111-6"><a href="power-analysis-ii.html#cb111-6" tabindex="-1"></a>  </span>
+<span id="cb111-7"><a href="power-analysis-ii.html#cb111-7" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> oven_temp <span class="sc">*</span> recipe <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>oven_temp<span class="sc">:</span>rep), <span class="at">data =</span> df_temp)</span>
+<span id="cb111-8"><a href="power-analysis-ii.html#cb111-8" tabindex="-1"></a>  p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>recipe, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb111-9"><a href="power-analysis-ii.html#cb111-9" tabindex="-1"></a>  p_mu1._mu2.[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>oven_temp, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb111-10"><a href="power-analysis-ii.html#cb111-10" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="power-analysis-ii.html#cb112-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>,</span>
+<span id="cb112-2"><a href="power-analysis-ii.html#cb112-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb112-3"><a href="power-analysis-ii.html#cb112-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$&quot;</span>),</span>
+<span id="cb112-4"><a href="power-analysis-ii.html#cb112-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$ under a split-plot design with 2 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="power-analysis-ii.html#cb113-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu1._mu2., </span>
+<span id="cb113-2"><a href="power-analysis-ii.html#cb113-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb113-3"><a href="power-analysis-ii.html#cb113-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$&quot;</span>),</span>
+<span id="cb113-4"><a href="power-analysis-ii.html#cb113-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$ under a split-plot design with 2 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="power-analysis-ii.html#cb114-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span><span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the split plot</span></span></code></pre></div>
+<pre><code>## [1] 0.56</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="power-analysis-ii.html#cb116-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu1._mu2.<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the whole plot</span></span></code></pre></div>
+<pre><code>## [1] 0.11</code></pre>
+</div>
+<div id="split-plot---3-reps" class="section level3 hasAnchor" number="21.3.4">
+<h3><span class="header-section-number">21.3.4</span> Split-plot - 3 reps<a href="power-analysis-ii.html#split-plot---3-reps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="power-analysis-ii.html#cb118-1" tabindex="-1"></a>df_splitplot <span class="ot">&lt;-</span> </span>
+<span id="cb118-2"><a href="power-analysis-ii.html#cb118-2" tabindex="-1"></a>  <span class="fu">expand.grid</span>(<span class="at">oven_temp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">400</span>, <span class="dv">500</span>)),</span>
+<span id="cb118-3"><a href="power-analysis-ii.html#cb118-3" tabindex="-1"></a>              <span class="at">recipe =</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>),</span>
+<span id="cb118-4"><a href="power-analysis-ii.html#cb118-4" tabindex="-1"></a>              <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-5"><a href="power-analysis-ii.html#cb118-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wp_id =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">paste</span>(oven_temp, rep))))</span>
+<span id="cb118-6"><a href="power-analysis-ii.html#cb118-6" tabindex="-1"></a></span>
+<span id="cb118-7"><a href="power-analysis-ii.html#cb118-7" tabindex="-1"></a>df_splitplot <span class="ot">&lt;-</span> df_splitplot <span class="sc">%&gt;%</span></span>
+<span id="cb118-8"><a href="power-analysis-ii.html#cb118-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">case_when</span>(oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb118-9"><a href="power-analysis-ii.html#cb118-9" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb118-10"><a href="power-analysis-ii.html#cb118-10" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.6</span>, </span>
+<span id="cb118-11"><a href="power-analysis-ii.html#cb118-11" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb118-12"><a href="power-analysis-ii.html#cb118-12" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.8</span>, </span>
+<span id="cb118-13"><a href="power-analysis-ii.html#cb118-13" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="dv">3</span>))</span>
+<span id="cb118-14"><a href="power-analysis-ii.html#cb118-14" tabindex="-1"></a></span>
+<span id="cb118-15"><a href="power-analysis-ii.html#cb118-15" tabindex="-1"></a>sigma_epsilon <span class="ot">&lt;-</span> <span class="fl">0.26</span></span>
+<span id="cb118-16"><a href="power-analysis-ii.html#cb118-16" tabindex="-1"></a>sigma_oven <span class="ot">&lt;-</span> .<span class="dv">12</span></span>
+<span id="cb118-17"><a href="power-analysis-ii.html#cb118-17" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_splitplot)</span>
+<span id="cb118-18"><a href="power-analysis-ii.html#cb118-18" tabindex="-1"></a>n_wp <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>oven_temp) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>rep)</span>
+<span id="cb118-19"><a href="power-analysis-ii.html#cb118-19" tabindex="-1"></a></span>
+<span id="cb118-20"><a href="power-analysis-ii.html#cb118-20" tabindex="-1"></a>p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb118-21"><a href="power-analysis-ii.html#cb118-21" tabindex="-1"></a>p_mu1._mu2. <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="power-analysis-ii.html#cb119-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb119-2"><a href="power-analysis-ii.html#cb119-2" tabindex="-1"></a></span>
+<span id="cb119-3"><a href="power-analysis-ii.html#cb119-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb119-4"><a href="power-analysis-ii.html#cb119-4" tabindex="-1"></a>  oven_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_wp, <span class="dv">0</span>, sigma_oven)</span>
+<span id="cb119-5"><a href="power-analysis-ii.html#cb119-5" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> df_splitplot <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y =</span> mu <span class="sc">+</span> oven_re[wp_id] <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma_epsilon) )</span>
+<span id="cb119-6"><a href="power-analysis-ii.html#cb119-6" tabindex="-1"></a>  </span>
+<span id="cb119-7"><a href="power-analysis-ii.html#cb119-7" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> oven_temp <span class="sc">*</span> recipe <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>oven_temp<span class="sc">:</span>rep), <span class="at">data =</span> df_temp)</span>
+<span id="cb119-8"><a href="power-analysis-ii.html#cb119-8" tabindex="-1"></a>  p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>recipe, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb119-9"><a href="power-analysis-ii.html#cb119-9" tabindex="-1"></a>  p_mu1._mu2.[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>oven_temp, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb119-10"><a href="power-analysis-ii.html#cb119-10" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="power-analysis-ii.html#cb120-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>, </span>
+<span id="cb120-2"><a href="power-analysis-ii.html#cb120-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb120-3"><a href="power-analysis-ii.html#cb120-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$&quot;</span>),</span>
+<span id="cb120-4"><a href="power-analysis-ii.html#cb120-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$ under a split-plot design with 3 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="power-analysis-ii.html#cb121-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu1._mu2.,  <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$&quot;</span>),</span>
+<span id="cb121-2"><a href="power-analysis-ii.html#cb121-2" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$ under a split-plot design with 3 reps&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="power-analysis-ii.html#cb122-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span><span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the split plot</span></span></code></pre></div>
+<pre><code>## [1] 0.77</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="power-analysis-ii.html#cb124-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu1._mu2.<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the whole plot</span></span></code></pre></div>
+<pre><code>## [1] 0.38</code></pre>
+</div>
+<div id="split-plot---2-reps-subsampling" class="section level3 hasAnchor" number="21.3.5">
+<h3><span class="header-section-number">21.3.5</span> Split-plot - 2 reps + subsampling<a href="power-analysis-ii.html#split-plot---2-reps-subsampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="power-analysis-ii.html#cb126-1" tabindex="-1"></a>df_splitplot_subsample <span class="ot">&lt;-</span> </span>
+<span id="cb126-2"><a href="power-analysis-ii.html#cb126-2" tabindex="-1"></a>  <span class="fu">expand.grid</span>(<span class="at">oven_temp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">400</span>, <span class="dv">500</span>)),</span>
+<span id="cb126-3"><a href="power-analysis-ii.html#cb126-3" tabindex="-1"></a>              <span class="at">recipe =</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>),</span>
+<span id="cb126-4"><a href="power-analysis-ii.html#cb126-4" tabindex="-1"></a>              <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, </span>
+<span id="cb126-5"><a href="power-analysis-ii.html#cb126-5" tabindex="-1"></a>              <span class="at">subsample =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-6"><a href="power-analysis-ii.html#cb126-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wp_id =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">paste</span>(rep, oven_temp))), </span>
+<span id="cb126-7"><a href="power-analysis-ii.html#cb126-7" tabindex="-1"></a>         <span class="at">muffin_id =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">paste</span>(rep, oven_temp, recipe))))</span>
+<span id="cb126-8"><a href="power-analysis-ii.html#cb126-8" tabindex="-1"></a></span>
+<span id="cb126-9"><a href="power-analysis-ii.html#cb126-9" tabindex="-1"></a>df_splitplot_subsample <span class="ot">&lt;-</span> df_splitplot_subsample <span class="sc">%&gt;%</span></span>
+<span id="cb126-10"><a href="power-analysis-ii.html#cb126-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">case_when</span>(oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb126-11"><a href="power-analysis-ii.html#cb126-11" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb126-12"><a href="power-analysis-ii.html#cb126-12" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.6</span>, </span>
+<span id="cb126-13"><a href="power-analysis-ii.html#cb126-13" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb126-14"><a href="power-analysis-ii.html#cb126-14" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.8</span>, </span>
+<span id="cb126-15"><a href="power-analysis-ii.html#cb126-15" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="dv">3</span>))</span>
+<span id="cb126-16"><a href="power-analysis-ii.html#cb126-16" tabindex="-1"></a></span>
+<span id="cb126-17"><a href="power-analysis-ii.html#cb126-17" tabindex="-1"></a>sigma_epsilon <span class="ot">&lt;-</span> <span class="fl">0.26</span></span>
+<span id="cb126-18"><a href="power-analysis-ii.html#cb126-18" tabindex="-1"></a>sigma_oven <span class="ot">&lt;-</span> .<span class="dv">12</span></span>
+<span id="cb126-19"><a href="power-analysis-ii.html#cb126-19" tabindex="-1"></a>sigma_muffins <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb126-20"><a href="power-analysis-ii.html#cb126-20" tabindex="-1"></a></span>
+<span id="cb126-21"><a href="power-analysis-ii.html#cb126-21" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_splitplot)</span>
+<span id="cb126-22"><a href="power-analysis-ii.html#cb126-22" tabindex="-1"></a>n_wp <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>oven_temp) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>rep)</span>
+<span id="cb126-23"><a href="power-analysis-ii.html#cb126-23" tabindex="-1"></a>n_sp <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>oven_temp) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>rep) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>recipe)</span>
+<span id="cb126-24"><a href="power-analysis-ii.html#cb126-24" tabindex="-1"></a></span>
+<span id="cb126-25"><a href="power-analysis-ii.html#cb126-25" tabindex="-1"></a>p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb126-26"><a href="power-analysis-ii.html#cb126-26" tabindex="-1"></a>p_mu1._mu2. <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="power-analysis-ii.html#cb127-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb127-2"><a href="power-analysis-ii.html#cb127-2" tabindex="-1"></a></span>
+<span id="cb127-3"><a href="power-analysis-ii.html#cb127-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb127-4"><a href="power-analysis-ii.html#cb127-4" tabindex="-1"></a>  oven_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_wp, <span class="dv">0</span>, sigma_oven)</span>
+<span id="cb127-5"><a href="power-analysis-ii.html#cb127-5" tabindex="-1"></a>  muffins_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_sp, <span class="dv">0</span>, sigma_muffins)</span>
+<span id="cb127-6"><a href="power-analysis-ii.html#cb127-6" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> df_splitplot_subsample <span class="sc">%&gt;%</span> </span>
+<span id="cb127-7"><a href="power-analysis-ii.html#cb127-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">y =</span> mu <span class="sc">+</span> oven_re[wp_id] <span class="sc">+</span> muffins_re[muffin_id] <span class="sc">+</span></span>
+<span id="cb127-8"><a href="power-analysis-ii.html#cb127-8" tabindex="-1"></a>             <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma_epsilon) )</span>
+<span id="cb127-9"><a href="power-analysis-ii.html#cb127-9" tabindex="-1"></a>  </span>
+<span id="cb127-10"><a href="power-analysis-ii.html#cb127-10" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> oven_temp <span class="sc">*</span> recipe <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>oven_temp<span class="sc">:</span>rep<span class="sc">/</span>recipe), <span class="at">data =</span> df_temp)</span>
+<span id="cb127-11"><a href="power-analysis-ii.html#cb127-11" tabindex="-1"></a>  p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>recipe, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb127-12"><a href="power-analysis-ii.html#cb127-12" tabindex="-1"></a>  p_mu1._mu2.[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>oven_temp, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb127-13"><a href="power-analysis-ii.html#cb127-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="power-analysis-ii.html#cb128-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>, </span>
+<span id="cb128-2"><a href="power-analysis-ii.html#cb128-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb128-3"><a href="power-analysis-ii.html#cb128-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$&quot;</span>),</span>
+<span id="cb128-4"><a href="power-analysis-ii.html#cb128-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$ under a split-plot design with 2 reps and subsampling&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-113-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="power-analysis-ii.html#cb129-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu1._mu2.,  </span>
+<span id="cb129-2"><a href="power-analysis-ii.html#cb129-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb129-3"><a href="power-analysis-ii.html#cb129-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$&quot;</span>),</span>
+<span id="cb129-4"><a href="power-analysis-ii.html#cb129-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$ under a split-plot design with 2 reps and subsampling&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-113-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="power-analysis-ii.html#cb130-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span><span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the split plot</span></span></code></pre></div>
+<pre><code>## [1] 0.79</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="power-analysis-ii.html#cb132-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu1._mu2.<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the whole plot</span></span></code></pre></div>
+<pre><code>## [1] 0.41</code></pre>
+</div>
+<div id="split-plot---3-reps-subsampling" class="section level3 hasAnchor" number="21.3.6">
+<h3><span class="header-section-number">21.3.6</span> Split-plot - 3 reps + subsampling<a href="power-analysis-ii.html#split-plot---3-reps-subsampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="power-analysis-ii.html#cb134-1" tabindex="-1"></a>df_splitplot_subsample <span class="ot">&lt;-</span> </span>
+<span id="cb134-2"><a href="power-analysis-ii.html#cb134-2" tabindex="-1"></a>  <span class="fu">expand.grid</span>(<span class="at">oven_temp =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">400</span>, <span class="dv">500</span>)),</span>
+<span id="cb134-3"><a href="power-analysis-ii.html#cb134-3" tabindex="-1"></a>              <span class="at">recipe =</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>),</span>
+<span id="cb134-4"><a href="power-analysis-ii.html#cb134-4" tabindex="-1"></a>              <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb134-5"><a href="power-analysis-ii.html#cb134-5" tabindex="-1"></a>              <span class="at">subsample =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb134-6"><a href="power-analysis-ii.html#cb134-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wp_id =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">paste</span>(rep, oven_temp))), </span>
+<span id="cb134-7"><a href="power-analysis-ii.html#cb134-7" tabindex="-1"></a>         <span class="at">muffin_id =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">paste</span>(rep, oven_temp, recipe))))</span>
+<span id="cb134-8"><a href="power-analysis-ii.html#cb134-8" tabindex="-1"></a></span>
+<span id="cb134-9"><a href="power-analysis-ii.html#cb134-9" tabindex="-1"></a>df_splitplot_subsample <span class="ot">&lt;-</span> df_splitplot_subsample <span class="sc">%&gt;%</span></span>
+<span id="cb134-10"><a href="power-analysis-ii.html#cb134-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mu =</span> <span class="fu">case_when</span>(oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="dv">2</span>, </span>
+<span id="cb134-11"><a href="power-analysis-ii.html#cb134-11" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb134-12"><a href="power-analysis-ii.html#cb134-12" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;B&quot;</span> <span class="sc">~</span> <span class="fl">2.6</span>, </span>
+<span id="cb134-13"><a href="power-analysis-ii.html#cb134-13" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;250&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.4</span>, </span>
+<span id="cb134-14"><a href="power-analysis-ii.html#cb134-14" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;400&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="fl">2.8</span>, </span>
+<span id="cb134-15"><a href="power-analysis-ii.html#cb134-15" tabindex="-1"></a>                        oven_temp <span class="sc">==</span> <span class="st">&quot;500&quot;</span> <span class="sc">&amp;</span> recipe <span class="sc">==</span> <span class="st">&quot;C&quot;</span> <span class="sc">~</span> <span class="dv">3</span>))</span>
+<span id="cb134-16"><a href="power-analysis-ii.html#cb134-16" tabindex="-1"></a></span>
+<span id="cb134-17"><a href="power-analysis-ii.html#cb134-17" tabindex="-1"></a>sigma_epsilon <span class="ot">&lt;-</span> <span class="fl">0.26</span></span>
+<span id="cb134-18"><a href="power-analysis-ii.html#cb134-18" tabindex="-1"></a>sigma_oven <span class="ot">&lt;-</span> .<span class="dv">12</span></span>
+<span id="cb134-19"><a href="power-analysis-ii.html#cb134-19" tabindex="-1"></a>sigma_muffins <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb134-20"><a href="power-analysis-ii.html#cb134-20" tabindex="-1"></a></span>
+<span id="cb134-21"><a href="power-analysis-ii.html#cb134-21" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_splitplot)</span>
+<span id="cb134-22"><a href="power-analysis-ii.html#cb134-22" tabindex="-1"></a>n_wp <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>oven_temp) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>rep)</span>
+<span id="cb134-23"><a href="power-analysis-ii.html#cb134-23" tabindex="-1"></a>n_sp <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>oven_temp) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>rep) <span class="sc">*</span> <span class="fu">n_distinct</span>(df_splitplot<span class="sc">$</span>recipe)</span>
+<span id="cb134-24"><a href="power-analysis-ii.html#cb134-24" tabindex="-1"></a></span>
+<span id="cb134-25"><a href="power-analysis-ii.html#cb134-25" tabindex="-1"></a>p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb134-26"><a href="power-analysis-ii.html#cb134-26" tabindex="-1"></a>p_mu1._mu2. <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="power-analysis-ii.html#cb135-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb135-2"><a href="power-analysis-ii.html#cb135-2" tabindex="-1"></a></span>
+<span id="cb135-3"><a href="power-analysis-ii.html#cb135-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims){</span>
+<span id="cb135-4"><a href="power-analysis-ii.html#cb135-4" tabindex="-1"></a>  oven_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_wp, <span class="dv">0</span>, sigma_oven)</span>
+<span id="cb135-5"><a href="power-analysis-ii.html#cb135-5" tabindex="-1"></a>  muffins_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_sp, <span class="dv">0</span>, sigma_muffins)</span>
+<span id="cb135-6"><a href="power-analysis-ii.html#cb135-6" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> df_splitplot_subsample <span class="sc">%&gt;%</span> </span>
+<span id="cb135-7"><a href="power-analysis-ii.html#cb135-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">y =</span> mu <span class="sc">+</span> oven_re[wp_id] <span class="sc">+</span> muffins_re[muffin_id] <span class="sc">+</span></span>
+<span id="cb135-8"><a href="power-analysis-ii.html#cb135-8" tabindex="-1"></a>             <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma_epsilon) )</span>
+<span id="cb135-9"><a href="power-analysis-ii.html#cb135-9" tabindex="-1"></a>  </span>
+<span id="cb135-10"><a href="power-analysis-ii.html#cb135-10" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> oven_temp <span class="sc">*</span> recipe <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>oven_temp<span class="sc">:</span>rep<span class="sc">/</span>recipe), <span class="at">data =</span> df_temp)</span>
+<span id="cb135-11"><a href="power-analysis-ii.html#cb135-11" tabindex="-1"></a>  p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>recipe, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb135-12"><a href="power-analysis-ii.html#cb135-12" tabindex="-1"></a>  p_mu1._mu2.[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>oven_temp, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)))<span class="sc">$</span>contrasts)<span class="sc">$</span>p.value</span>
+<span id="cb135-13"><a href="power-analysis-ii.html#cb135-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="power-analysis-ii.html#cb136-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span>, </span>
+<span id="cb136-2"><a href="power-analysis-ii.html#cb136-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb136-3"><a href="power-analysis-ii.html#cb136-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$&quot;</span>),</span>
+<span id="cb136-4"><a href="power-analysis-ii.html#cb136-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 1} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{</span><span class="sc">\\</span><span class="st">cdot 2}$ under a split-plot design with 3 reps and subsampling&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-118-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="power-analysis-ii.html#cb137-1" tabindex="-1"></a><span class="fu">hist</span>(p_mu1._mu2., </span>
+<span id="cb137-2"><a href="power-analysis-ii.html#cb137-2" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb137-3"><a href="power-analysis-ii.html#cb137-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">TeX</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$&quot;</span>),</span>
+<span id="cb137-4"><a href="power-analysis-ii.html#cb137-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&quot;p-value for $</span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{1 </span><span class="sc">\\</span><span class="st">cdot} - </span><span class="sc">\\</span><span class="st">hat{</span><span class="sc">\\</span><span class="st">mu}_{2 </span><span class="sc">\\</span><span class="st">cdot}$ under a split-plot design with 3 reps and subsampling&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-118-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="power-analysis-ii.html#cb138-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu<span class="fl">.1</span>_mu<span class="fl">.2</span><span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the split plot</span></span></code></pre></div>
+<pre><code>## [1] 0.95</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="power-analysis-ii.html#cb140-1" tabindex="-1"></a><span class="fu">mean</span>(p_mu1._mu2.<span class="sc">&lt;</span><span class="fl">0.05</span>) <span class="co"># power for .4 difference at the whole plot</span></span></code></pre></div>
+<pre><code>## [1] 0.71</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="power-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="review-friday.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/22-power_analysis2.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/22-power_analysis2.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

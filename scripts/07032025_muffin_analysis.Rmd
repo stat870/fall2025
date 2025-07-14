@@ -1,0 +1,99 @@
+---
+title: "Muffin Data Analysis"
+author: "J Lacasa"
+date: "2025-07-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r  warning = FALSE, message=FALSE}
+library(tidyverse)
+# library(glmmTMB)
+library(lme4)
+library(emmeans)
+```
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat720/summer2025/refs/heads/main/data/muffin_data.csv"
+muffins <- read.csv(url)
+muffins$oven_temp <- as.factor(muffins$oven_temp)
+muffins$rep <- as.factor(muffins$rep)
+```
+
+```{r}
+muffins %>% 
+  ggplot(aes(paste(oven_temp, recipe), height_cm))+
+  geom_boxplot()
+
+```
+
+```{r}
+muffins1 <- muffins %>% filter(subsample == 1)
+```
+
+```{r}
+muffins1 %>% 
+  ggplot(aes(paste(oven_temp, recipe), height_cm))+
+  geom_boxplot()
+
+```
+
+```{r}
+colnames(muffins1)
+str(muffins1)
+
+(model_nosubsampling_wrong <- 
+  lm(height_cm ~ 1 + oven_temp*recipe , data = muffins1))
+
+(model_nosubsampling <- 
+  lmer(height_cm ~ 1 + oven_temp*recipe + (1|rep), data = muffins1))
+
+paste("The sigma for the wrong model is ", sigma(model_nosubsampling_wrong))
+paste("The sigma for the right model is ", sigma(model_nosubsampling))
+```
+
+```{r}
+plot(model_nosubsampling)
+```
+
+
+```{r}
+car::Anova(model_nosubsampling)
+```
+
+```{r}
+emmeans(model_nosubsampling, ~oven_temp)
+emmeans(model_nosubsampling, ~recipe)
+```
+
+```{r}
+marg_means_int <- emmeans(model_nosubsampling, ~oven_temp:recipe)
+```
+```{r}
+as.data.frame(marg_means_int) %>% 
+  ggplot(aes(paste(oven_temp, recipe), emmean))+
+  geom_errorbar(aes(ymin = emmean - SE, ymax = emmean + SE), 
+                width = 0)+
+  theme_classic()+
+  labs(x = "Treatment", 
+       y = "Muffin Height (cm)")+
+  geom_point()
+
+```
+
+```{r}
+emmeans(model_nosubsampling, ~ recipe:oven_temp, 
+        contr = list(c(0, 0, 0, 0, 1, -1)))
+```
+
+```{r}
+library(multcomp)
+cld(marg_means_int, Letters = letters)
+```
+
+
+

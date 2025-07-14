@@ -1,0 +1,52 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+date: "2025-06-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(emmeans)
+library(multcomp)
+```
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat720/summer2025/refs/heads/main/data/blood_study_pigs.csv"
+df_pigs <- read.csv(url)
+unique(df_pigs$Day)
+```
+
+```{r}
+m1 <- lm(Serum_haptoglobin_mg.dL ~ 1 + Trt + factor(Day) + Trt:factor(Day), data = df_pigs)
+
+plot(m1$fitted.values, m1$residuals)
+
+car::qqPlot(m1)
+```
+
+```{r}
+summary(m1)
+```
+
+```{r}
+car::Anova(m1)
+```
+
+
+```{r}
+emmeans(m1, ~ Day)
+
+mean_all <- emmeans(m1, ~ Day:Trt)
+cld(mean_all)
+
+mean_post <- emmeans(m1, ~ Day:Trt, at = list(Day =38))
+cld(mean_post)
+
+```
+

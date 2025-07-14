@@ -1,0 +1,48 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+date: "2025-07-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Applied design and analysis of an RCBD   
+
+An experiment was run in South Australia to compare for 107 different wheat varieties, in a randomized complete block design with 3 blocks.
+
+```{r eval=TRUE, echo=FALSE}
+t_rcbd <- data.frame(Source = c("Blocks", "Genotype", "Error", "Total"),
+                          df = c("b-1 = 2", "g-1 = 106", "N-b-g+1 = 221", "N-1 = 329"))
+
+knitr::kable(t_rcbd, caption = "ANOVA table for the RCBD")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(agridat)
+library(lme4)
+library(emmeans)
+
+dat_wheat_rcbd <- agridat::gilmour.serpentine
+
+dat_wheat_rcbd %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = rep))
+```
+
+```{r}
+m_block.as.fixed <- lm(yield ~ gen + rep, data = dat_wheat_rcbd)
+
+m_block.as.random <- lme4::lmer(yield ~ gen + (1|rep), data = dat_wheat_rcbd)
+
+emmeans(m_block.as.fixed, ~gen)[1:10,]
+emmeans(m_block.as.random, ~gen)[1:10,]
+
+emmeans(m_block.as.fixed, ~gen, contr = list(c(1, -1, rep(0, n_distinct(dat_wheat_rcbd$gen)-2))))$contr
+emmeans(m_block.as.random, ~gen, contr = list(c(1, -1, rep(0, n_distinct(dat_wheat_rcbd$gen)-2))))$contr
+```
+

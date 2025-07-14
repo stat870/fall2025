@@ -1,0 +1,105 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+date: "2025-06-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Grown in 1995-1996 at the Scottish Crop Research Institute. 4 blocks, **2 whole-plot fungicide treatments**, and 70 barley varieties or variety mixes. Total area was 10 rows (north/south) by 56 beds (east/west).
+
+```{r}
+library(agridat)
+library(tidyverse)
+library(glmmTMB)
+library(lme4)
+
+data("durban.splitplot")
+df <- durban.splitplot
+```
+
+```{r}
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = block))
+```
+
+![Example 1 - RCBD](https://www.agrobit.ag/wp-content/uploads/2023/06/2_caso-studio-trial-plots-cover-800x533.jpg)
+
+```{r}
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = block))+
+  geom_tile(color = "black", fill=NA)
+
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = fung))+
+  geom_tile(color = "black", fill=NA)
+
+df %>% 
+  ggplot(aes(bed, row))+
+  geom_tile(aes(fill = gen))
+```
+
+
+Treatment design: what varieties yield more under what fung treatment? 
+
+
+$$y_{ijk}=\mu + F_j + G_k + (FG)_{jk} + b_{i} + w_{j(i)}+ \varepsilon_{ijk}$$
+
+
+$$b_{i}\sim N(0, \sigma^2_b)$$
+$b_1, b_2, b_3, b_4$
+
+$$w_{j(i)}\sim N(0, \sigma^2_w)$$
+
+$w_1, w_2, w_3, w_4, ..., w_8$
+
+$$\varepsilon_{ijk} \sim N(0, \sigma^2_e)$$
+
+The assumptions behind lm()
+
+- **independence**
+- N (general LM) -- keep
+- constant variance -- keep
+
+```{r}
+# we're not using lm() anymore 
+df
+#\mu + F_j + G_k + (FG)_{jk}
+# wrong way
+model_error.only <- glmmTMB(yield ~ 1 + #\mu
+          fung + #F_j
+          gen + #G_k
+          fung:gen, #FG_jk
+          data = df)
+
+#  b_{i} + w_{j(i)}+ \varepsilon_{ijk}
+model_complete <- glmmTMB(yield ~ 1 + #\mu
+                            fung + #F_j
+                            gen + #G_k
+                            fung:gen + #FG_jk
+                            (1|block) + #b_{i} 
+                            (1|block:fung), # w_{j(i)}
+                          family = gaussian(),
+                          data = df)
+
+m2 <- glmmTMB(yield~ 1 + fung*gen + (1|block/fung), data = df, family = gaussian())
+
+m2 <- lmer(yield~ 1 + fung*gen + (1|block/fung), data = df)
+
+summary(m2)
+summary(model_complete)
+```
+
+```{r}
+getME(model_complete, "Z")
+getME(model_complete, "beta")
+getME(model_complete, "b")
+```
+
+

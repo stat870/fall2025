@@ -1,0 +1,40 @@
+# Semester Project
+
+Semester projects may deal with any topic that interests you [the student], as long as it is approved by the instructor.  
+
+Broadly, projects are expected to **identify a research problem** and **develop a designed experiment that is appropriate for solving that problem**. Projects consist of a manuscript and a tutorial that describes the research problem, the experiment design and the treatment design.  
+
+## Learning objectives   
+
+- Be able to identify an experiment design that is appropriate for answering a given research question and discuss the strengths and weaknesses of that design for answering the question.  
+- Be able to write the materials and methods section of a paper/thesis, including the statistical model that corresponds the experiment design.
+
+## Partial deadlines
+
+### Project proposal - Due Friday June 20 at 2pm CT
+Write a page-long project proposal that states your research problem and the objective of your project. An example of an appropriate project proposal can be found [here](https://stat720.github.io/summer2025/assignments/proposal_example.pdf).
+
+### Written report - Due Wednesday July 23 at 2pm CT for peer review 
+Submit a manuscript including:
+
+- Introduction (background \& justification of the problem) 
+- Methods, including: 
+  - A complete ANOVA table describing the degrees of freedom associated to mean comparisons, 
+  - A clear and complete description of the statistical model,
+  - R code that would be implemented to fit that model,
+- Expected results 
+- Discussion of strengths and weaknesses of the experiment design (e.g., compare an RCBD with a split-plot design)
+
+### Oral presentation - Somewhere between July 21 - August 1 
+Prepare a 15 minute presentation of the core aspects of your project. 
+Presentations should include at least: 
+
+- Motivation  
+- Methods, including a clear and complete description of the statistical model and code
+- Discussion of strengths and weaknesses
+
+
+### Practical reads  
+
+- Casler, M.D. (2015), Fundamentals of Experimental Design: Guidelines for Designing Successful Experiments. Agronomy Journal, 107: 692-705. https://doi.org/10.2134/agronj2013.0114  
+- Casler, M.D. (2018). Power and Replication—Designing Powerful Experiments. In Applied Statistics in Agricultural, Biological, and Environmental Sciences (eds B. Glaz and K.M. Yeater). https://doi.org/10.2134/appliedstatistics.2015.0075.c4  
