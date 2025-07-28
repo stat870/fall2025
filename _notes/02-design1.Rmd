@@ -1,2 +1,11 @@
-# Day 2    
-Date  
+# Designed Experiments Review      
+August 27th  
+
+## Announcements
+
+- [Assignment 1]() is due next Monday. 
+
+## Designed experiments  
+
+- Experimental unit  
+

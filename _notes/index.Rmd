@@ -1,31 +1,39 @@
 --- 
-title: "STAT NNN - Design of Experiments"
+title: "STAT 870 - Analysis of Messy Data"
 author: "Josefina Lacasa"
-date: Semester Year #"`r Sys.Date()`"
+date: Fall 2025 #"`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Welcome to STAT 720!  
-June 9th, 2025  
+# Welcome to STAT 870!  
+August 25th, 2025  
 
 ## About this course:  
 
 - [About me](https://jlacasa.github.io/) 
 - About you: 
 
-```{r message=F, warning=FALSE}
+```{r message=F, warning=FALSE, include=FALSE, eval=TRUE}
 library(tidyverse)
-# read.csv("../../students_STAT_720_C.csv") %>% 
-#   ggplot(aes(x = degreeProgram))+
-#   geom_bar(fill = "#B388EB")+
-#   theme_bw()+
-#   theme(panel.grid.minor = element_blank(),
-#         panel.border = element_blank(),
-#         axis.title.x = element_blank(), 
-#         axis.text.x = element_text(angle = 50, vjust = 1, hjust=1))
+read.csv("../../students_STAT_870_A.csv") %>%
+  ggplot(aes(x = degreeProgram))+
+  geom_bar(fill = "#B388EB")+
+  theme_bw()+
+  theme(panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 50, vjust = 1, hjust=1))
 ```
 
-- In rounds: What's your major, what do you expect to learn?  
+- In rounds: What's your major and what do you expect to learn in 870?  
+
+## What is messy data anyways?
+
+```{r echo=FALSE, fig.cap="What is messy data", out.width = '100%', fig.align='center'}
+knitr::include_graphics("../figures/messydata.jpg")
+```
+
+
 
 ### Logistics  
 
@@ -33,19 +41,17 @@ library(tidyverse)
 - Syllabus
 - Statistical programming requirements  
 - Rough mindmap of the course (on whiteboard)  
-- [Semester project - design your own experiment.](https://stat720.github.io/2025summer/summer2025/notes/semester-project.html)   
+- [Semester project - design/analyze your own experiment.](#)   
 - Grades: A (100-89.999999999(!!!)), B (89.99-79.99), C (79.99-69.99), D (69.99-59.99), F (<59.99).
 - Attendance policies  
-- Semester projects
 
 ## Learning goals   
 
 By the end of this course, you should be able to:  
-- Be able to identify the treatment design, experiment design, experimental unit and observational unit.  
-- Be able to write the statistical model that corresponds to (simple) designed experiments.  
-- Be able to write the Materials and Methods section in a paper (or thesis) that describes the designed experiment.  
+- Identify the treatment design, experiment design, experimental unit and observational unit of simple and complex designed experiments.  
 - Distinguish the benefits/disadvantages of different experiment designs.  
-
+- Write the statistical model that corresponds to designed experiments.  
+- Write the Materials and Methods section in a paper (or thesis) that describes the designed experiment.  
 
 ## On notation  
 
@@ -55,6 +61,9 @@ By the end of this course, you should be able to:
 - probability distribution: $y \sim N(0, \sigma^2)$, $\mathbf{y} \sim N(\boldsymbol{0}, \sigma^2\mathbf{I})$.     
 
 
-## For tomorrow    
+## Homework & Announcements  
 
 - Install R and RStudio. 
+- Submit [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) by next Monday. 
+- Applied Linear Mixed Models Workshop 
+
