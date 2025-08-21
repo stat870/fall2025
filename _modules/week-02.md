@@ -11,10 +11,10 @@ September 10
   : [](#)
   
 September 15 
-: Hypothesis tests, Contrasts 
+: Generalized linear mixed models 
   : [html](https://stat870.github.io/fall2025/notes/)
   : [**HW 2 due**](https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf){: .label .label-red } 
     
 September 17 
-: Estimability & Kahoot!  
+: Generalized linear mixed models & Kahoot!  
   : [html](https://stat870.github.io/fall2025/notes/designed-experiments-review.html)

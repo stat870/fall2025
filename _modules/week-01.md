@@ -19,3 +19,4 @@ September 3
 : Designed experiments (split-plot designs, strip-plot designs) 
   : [html](https://stat870.github.io/fall2025/notes/designed-experiments-review-ii.html)
   : [**HW 1 due**](#){: .label .label-red } 
+  : [**HW 2**](https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf){: .label .label-green } 

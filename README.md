@@ -1,15 +1,15 @@
 ---
 layout: home
-title: STAT 800
+title: STAT 870
 nav_exclude: true
 permalink: /:path/
 seo:
-  type: Course
-  name: STAT 800
+  type: Analysis of Messy Data
+  name: STAT 870
 ---
 
-STAT 800 - Course Name  
-Summer 2025   
+STAT 870 - Analysis of Messy Data  
+Fall 2025   
 Kansas State University
 
 **Instructor:** Dr. Josefina Lacasa  
@@ -23,4 +23,4 @@ The main goal of this course is to
 
 **What this course is not:** an R programming course (however, help will be provided).
 
-**Prerequisites:** STAT 800.   
+**Prerequisites:** STAT 720.   

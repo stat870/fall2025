@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>STAT NNN - Design of Experiments</title>
-  <meta name="description" content="STAT NNN - Design of Experiments" />
+  <title>STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="STAT 870 - Analysis of Messy Data" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="STAT NNN - Design of Experiments" />
+  <meta property="og:title" content="STAT 870 - Analysis of Messy Data" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="STAT NNN - Design of Experiments" />
+  <meta name="twitter:title" content="STAT 870 - Analysis of Messy Data" />
   
   
   
@@ -30,7 +30,7 @@
   
   
 
-<link rel="next" href="day-2.html"/>
+<link rel="next" href="designed-experiments-review.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -136,29 +136,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">STAT NNN</a></li>
+<li><a href="./">STAT 870</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 720!</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
 <ul>
 <li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.3</b> On notation</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#for-tomorrow"><i class="fa fa-check"></i><b>1.4</b> For tomorrow</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="day-2.html"><a href="day-2.html"><i class="fa fa-check"></i><b>2</b> Day 2</a></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>2.3</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="2.4" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.4</b> Homework &amp; Announcements</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="semester-project.html"><a href="semester-project.html"><i class="fa fa-check"></i><b>3</b> Semester Project</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="semester-project.html"><a href="semester-project.html#learning-objectives"><i class="fa fa-check"></i><b>3.1</b> Learning objectives</a></li>
 <li class="chapter" data-level="3.2" data-path="semester-project.html"><a href="semester-project.html#partial-deadlines"><i class="fa fa-check"></i><b>3.2</b> Partial deadlines</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="semester-project.html"><a href="semester-project.html#project-proposal---due-friday-june-20-at-2pm-ct"><i class="fa fa-check"></i><b>3.2.1</b> Project proposal - Due Friday June 20 at 2pm CT</a></li>
-<li class="chapter" data-level="3.2.2" data-path="semester-project.html"><a href="semester-project.html#written-report---due-wednesday-july-23-at-2pm-ct-for-peer-review"><i class="fa fa-check"></i><b>3.2.2</b> Written report - Due Wednesday July 23 at 2pm CT for peer review</a></li>
-<li class="chapter" data-level="3.2.3" data-path="semester-project.html"><a href="semester-project.html#oral-presentation---somewhere-between-july-21---august-1"><i class="fa fa-check"></i><b>3.2.3</b> Oral presentation - Somewhere between July 21 - August 1</a></li>
-<li class="chapter" data-level="3.2.4" data-path="semester-project.html"><a href="semester-project.html#practical-reads"><i class="fa fa-check"></i><b>3.2.4</b> Practical reads</a></li>
+<li class="chapter" data-level="3.2.1" data-path="semester-project.html"><a href="semester-project.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>3.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="3.2.2" data-path="semester-project.html"><a href="semester-project.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>3.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="3.2.3" data-path="semester-project.html"><a href="semester-project.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>3.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="3.2.4" data-path="semester-project.html"><a href="semester-project.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>3.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="3.2.5" data-path="semester-project.html"><a href="semester-project.html#practical-reads"><i class="fa fa-check"></i><b>3.2.5</b> Practical reads</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -172,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT NNN - Design of Experiments</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
           </h1>
         </div>
 
@@ -181,30 +195,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">STAT NNN - Design of Experiments</h1>
+<h1 class="title">STAT 870 - Analysis of Messy Data</h1>
 <p class="author"><em>Josefina Lacasa</em></p>
-<p class="date"><em>Semester Year</em></p>
+<p class="date"><em>Fall 2025</em></p>
 </div>
-<div id="welcome-to-stat-720" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Welcome to STAT 720!<a href="index.html#welcome-to-stat-720" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>June 9th, 2025</p>
+<div id="welcome-to-stat-870" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Welcome to STAT 870!<a href="index.html#welcome-to-stat-870" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>August 25th, 2025</p>
 <div id="about-this-course" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> About this course:<a href="index.html#about-this-course" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><a href="https://jlacasa.github.io/">About me</a></li>
 <li>About you:</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="co"># read.csv(&quot;../../students_STAT_720_C.csv&quot;) %&gt;% </span></span>
-<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="co">#   ggplot(aes(x = degreeProgram))+</span></span>
-<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="co">#   geom_bar(fill = &quot;#B388EB&quot;)+</span></span>
-<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a><span class="co">#   theme_bw()+</span></span>
-<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a><span class="co">#   theme(panel.grid.minor = element_blank(),</span></span>
-<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a><span class="co">#         panel.border = element_blank(),</span></span>
-<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a><span class="co">#         axis.title.x = element_blank(), </span></span>
-<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a><span class="co">#         axis.text.x = element_text(angle = 50, vjust = 1, hjust=1))</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <ul>
-<li>In rounds: What’s your major, what do you expect to learn?</li>
+<li>In rounds: What’s your major and what do you expect to learn in 870?</li>
 </ul>
 <div id="logistics" class="section level3 hasAnchor" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> Logistics<a href="index.html#logistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -215,25 +221,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 <li>Rough mindmap of the course (on whiteboard)<br />
 </li>
-<li><a href="https://stat720.github.io/2025summer/summer2025/notes/semester-project.html">Semester project - design your own experiment.</a><br />
+<li><a href="#">Semester project - analyze your own experiment.</a><br />
 </li>
+<li>Reproducible tutorial</li>
 <li>Grades: A (100-89.999999999(!!!)), B (89.99-79.99), C (79.99-69.99), D (69.99-59.99), F (&lt;59.99).</li>
-<li>Attendance policies<br />
-</li>
-<li>Semester projects</li>
+<li>Attendance policies &amp; kahoots</li>
 </ul>
 </div>
 </div>
 <div id="learning-goals" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Learning goals<a href="index.html#learning-goals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>By the end of this course, you should be able to:<br />
-- Be able to identify the treatment design, experiment design, experimental unit and observational unit.<br />
-- Be able to write the statistical model that corresponds to (simple) designed experiments.<br />
-- Be able to write the Materials and Methods section in a paper (or thesis) that describes the designed experiment.<br />
-- Distinguish the benefits/disadvantages of different experiment designs.</p>
+- Identify the treatment design, experiment design, experimental unit and observational unit of simple and complex designed experiments.<br />
+- Distinguish the benefits/disadvantages of different experiment designs.<br />
+- Write the statistical model that corresponds to data generated by designed experiments.<br />
+- Write the Materials and Methods section in a paper (or thesis) that describes the designed experiment.</p>
 </div>
-<div id="on-notation" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> On notation<a href="index.html#on-notation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview-of-the-course" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Overview of the course<a href="index.html#overview-of-the-course" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="../figures/mindmap_1.jpg" alt="Mindmap" width="80%" />
+<p class="caption">
+Figure 1.1: Mindmap
+</p>
+</div>
+</div>
+<div id="what-is-messy-data-anyways" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> What is messy data anyways?<a href="index.html#what-is-messy-data-anyways" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Complex dependence structures</li>
+<li>Complex structure in covariates</li>
+</ul>
+</div>
+<div id="linear-models-review" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Linear Models review<a href="index.html#linear-models-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Perhaps the most common model of all time (default in most software) is</p>
+<p><span class="math display">\[y_{i} = \mu_i + \varepsilon_i, \ \varepsilon_i \sim N(0, \sigma^2),\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(y_{i}\)</span> is the observed value for the <span class="math inline">\(i\)</span>th observation,</li>
+<li><span class="math inline">\(\mu_i\)</span> is the expected value for the <span class="math inline">\(i\)</span>th observation,</li>
+<li><span class="math inline">\(\varepsilon_i\)</span> is the residual (i.e., the difference between observed and expected). All residuals are iid normal.<br />
+This example uses the model equation form.</li>
+</ul>
+<p>The model above can also be written usign the probability distribution form. The probability distribution form is much more flexible because it is compatible with other distributions beyond the normal. It goes like this:</p>
+<p><span class="math display">\[y_{i} \sim N(\mu_i, \sigma^2),\]</span>
+where the elements are the same as described above.</p>
+<p>Likewise, we can use the vectorized notation of the probability distribution form, and say that</p>
+<p><span class="math display">\[\mathbf{y} \sim N(\boldsymbol\mu, \sigma^2 \mathbf{I}),\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y} \equiv [y_1, y_2, ..., y_n]&#39;\)</span> is the vector of observed values,</li>
+<li><span class="math inline">\(\boldsymbol\mu \equiv [\mu_1, \mu_2, ..., \mu_n]&#39;\)</span> is the vector of expected values,</li>
+<li><span class="math inline">\(\sigma^2 \mathbf{I}\)</span> is the variance-covariance matrix. Note that, more generally, we can call the variance-covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span> or <span class="math inline">\(\mathbf{V}\)</span>.</li>
+</ul>
+<p>Note that
+<span class="math display">\[\sigma^2 \mathbf{I} = \sigma^2 \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; \dots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; 1 \end{bmatrix}
+= \begin{bmatrix}
+\sigma^2 &amp; 0 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; \sigma^2 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; 0 &amp; \sigma^2 &amp; \dots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; \sigma^2 \end{bmatrix}.\]</span></p>
+<p>The assumptions behind this model are:</p>
+<ul>
+<li>Normal distribution of the data</li>
+<li>Constant variance</li>
+<li>Independence</li>
+<li>Linearity</li>
+</ul>
+<p>In this course, we will mostly deal with cases where:</p>
+<ul>
+<li>The assumption of independence does not hold (basic and complex designed experiments),</li>
+<li>The assumption of normality does not make sense (e.g., data are counts, proportions, or stricly positive),</li>
+<li>The assumption of constant variance does not hold/make sense (e.g., larger biomass is associated to larger variance of said biomass).</li>
+</ul>
+<p>We will approach most problems with a 3-step approach (Chapter 2 in Stroup et al.):</p>
+<ul>
+<li>What is the distribution of the data?</li>
+<li>What is the link function?</li>
+<li>What is the blueprint of the design/data?</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="../figures/stroup_distributions.jpg" alt="Common variable distributions. Page 60 in Stroup et al. (2024)" width="80%" />
+<p class="caption">
+Figure 1.2: Common variable distributions. Page 60 in Stroup et al. (2024)
+</p>
+</div>
+</div>
+<div id="on-notation" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> On notation<a href="index.html#on-notation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>scalars: <span class="math inline">\(y\)</span>, <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(\beta_0\)</span><br />
 </li>
@@ -244,10 +326,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>probability distribution: <span class="math inline">\(y \sim N(0, \sigma^2)\)</span>, <span class="math inline">\(\mathbf{y} \sim N(\boldsymbol{0}, \sigma^2\mathbf{I})\)</span>.</li>
 </ul>
 </div>
-<div id="for-tomorrow" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> For tomorrow<a href="index.html#for-tomorrow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="homework-announcements" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Homework &amp; Announcements<a href="index.html#homework-announcements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Install R and RStudio.</li>
+<li>Submit <a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> by next Monday.</li>
+<li>Applied Linear Mixed Models Workshop</li>
 </ul>
 
 </div>
@@ -258,7 +342,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="day-2.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="designed-experiments-review.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

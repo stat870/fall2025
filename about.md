@@ -28,7 +28,7 @@ The main goal of this course is to present the basic concepts of designed experi
 **Course topics**:  This course will cover the basic concepts for designed experiments, including the data generation process.   
 
 
-**Prerequisites**: STAT 705
+**Prerequisites**: STAT 720
 
 ## Weekly schedule
 
