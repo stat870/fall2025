@@ -22,43 +22,29 @@ schedule:
   - name: Monday
     events:
       - name: Lecture
-        start: 9:10 AM
-        end: 10:10 AM
-        location: BB
+        start: 11:30 AM
+        end: 12:45 AM
+        location: EH
       - name: Office Hours
-        start: 10:10 AM
-        end: 11:10 AM
-        location: BB
+        start: 1:00 PM
+        end: 2:00 PM
+        location: EH
   - name: Tuesday
-    events:
-      - name: Lecture
-        start: 9:10 AM
-        end: 10:10 AM
-        location: BB
   - name: Wednesday
     events:
       - name: Lecture
-        start: 9:10 AM
-        end: 10:10 AM
-        location: BB
-      - name: Zoom Office Hours
-        start: 3 PM
-        end: 4 PM
-        location: See Syllabus
+        start: 11:30 AM
+        end: 12:45 AM
+        location: EH
+      - name: Office Hours
+        start: 1:00 PM
+        end: 2:00 PM
+        location: EH
   - name: Thursday
     events:
-      - name: Lecture
-        start: 9:10 AM
-        end: 10:10 AM
-        location: BB
+      - name: Zoom Office Hours
+        start: 3:00 PM
+        end: 4:00 PM
+        location: See canvas
   - name: Friday
-    events:
-      - name: Lecture
-        start: 9:10 AM
-        end: 10:10 AM
-        location: BB
-      - name: Office Hours
-        start: 10:10 AM
-        end: 11:10 AM
-        location: BB
 ---
