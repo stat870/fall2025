@@ -4,11 +4,11 @@ title: STAT 870
 nav_exclude: true
 permalink: /:path/
 seo:
-  type: Analysis of Messy Data
+  type: Course
   name: STAT 870
 ---
 
-STAT 870 - Analysis of Messy Data  
+# STAT 870 - Analysis of Messy Data  
 Fall 2025   
 Kansas State University
 
