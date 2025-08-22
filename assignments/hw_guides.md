@@ -16,9 +16,9 @@ The following guides are solved homeworks, indicating what was expected from eac
 | HW2       |             |             |             |
 | HW3       |             |             |             |
 | HW4       |             |             |             |
-|Project proposal |       |             |             |
-|Project report |             |             |             |
-|Project R code |             |             |             |
+|Project proposal | [example](https://stat870.github.io/fall2025/assignments/proposal_example.pdf)  |             |             |
+|Project report |   [example](https://stat870.github.io/fall2025/assignments/report_example.pdf)    |             |             |
+|Project R code |   [example](https://stat870.github.io/fall2025/assignments/tutorial_example.pdf)      |             |             |
 
 
 
