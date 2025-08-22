@@ -11,6 +11,6 @@ Assignments may be completed individually or in groups of two people. Group stud
 To get full points, make sure you: 
 
 - Silence unnecessary warnings/messages (e.g., when loading a package).  
-- Use clean math notation using $$\LaTeX$$ or pasting an image of a statistical model using pen and paper.  
+- Use clean math notation using $$\\LaTeX$$ or pasting an image of a statistical model using pen and paper.  
 
 {:toc}
