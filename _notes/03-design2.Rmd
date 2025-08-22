@@ -1,0 +1,45 @@
+# Designed Experiments Review      
+September 3rd   
+
+## Announcements
+
+- [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) is due today! 
+- Applied Linear Mixed Models Workshop 09/13-09/14 
+
+## Designed experiments  
+
+Let's review the basics of designed experiments:  
+
+- Research question 
+- Planning the experiment  
+- Treatment structure 
+- Design structure 
+
+### Desgin structures  
+
+While the treatment structure defines what effects we will try and estimate as precisely as possible, the design structure tells us the story of **how** those treatments were applied. 
+The main objective of 
+Some of the most common designed experiments include 
+
+- completely randomized design (CRD), 
+- randomized complete block design (RCBD), 
+- split-plot design, 
+- variations like 
+  - generalized randomized complete block design, 
+  - strip-plot design, 
+  - repeated measures designs. 
+
+
+```{r echo=FALSE, fig.cap="Schematic description of an experiment with a completely randomized design", out.width = '100%'}
+knitr::include_graphics("../figures/designs_crd.PNG")
+```
+
+
+```{r echo=FALSE, fig.cap="Schematic description of an experiment with a randomized complete block design", out.width = '100%'}
+knitr::include_graphics("../figures/designs_rcbd.PNG")
+```
+
+
+```{r echo=FALSE, fig.cap="Schematic description of a field experiment with a split-plot design", out.width = '100%'}
+knitr::include_graphics("../figures/designs_splitplot.PNG")
+```

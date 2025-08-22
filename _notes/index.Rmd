@@ -16,6 +16,7 @@ August 25th, 2025
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 read.csv("../../students_STAT_870_A.csv") %>%
+  filter(degreeProgram != "") %>% 
   ggplot(aes(x = degreeProgram))+
   geom_bar(fill = "#B388EB")+
   theme_bw()+
