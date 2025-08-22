@@ -2,7 +2,7 @@
 
 Semester projects may deal with any topic that interests you [the student], as long as it is approved by the instructor.  
 
-Broadly, projects are expected to **identify a research problem** and **develop an appropriate workflow that is appropriate for solving that problem**. Projects consist of a manuscript and a reproducible tutorial that describes the research problem, the experiment design and the treatment design.  
+Broadly, projects are expected to (i) identify a research problem, (ii) develop an appropriate workflow that is appropriate for solving that problem, and (iii) create a report and reproducible tutorial. 
 
 ## Learning objectives   
 
@@ -11,7 +11,7 @@ Broadly, projects are expected to **identify a research problem** and **develop 
 
 ## Partial deadlines
 
-### Project proposal - Due Friday September 24 at 11:59pm CT
+### Project proposal - Due Friday September 24 at 11:59pm CT 
 Write a page-long project proposal that states your research problem and the objective of your project. An example of an appropriate project proposal can be found [here](https://stat870.github.io/fall2025/assignments/proposal_example.pdf).
 
 ### Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review 
@@ -20,9 +20,9 @@ Write a page-long project proposal that states your research problem and the obj
 Prepare a 15 minute presentation of the core aspects of your project. 
 Presentations should include at least: 
 
-- Motivation  
-- Methods, including a clear and complete description of the statistical model and code
-- Discussion of strengths and weaknesses
+- Motivation,  
+- Methods, including a clear and complete description of the statistical model and code, 
+- Discussion of strengths and weaknesses. 
 
 ### Written report - Due Friday December 19 at 11:59pm CT for peer review 
 Submit a manuscript including:
@@ -31,12 +31,9 @@ Submit a manuscript including:
 - Methods, including: 
   - A complete ANOVA table describing the degrees of freedom associated to mean comparisons, 
   - A clear and complete description of the statistical model,
-  - R code that would be implemented to fit that model,
-- Expected results 
-- Discussion of strengths and weaknesses of the experiment design (e.g., compare an RCBD with a split-plot design)
+  - R code to implement that model,
+- Results 
+- Discussion including strengths and weaknesses of the design/analysis,
+- Conclusions. 
 
 
-### Practical reads  
-
-- Casler, M.D. (2015), Fundamentals of Experimental Design: Guidelines for Designing Successful Experiments. Agronomy Journal, 107: 692-705. https://doi.org/10.2134/agronj2013.0114  
-- Casler, M.D. (2018). Power and Replication—Designing Powerful Experiments. In Applied Statistics in Agricultural, Biological, and Environmental Sciences (eds B. Glaz and K.M. Yeater). https://doi.org/10.2134/appliedstatistics.2015.0075.c4  
