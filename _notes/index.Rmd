@@ -30,12 +30,11 @@ read.csv("../../students_STAT_870_A.csv") %>%
 
 ### Logistics  
 
-- [Website](#)
+- [Website](https://stat870.github.io/fall2025/)
 - Syllabus 
 - Statistical programming requirements  
 - Rough mindmap of the course (on whiteboard)  
-- [Semester project - analyze your own experiment.](#)   
-- Reproducible tutorial 
+- [Semester project](https://stat870.github.io/fall2025/notes/semester-project.html)   
 - Grades: A (100-89.999999999(!!!)), B (89.99-79.99), C (79.99-69.99), D (69.99-59.99), F (<59.99).
 - Attendance policies & kahoots  
 
