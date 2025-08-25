@@ -13,7 +13,11 @@ August 25th, 2025
 - [About me](https://jlacasa.github.io/) 
 - About you: 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE, fig.cap="Students of this class", out.width = '80%', fig.align='center'}
+knitr::include_graphics("../figures/students.jpg")
+```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 read.csv("../../students_STAT_870_A.csv") %>%
   filter(degreeProgram != "") %>% 
@@ -24,6 +28,7 @@ read.csv("../../students_STAT_870_A.csv") %>%
         panel.border = element_blank(),
         axis.title.x = element_blank(),
         axis.text.x = element_text(angle = 50, vjust = 1, hjust=1))
+ggsave("../figures/students.jpg")
 ```
 
 - In rounds: What's your major and what do you expect to learn in 870?  
