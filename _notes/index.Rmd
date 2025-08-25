@@ -139,5 +139,6 @@ knitr::include_graphics("../figures/stroup_distributions.jpg")
 
 - Install R and RStudio. 
 - Submit [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) by next Monday. 
+- Read Chapter 2 in Stroup et al. (2024) 
 - [Applied Linear Mixed Models Workshop - Sept 13 & 14](https://kstate.qualtrics.com/jfe/form/SV_bJIjdCz50Lw7hR4) 
 
