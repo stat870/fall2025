@@ -23,7 +23,7 @@ schedule:
     events:
       - name: Lecture
         start: 11:30 AM
-        end: 12:45 AM
+        end: 12:45 PM
         location: EH
       - name: Office Hours
         start: 1:00 PM
@@ -34,7 +34,7 @@ schedule:
     events:
       - name: Lecture
         start: 11:30 AM
-        end: 12:45 AM
+        end: 12:45 PM
         location: EH
       - name: Office Hours
         start: 1:00 PM
