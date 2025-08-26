@@ -220,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Randomization</li>
 <li>Local control</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-225"></span>
 <img src="../figures/principles.jpg" alt="Principles for conducting valid and efficient experiments. From Box, Hunter and Hunter (2005)." width="80%" />
 <p class="caption">
 Figure 2.1: Principles for conducting valid and efficient experiments. From Box, Hunter and Hunter (2005).
@@ -230,21 +230,44 @@ Figure 2.1: Principles for conducting valid and efficient experiments. From Box,
 <h3><span class="header-section-number">2.2.1</span> Treatment structure<a href="designed-experiments-review.html#treatment-structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Solely about the treatment.</li>
-<li>Most likely connected to the research question.</li>
+<li>Most likely connected to the research question and thus defined by the subject matter expert.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-226"></span>
 <img src="../figures/trtdesigns_oneway.PNG" alt="Schematic representation of a one-way treatment structure." width="80%" />
 <p class="caption">
 Figure 2.2: Schematic representation of a one-way treatment structure.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
+<p>A one-way treatment structure means that the expected value of the observations, <span class="math inline">\(y\)</span>, is affected by one treatment factor with <span class="math inline">\(k\)</span> levels:</p>
+<p><span class="math display">\[g(\mu_{ij}) = \eta_{ij} = \eta_{0} + T_i,\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mu_{ij}\)</span> is the expected value of <span class="math inline">\(y_{ij}\)</span>, the observation of the <span class="math inline">\(i\)</span>th treatment and <span class="math inline">\(j\)</span>th repetition,</li>
+<li><span class="math inline">\(g(\cdot)\)</span> is the link function, that ensures that the mean is within the support of the chosen distribution,</li>
+<li><span class="math inline">\(\eta_{ij}\)</span> is the linear predictor of <span class="math inline">\(g(\mu_{ij})\)</span>,</li>
+<li><span class="math inline">\(\eta_{0}\)</span> is the overall mean, and</li>
+<li><span class="math inline">\(T_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th level of the treatment <span class="math inline">\(T\)</span>.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-227"></span>
 <img src="../figures/trtdesigns_twoway.PNG" alt="Schematic representation of a two-way factorial treatment structure." width="80%" />
 <p class="caption">
 Figure 2.3: Schematic representation of a two-way factorial treatment structure.
 </p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<p>A two-way treatment structure is similar to a one-way treatment structure, only now the expected value is affected by two treatment factors:</p>
+<p><span class="math display">\[g(\mu_{ijk}) = \eta_{ijk} = \eta_{0} + T_i + G_j + (TG)_{ij} ,\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mu_{ijk}\)</span> is the expected value of <span class="math inline">\(y_{ij}\)</span>, the observation of the <span class="math inline">\(i\)</span>th treatment <span class="math inline">\(T\)</span>, <span class="math inline">\(j\)</span>th treatment <span class="math inline">\(G\)</span>, and <span class="math inline">\(k\)</span> repetition,</li>
+<li><span class="math inline">\(g(\cdot)\)</span> is the link function, that ensures that the mean is within the support of the chosen distribution,</li>
+<li><span class="math inline">\(\eta_{ijk}\)</span> is the linear predictor of <span class="math inline">\(g(\mu_{ijk})\)</span>,</li>
+<li><span class="math inline">\(\eta_{0}\)</span> is the overall mean,<br />
+</li>
+<li><span class="math inline">\(T_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th level of the treatment <span class="math inline">\(T\)</span>,</li>
+<li><span class="math inline">\(G_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th level of the treatment <span class="math inline">\(G\)</span>, and</li>
+<li><span class="math inline">\((TG)_{ij}\)</span> is the interaction between the <span class="math inline">\(i\)</span>th level of treatment <span class="math inline">\(T\)</span>, and <span class="math inline">\(j\)</span>th level of treatment <span class="math inline">\(G\)</span>.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-228"></span>
 <img src="../figures/trtdesigns_threeway.PNG" alt="Schematic representation of a tree-way factorial treatment structure." width="80%" />
 <p class="caption">
 Figure 2.4: Schematic representation of a tree-way factorial treatment structure.
@@ -254,9 +277,10 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 <div id="design-structure" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Design structure<a href="designed-experiments-review.html#design-structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
+<li>You’ll notice that the models above only consider the treatment sources of variability to explain variations in the observed values.</li>
 <li>How were the treatments above (logistically) applied?</li>
 </ul>
-<p>Useful questions:</p>
+<p><strong>Useful questions:</strong></p>
 <ul>
 <li>What is the experimental unit?<br />
 </li>
@@ -266,7 +290,12 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 </div>
 <div id="applied-example-fungicide-effects-on-barley-genotypes" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Applied example: fungicide effects on barley genotypes<a href="designed-experiments-review.html#applied-example-fungicide-effects-on-barley-genotypes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The data below were generated by an experiment that aimed to study the effect of fungicide and barley genotypes on grain yield.</p>
+<p>Let’s consider an experiment that aimed to study the effect of fungicide and barley genotypes on grain yield. The study includes two levels of fungicide, and 70 different genotypes, considering all their possible combinations.</p>
+<ul>
+<li>What is the treatment structure of the experiment?</li>
+<li>Do we know the design structure of the experiment?</li>
+</ul>
+<p><strong>Now, the actual experiment was run like this:</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="designed-experiments-review.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="designed-experiments-review.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(agridat)</span>
 <span id="cb1-3"><a href="designed-experiments-review.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
@@ -279,7 +308,7 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 <span id="cb2-6"><a href="designed-experiments-review.html#cb2-6" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
 <span id="cb2-7"><a href="designed-experiments-review.html#cb2-7" tabindex="-1"></a>  <span class="co"># geom_tile(aes(fill = gen))+</span></span>
 <span id="cb2-8"><a href="designed-experiments-review.html#cb2-8" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-230-1.png" width="672" /></p>
 <ul>
 <li>What is the treatment structure?</li>
 <li>What are the experimental units?</li>
@@ -291,7 +320,7 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 <h2><span class="header-section-number">2.4</span> Homework &amp; Announcements<a href="designed-experiments-review.html#homework-announcements-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Submit <a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> by next Monday.</li>
-<li>Applied Linear Mixed Models Workshop</li>
+<li>Applied Linear Mixed Models Workshop is full. Email me if you still want to join.</li>
 </ul>
 
 </div>
