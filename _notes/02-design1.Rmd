@@ -58,7 +58,7 @@ library(lme4)
 library(emmeans)
 ```
 
-```{r}
+```{r split plot, echo=TRUE}
 df_fungicide <- agridat::durban.splitplot
 
 df_fungicide %>% 
