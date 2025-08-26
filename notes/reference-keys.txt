@@ -27,7 +27,7 @@ homework-announcements-1
 designed-experiments-review-1
 announcements-1
 designed-experiments-1
-desgin-structures
+design-structures
 semester-project
 learning-objectives
 partial-deadlines

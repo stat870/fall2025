@@ -15,7 +15,7 @@ Let's review the basics of designed experiments:
 - Treatment structure 
 - Design structure 
 
-### Desgin structures  
+### Design structures  
 
 While the treatment structure defines what effects we will try and estimate as precisely as possible, the design structure tells us the story of **how** those treatments were applied. 
 The main objective of 
