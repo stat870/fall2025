@@ -43,3 +43,22 @@ knitr::include_graphics("../figures/designs_rcbd.PNG")
 ```{r echo=FALSE, fig.cap="Schematic description of a field experiment with a split-plot design", out.width = '100%'}
 knitr::include_graphics("../figures/designs_splitplot.PNG")
 ```
+
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+library(agridat)
+library(lme4)
+library(emmeans)
+```
+
+```{r echo=TRUE}
+df_fungicide <- agridat::durban.splitplot
+
+df_fungicide %>% 
+  ggplot(aes(bed, row))+
+  # geom_tile(aes(fill = block))+
+  geom_tile(aes(fill = fung))+
+  # geom_tile(aes(fill = gen))+
+  geom_tile(aes(), color = "black", fill = NA)
+```

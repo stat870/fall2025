@@ -255,6 +255,19 @@ Figure 3.2: Schematic description of an experiment with a randomized complete bl
 Figure 3.3: Schematic description of a field experiment with a split-plot design
 </p>
 </div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="designed-experiments-review-1.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="designed-experiments-review-1.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(agridat)</span>
+<span id="cb3-3"><a href="designed-experiments-review-1.html#cb3-3" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb3-4"><a href="designed-experiments-review-1.html#cb3-4" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="designed-experiments-review-1.html#cb4-1" tabindex="-1"></a>df_fungicide <span class="ot">&lt;-</span> agridat<span class="sc">::</span>durban.splitplot</span>
+<span id="cb4-2"><a href="designed-experiments-review-1.html#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="designed-experiments-review-1.html#cb4-3" tabindex="-1"></a>df_fungicide <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="designed-experiments-review-1.html#cb4-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(bed, row))<span class="sc">+</span></span>
+<span id="cb4-5"><a href="designed-experiments-review-1.html#cb4-5" tabindex="-1"></a>  <span class="co"># geom_tile(aes(fill = block))+</span></span>
+<span id="cb4-6"><a href="designed-experiments-review-1.html#cb4-6" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
+<span id="cb4-7"><a href="designed-experiments-review-1.html#cb4-7" tabindex="-1"></a>  <span class="co"># geom_tile(aes(fill = gen))+</span></span>
+<span id="cb4-8"><a href="designed-experiments-review-1.html#cb4-8" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 
 </div>
 </div>
