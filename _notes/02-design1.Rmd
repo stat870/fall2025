@@ -63,11 +63,10 @@ df_fungicide <- agridat::durban.splitplot
 
 df_fungicide %>% 
   ggplot(aes(bed, row))+
-  # geom_tile(aes(fill = block))+
-  geom_tile(aes(fill = fung))+
+  geom_tile(aes(fill = block))+
+  # geom_tile(aes(fill = fung))+
   # geom_tile(aes(fill = gen))+
   geom_tile(aes(), color = "black", fill = NA)
-  
 ```
 
 - What is the treatment structure? 
