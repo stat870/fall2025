@@ -208,31 +208,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Announcements<a href="designed-experiments-review.html#announcements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> is due next Monday.</li>
-<li>Applied Linear Mixed Models Workshop 09/13-09/14</li>
+<li>Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.</li>
 </ul>
 </div>
 <div id="designed-experiments" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Designed experiments<a href="designed-experiments-review.html#designed-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Designed experiments are data-generating processes under <strong>controlled</strong> settings.</p>
 <p>The golden rules of designed experiments:</p>
 <ul>
 <li>Replication</li>
 <li>Randomization</li>
 <li>Local control</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-225"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
 <img src="../figures/principles.jpg" alt="Principles for conducting valid and efficient experiments. From Box, Hunter and Hunter (2005)." width="80%" />
 <p class="caption">
 Figure 2.1: Principles for conducting valid and efficient experiments. From Box, Hunter and Hunter (2005).
 </p>
 </div>
+<ul>
+<li>About George Box I - A Conversation with George Box [<a href="https://projecteuclid.org/journals/statistical-science/volume-2/issue-3/A-Conversation-with-George-Box/10.1214/ss/1177013223.full">link</a>]</li>
+<li>About George Box II - An Accidental Statistician: The Life and Memories of George E. P. Box [<a href="https://www.amazon.com/Accidental-Statistician-Life-Memories-George/dp/1118400887">link</a>]</li>
+</ul>
 <div id="treatment-structure" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Treatment structure<a href="designed-experiments-review.html#treatment-structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Solely about the treatment.</li>
 <li>Most likely connected to the research question and thus defined by the subject matter expert.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-226"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
 <img src="../figures/trtdesigns_oneway.PNG" alt="Schematic representation of a one-way treatment structure." width="80%" />
 <p class="caption">
 Figure 2.2: Schematic representation of a one-way treatment structure.
@@ -248,7 +251,7 @@ where:</p>
 <li><span class="math inline">\(\eta_{0}\)</span> is the overall mean, and</li>
 <li><span class="math inline">\(T_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th level of the treatment <span class="math inline">\(T\)</span>.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-227"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-7"></span>
 <img src="../figures/trtdesigns_twoway.PNG" alt="Schematic representation of a two-way factorial treatment structure." width="80%" />
 <p class="caption">
 Figure 2.3: Schematic representation of a two-way factorial treatment structure.
@@ -267,7 +270,7 @@ where:</p>
 <li><span class="math inline">\(G_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th level of the treatment <span class="math inline">\(G\)</span>, and</li>
 <li><span class="math inline">\((TG)_{ij}\)</span> is the interaction between the <span class="math inline">\(i\)</span>th level of treatment <span class="math inline">\(T\)</span>, and <span class="math inline">\(j\)</span>th level of treatment <span class="math inline">\(G\)</span>.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-228"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
 <img src="../figures/trtdesigns_threeway.PNG" alt="Schematic representation of a tree-way factorial treatment structure." width="80%" />
 <p class="caption">
 Figure 2.4: Schematic representation of a tree-way factorial treatment structure.
@@ -276,6 +279,7 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 </div>
 <div id="design-structure" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Design structure<a href="designed-experiments-review.html#design-structure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The experiment design describes the data generating process (“blueprint” of the data).</p>
 <ul>
 <li>You’ll notice that the models above only consider the treatment sources of variability to explain variations in the observed values.</li>
 <li>How were the treatments above (logistically) applied?</li>
@@ -308,7 +312,7 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 <span id="cb2-6"><a href="designed-experiments-review.html#cb2-6" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
 <span id="cb2-7"><a href="designed-experiments-review.html#cb2-7" tabindex="-1"></a>  <span class="co"># geom_tile(aes(fill = gen))+</span></span>
 <span id="cb2-8"><a href="designed-experiments-review.html#cb2-8" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-230-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <ul>
 <li>What is the treatment structure?</li>
 <li>What are the experimental units?</li>

@@ -4,11 +4,9 @@ August 27th
 ## Announcements
 
 - [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) is due next Monday. 
-- Applied Linear Mixed Models Workshop 09/13-09/14 
+- Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.  
 
 ## Designed experiments  
-
-Designed experiments are data-generating processes under **controlled** settings. 
 
 The golden rules of designed experiments: 
 
@@ -19,6 +17,9 @@ The golden rules of designed experiments:
 ```{r echo=FALSE, fig.cap="Principles for conducting valid and efficient experiments. From Box, Hunter and Hunter (2005).", out.width = '80%', fig.align='center'}
 knitr::include_graphics("../figures/principles.jpg")
 ```
+
+- About George Box I - A Conversation with George Box [[link](https://projecteuclid.org/journals/statistical-science/volume-2/issue-3/A-Conversation-with-George-Box/10.1214/ss/1177013223.full)] 
+- About George Box II - An Accidental Statistician: The Life and Memories of George E. P. Box [[link](https://www.amazon.com/Accidental-Statistician-Life-Memories-George/dp/1118400887)] 
 
 
 ### Treatment structure
@@ -63,6 +64,8 @@ knitr::include_graphics("../figures/trtdesigns_threeway.PNG")
 ```
 
 ### Design structure  
+
+The experiment design describes the data generating process ("blueprint" of the data). 
 
 - You'll notice that the models above only consider the treatment sources of variability to explain variations in the observed values. 
 - How were the treatments above (logistically) applied? 
