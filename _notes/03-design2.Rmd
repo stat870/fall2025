@@ -4,7 +4,7 @@ September 3rd
 ## Announcements
 
 - [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) is due today! 
-- Applied Linear Mixed Models Workshop 09/13-09/14 
+- Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.  
 
 ## Designed experiments  
 
@@ -12,19 +12,18 @@ Let's review the basics of designed experiments:
 
 - Research question 
 - Planning the experiment  
-- Treatment structure 
-- Design structure 
+- Treatment structure - directly dependent on the research question 
+- Design structure - mostly depending on logistics. May depend on the research question. 
 
 ### Design structures  
 
 While the treatment structure defines what effects we will try and estimate as precisely as possible, the design structure tells us the story of **how** those treatments were applied. 
-The main objective of 
 Some of the most common designed experiments include 
 
 - completely randomized design (CRD), 
 - randomized complete block design (RCBD), 
 - split-plot design, 
-- variations like 
+- relevant variations to the designs above:  
   - generalized randomized complete block design, 
   - strip-plot design, 
   - repeated measures designs. 
@@ -44,3 +43,40 @@ knitr::include_graphics("../figures/designs_rcbd.PNG")
 knitr::include_graphics("../figures/designs_splitplot.PNG")
 ```
 
+
+## Applied example: fungicide effects on barley genotypes   
+
+Let's consider an experiment that aimed to study the effect of fungicide and barley genotypes on grain yield. The study includes two levels of fungicide, and 70 different genotypes, considering all their possible combinations. 
+
+- What is the treatment structure of the experiment?
+- Do we know the design structure of the experiment?
+
+**Now, the actual experiment was run like this:** 
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+library(agridat)
+library(lme4)
+library(emmeans)
+```
+
+```{r echo=TRUE}
+df_fungicide <- agridat::durban.splitplot
+
+df_fungicide %>% 
+  ggplot(aes(bed, row))+
+  # geom_tile(aes(fill = block))+
+  geom_tile(aes(fill = fung))+
+  # geom_tile(aes(fill = gen))+
+  geom_tile(aes(), color = "black", fill = NA)
+```
+
+- What is the treatment structure? 
+- What are the experimental units? 
+- How many independent observations per treatment factor? 
+- What is the design structure? 
+
+## Homework & Announcements  
+
+- [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) due today. 
+- Applied Linear Mixed Models Workshop is full. Email me if you still want to join. 

@@ -160,8 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
 <li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>2.3</b> Applied example: fungicide effects on barley genotypes</a></li>
-<li class="chapter" data-level="2.4" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.4</b> Homework &amp; Announcements</a></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
 <ul>
@@ -170,6 +169,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.2.1</b> Design structures</a></li>
 </ul></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.3</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.4</b> Homework &amp; Announcements</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="semester-project.html"><a href="semester-project.html"><i class="fa fa-check"></i><b>4</b> Semester Project</a>
 <ul>
@@ -207,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="announcements" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Announcements<a href="designed-experiments-review.html#announcements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> is due next Monday.</li>
+<li><a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> is due next Wednesday.</li>
 <li>Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.</li>
 </ul>
 </div>
@@ -292,38 +293,10 @@ Figure 2.4: Schematic representation of a tree-way factorial treatment structure
 </ul>
 </div>
 </div>
-<div id="applied-example-fungicide-effects-on-barley-genotypes" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Applied example: fungicide effects on barley genotypes<a href="designed-experiments-review.html#applied-example-fungicide-effects-on-barley-genotypes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s consider an experiment that aimed to study the effect of fungicide and barley genotypes on grain yield. The study includes two levels of fungicide, and 70 different genotypes, considering all their possible combinations.</p>
+<div id="homework-announcements-1" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Homework &amp; Announcements<a href="designed-experiments-review.html#homework-announcements-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>What is the treatment structure of the experiment?</li>
-<li>Do we know the design structure of the experiment?</li>
-</ul>
-<p><strong>Now, the actual experiment was run like this:</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="designed-experiments-review.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="designed-experiments-review.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(agridat)</span>
-<span id="cb1-3"><a href="designed-experiments-review.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb1-4"><a href="designed-experiments-review.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="designed-experiments-review.html#cb2-1" tabindex="-1"></a>df_fungicide <span class="ot">&lt;-</span> agridat<span class="sc">::</span>durban.splitplot</span>
-<span id="cb2-2"><a href="designed-experiments-review.html#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="designed-experiments-review.html#cb2-3" tabindex="-1"></a>df_fungicide <span class="sc">%&gt;%</span> </span>
-<span id="cb2-4"><a href="designed-experiments-review.html#cb2-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(bed, row))<span class="sc">+</span></span>
-<span id="cb2-5"><a href="designed-experiments-review.html#cb2-5" tabindex="-1"></a>  <span class="co"># geom_tile(aes(fill = block))+</span></span>
-<span id="cb2-6"><a href="designed-experiments-review.html#cb2-6" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
-<span id="cb2-7"><a href="designed-experiments-review.html#cb2-7" tabindex="-1"></a>  <span class="co"># geom_tile(aes(fill = gen))+</span></span>
-<span id="cb2-8"><a href="designed-experiments-review.html#cb2-8" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<ul>
-<li>What is the treatment structure?</li>
-<li>What are the experimental units?</li>
-<li>How many independent observations per treatment factor?</li>
-<li>What is the design structure?</li>
-</ul>
-</div>
-<div id="homework-announcements-1" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Homework &amp; Announcements<a href="designed-experiments-review.html#homework-announcements-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Submit <a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> by next Monday.</li>
+<li>Submit <a href="https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf">Assignment 1</a> by next Wednesday.</li>
 <li>Applied Linear Mixed Models Workshop is full. Email me if you still want to join.</li>
 </ul>
 
