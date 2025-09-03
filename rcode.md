@@ -11,5 +11,5 @@ nav_order: 4
 ### Designed experiments 
 
 - Split plot designs: 
-  - Day 3 -- 09/03/2025  
+  - Day 3 -- 09/03/2025 [get R code](../scripts/09032025_splitplot_inclass.Rmd) 
 
