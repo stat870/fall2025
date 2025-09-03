@@ -38,7 +38,6 @@ summary(m)
 
 ## Model checking   
 
-
 ```{r}
 df_fungicide$residuals <- residuals(m, type = "pearson")
 df_fungicide$yhat <- predict(m)
