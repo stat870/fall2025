@@ -1,0 +1,26 @@
+---
+title: "Vaccine performance and production characteristics for Atlantic salmon"
+author: "J Lacasa"
+date: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background  
+
+Atlantic salmon (*Salmo salar* L.) farms are often prone to diseases, leading to a loss in production. 
+The use of vaccines on Atlantic salmon is one of the most sustainable strategies for avoiding loss of production due to diseases (Midtlyng et al., 1996). 
+However, there is a great difference between the side effects of vaccines on growth and development (Berg et al., 2007). 
+The objective of this study is to compare the performance of different vaccines on the grown and survival of Atlantic salmon under standard production conditions. 
+
+## References  
+
+- Berg, A., Rødseth, O. M., & Hansen, T. (2007). Fish size at vaccination influence the development of side-effects in Atlantic salmon (Salmo salar L.). Aquaculture, 265(1), 9–15. [https://doi.org/10.1016/j.aquaculture.2007.02.014](https://doi.org/10.1016/j.aquaculture.2007.02.014)  
+- Midtlyng, P. J., Reitan, L. J., Lillehaug, A., & Ramstad, A. (1996). Protection, immune responses and side effects in Atlantic salmon (Salmo salar L.) vaccinated against furunculosis by different procedures. Fish & Shellfish Immunology, 6(8), 599–613. [https://doi.org/10.1006/fsim.1996.0055](https://doi.org/10.1006/fsim.1996.0055) 
+
+## Acknowledgements   
+
+This problem was generously provided by Dr. Cernicciaro, and is part of Dr. Tim Bunley's PhD thesis. Univ of PEI, Charlottetown, PEI Canada, 2009.

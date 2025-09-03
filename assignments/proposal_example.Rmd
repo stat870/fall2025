@@ -1,0 +1,28 @@
+---
+title: "Project proposal example"
+author: "J Lacasa"
+date: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background  
+Legume species are an important component of pasture systems. 
+Legumes are good sources of protein and improve the nutritional quality of a pasture mix (Provenza et al., 2003). 
+Legumes can establish symbiotic relationships with nitrogen-fixating bacteria and thus represent a sustainable source of Nitrogen for cattle nutrition.
+Legume species, however, often present growth requirements that may restrict their growth under stressful environments. 
+For example, waterlogging (i.e., periods of flooding that result in anaerobic soil conditions) is a common challenge in many cattle operations. 
+Waterlogging may hinder plant growth and ultimately cattle nutrition. 
+However, there is previous evidence about genotypic difference in the tolerance to waterlogging (Malik et al., 2015). 
+The objective of this experiment is to determine the effect of waterlogging on plant growth among three legume species: A, B, and C.
+
+
+## References  
+
+Al Imran Malik, Tadhamin Iskander Ailewe, William Erskine, Tolerance of three grain legume species to transient waterlogging, AoB PLANTS, Volume 7, 2015, [https://doi.org/10.1093/aobpla/plv040](https://doi.org/10.1093/aobpla/plv040).
+
+F.D Provenza, J.J Villalba, L.E Dziba, S.B Atwood, R.E Banner, Linking herbivore experience, varied diets, and plant biochemical diversity, Small Ruminant Research, Volume 49, Issue 3, 2003. [https://doi.org/10.1016/S0921-4488(03)00143-3](https://doi.org/10.1016/S0921-4488(03)00143-3).
+
