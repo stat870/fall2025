@@ -2,11 +2,13 @@
 title: "Assignment 2"
 author: "Your Name"
 date: "2025-09-03"
-output: pdf_document
+output: 
+  pdf_document:
+    extra_dependencies: ["float"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos = "H", out.extra = "", echo = TRUE)
 ```
 
 ## Goal of this assignment  
@@ -29,7 +31,7 @@ Below are two snippets from peer-reviewed papers. For all, identify the treatmen
 
 From "Plasma concentrations of substance P and cortisol in beef calves after castration or simulated castration" - coetzee et al. (2008) [[link](https://avmajournals.avma.org/view/journals/ajvr/69/6/ajvr.69.6.751.xml)] 
 
-```{r echo=FALSE, fig.cap="From Coetzee et al. (2008)", out.width = '50%'}
+```{r echo=FALSE, fig.cap="From Coetzee et al. (2008)",fig.align='center', out.width = '90%'}
 knitr::include_graphics("img/coetzee_2008.png")
 ```
 
@@ -37,7 +39,7 @@ knitr::include_graphics("img/coetzee_2008.png")
 
 From "Maize Kernel Weight Response to Postflowering Source–Sink Ratio" - Borras and Otegui (2001) [[link](https://acsess.onlinelibrary.wiley.com/doi/abs/10.2135/cropsci2001.1816)]
 
-```{r echo=FALSE, fig.cap="From Borras and Otegui (2001)", out.width = '50%'}
+```{r echo=FALSE, fig.cap="From Borras and Otegui (2001)",fig.align='center', out.width = '55%'}
 knitr::include_graphics("img/borras2001.jpg")
 ```
 
