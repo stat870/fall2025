@@ -1752,27 +1752,73 @@ display: none;
 
 
 <!-- rnb-text-begin -->
+<p>For a single variable:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVXbHh1WEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5aXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuWlxuXG5gYGAifQ== -->
-<pre class="r"><code>Z
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVXaUE4TFNCdFlYUnlhWGdvWXlneExDQXdMQ0F3TEZ4dUlDQWdJQ0FnSUNBZ0lDQWdJQ0F3TENBd0xDQXhMRnh1SUNBZ0lDQWdJQ0FnSUNBZ0lDQXdMQ0F4TENBd0xGeHVJQ0FnSUNBZ0lDQWdJQ0FnSUNBeExDQXdMQ0F3TENCY2JpQWdJQ0FnSUNBZ0lDQWdJQ0FnTVN3Z01Dd3dLU3dnYm1OdmJDQTlJRE1zSUdKNWNtOTNJRDBnVkNsY2JseHVjMmxuYldGZmRTQThMU0F4TGpWY2JseHVSeUE4TFNCa2FXRm5LR01vYzJsbmJXRmZkU2tzSUc1eWIzY2dQU0F6S1Z4dVhHNWFKU29sUnlVcUpYUW9XaWxjYm1CZ1lDSjkgLS0+XG5cbmBgYHJcblogPC0gbWF0cml4KGMoMSwgMCwgMCxcbiAgICAgICAgICAgICAgMCwgMCwgMSxcbiAgICAgICAgICAgICAgMCwgMSwgMCxcbiAgICAgICAgICAgICAgMSwgMCwgMCwgXG4gICAgICAgICAgICAgIDEsIDAsMCksIG5jb2wgPSAzLCBieXJvdyA9IFQpXG5cbnNpZ21hX3UgPC0gMS41XG5cbkcgPC0gZGlhZyhjKHNpZ21hX3UpLCBucm93ID0gMylcblxuWiUqJUclKiV0KFopXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuWiA8LSBtYXRyaXgoYygxLCAwLCAwLFxuICAgICAgICAgICAgICAwLCAwLCAxLFxuICAgICAgICAgICAgICAwLCAxLCAwLFxuICAgICAgICAgICAgICAxLCAwLCAwLCBcbiAgICAgICAgICAgICAgMSwgMCwwKSwgbmNvbCA9IDMsIGJ5cm93ID0gVClcblxuc2lnbWFfdSA8LSAxLjVcblxuRyA8LSBkaWFnKGMoc2lnbWFfdSksIG5yb3cgPSAzKVxuXG5aJSolRyUqJXQoWilcbmBgYCJ9 -->
+<pre class="r"><code>Z &lt;- matrix(c(1, 0, 0,
+              0, 0, 1,
+              0, 1, 0,
+              1, 0, 0, 
+              1, 0,0), ncol = 3, byrow = T)
+
+sigma_u &lt;- 1.5
+
+G &lt;- diag(c(sigma_u), nrow = 3)
+
+Z%*%G%*%t(Z)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gIDEuNSAgMC4wICAwLjAgIDEuNSAgMS41XG5bMixdICAwLjAgIDEuNSAgMC4wICAwLjAgIDAuMFxuWzMsXSAgMC4wICAwLjAgIDEuNSAgMC4wICAwLjBcbls0LF0gIDEuNSAgMC4wICAwLjAgIDEuNSAgMS41XG5bNSxdICAxLjUgIDAuMCAgMC4wICAxLjUgIDEuNVxuIn0= -->
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]  1.5  0.0  0.0  1.5  1.5
+[2,]  0.0  1.5  0.0  0.0  0.0
+[3,]  0.0  0.0  1.5  0.0  0.0
+[4,]  1.5  0.0  0.0  1.5  1.5
+[5,]  1.5  0.0  0.0  1.5  1.5</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVVbHh1WEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5SXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUlxuXG5gYGAifQ== -->
+<pre class="r"><code>R
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXVxuWzEsXSAgICAxICAgIDAgICAgMFxuWzIsXSAgICAwICAgIDAgICAgMVxuWzMsXSAgICAwICAgIDEgICAgMFxuWzQsXSAgICAxICAgIDAgICAgMFxuWzUsXSAgICAxICAgIDAgICAgMFxuIn0= -->
-<pre><code>     [,1] [,2] [,3]
-[1,]    1    0    0
-[2,]    0    0    1
-[3,]    0    1    0
-[4,]    1    0    0
-[5,]    1    0    0</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gICAgMyAgICAwICAgIDAgICAgMCAgICAwXG5bMixdICAgIDAgICAgMyAgICAwICAgIDAgICAgMFxuWzMsXSAgICAwICAgIDAgICAgMyAgICAwICAgIDBcbls0LF0gICAgMCAgICAwICAgIDAgICAgMyAgICAwXG5bNSxdICAgIDAgICAgMCAgICAwICAgIDAgICAgM1xuIn0= -->
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    3    0    0    0    0
+[2,]    0    3    0    0    0
+[3,]    0    0    3    0    0
+[4,]    0    0    0    3    0
+[5,]    0    0    0    0    3</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVWbHh1WEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5WXG5cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVlxuXG5gYGAifQ== -->
+<pre class="r"><code>V
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBbLDFdIFssMl0gWywzXSBbLDRdIFssNV1cblsxLF0gIDQuNSAgMC4wICAwLjAgIDEuNSAgMS41XG5bMixdICAwLjAgIDQuNSAgMC4wICAwLjAgIDAuMFxuWzMsXSAgMC4wICAwLjAgIDQuNSAgMC4wICAwLjBcbls0LF0gIDEuNSAgMC4wICAwLjAgIDQuNSAgMS41XG5bNSxdICAxLjUgIDAuMCAgMC4wICAxLjUgIDQuNVxuIn0= -->
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]  4.5  0.0  0.0  1.5  1.5
+[2,]  0.0  4.5  0.0  0.0  0.0
+[3,]  0.0  0.0  4.5  0.0  0.0
+[4,]  1.5  0.0  0.0  4.5  1.5
+[5,]  1.5  0.0  0.0  1.5  4.5</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NClogPC0gbWF0cml4KGMoMSwgMCwgMCwNCiAgICAgICAgICAgICAgMCwgMCwgMSwNCiAgICAgICAgICAgICAgMCwgMSwgMCwNCiAgICAgICAgICAgICAgMSwgMCwgMCwgDQogICAgICAgICAgICAgIDEsIDAsMCksIG5jb2wgPSAzLCBieXJvdyA9IFQpDQoNCkcgPC0gZGlhZyhjKDEsIDEuNSwgMS44KSkNCg0KWiUqJUclKiV0KFopDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpGb3IgYSBzaW5nbGUgdmFyaWFibGU6IA0KDQpgYGB7cn0NClogPC0gbWF0cml4KGMoMSwgMCwgMCwNCiAgICAgICAgICAgICAgMCwgMCwgMSwNCiAgICAgICAgICAgICAgMCwgMSwgMCwNCiAgICAgICAgICAgICAgMSwgMCwgMCwgDQogICAgICAgICAgICAgIDEsIDAsMCksIG5jb2wgPSAzLCBieXJvdyA9IFQpDQoNCnNpZ21hX3UgPC0gMS41DQoNCkcgPC0gZGlhZyhjKHNpZ21hX3UpLCBucm93ID0gMykNCg0KWiUqJUclKiV0KFopDQpgYGANCg0KYGBge3J9DQpuIDwtIG5yb3coWikNCnNpZ21hX2UgPC0gMw0KUiA8LSBkaWFnKGMoc2lnbWFfZSksIG5yb3cgPSBuKQ0KUg0KYGBgDQoNCmBgYHtyfQ0KViA8LSBaJSolRyUqJXQoWikgKyBSDQpgYGANCg0K</div>
 
 
 

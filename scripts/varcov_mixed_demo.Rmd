@@ -3,6 +3,8 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+For a single variable: 
+
 ```{r}
 Z <- matrix(c(1, 0, 0,
               0, 0, 1,
@@ -10,8 +12,21 @@ Z <- matrix(c(1, 0, 0,
               1, 0, 0, 
               1, 0,0), ncol = 3, byrow = T)
 
-G <- diag(c(1, 1.5, 1.8))
+sigma_u <- 1.5
+
+G <- diag(c(sigma_u), nrow = 3)
 
 Z%*%G%*%t(Z)
+```
+
+```{r}
+n <- nrow(Z)
+sigma_e <- 3
+R <- diag(c(sigma_e), nrow = n)
+R
+```
+
+```{r}
+V <- Z%*%G%*%t(Z) + R
 ```
 
