@@ -6,6 +6,7 @@ September 3rd
 - [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) is due today! 
 - [Assignment 2](https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf) is posted and due next week. 
 - Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.  
+- Read Chapter 2 of Stroup's GLMM book (this chapter only, 1ed>2ed).  
 
 ## Semester project 
 
@@ -84,7 +85,8 @@ df_fungicide %>%
 - How many independent observations per treatment factor? 
 - What is the design structure? 
 
-- [Download R code](../scripts/09032025_splitplot.Rmd)
+
+[Download R code](../scripts/09032025_splitplot.Rmd)
 
 ## Homework & Announcements  
 
