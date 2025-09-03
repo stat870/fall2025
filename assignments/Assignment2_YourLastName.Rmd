@@ -25,11 +25,11 @@ For the statistical models, you can use \LaTeX code embedded in your Rmd, or pas
 
 ## 1. 
 
-Below are two snippets from peer-reviewed papers. For all, identify the treatment structure, the design structure, or mention if this information is unclear or unavailable. 
+Below are two snippets from Materials and Methods sections from peer-reviewed papers. Identify the treatment structure and design structure for both, or mention if this information is unclear or unavailable. 
 
 ### 1a. 
 
-From "Plasma concentrations of substance P and cortisol in beef calves after castration or simulated castration" - coetzee et al. (2008) [[link](https://avmajournals.avma.org/view/journals/ajvr/69/6/ajvr.69.6.751.xml)] 
+From "Plasma concentrations of substance P and cortisol in beef calves after castration or simulated castration" - Coetzee et al. (2008) [[link to paper](https://avmajournals.avma.org/view/journals/ajvr/69/6/ajvr.69.6.751.xml)] 
 
 ```{r echo=FALSE, fig.cap="From Coetzee et al. (2008)",fig.align='center', out.width = '90%'}
 knitr::include_graphics("img/coetzee_2008.png")
@@ -37,7 +37,7 @@ knitr::include_graphics("img/coetzee_2008.png")
 
 ### 1b. 
 
-From "Maize Kernel Weight Response to Postflowering Source–Sink Ratio" - Borras and Otegui (2001) [[link](https://acsess.onlinelibrary.wiley.com/doi/abs/10.2135/cropsci2001.1816)]
+From "Maize Kernel Weight Response to Postflowering Source–Sink Ratio" - Borras and Otegui (2001) [[link to paper](https://acsess.onlinelibrary.wiley.com/doi/abs/10.2135/cropsci2001.1816)]
 
 ```{r echo=FALSE, fig.cap="From Borras and Otegui (2001)",fig.align='center', out.width = '55%'}
 knitr::include_graphics("img/borras2001.jpg")
@@ -45,8 +45,10 @@ knitr::include_graphics("img/borras2001.jpg")
 
 ## 2. 
 
-The data in the code below correspond to a trial studying the effects of agronomic management, and the timing of said agronomic management on plant height for rice. 
-The scientists were able to divide the field into equally-sized blocks that are able to fit all treatments. 
+The data in the code below correspond to a trial studying the effects of agronomic management and the timing of said agronomic management on plant height in rice. 
+Studying plant height in rice is important because this trait is associated to lodging (i.e., when the plants are too tall and heavy and "fall"), which may reduce yields due to difficulty harvesting the grain. 
+
+The scientists were able to divide the field into equally-sized blocks that fitted all treatments (i.e., *complete blocks*). 
 Then, the scientists randomly allocated the management treatments to smaller areas within the blocks. 
 After that, they assigned the timings to even smaller areas of the management treatments. 
 From each block-management-timing treatment combination, they were able to measure plant height twice. 
@@ -54,8 +56,14 @@ From each block-management-timing treatment combination, they were able to measu
 ### 2a. 
 
 What is the treatment structure and the design structure in this experiment? 
+
+### 2b. 
+
 Write the statistical model that best represents the data generating process. 
-Then, fit that model to the data, check model assumptions, report all variance components, and the estimated marginal means (including some measure of uncertainty) for all time-management combinations. 
+
+### 2c. 
+
+Fit that model to the data, check model assumptions, report all variance components, and the estimated marginal means (including some measure of uncertainty) for all time-management combinations (i.e., 32 total combinations). 
 
 ```{r warning=FALSE, message=FALSE}
 library(agridat)
