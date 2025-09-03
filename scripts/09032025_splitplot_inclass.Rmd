@@ -1,0 +1,57 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+date: "2025-09-03"
+output: html_document
+---
+
+# Libraries 
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse) # data wrangling
+library(agridat) # data 
+library(lme4) # mixed models
+library(emmeans) # estimated marginal means
+```
+
+# Data + Data viz 
+
+```{r echo=TRUE}
+df_fungicide <- agridat::durban.splitplot
+
+df_fungicide %>% 
+  ggplot(aes(bed, row))+
+  coord_fixed()+
+  geom_tile(aes(fill = fung))+
+  geom_tile(aes(fill = gen))+
+  geom_tile(aes(), color = "black", fill = NA)
+```
+
+```{r}
+colnames(df_fungicide)
+```
+
+```{r}
+m <- lmer(yield ~ gen + fung + gen:fung + (1|block) + (1|fung:block),
+          data = df_fungicide)
+```
+
+```{r}
+df_fungicide$resid <- resid(m)
+df_fungicide$yhat <- predict(m)
+```
+
+```{r}
+plot(df_fungicide$yhat, abs(df_fungicide$resid))
+```
+
+```{r}
+df_fungicide %>% 
+  mutate(e = rnorm(n())) %>% 
+  ggplot(aes(bed, row))+
+  coord_fixed()+
+  geom_tile(aes(fill = resid))+
+  scale_fill_viridis_c()+
+  geom_tile(aes(), color = "black", fill = NA)
+```
+
