@@ -14,5 +14,5 @@ Keep in mid that all the code to generate this website and the class notes can b
 ### Designed experiments 
 
 - Split plot designs: 
-  - Day 3 -- 09/03/2025 [get R code](../scripts/09032025_splitplot_inclass.Rmd) 
+  - Day 3 -- 09/03/2025 [[get R code](../scripts/09032025_splitplot_inclass.Rmd)] 
 
