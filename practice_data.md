@@ -2,7 +2,7 @@
 layout: page
 title: Practice Data
 description: Listing of recommended datasets.
-nav_order: 6
+nav_order: 7
 ---
 
 Some sources of 'famous' datasets you can use to practice:

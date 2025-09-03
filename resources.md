@@ -2,7 +2,7 @@
 layout: page
 title: Resources
 description: Listing of recommended textbooks and papers.
-nav_order: 5
+nav_order: 6
 ---
 
 **Required Textbooks:**
