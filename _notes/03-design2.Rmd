@@ -4,6 +4,7 @@ September 3rd
 ## Announcements
 
 - [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) is due today! 
+- [Assignment 2](https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf) is posted and due next week. 
 - Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.  
 
 ## Semester project 

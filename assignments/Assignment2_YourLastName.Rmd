@@ -56,16 +56,11 @@ Write the statistical model that best represents the data generating process.
 Then, fit that model to the data, check model assumptions, report all variance components, and the estimated marginal means (including some measure of uncertainty) for all time-management combinations. 
 
 ```{r warning=FALSE, message=FALSE}
-library(tidyverse)
 library(agridat)
-library(mgcv)
 data("gomez.splitplot.subsample")
 df <- gomez.splitplot.subsample
-
-model1 <- lmer(height ~ time*manage +(1|rep/manage/time),
-               data = df)
-
-simulateResiduals(model1, plot = T)
-car::Anova(model1)
 ```
+
+
+
 
