@@ -23,4 +23,4 @@ The objective of this study is to compare the performance of different vaccines 
 
 ## Acknowledgements   
 
-This problem was generously provided by Dr. Cernicciaro, and is part of Dr. Tim Bunley's PhD thesis. Univ of PEI, Charlottetown, PEI Canada, 2009.
+This problem was generously provided by Dr. Cernicchiaro, and is part of Dr. Tim Bunley's PhD thesis. Univ of PEI, Charlottetown, PEI Canada, 2009.
