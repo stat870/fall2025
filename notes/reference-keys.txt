@@ -25,11 +25,12 @@ design-structure
 homework-announcements-1
 designed-experiments-review-1
 announcements-1
+semester-project
 designed-experiments-1
 design-structures
 applied-example-fungicide-effects-on-barley-genotypes
 homework-announcements-2
-semester-project
+semester-project-1
 learning-objectives
 partial-deadlines
 project-proposal---due-friday-september-24-at-1159pm-ct

@@ -6,6 +6,15 @@ September 3rd
 - [Assignment 1](https://stat870.github.io/fall2025/assignments/Assignment1_YourLastName.pdf) is due today! 
 - Applied Linear Mixed Models Workshop 09/13-09/14. Workshop is full. Email me if you still want to join.  
 
+## Semester project 
+
+- Proposal due September 24th -- [see example 1](https://stat870.github.io/fall2025/assignments/proposal_example.pdf) | [see example 2](https://stat870.github.io/fall2025/assignments/proposal_example2.pdf)
+- Must contain: Background, Objectives.  
+- Data for the project must be ready to go. 
+- Final product: Manuscript + Tutorial. 
+- Working in teams vs. solo. 
+- Start as soon as possible! 
+
 ## Designed experiments  
 
 Let's review the basics of designed experiments:  
@@ -27,7 +36,6 @@ Some of the most common designed experiments include
   - generalized randomized complete block design, 
   - strip-plot design, 
   - repeated measures designs. 
-
 
 ```{r echo=FALSE, fig.cap="Schematic description of an experiment with a completely randomized design", out.width = '100%'}
 knitr::include_graphics("../figures/designs_crd.PNG")
@@ -65,9 +73,8 @@ df_fungicide <- agridat::durban.splitplot
 
 df_fungicide %>% 
   ggplot(aes(bed, row))+
-  # geom_tile(aes(fill = block))+
+  coord_fixed()+
   geom_tile(aes(fill = fung))+
-  # geom_tile(aes(fill = gen))+
   geom_tile(aes(), color = "black", fill = NA)
 ```
 
@@ -75,6 +82,8 @@ df_fungicide %>%
 - What are the experimental units? 
 - How many independent observations per treatment factor? 
 - What is the design structure? 
+
+- [Download R code](../scripts/09032025_splitplot.Rmd)
 
 ## Homework & Announcements  
 

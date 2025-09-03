@@ -1,0 +1,64 @@
+---
+title: "09032025_script"
+output: html_document
+---
+
+# Libraries 
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse) # data wrangling
+library(agridat) # data 
+library(lme4) # mixed models
+library(emmeans) # estimated marginal means
+```
+
+# Data + Data viz 
+
+```{r echo=TRUE}
+df_fungicide <- agridat::durban.splitplot
+
+df_fungicide %>% 
+  ggplot(aes(bed, row))+
+  coord_fixed()+
+  geom_tile(aes(fill = fung))+
+  # geom_tile(aes(fill = gen))+
+  geom_tile(aes(), color = "black", fill = NA)
+```
+
+# Model fitting 
+
+```{r}
+m <- lmer(yield ~ gen*fung + (1|block/fung), data = df_fungicide)
+```
+
+```{r}
+summary(m)
+```
+
+## Model checking   
+
+
+```{r}
+df_fungicide$residuals <- residuals(m, type = "pearson")
+df_fungicide$yhat <- predict(m)
+```
+
+Homoscedasticity
+
+```{r}
+plot(df_fungicide$yhat, abs(df_fungicide$residuals))
+```
+
+
+(Spatial) Independence 
+
+```{r}
+df_fungicide %>% 
+  ggplot(aes(bed, row))+
+  coord_fixed()+
+  geom_tile(aes(fill = residuals))+
+  scale_fill_viridis_c()+
+  geom_tile(aes(), color = "black", fill = NA)
+```
+
+
