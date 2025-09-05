@@ -17,5 +17,6 @@ Please complete exercises (1) and (2), rename the `Rmd` file to "Assignment2_You
 Please submit that html or pdf file on CANVAS by Wednesday, September 10th midnight. 
 You may work in pairs, but each one of you will have to submit your own file. 
 
+Download the `Rmd` file [here](https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.Rmd)
 [Look at the pdf version.](https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf)
 
