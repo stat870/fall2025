@@ -5,8 +5,8 @@ permalink: /assignments/assignment-2
 parent: Assignments
 nav_order: 2
 ---
-  
-# Assignment 1  
+
+# Assignment 2 
   
 The goals of this assignment are to: 
 
