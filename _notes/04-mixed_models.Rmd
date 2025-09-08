@@ -260,19 +260,14 @@ Note that the conditional distribution of $\mathbf{y}$ is
 $$\mathbf{y} \vert \boldsymbol{u} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u},\mathbf{R}).$$
 
 The marginal distribution of $\mathbf{y}$ is  
-$$\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{Z}\mathbf{G}\mathbf{Z}' + \mathbf{R}),$$
-
-which is why:
-
-- Standard errors for the means: $se(\hat\mu_{ij}) = \sqrt{\frac{\sigma^2_e + \sigma^2_b}{gb}}$ 
-- Standard errors for comparisons: $se(\mu_{\cdot j}-\mu_{\cdot j'}) = \sqrt{\frac{2 \sigma^2_e }{b}}$ 
-
+$$\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{Z}\mathbf{G}\mathbf{Z}' + \mathbf{R}).$$
 
 So, essentially what happened before was that the treatment effects haven't changed, their effect sizes and means haven't changed, but the variance-covariance matrix did change. 
 A couple things did change: 
 
 - Shrinkage 
 - Estimation of $\sigma^2$ 
+- Estimation of $se(\hat\mu)$ 
 
 
 ### Class discussion: Blocks - random or fixed?  
