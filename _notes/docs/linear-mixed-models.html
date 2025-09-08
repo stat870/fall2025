@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 4 Linear mixed models | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 4 Linear mixed models | STAT 870 - Analysis of Messy Data" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 4 Linear mixed models | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 4 Linear mixed models | STAT 870 - Analysis of Messy Data" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="designed-experiments-review-1.html"/>
+<link rel="next" href="semester-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 870</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#announcements-1"><i class="fa fa-check"></i><b>3.1</b> Announcements</a></li>
+<li class="chapter" data-level="3.2" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#semester-project"><i class="fa fa-check"></i><b>3.2</b> Semester project</a></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#designed-experiments-1"><i class="fa fa-check"></i><b>3.3</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.3.1</b> Design structures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.4</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.5" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.5</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#announcements-2"><i class="fa fa-check"></i><b>4.1</b> Announcements</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#statistical-models"><i class="fa fa-check"></i><b>4.2</b> Statistical models</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.3</b> The general linear model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#applied-example"><i class="fa fa-check"></i><b>4.3.1</b> Applied example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments"><i class="fa fa-check"></i><b>4.4</b> Linear mixed models applied to designed experiments</a></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#homework"><i class="fa fa-check"></i><b>4.5</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>5</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>5.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>5.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>5.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="5.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>5.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="5.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>5.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="5.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>5.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-mixed-models" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Day 4</span> Linear mixed models<a href="linear-mixed-models.html#linear-mixed-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>September 8th</p>
+<div id="announcements-2" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Announcements<a href="linear-mixed-models.html#announcements-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Assignment 1 grades are posted. Remember that you have <strong>one</strong> chance to resubmit for full points.<br />
+</li>
+<li><a href="https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf">Assignment 2</a> is due on Wednesday.<br />
+</li>
+<li>Last chance to join the mixed models workshop this weekend.</li>
+</ul>
+<p><strong>Semester project</strong>:</p>
+<ul>
+<li>Proposal due September 24th – <a href="https://stat870.github.io/fall2025/assignments/proposal_example.pdf">see example 1</a> | <a href="https://stat870.github.io/fall2025/assignments/proposal_example2.pdf">see example 2</a></li>
+<li>Must contain: Background, Objectives.<br />
+</li>
+<li>Data for the project must be ready to go.</li>
+<li>Final product: Manuscript + Tutorial.</li>
+<li>Working in teams vs. solo.</li>
+<li>Start as soon as possible!</li>
+</ul>
+<p><strong>This week</strong><br />
+- Today: intro to mixed models + blocks modeling discussion
+- Wednesday: mixed models applied to the fungicide experiment + Kahoot</p>
+</div>
+<div id="statistical-models" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Statistical models<a href="linear-mixed-models.html#statistical-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Statistical models can be typically defined as the combination of a <strong>deterministic component</strong> (e.g., the linear predictor), and a <strong>random component</strong> (e.g., the distribution of the data).</p>
+<p>Learn more about this way of describing statistical models in Stroup et al. (2024) page 4 (and all of Chapter 1 in general).</p>
+</div>
+<div id="the-general-linear-model" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> The general linear model<a href="linear-mixed-models.html#the-general-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The general linear model is one of the most commonly used statistical models.
+We call it “general” because it assumes that the data arise from a normal distribution.
+[Note: Do not mix up “general” (normal distribution) with “generalized” (multiple possible distributions).]
+We call it “linear” because the parameters enter the model linearly.
+For example, the predictor <span class="math inline">\(\beta_0 +\beta_1 x + \beta_2 x^2\)</span> corresponds to a linear model, because the parameters enter linearly.
+The predictor <span class="math inline">\(\alpha \exp(\beta x)\)</span> corresponds to a nonlinear model, because the parameters enter as the power of the data.</p>
+<p>The general linear model can be written as
+<span class="math display">\[\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol\varepsilon, \\
+\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \mathbf{\Sigma}),\]</span>
+where <span class="math inline">\(\mathbf{y}\)</span> is the vector of the data,
+<span class="math inline">\(\mathbf{X}\)</span> is the matrix containing the data,
+<span class="math inline">\(\boldsymbol{\beta}\)</span> is a vector containing all parameters,
+<span class="math inline">\(\boldsymbol\varepsilon\)</span> is a vector containing the residuals (i.e., the difference between observed and predicted).
+Note that <span class="math inline">\(\boldsymbol\varepsilon\)</span> arises from a multivariate normal distribution, with mean zero and a variance-covariance matrix <span class="math inline">\(\mathbf{\Sigma} = \sigma^2 \mathbf{I}\)</span>.</p>
+<p><strong>Recall some cool properties:</strong></p>
+<ul>
+<li><span class="math inline">\(\hat{\boldsymbol{\beta}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}\)</span>, the MLE, is unbiased.</li>
+<li><span class="math inline">\(\hat\sigma^2 = \frac{SSE}{df_e}\)</span>, not the MLE, is unbiased.</li>
+<li><span class="math inline">\(CI(\hat\mu_{ij}) = \hat\mu_{ij} \pm t_{df, \frac{\alpha}{2}} \cdot se(\hat{\mu}_{ij})\)</span>, where <span class="math inline">\(\sigma^2_e\)</span> is the residual variance, and <span class="math inline">\(r\)</span> is the number of repetitions.</li>
+<li>Under a CRD, <span class="math inline">\(se(\mu_{ij}) = \sqrt{\frac{\sigma^2_e}{r}}\)</span>, where <span class="math inline">\(\sigma^2_e\)</span> is the residual variance, and <span class="math inline">\(r\)</span> is the number of repetitions.</li>
+<li>ANOVA tables help us distinguish the most important sources of variability in the data.
+<ul>
+<li>Essentially, an analysis of variance (ANOVA) divides the predictors into bins and analyzes whether each bin is relevant to explain variability in the data.</li>
+<li>Typically, ANOVA tables show the sources of variation, their degrees of freedom, an F statistic and, sometimes, a p-value.</li>
+<li>Sources of variation may come from treatment factors, or elements of the design.</li>
+<li>Degrees of freedom tells us how many independent variables there are.</li>
+<li>The F statistic serves as a multivariate t statistic, since it is used to test multiple predictors.</li>
+</ul></li>
+</ul>
+<div id="applied-example" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Applied example<a href="linear-mixed-models.html#applied-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Swine nutritionists are studying the effect of dietary treatments on the % of fecal dry matter.
+In this experiment, 450 pigs were allocated in pens of 5 pigs.
+Each pen is independently assigned with dietary treatment.
+There are 6 dietary treatments: negative C, positive C, and 4 different pre-commercial additives.<br />
+So, there are 45 pens per treatment.
+One pig was observed at 3 points in time.</p>
+<ul>
+<li>What is the experimental unit?</li>
+<li>What is the observational unit?</li>
+<li>What is the treatment structure?</li>
+<li>What is the design structure?</li>
+</ul>
+<p>A reasonable model could be</p>
+<p><span class="math display">\[y_{ijk} \sim N(\mu_{ijk}, \sigma^2),\]</span></p>
+<p><span class="math display">\[\mu_{ijk} = \eta_{ijk},\]</span>
+<span class="math display">\[\eta_{ijk} = \eta_0 + D_i + T_j + (DT)_{ij},\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(y_{ijk}\)</span> is the observed dry matter (%) for the <span class="math inline">\(i\)</span>th dietary treatment, <span class="math inline">\(j\)</span>th time, and <span class="math inline">\(k\)</span>th repetition,</li>
+<li><span class="math inline">\(\mu_{ijk}\)</span> is the expected value for the <span class="math inline">\(i\)</span>th dietary treatment, <span class="math inline">\(j\)</span>th time, and <span class="math inline">\(k\)</span>th repetition,<br />
+</li>
+<li><span class="math inline">\(\sigma^2\)</span> is the residual variance,</li>
+<li><span class="math inline">\(\eta_{ijk}\)</span>, the linear predictor is equivalent to the expected value because the link function is the identity function,</li>
+<li><span class="math inline">\(\eta_0\)</span> is the overall mean of the linear predictor,</li>
+<li><span class="math inline">\(F_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th dietary treatment,</li>
+<li><span class="math inline">\(G_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th time,</li>
+<li><span class="math inline">\((FG)_{ij}\)</span> is the interaction for the <span class="math inline">\(i\)</span>th dietary treatment and <span class="math inline">\(j\)</span>th time</li>
+</ul>
+<p>A reasonable ANOVA shell could be:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">df</th>
+<th align="left">F.statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Diet</td>
+<td align="left">d-1</td>
+<td align="left">SSd</td>
+</tr>
+<tr class="even">
+<td align="left">Time</td>
+<td align="left">t-1</td>
+<td align="left">SSt</td>
+</tr>
+<tr class="odd">
+<td align="left">D x T</td>
+<td align="left">(d-1)(t-1)</td>
+<td align="left">SSdt</td>
+</tr>
+<tr class="even">
+<td align="left">Error</td>
+<td align="left">N-(d*t)</td>
+<td align="left">SSe</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left">N-1</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">df</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Diet</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">Time</td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">D x T</td>
+<td align="left">10</td>
+</tr>
+<tr class="even">
+<td align="left">Error</td>
+<td align="left">252</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left">N-1</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s implement that model:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="linear-mixed-models.html#cb1-1" tabindex="-1"></a><span class="co"># load the data </span></span>
+<span id="cb1-2"><a href="linear-mixed-models.html#cb1-2" tabindex="-1"></a>pigs_crd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../../data_confid/fecalm_swine_crd.csv&quot;</span>)</span>
+<span id="cb1-3"><a href="linear-mixed-models.html#cb1-3" tabindex="-1"></a>pigs_crd<span class="sc">$</span>Day <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pigs_crd<span class="sc">$</span>Day)</span>
+<span id="cb1-4"><a href="linear-mixed-models.html#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="linear-mixed-models.html#cb1-5" tabindex="-1"></a><span class="co"># fit the model</span></span>
+<span id="cb1-6"><a href="linear-mixed-models.html#cb1-6" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(F.Dry.matter <span class="sc">~</span> Day<span class="sc">*</span>Trt, <span class="at">data =</span> pigs_crd)</span></code></pre></div>
+<details>
+<summary>
+Model checks
+</summary>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="linear-mixed-models.html#cb2-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m), <span class="fu">abs</span>(<span class="fu">resid</span>(m)))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="linear-mixed-models.html#cb3-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre><code>## [1] 109 148</code></pre>
+</details>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-mixed-models.html#cb5-1" tabindex="-1"></a><span class="co"># anova</span></span>
+<span id="cb5-2"><a href="linear-mixed-models.html#cb5-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>## Anova Table (Type II tests)
+## 
+## Response: F.Dry.matter
+##            Sum Sq  Df F value    Pr(&gt;F)    
+## Day         850.7   2  8.6720 0.0002279 ***
+## Trt         896.5   5  3.6556 0.0032772 ** 
+## Day:Trt     673.1  10  1.3723 0.1934086    
+## Residuals 12360.9 252                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>We can even get the standard errors and, together with the degrees of freedom, get the 95% confidence intervals.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-mixed-models.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
+<pre><code>## Welcome to emmeans.
+## Caution: You lose important information if you filter this package&#39;s results.
+## See &#39;? untidy&#39;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="linear-mixed-models.html#cb9-1" tabindex="-1"></a><span class="co"># get the s.e. by hand</span></span>
+<span id="cb9-2"><a href="linear-mixed-models.html#cb9-2" tabindex="-1"></a>n.reps <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb9-3"><a href="linear-mixed-models.html#cb9-3" tabindex="-1"></a>sigma2.hat <span class="ot">&lt;-</span> <span class="fu">sigma</span>(m)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb9-4"><a href="linear-mixed-models.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="linear-mixed-models.html#cb9-5" tabindex="-1"></a><span class="co"># here you have the s.e.</span></span>
+<span id="cb9-6"><a href="linear-mixed-models.html#cb9-6" tabindex="-1"></a>(se.mu <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sigma2.hat<span class="sc">/</span>n.reps))</span></code></pre></div>
+<pre><code>## [1] 1.044041</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="linear-mixed-models.html#cb11-1" tabindex="-1"></a><span class="co"># get the CI</span></span>
+<span id="cb11-2"><a href="linear-mixed-models.html#cb11-2" tabindex="-1"></a><span class="co"># get the mean </span></span>
+<span id="cb11-3"><a href="linear-mixed-models.html#cb11-3" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span>Trt, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">Trt =</span> <span class="st">&quot;A&quot;</span>)))[,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="linear-mixed-models.html#cb13-1" tabindex="-1"></a><span class="co"># get the t statistic for the CI</span></span>
+<span id="cb13-2"><a href="linear-mixed-models.html#cb13-2" tabindex="-1"></a>t.star <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">975</span>, <span class="at">df =</span> m<span class="sc">$</span>df.residual)</span>
+<span id="cb13-3"><a href="linear-mixed-models.html#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="linear-mixed-models.html#cb13-4" tabindex="-1"></a>(lower.CI_TrtA <span class="ot">&lt;-</span> mu <span class="sc">-</span> t.star<span class="sc">*</span>se.mu)</span></code></pre></div>
+<pre><code>## [1] 16.40749</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="linear-mixed-models.html#cb15-1" tabindex="-1"></a>(upper.CI_TrtA <span class="ot">&lt;-</span> mu <span class="sc">+</span> t.star<span class="sc">*</span>se.mu)</span></code></pre></div>
+<pre><code>## [1] 20.5198</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="linear-mixed-models.html#cb17-1" tabindex="-1"></a>mg_means <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m, <span class="sc">~</span>Trt)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-mixed-models.html#cb19-1" tabindex="-1"></a><span class="fu">head</span>(mg_means)</span></code></pre></div>
+<pre><code>##  Trt emmean   SE  df lower.CL upper.CL
+##  A     18.5 1.04 252     16.4     20.5
+##  B     23.6 1.04 252     21.5     25.6
+##  C     20.1 1.04 252     18.1     22.2
+##  D     18.3 1.04 252     16.3     20.4
+##  E     19.8 1.04 252     17.8     21.9
+##  F     18.6 1.04 252     16.5     20.6
+## 
+## Results are averaged over the levels of: Day 
+## Confidence level used: 0.95</code></pre>
+</div>
+</div>
+<div id="linear-mixed-models-applied-to-designed-experiments" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Linear mixed models applied to designed experiments<a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When the independence assumption cannot be taken for granted, especially if we know the dependence patterns in the data, we must account for said dependence pattern.
+Take the previous example, but in a blocked design instead of a CRD.
+The blocks are basically rooms that hold 90 pens.
+This means that the observations are not really independent anymore.
+After all, it’s hard to find rooms that fit 270 pens!!</p>
+<p>Consider an experiment with the same treatments, same number of EUs, but ran in 3 different rooms with 90 pens each.
+Each room has 15 pens of each dietary treatment.</p>
+<p>Let’s re-do the statistical model and ANOVA shell:</p>
+<p>A reasonable model could be</p>
+<p><span class="math display">\[y_{ijkl}|b_k \sim N(\mu_{ijk}, \sigma^2),\]</span></p>
+<p><span class="math display">\[\mu_{ijkl} = \eta_{ijkl},\]</span>
+<span class="math display">\[\eta_{ijkl} = \eta_0 + D_i + T_j + (DT)_{ij} + b_k,\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(y_{ijk}\)</span> is the observed dry matter (%) for the <span class="math inline">\(i\)</span>th dietary treatment, <span class="math inline">\(j\)</span>th time, and <span class="math inline">\(k\)</span>th room and <span class="math inline">\(l\)</span>th repetition,</li>
+<li><span class="math inline">\(\mu_{ijk}\)</span> is the expected value for the <span class="math inline">\(i\)</span>th dietary treatment, <span class="math inline">\(j\)</span>th time, and <span class="math inline">\(k\)</span>th room and <span class="math inline">\(l\)</span>th repetition,<br />
+</li>
+<li><span class="math inline">\(\sigma^2\)</span> is the residual variance,</li>
+<li><span class="math inline">\(\eta_{ijk}\)</span>, the linear predictor is equivalent to the expected value because the link function is the identity function,</li>
+<li><span class="math inline">\(\eta_0\)</span> is the overall mean of the linear predictor,</li>
+<li><span class="math inline">\(F_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th dietary treatment,</li>
+<li><span class="math inline">\(G_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th time,</li>
+<li><span class="math inline">\((FG)_{ij}\)</span> is the interaction for the <span class="math inline">\(i\)</span>th dietary treatment and <span class="math inline">\(j\)</span>th time,</li>
+<li><span class="math inline">\(b_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th room, <span class="math inline">\(b_k \sim N(0, \sigma^2_b)\)</span>.</li>
+</ul>
+<p>A reasonable ANOVA shell could be:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 4.2: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">df</th>
+<th align="left">F.statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Room</td>
+<td align="left">r-1</td>
+<td align="left">SSr</td>
+</tr>
+<tr class="even">
+<td align="left">Diet</td>
+<td align="left">d-1</td>
+<td align="left">SSd</td>
+</tr>
+<tr class="odd">
+<td align="left">Time</td>
+<td align="left">t-1</td>
+<td align="left">SSt</td>
+</tr>
+<tr class="even">
+<td align="left">D x T</td>
+<td align="left">(d-1)(t-1)</td>
+<td align="left">SSdt</td>
+</tr>
+<tr class="odd">
+<td align="left">Error</td>
+<td align="left">N-(d*t)-r</td>
+<td align="left">SSe</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="left">N-1</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 4.2: </span>ANOVA table for the diet CRD.</caption>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">df</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Room</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Diet</td>
+<td align="left">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Time</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">D x T</td>
+<td align="left">10</td>
+</tr>
+<tr class="odd">
+<td align="left">Error</td>
+<td align="left">431</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="left">N-1</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s implement that model:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="linear-mixed-models.html#cb21-1" tabindex="-1"></a><span class="co"># load the data </span></span>
+<span id="cb21-2"><a href="linear-mixed-models.html#cb21-2" tabindex="-1"></a>pigs_grcbd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../../data_confid/fecalm_swine_grcbd.csv&quot;</span>)</span>
+<span id="cb21-3"><a href="linear-mixed-models.html#cb21-3" tabindex="-1"></a>pigs_grcbd<span class="sc">$</span>Day <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pigs_grcbd<span class="sc">$</span>Day)</span>
+<span id="cb21-4"><a href="linear-mixed-models.html#cb21-4" tabindex="-1"></a>pigs_grcbd<span class="sc">$</span>Room <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pigs_grcbd<span class="sc">$</span>Room)</span>
+<span id="cb21-5"><a href="linear-mixed-models.html#cb21-5" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="linear-mixed-models.html#cb21-6" tabindex="-1"></a><span class="co"># fit the model</span></span>
+<span id="cb21-7"><a href="linear-mixed-models.html#cb21-7" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+<pre><code>## Loading required package: Matrix</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="linear-mixed-models.html#cb23-1" tabindex="-1"></a>m_fixed <span class="ot">&lt;-</span> <span class="fu">lm</span>(F.Dry.matter <span class="sc">~</span> Day<span class="sc">*</span>Trt <span class="sc">+</span> Room, <span class="at">data =</span> pigs_grcbd)</span>
+<span id="cb23-2"><a href="linear-mixed-models.html#cb23-2" tabindex="-1"></a>m_random <span class="ot">&lt;-</span> <span class="fu">lmer</span>(F.Dry.matter <span class="sc">~</span> Day<span class="sc">*</span>Trt <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Room), <span class="at">data =</span> pigs_grcbd)</span></code></pre></div>
+<details>
+<summary>
+Model checks
+</summary>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="linear-mixed-models.html#cb24-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m_fixed), <span class="fu">abs</span>(<span class="fu">resid</span>(m_fixed)))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="linear-mixed-models.html#cb25-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m_fixed)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<pre><code>## [1] 107 227</code></pre>
+</details>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-mixed-models.html#cb27-1" tabindex="-1"></a><span class="co"># anova</span></span>
+<span id="cb27-2"><a href="linear-mixed-models.html#cb27-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_fixed, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>## Anova Table (Type II tests)
+## 
+## Response: F.Dry.matter
+##            Sum Sq  Df F value    Pr(&gt;F)    
+## Day        1016.4   2 10.7115 3.441e-05 ***
+## Trt        1132.2   5  4.7730 0.0003483 ***
+## Room        190.0   2  2.0022 0.1371977    
+## Day:Trt     529.1  10  1.1153 0.3509474    
+## Residuals 11861.0 250                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="linear-mixed-models.html#cb29-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_random, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table (Type II Wald F tests with Kenward-Roger df)
+## 
+## Response: F.Dry.matter
+##               F Df Df.res    Pr(&gt;F)    
+## Day     10.7115  2    250 3.441e-05 ***
+## Trt      4.7730  5    250 0.0003483 ***
+## Day:Trt  1.1153 10    250 0.3509474    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Notice that the 252 degrees of freedom (aka independent observations) from the CRD are now spread across different levels, connected to different variance components, blocks and random error.</p>
+<ul>
+<li>Standard errors for the means: <span class="math inline">\(se(\hat\mu_{ij}) = \sqrt{\frac{\sigma^2_e + \sigma^2_b}{gb}}\)</span></li>
+<li>Standard errors for comparisons: <span class="math inline">\(se(\mu_{\cdot j}-\mu_{\cdot j&#39;}) = \sqrt{\frac{2 \sigma^2_e }{b}}\)</span></li>
+</ul>
+<p>The standard notation for mixed models is
+<span class="math display">\[\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u} + \boldsymbol\varepsilon, \\
+\boldsymbol{u}\sim N(\boldsymbol{0}, \mathbf{G}), \\
+\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \mathbf{R}),\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y}\)</span> is the vector containing the data,</li>
+<li><span class="math inline">\(\boldsymbol{\beta}\)</span> is the vector containing the model fixed effects (usually treatments),</li>
+<li><span class="math inline">\(\mathbf{X}\)</span> is the matrix containing information about the treatment allocation,</li>
+<li><span class="math inline">\(\boldsymbol{u}\)</span> is the vector containing the model random effects (usually elements of the design). Note that <span class="math inline">\(\boldsymbol{u}\)</span> arises from a normal distribution with mean 0 and variance-covariance matrix <span class="math inline">\(\mathbf{G})\)</span>.</li>
+<li><span class="math inline">\(\mathbf{Z}\)</span> is the matrix containing information about the design,</li>
+<li><span class="math inline">\(\boldsymbol\varepsilon\)</span> is the model residual. Note that <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> arises from a normal distribution with mean 0 and variance-covariance matrix <span class="math inline">\(\mathbf{R})\)</span>.</li>
+</ul>
+<p>Using the probability distribution form of this equation, we can say that
+<span class="math display">\[\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{Z}\mathbf{G}\mathbf{Z}&#39; + \mathbf{R}).\]</span></p>
+<p>Note that the conditional distribution of <span class="math inline">\(\mathbf{y}\)</span> is
+<span class="math display">\[\mathbf{y} \vert \boldsymbol{u} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u},\mathbf{R}).\]</span></p>
+</div>
+<div id="homework" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Homework<a href="linear-mixed-models.html#homework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Read Chapter 2 in Stroup el at. (2024), particularly the “What Would Fisher Do” ANOVA shells.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="designed-experiments-review-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/04-mixed_models.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/04-mixed_models.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
