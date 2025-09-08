@@ -268,7 +268,7 @@ A couple things did change:
 - Shrinkage 
 - Estimation of $\sigma^2$ 
 - Estimation of $se(\hat\mu)$ 
-
+- Degrees of freedom change 
 
 ### Class discussion: Blocks - random or fixed?  
 
@@ -315,5 +315,5 @@ More references:
 
 ## Homework  
 
-- Read Chapter 2 in Stroup el at. (2024), particularly the "What Would Fisher Do" ANOVA shells. 
+- Read Chapter 2 in Stroup's GLMM book (1st ed. superior to 2nd ed.), particularly the "What Would Fisher Do" ANOVA shells. 
 
