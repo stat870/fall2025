@@ -62,12 +62,12 @@ Note that $\boldsymbol\varepsilon$ arises from a multivariate normal distributio
 
 ### Applied example  
 
-Swine nutritionists are studying the effect of dietary treatments on the \% of fecal dry matter. 
+Swine nutritionists are studying the effect of dietary treatments on the \% of fecal dry matter, and whether said effects change at different points in time. 
 In this experiment, 450 pigs were allocated in pens of 5 pigs. 
 Each pen is independently assigned with dietary treatment. 
 There are 6 dietary treatments: negative C, positive C, and 4 different pre-commercial additives.  
 So, there are 45 pens per treatment. 
-One pig was observed at 3 points in time. 
+One (randomly selected) pig per pen was observed at 3 points in time. 
 
 - What is the experimental unit? 
 - What is the observational unit? 
@@ -101,7 +101,7 @@ t_crd <- data.frame(
 
 t_crdn <- data.frame(
   Source = c("Diet", "Time", "D x T", "Error", "Total"),
-  df = c("5", "2", "10", "252", "N-1")) 
+  df = c("5", "2", "10", "252", "269")) 
 
 knitr::kable(t_crd, caption = "ANOVA table for a CRD with a two-way factorial treatment structure.")
 knitr::kable(t_crdn, caption = "ANOVA table for the diet CRD.")
@@ -165,10 +165,10 @@ When the independence assumption cannot be taken for granted, especially if we k
 Take the previous example, but in a blocked design instead of a CRD. 
 The blocks are basically rooms that hold 90 pens. 
 This means that the observations are not really independent anymore. 
-After all, it's hard to find rooms that fit 270 pens!!
+After all, it's hard to find rooms that fit 90 pens!
 
-Consider an experiment with the same treatments, same number of EUs, but ran in 3 different rooms with 90 pens each. 
-Each room has 15 pens of each dietary treatment.  
+Consider an experiment with the same treatments, same number of EUs, but ran in 3 different rooms with 30 pens each. 
+Each room has 5 pens of each dietary treatment.  
 
 - What is the experimental unit? 
 - What is the observational unit? 
@@ -205,10 +205,10 @@ t_crd <- data.frame(
 
 t_crdn <- data.frame(
   Source = c("Room", "Diet", "Time", "D x T", "Error", "Total"),
-  df = c("2", "5", "2", "10", "431", "N-1")) 
+  df = c("2", "5", "2", "10", "250", "269")) 
 
-knitr::kable(t_crd, caption = "ANOVA table for a CRD with a two-way factorial treatment structure.")
-knitr::kable(t_crdn, caption = "ANOVA table for the diet CRD.")
+knitr::kable(t_crd, caption = "ANOVA table for a GRCBD with a two-way factorial treatment structure.")
+knitr::kable(t_crdn, caption = "ANOVA table for the diet GRCBD.")
 ```
 
 Let's implement that model: 
@@ -273,12 +273,36 @@ A couple things did change:
 ### Class discussion: Blocks - random or fixed?  
 
 
-
 <details>
 <summary>Treatment point estimates don't change whether blocks are fixed or random.</summary>
 
 ```{r}
 m_fixed <- lm(F.Dry.matter ~ Day*Trt + Room, data = pigs_grcbd)
+mg_means_fixed <- emmeans(m_fixed, ~Trt, contr = list(c(1, -1, 0, 0, 0, 0)))
+mg_means_random <- emmeans(m_random, ~Trt, contr = list(c(1, -1, 0, 0, 0, 0)))
+
+as.data.frame(mg_means_fixed$emmeans) %>%
+  mutate(blocks = "fixed") %>% 
+  bind_rows(as.data.frame(mg_means_random$emmeans) %>%
+              mutate(blocks = "random")) %>% 
+  ggplot(aes(Trt, emmean))+
+  geom_errorbar(aes(ymin = emmean-SE, ymax = emmean+SE, 
+                    color = blocks), 
+                position = position_dodge(width = .2),
+                width = 0)+
+  geom_text(aes(x = 4.5, y = 22.75), label = "s.e.(difference)")+
+  geom_errorbar(aes(x = 5.4, y = 22, ymin = 22 , ymax = 22 + SE),
+                width = 0.1,
+                data = as.data.frame(mg_means_random$contrasts))+
+  geom_errorbar(aes(x = 5.2, y = 22, ymin = 22 , ymax = 22 + SE),
+                width = 0.1,
+  data = as.data.frame(mg_means_fixed$contrasts))+
+  geom_point(aes(color = blocks), position = position_dodge(width = .2))+
+  theme_classic()+
+  labs(color = "Blocks modeled as",
+       y = expression(Yield~(tn~ac^{-1})),
+       x = expression(K[2]~O~(lb~ac^{-1})))+
+  theme(legend.position = "bottom")
 ```
 
 </details>

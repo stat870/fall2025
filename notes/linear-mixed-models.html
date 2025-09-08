@@ -285,12 +285,12 @@ Note that <span class="math inline">\(\boldsymbol\varepsilon\)</span> arises fro
 </ul>
 <div id="applied-example" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Applied example<a href="linear-mixed-models.html#applied-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Swine nutritionists are studying the effect of dietary treatments on the % of fecal dry matter.
+<p>Swine nutritionists are studying the effect of dietary treatments on the % of fecal dry matter, and whether said effects change at different points in time.
 In this experiment, 450 pigs were allocated in pens of 5 pigs.
 Each pen is independently assigned with dietary treatment.
 There are 6 dietary treatments: negative C, positive C, and 4 different pre-commercial additives.<br />
 So, there are 45 pens per treatment.
-One pig was observed at 3 points in time.</p>
+One (randomly selected) pig per pen was observed at 3 points in time.</p>
 <ul>
 <li>What is the experimental unit?</li>
 <li>What is the observational unit?</li>
@@ -315,7 +315,7 @@ One pig was observed at 3 points in time.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-49">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-32">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -346,7 +346,7 @@ One pig was observed at 3 points in time.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-49">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-32">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -372,7 +372,7 @@ One pig was observed at 3 points in time.</p>
 </tr>
 <tr class="odd">
 <td align="left">Total</td>
-<td align="left">N-1</td>
+<td align="left">269</td>
 </tr>
 </tbody>
 </table>
@@ -388,9 +388,9 @@ One pig was observed at 3 points in time.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-mixed-models.html#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m), <span class="fu">abs</span>(<span class="fu">resid</span>(m)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-mixed-models.html#cb5-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-2.png" width="672" /></p>
 <pre><code>## [1] 109 148</code></pre>
 </details>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-mixed-models.html#cb7-1" tabindex="-1"></a><span class="co"># anova</span></span>
@@ -444,9 +444,9 @@ Model checks
 Take the previous example, but in a blocked design instead of a CRD.
 The blocks are basically rooms that hold 90 pens.
 This means that the observations are not really independent anymore.
-After all, it’s hard to find rooms that fit 270 pens!!</p>
-<p>Consider an experiment with the same treatments, same number of EUs, but ran in 3 different rooms with 90 pens each.
-Each room has 15 pens of each dietary treatment.</p>
+After all, it’s hard to find rooms that fit 90 pens!</p>
+<p>Consider an experiment with the same treatments, same number of EUs, but ran in 3 different rooms with 30 pens each.
+Each room has 5 pens of each dietary treatment.</p>
 <ul>
 <li>What is the experimental unit?</li>
 <li>What is the observational unit?</li>
@@ -473,7 +473,7 @@ Each room has 15 pens of each dietary treatment.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-54">Table 4.2: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -508,7 +508,7 @@ Each room has 15 pens of each dietary treatment.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-54">Table 4.2: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -534,11 +534,11 @@ Each room has 15 pens of each dietary treatment.</p>
 </tr>
 <tr class="odd">
 <td align="left">Error</td>
-<td align="left">431</td>
+<td align="left">250</td>
 </tr>
 <tr class="even">
 <td align="left">Total</td>
-<td align="left">N-1</td>
+<td align="left">269</td>
 </tr>
 </tbody>
 </table>
@@ -556,7 +556,7 @@ Each room has 15 pens of each dietary treatment.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="linear-mixed-models.html#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m_random), <span class="fu">abs</span>(<span class="fu">resid</span>(m_random)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 </details>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-mixed-models.html#cb19-1" tabindex="-1"></a><span class="co"># anova</span></span>
 <span id="cb19-2"><a href="linear-mixed-models.html#cb19-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_random, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
@@ -603,7 +603,34 @@ A couple things did change:</p>
 <summary>
 Treatment point estimates don’t change whether blocks are fixed or random.
 </summary>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="linear-mixed-models.html#cb21-1" tabindex="-1"></a>m_fixed <span class="ot">&lt;-</span> <span class="fu">lm</span>(F.Dry.matter <span class="sc">~</span> Day<span class="sc">*</span>Trt <span class="sc">+</span> Room, <span class="at">data =</span> pigs_grcbd)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="linear-mixed-models.html#cb21-1" tabindex="-1"></a>m_fixed <span class="ot">&lt;-</span> <span class="fu">lm</span>(F.Dry.matter <span class="sc">~</span> Day<span class="sc">*</span>Trt <span class="sc">+</span> Room, <span class="at">data =</span> pigs_grcbd)</span>
+<span id="cb21-2"><a href="linear-mixed-models.html#cb21-2" tabindex="-1"></a>mg_means_fixed <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m_fixed, <span class="sc">~</span>Trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)))</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="linear-mixed-models.html#cb23-1" tabindex="-1"></a>mg_means_random <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m_random, <span class="sc">~</span>Trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)))</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="linear-mixed-models.html#cb25-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(mg_means_fixed<span class="sc">$</span>emmeans) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="linear-mixed-models.html#cb25-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">blocks =</span> <span class="st">&quot;fixed&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="linear-mixed-models.html#cb25-3" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">as.data.frame</span>(mg_means_random<span class="sc">$</span>emmeans) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="linear-mixed-models.html#cb25-4" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">blocks =</span> <span class="st">&quot;random&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="linear-mixed-models.html#cb25-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Trt, emmean))<span class="sc">+</span></span>
+<span id="cb25-6"><a href="linear-mixed-models.html#cb25-6" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> emmean<span class="sc">-</span>SE, <span class="at">ymax =</span> emmean<span class="sc">+</span>SE, </span>
+<span id="cb25-7"><a href="linear-mixed-models.html#cb25-7" tabindex="-1"></a>                    <span class="at">color =</span> blocks), </span>
+<span id="cb25-8"><a href="linear-mixed-models.html#cb25-8" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">2</span>),</span>
+<span id="cb25-9"><a href="linear-mixed-models.html#cb25-9" tabindex="-1"></a>                <span class="at">width =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb25-10"><a href="linear-mixed-models.html#cb25-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">4.5</span>, <span class="at">y =</span> <span class="fl">22.75</span>), <span class="at">label =</span> <span class="st">&quot;s.e.(difference)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb25-11"><a href="linear-mixed-models.html#cb25-11" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">5.4</span>, <span class="at">y =</span> <span class="dv">22</span>, <span class="at">ymin =</span> <span class="dv">22</span> , <span class="at">ymax =</span> <span class="dv">22</span> <span class="sc">+</span> SE),</span>
+<span id="cb25-12"><a href="linear-mixed-models.html#cb25-12" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb25-13"><a href="linear-mixed-models.html#cb25-13" tabindex="-1"></a>                <span class="at">data =</span> <span class="fu">as.data.frame</span>(mg_means_random<span class="sc">$</span>contrasts))<span class="sc">+</span></span>
+<span id="cb25-14"><a href="linear-mixed-models.html#cb25-14" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">5.2</span>, <span class="at">y =</span> <span class="dv">22</span>, <span class="at">ymin =</span> <span class="dv">22</span> , <span class="at">ymax =</span> <span class="dv">22</span> <span class="sc">+</span> SE),</span>
+<span id="cb25-15"><a href="linear-mixed-models.html#cb25-15" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb25-16"><a href="linear-mixed-models.html#cb25-16" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">as.data.frame</span>(mg_means_fixed<span class="sc">$</span>contrasts))<span class="sc">+</span></span>
+<span id="cb25-17"><a href="linear-mixed-models.html#cb25-17" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> blocks), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">2</span>))<span class="sc">+</span></span>
+<span id="cb25-18"><a href="linear-mixed-models.html#cb25-18" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb25-19"><a href="linear-mixed-models.html#cb25-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Blocks modeled as&quot;</span>,</span>
+<span id="cb25-20"><a href="linear-mixed-models.html#cb25-20" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Yield<span class="sc">~</span>(tn<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})),</span>
+<span id="cb25-21"><a href="linear-mixed-models.html#cb25-21" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(K[<span class="dv">2</span>]<span class="sc">~</span>O<span class="sc">~</span>(lb<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))<span class="sc">+</span></span>
+<span id="cb25-22"><a href="linear-mixed-models.html#cb25-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 </details>
 <p>More references:</p>
 <ul>
