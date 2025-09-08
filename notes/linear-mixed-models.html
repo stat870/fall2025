@@ -315,7 +315,7 @@ One pig was observed at 3 points in time.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-457">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-49">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -346,7 +346,7 @@ One pig was observed at 3 points in time.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-457">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-49">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -388,9 +388,9 @@ One pig was observed at 3 points in time.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-mixed-models.html#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m), <span class="fu">abs</span>(<span class="fu">resid</span>(m)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-459-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-mixed-models.html#cb5-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-459-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-2.png" width="672" /></p>
 <pre><code>## [1] 109 148</code></pre>
 </details>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-mixed-models.html#cb7-1" tabindex="-1"></a><span class="co"># anova</span></span>
@@ -473,7 +473,7 @@ Each room has 15 pens of each dietary treatment.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-462">Table 4.2: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-54">Table 4.2: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -508,7 +508,7 @@ Each room has 15 pens of each dietary treatment.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-462">Table 4.2: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-54">Table 4.2: </span>ANOVA table for the diet CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -556,7 +556,7 @@ Each room has 15 pens of each dietary treatment.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="linear-mixed-models.html#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m_random), <span class="fu">abs</span>(<span class="fu">resid</span>(m_random)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-464-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 </details>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-mixed-models.html#cb19-1" tabindex="-1"></a><span class="co"># anova</span></span>
 <span id="cb19-2"><a href="linear-mixed-models.html#cb19-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_random, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
@@ -588,17 +588,13 @@ where:</p>
 <p>Note that the conditional distribution of <span class="math inline">\(\mathbf{y}\)</span> is
 <span class="math display">\[\mathbf{y} \vert \boldsymbol{u} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u},\mathbf{R}).\]</span></p>
 <p>The marginal distribution of <span class="math inline">\(\mathbf{y}\)</span> is<br />
-<span class="math display">\[\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{Z}\mathbf{G}\mathbf{Z}&#39; + \mathbf{R}),\]</span></p>
-<p>which is why:</p>
-<ul>
-<li>Standard errors for the means: <span class="math inline">\(se(\hat\mu_{ij}) = \sqrt{\frac{\sigma^2_e + \sigma^2_b}{gb}}\)</span></li>
-<li>Standard errors for comparisons: <span class="math inline">\(se(\mu_{\cdot j}-\mu_{\cdot j&#39;}) = \sqrt{\frac{2 \sigma^2_e }{b}}\)</span></li>
-</ul>
+<span class="math display">\[\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{Z}\mathbf{G}\mathbf{Z}&#39; + \mathbf{R}).\]</span></p>
 <p>So, essentially what happened before was that the treatment effects haven’t changed, their effect sizes and means haven’t changed, but the variance-covariance matrix did change.
 A couple things did change:</p>
 <ul>
 <li>Shrinkage</li>
 <li>Estimation of <span class="math inline">\(\sigma^2\)</span></li>
+<li>Estimation of <span class="math inline">\(se(\hat\mu)\)</span></li>
 </ul>
 </div>
 <div id="class-discussion-blocks---random-or-fixed" class="section level3 hasAnchor" number="4.4.2">
