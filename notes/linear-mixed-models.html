@@ -628,8 +628,8 @@ Treatment point estimates don’t change whether blocks are fixed or random.
 <span id="cb25-17"><a href="linear-mixed-models.html#cb25-17" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> blocks), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">2</span>))<span class="sc">+</span></span>
 <span id="cb25-18"><a href="linear-mixed-models.html#cb25-18" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
 <span id="cb25-19"><a href="linear-mixed-models.html#cb25-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Blocks modeled as&quot;</span>,</span>
-<span id="cb25-20"><a href="linear-mixed-models.html#cb25-20" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(Yield<span class="sc">~</span>(tn<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})),</span>
-<span id="cb25-21"><a href="linear-mixed-models.html#cb25-21" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(K[<span class="dv">2</span>]<span class="sc">~</span>O<span class="sc">~</span>(lb<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))<span class="sc">+</span></span>
+<span id="cb25-20"><a href="linear-mixed-models.html#cb25-20" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Fecal DM (%)&quot;</span>,</span>
+<span id="cb25-21"><a href="linear-mixed-models.html#cb25-21" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Treatment&quot;</span>)<span class="sc">+</span></span>
 <span id="cb25-22"><a href="linear-mixed-models.html#cb25-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </details>

@@ -300,8 +300,8 @@ as.data.frame(mg_means_fixed$emmeans) %>%
   geom_point(aes(color = blocks), position = position_dodge(width = .2))+
   theme_classic()+
   labs(color = "Blocks modeled as",
-       y = expression(Yield~(tn~ac^{-1})),
-       x = expression(K[2]~O~(lb~ac^{-1})))+
+       y = "Fecal DM (%)",
+       x = "Treatment")+
   theme(legend.position = "bottom")
 ```
 
