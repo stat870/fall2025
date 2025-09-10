@@ -42,7 +42,7 @@ t_crd <- data.frame(
   Source = c("-", "Fungicide", "-", "Genotype",
              "Fung x Gen", "Error", "Total"),
   df = c("-", "f-1 = 1", 
-         "(-", 
+         "-", 
          "g-1 = 69", "(f-1)(g-1) = 69",
          "N-fg = 420", "N-1"))
 
