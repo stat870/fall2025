@@ -14,7 +14,7 @@ Sept. 10
 Sept. 15 
 : Linear mixed models 
   : **HW 3**{: .label .label-green } 
-  : [](#)
+  : [html](https://stat870.github.io/fall2025/notes/linear-mixed-models-3.html)
     
 Sept. 17 
 : Generalized linear mixed models 
