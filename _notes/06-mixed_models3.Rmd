@@ -4,8 +4,12 @@ September 15th
 
 ## Announcements
 
+- [Linear mixed models workshop](https://k-state-id3a.github.io/mixed-models-fall25/) 
 - [Assignment 3](https://stat870.github.io/fall2025/assignments/assignment-3) is posted. See Google docs [here](https://docs.google.com/document/d/1Tf_ZAsZljYlUkq6LBobmkPxpQ7E1038V-OoBYedXxms/edit?usp=sharing).   
 - Assignment 2 grades will be posted this evening.  
+- Project proposal due Sept 24 (next week)
+  - Schedule an appointment 
+  - Talk to your classmates to find a partner 
 - What's that wooden cup I drink from:  
 
 ![Lionel Messi drinking mate after winning the World Cup in 2022.](https://www.infobae.com/resizer/v2/RQ7MA66VVBENXF5UDL7GXU7B6I.jpg?auth=a8378aa12684cf698289de3e8a8f78da08d72ad99c548e2e24e698af330db6b2&smart=true&width=992&height=558&quality=85)
