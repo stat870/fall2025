@@ -1,0 +1,206 @@
+# Linear Mixed Models 
+
+September 15th 
+
+## Announcements
+
+- [Assignment 3](https://stat870.github.io/fall2025/assignments/assignment-3) is posted. See Google docs [here](https://docs.google.com/document/d/1Tf_ZAsZljYlUkq6LBobmkPxpQ7E1038V-OoBYedXxms/edit?usp=sharing).   
+- Assignment 2 grades will be posted this evening.  
+- What's that wooden cup I drink from:  
+
+![Lionel Messi drinking mate after winning the World Cup in 2022.](https://www.infobae.com/resizer/v2/RQ7MA66VVBENXF5UDL7GXU7B6I.jpg?auth=a8378aa12684cf698289de3e8a8f78da08d72ad99c548e2e24e698af330db6b2&smart=true&width=992&height=558&quality=85)
+
+- [Yerba mate Wikipedia](https://en.wikipedia.org/wiki/Yerba_mate) 
+- [Yerba Mate Tea (Ilex paraguariensis): A Comprehensive Review on Chemistry, Health Implications, and Technological Considerations. Heck and De Mejia, 2007.](https://doi.org/10.1111/j.1750-3841.2007.00535.x)
+
+## Mixed Models Review  
+
+- Distributions of the data 
+- Linear predictor 
+- Models for some of the parameters (e.g., $u \sim N(0, \sigma^2_u)$). 
+- Mixed models are hierarchical models  
+- Sharing information between groups  
+
+## Estimation of parameters in Mixed Models  
+
+### Analysis of variance (ANOVA) 
+
+- ANOVA can be considered a special case of the linear model. 
+- Each row of the ANOVA table corresponds to a source of variation and the variance of a corresponding to a set of regression coefficients. 
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANOVA table for split-plot</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+<table>
+    <tr>
+        <th>Source</th>
+        <th>df</th>
+        <th>Sum of Squares (Partial or type III)</th>
+        <th>Mean Square</th>
+        <th>Expected Mean Square</th>
+    </tr>
+    <tr>
+        <td>Block</td>
+        <td>$$r-1$$</td>
+        <td>$$SS_b$$</td>
+        <td>$$\frac{SS_b}{df_b}$$</td>
+        <td>$$\sigma^2_{\varepsilon}+c\sigma^2_w+ac\sigma^2_b$$</td>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>$$a-1$$</td>
+        <td>$$SS_A$$</td>
+        <td>$$\frac{SS_A}{df_A}$$</td>
+        <td>$$\sigma^2_{\varepsilon}+c\sigma^2_w+\phi^2(\alpha)$$</td>
+    </tr>
+    <tr>
+        <td>Error(whole plot)</td>
+        <td>$$(r-1)(a-1)$$</td>
+        <td>$$SS_w$$</td>
+        <td>$$\frac{SS_w}{df_w}$$</td>
+        <td>$$\sigma^2_{\varepsilon}+c\sigma^2_w$$</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>$$c-1$$</td>
+        <td>$$SS_C$$</td>
+        <td>$$\frac{SS_C}{df_C}$$</td>
+        <td>$$\sigma^2_{\varepsilon}+\phi^2(\gamma)$$</td>
+    </tr>
+    <tr>
+        <td>A x C</td>
+        <td>$$(a-1)(c-1)$$</td>
+        <td>$$SS_{AC}$$</td>
+        <td>$$\frac{SS_{AC}}{df_{AC}}$$</td>
+        <td>$$\sigma^2_{\varepsilon}+\phi^2(\alpha \gamma)$$</td>
+    </tr>
+    <tr>
+        <td>Error(split plot)</td>
+        <td>$$a(r-1)(c-1)$$</td>
+        <td>$$SS_e$$</td>
+        <td>$$\frac{SS_e}{df_e}$$</td>
+        <td>$$\sigma^2_{\varepsilon}$$</td>
+    </tr>
+
+</table>
+</body>
+
+
+
+- See [Gelman (2005)](https://www.jstor.org/stable/pdf/3448650.pdf). 
+
+### Estimation of fixed effects   
+
+Fixed effects are normally estimated using least squares ($\hat{\boldsymbol{\beta}}_{LSE}$) or maximum likelihood estimation ($\hat{\boldsymbol{\beta}}_{MLE}$). 
+Under the assumption of a normal distribution, $\hat{\boldsymbol{\beta}}_{LSE}=\hat{\boldsymbol{\beta}}_{MLE} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$. 
+
+**Least squares estimation** (LSE) does not make distributional assumptions, it's basically just optimizing a function of the squared differences between the estimations and the observations.  
+
+$$(\mathbf{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^2 = (\mathbf{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^T(\mathbf{y}-\mathbf{X}\boldsymbol{\hat{\beta}}) = 
+\mathbf{y}^T\mathbf{y} - 2\mathbf{y}^T\mathbf{X}\hat{\boldsymbol{\beta}} + \hat{\boldsymbol{\beta}}^T \mathbf{X}^T \mathbf{X} \hat{\boldsymbol{\beta}}$$  
+
+Set first derivative to zero
+
+$$\underset{\boldsymbol{\hat{\beta}}}{\mathrm{argmin}}\, (\mathbf{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^2 = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$$
+
+Because LSE does not make distributional assumptions, there's no variance parameter associated to our model, and we don't get any uncertainty estimates. 
+
+
+**Maximum likelihood estimation** (MLE) does make distributional assumptions. 
+
+$$\hat{\boldsymbol{\beta}} = \underset{\boldsymbol{\hat{\beta}}}
+{\mathrm{argmax}}\, \mathcal{L}_n(\boldsymbol{\hat{\beta}};\mathbf{y})$$
+
+
+Computationally, we normally target the log-likelihood:  
+
+$$\hat{\boldsymbol{\beta}} = \underset{\boldsymbol{\hat{\beta}}}
+{\mathrm{argmin}}\, - \ln \mathcal{L}_n(\boldsymbol{\hat{\beta}};\mathbf{y})$$
+
+Fixed effects are often called BLUEs: 
+
+- Best: minimum variance 
+- Linear 
+- Unbiased 
+- Estimator 
+
+### Estimation of variance components 
+
+Variance components may be estimated with a range of different methods. 
+
+- **Maximum Likelihood Estimation** of variance components provides downward biased estimates for small data (most experimental data). 
+$\ell_{ML}(\boldsymbol{\sigma; \boldsymbol{\beta}, \mathbf{y}}) = - (\frac{n}{2}) \log(2\pi)-(\frac{1}{2}) \log ( \vert \mathbf{V}(\boldsymbol\sigma) \vert ) - (\frac{1}{2}) (\mathbf{y}-\mathbf{X}\boldsymbol{\beta})^T[\mathbf{V}(\boldsymbol\sigma)]^{-1}(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})$  
+
+- **Restricted Maximum Likelihood** (REML) avoids MLE's downward bias under small data and is thus is the default in most mixed effects models. 
+- In REML, the likelihood is maximized **after** accounting for the model’s fixed effects.  
+- In REML, $\ell_{REML}(\boldsymbol{\sigma};\mathbf{y}) = - (\frac{n-p}{2}) \log (2\pi) - (\frac{1}{2}) \log ( \vert \mathbf{V}(\boldsymbol\sigma) \vert ) - (\frac{1}{2})log \left(  \vert \mathbf{X}^T[\mathbf{V}(\boldsymbol\sigma)]^{-1}\mathbf{X} \vert \right) - (\frac{1}{2})\mathbf{r}[\mathbf{V}(\boldsymbol\sigma)]^{-1}\mathbf{r}$, 
+where $p = rank(\mathbf{X})$, $\mathbf{r} = \mathbf{y}-\mathbf{X}\hat{\boldsymbol{\beta}}_{ML}$.  
+  - Start with initial values for $\boldsymbol{\sigma}$, $\tilde{\boldsymbol{\sigma}}$.  
+  - Compute $\mathbf{G}(\tilde{\boldsymbol{\sigma}})$ and $\mathbf{R}(\tilde{\boldsymbol{\sigma}})$.  
+  - Obtain $\boldsymbol{\beta}$ and $\mathbf{b}$.   
+  - Update $\tilde{\boldsymbol{\sigma}}$.  
+  - Repeat until convergence.  
+- Variance components may be $<0$; in that case they are set to zero. 
+
+- **Method of moments** (MoM) is derived from ANOVA tables that include the expected mean squares. 
+  - Use actual sums of squares and expected mean squares (EMS) from ANOVA to clear for the different variance components. 
+  - e.g., $\tilde{\sigma}^2_{w} = \frac{SSw - SS_e}{c}$ (See table above). However, if $\tilde{\sigma}^2_{w} < 0$, $\hat{\sigma}^2_{w} = 0$. 
+
+- Issues with variance estimates equal to zero 
+  - Type I error inflation 
+  - [Frey et al. (2024)](https://acsess.onlinelibrary.wiley.com/doi/10.1002/agj2.21570) 
+
+### Estimating random effects   
+
+Random effects arise from a multivariate normal distribution  
+
+$$\mathbf{u} \sim MVN (\boldsymbol{0}, \mathbf{G}),$$
+where $\mathbf{G} = \begin{bmatrix} \sigma^2_b \mathbf{I} & 0 \\ 0& \sigma^2_w \mathbf{I}   \end{bmatrix}$. 
+
+- Random effects are shrunk.  
+- Shrinkage depends on magnitude of variance estimate. 
+
+Random effects are often called BLUPs: 
+
+- Best: minimum variance, 
+- Linear 
+- Unbiased 
+- Predictor 
+
+### Degrees of freedom in mixed models  
+
+- Denominator degrees of freedom may not be exactly derived from ANOVA tables. 
+- Increase the complexity of covariance structure, and the df will be more different to the ones on the ANOVA table. 
+- Degrees of freedom are approximated under mixed models for bias correction. 
+  - [Satterthwaite approximation](https://www.jstor.org/stable/3002019?seq=1)  
+  - [Kenward-Roger approximation](https://www.jstor.org/stable/2533558?seq=1)  
+
+
+
+
+
