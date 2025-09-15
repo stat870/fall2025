@@ -210,6 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimating-random-effects"><i class="fa fa-check"></i><b>6.3.4</b> Estimating random effects</a></li>
 <li class="chapter" data-level="6.3.5" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#degrees-of-freedom-in-mixed-models"><i class="fa fa-check"></i><b>6.3.5</b> Degrees of freedom in mixed models</a></li>
 </ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#r-demo"><i class="fa fa-check"></i><b>6.4</b> R demo</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>7</b> Semester Project</a>
 <ul>
@@ -338,7 +339,7 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-31">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-91">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -369,7 +370,7 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-31">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-91">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -411,9 +412,9 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-mixed-models.html#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m), <span class="fu">abs</span>(<span class="fu">resid</span>(m)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-mixed-models.html#cb5-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-2.png" width="672" /></p>
 <pre><code>## [1] 109 148</code></pre>
 </details>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-mixed-models.html#cb7-1" tabindex="-1"></a><span class="co"># anova</span></span>
@@ -496,7 +497,7 @@ Each room has 5 pens of each dietary treatment.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-36">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-96">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -531,7 +532,7 @@ Each room has 5 pens of each dietary treatment.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-36">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
+<caption><span id="tab:unnamed-chunk-96">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -579,7 +580,7 @@ Each room has 5 pens of each dietary treatment.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="linear-mixed-models.html#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m_random), <span class="fu">abs</span>(<span class="fu">resid</span>(m_random)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 </details>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-mixed-models.html#cb19-1" tabindex="-1"></a><span class="co"># anova</span></span>
 <span id="cb19-2"><a href="linear-mixed-models.html#cb19-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_random, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
@@ -656,7 +657,7 @@ Treatment point estimates don’t change whether blocks are fixed or random.
 <span id="cb25-22"><a href="linear-mixed-models.html#cb25-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in geom_text(aes(x = 4.5, y = 22.75), label = &quot;s.e.(difference)&quot;): All aesthetics have length 1, but the data has 12 rows.
 ## ℹ Please consider using `annotate()` or provide this layer with data containing a single row.</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 </details>
 <p>More references:</p>
 <ul>

@@ -1,0 +1,75 @@
+---
+title: "In class 09/15 Follow along code"
+author: "J Lacasa"
+date: "2025-09-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R packages 
+
+```{r}
+library(tidyverse)
+library(lme4)
+```
+
+# Data 
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fung_barley_sp.csv"
+fung_sp <- read.csv(url)
+```
+
+# ANOVA (see class notes for 09/15)
+
+```{r}
+t_spl <- data.frame(
+  Source = c("Block", "Management", "Management(Block)", "Time",
+             "MxT", "T(MxB)", "Error", "Total"),
+  df = c("2", "7", 
+         "14", 
+         "3", "21",
+         "48", "96", "191"))
+
+knitr::kable(t_spl, caption = "ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.")
+```
+
+# Model fitting 
+
+MLE, REML, ANOVA
+```{r}
+m_MLE <- lmer(yield ~ fung*gen + (1|block/fung), data = fung_sp, REML = F)
+m_REML <- lmer(yield ~ fung*gen + (1|block/fung), data = fung_sp, 
+          REML = T)
+m_anova <- aov(yield ~ fung*gen + Error(block/fung), data = fung_sp)
+
+```
+
+Variance components using MLE
+```{r}
+VarCorr(m_MLE)
+```
+
+Variance components using REML
+```{r}
+VarCorr(m_REML)
+```
+
+Variance components using Method of Moments 
+
+```{r}
+m_anova
+# sigma^2_b
+sqrt(((15.22831/3) - (3.13028/3))/(2*70))
+
+# sigma^2_w
+sqrt(((3.13028/3) - (32.73301/414))/(70))
+
+# sigma^2_e
+sqrt(32.73301/414)
+```
+
+

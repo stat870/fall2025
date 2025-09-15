@@ -9,22 +9,76 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# R packages 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+library(tidyverse)
+library(lme4)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Data 
+```{r}
+library(agridat)
+data("gomez.splitplot.subsample")
+df <- gomez.splitplot.subsample
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# ANOVA table
+```{r}
+t_spl <- data.frame(
+  Source = c("Block", "Management", "Management(Block)", "Time",
+             "MxT", "T(MxB)", "Error", "Total"),
+  df = c("2", "7", 
+         "14", 
+         "3", "21",
+         "48", "96", "191"))
+
+knitr::kable(t_spl, caption = "ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.")
+```
+
+# Model fitting
+
+MLE
+```{r}
+m_MLE <- lmer(height ~ time*manage + (1|rep/manage/time), data = df, 
+          REML = F)
+```
+
+REML
+```{r}
+m_REML <- lmer(height ~ time*manage + (1|rep/manage/time), data = df, 
+          REML = T)
+```
+
+ANOVA
+```{r}
+m_anova <- aov(height ~ time*manage + Error(rep/manage/time), data = df)
+```
+
+Variance components with MLE
+```{r}
+VarCorr(m_MLE)
+```
+
+Variance components with REML
+```{r}
+VarCorr(m_REML)
+```
+
+Variance components with MoM
+```{r}
+#sigma^2_b 
+sqrt(((2632.167/2) - (1324.295/14))/(2*4*8))
+
+#sigma^2_wp 
+sqrt(((1324.295/14) - (1653.080/48))/(2*4))
+
+#sigma^2_sp 
+sqrt(((1653.080/48) - (167.39/96))/2)
+
+#sigma^2_e 
+sqrt(167.39/96)
+```
+
+
+
