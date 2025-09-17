@@ -6,7 +6,7 @@ September 17th
 
 - Assignment 2 grades are posted 
 - Assignment 3 due on Sunday 
-
+- [This blog post](https://statmodeling.stat.columbia.edu/2025/09/17/hey-nature-magazine-reputation-is-a-two-way-street/) on "bad science" 
 
 ## Review about the (general) linear mixed model
 
@@ -20,6 +20,10 @@ which is very much restrictive.
 Now, if we relax the assumption of the normal distributions, there are several other probability distributions that could describe how the data are generated. 
 GLMMs are linear models for variables from any distribution from the exponential family. 
 
+Exponential family: pdf can be written as 
+$$f(y\vert \theta) = \exp \begin{bmatrix} \frac{y\theta- b(\theta)}{a(\theta)} + c(y, \phi) \end{bmatrix} ,$$
+where $y$ is the random variable (e.g., the response), $\theta$ is a canonical parameter (related to the mean) and $\phi$ is a scale parameter (related to the dispersion). 
+
 ```{r echo=FALSE, fig.cap="Common variable distributions. Page 60 in Stroup et al. (2024)", out.width = '80%', fig.align='center'}
 knitr::include_graphics("../figures/stroup_distributions.jpg")
 ```
@@ -32,10 +36,14 @@ knitr::include_graphics("../figures/stroup_distributions.jpg")
 2. Define the probability distribution for the data, $\mathbf{y}|\mathbf{u}$, 
 3. Define the link function $g(\cdot)$, $\boldsymbol\eta = g(\mathbf{y}|\mathbf{u})$. 
 
-### Implications for classical (non-Bayesian) analysis 
+### Implications for model fitting 
 
-- Least Squares Estimator is no longer Maximum Likelihood Estimator - The $Var(\mathbf{y}|\mathbf{u})$ may be specified, but not specify the full likelihood (check out the properties above) 
-- Quasi-likelihood for modeling overdispersion in GLMMs: 
+- Least Squares Estimator is no longer Maximum Likelihood Estimator 
+- Variance is no longer $\hat\sigma^2 = \frac{SSE}{df_e}$ 
+- The whole concept of degrees of freedom is more diffuse 
+- ANOVA shells are still useful to analyze designs are number of independent, true, replicates
+- The $Var(\mathbf{y}|\mathbf{u})$ may be specified, but not specify the full likelihood (check out the properties above) 
+- Quasi-likelihood for modeling overdispersion or repeated measures in GLMMs: 
   - $E(\mathbf{y} \vert \mathbf{b}) = \boldsymbol{\mu}\vert \mathbf{b}$ 
   - $Var(\mathbf{y} \vert \mathbf{b}) = \mathbf{V}_{\mu}^{1/2}\mathbf{A}\mathbf{V}_{\mu}^{1/2}$ 
 
@@ -43,4 +51,7 @@ knitr::include_graphics("../figures/stroup_distributions.jpg")
 ## Reading 
 
 - Stats majors: Chapter 5 in Stroup et al. (2024) 
-- Non-stats majors: [LMMs and GLMMs chapter by Ben Bolker](https://ms.mcmaster.ca/~bolker/R/misc/foxchapter/14-Fox-Chap13.pdf) 
+- Non-stats majors: 
+  - [LMMs and GLMMs chapter by Ben Bolker](https://ms.mcmaster.ca/~bolker/R/misc/foxchapter/14-Fox-Chap13.pdf) 
+  - [The value of generalized linear mixed models for data analysis in the plant sciences](https://www.frontiersin.org/journals/horticulture/articles/10.3389/fhort.2024.1423462/full)
+  - [Generalized Linear Mixed Models in Dairy Cattle Breeding](https://www.sciencedirect.com/science/article/pii/S0022030298757078)

@@ -65,7 +65,7 @@ announcements-5
 review-about-the-general-linear-mixed-model
 generalized-linear-mixed-models-1
 three-steps-to-modeling-data
-implications-for-classical-non-bayesian-analysis
+implications-for-model-fitting
 reading
 semester-project-1
 learning-objectives

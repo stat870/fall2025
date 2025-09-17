@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data"><i class="fa fa-check"></i><b>7.3.1</b> Three steps to modeling data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-classical-non-bayesian-analysis"><i class="fa fa-check"></i><b>7.3.2</b> Implications for classical (non-Bayesian) analysis</a></li>
+<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-model-fitting"><i class="fa fa-check"></i><b>7.3.2</b> Implications for model fitting</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#reading"><i class="fa fa-check"></i><b>7.4</b> Reading</a></li>
 </ul></li>
@@ -261,6 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Assignment 2 grades are posted</li>
 <li>Assignment 3 due on Sunday</li>
+<li><a href="https://statmodeling.stat.columbia.edu/2025/09/17/hey-nature-magazine-reputation-is-a-two-way-street/">This blog post</a> on “bad science”</li>
 </ul>
 </div>
 <div id="review-about-the-general-linear-mixed-model" class="section level2 hasAnchor" number="7.2">
@@ -273,6 +274,9 @@ which is very much restrictive.</p>
 <h2><span class="header-section-number">7.3</span> Generalized linear mixed models<a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now, if we relax the assumption of the normal distributions, there are several other probability distributions that could describe how the data are generated.
 GLMMs are linear models for variables from any distribution from the exponential family.</p>
+<p>Exponential family: pdf can be written as
+<span class="math display">\[f(y\vert \theta) = \exp \begin{bmatrix} \frac{y\theta- b(\theta)}{a(\theta)} + c(y, \phi) \end{bmatrix} ,\]</span>
+where <span class="math inline">\(y\)</span> is the random variable (e.g., the response), <span class="math inline">\(\theta\)</span> is a canonical parameter (related to the mean) and <span class="math inline">\(\phi\)</span> is a scale parameter (related to the dispersion).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-31"></span>
 <img src="../figures/stroup_distributions.jpg" alt="Common variable distributions. Page 60 in Stroup et al. (2024)" width="80%"  />
 <p class="caption">
@@ -291,11 +295,15 @@ Figure 7.1: Common variable distributions. Page 60 in Stroup et al. (2024)
 <li>Define the link function <span class="math inline">\(g(\cdot)\)</span>, <span class="math inline">\(\boldsymbol\eta = g(\mathbf{y}|\mathbf{u})\)</span>.</li>
 </ol>
 </div>
-<div id="implications-for-classical-non-bayesian-analysis" class="section level3 hasAnchor" number="7.3.2">
-<h3><span class="header-section-number">7.3.2</span> Implications for classical (non-Bayesian) analysis<a href="generalized-linear-mixed-models.html#implications-for-classical-non-bayesian-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="implications-for-model-fitting" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Implications for model fitting<a href="generalized-linear-mixed-models.html#implications-for-model-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Least Squares Estimator is no longer Maximum Likelihood Estimator - The <span class="math inline">\(Var(\mathbf{y}|\mathbf{u})\)</span> may be specified, but not specify the full likelihood (check out the properties above)</li>
-<li>Quasi-likelihood for modeling overdispersion in GLMMs:
+<li>Least Squares Estimator is no longer Maximum Likelihood Estimator</li>
+<li>Variance is no longer <span class="math inline">\(\hat\sigma^2 = \frac{SSE}{df_e}\)</span></li>
+<li>The whole concept of degrees of freedom is more diffuse</li>
+<li>ANOVA shells are still useful to analyze designs are number of independent, true, replicates</li>
+<li>The <span class="math inline">\(Var(\mathbf{y}|\mathbf{u})\)</span> may be specified, but not specify the full likelihood (check out the properties above)</li>
+<li>Quasi-likelihood for modeling overdispersion or repeated measures in GLMMs:
 <ul>
 <li><span class="math inline">\(E(\mathbf{y} \vert \mathbf{b}) = \boldsymbol{\mu}\vert \mathbf{b}\)</span></li>
 <li><span class="math inline">\(Var(\mathbf{y} \vert \mathbf{b}) = \mathbf{V}_{\mu}^{1/2}\mathbf{A}\mathbf{V}_{\mu}^{1/2}\)</span></li>
@@ -307,7 +315,12 @@ Figure 7.1: Common variable distributions. Page 60 in Stroup et al. (2024)
 <h2><span class="header-section-number">7.4</span> Reading<a href="generalized-linear-mixed-models.html#reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Stats majors: Chapter 5 in Stroup et al. (2024)</li>
-<li>Non-stats majors: <a href="https://ms.mcmaster.ca/~bolker/R/misc/foxchapter/14-Fox-Chap13.pdf">LMMs and GLMMs chapter by Ben Bolker</a></li>
+<li>Non-stats majors:
+<ul>
+<li><a href="https://ms.mcmaster.ca/~bolker/R/misc/foxchapter/14-Fox-Chap13.pdf">LMMs and GLMMs chapter by Ben Bolker</a></li>
+<li><a href="https://www.frontiersin.org/journals/horticulture/articles/10.3389/fhort.2024.1423462/full">The value of generalized linear mixed models for data analysis in the plant sciences</a></li>
+<li><a href="https://www.sciencedirect.com/science/article/pii/S0022030298757078">Generalized Linear Mixed Models in Dairy Cattle Breeding</a></li>
+</ul></li>
 </ul>
 
 </div>
