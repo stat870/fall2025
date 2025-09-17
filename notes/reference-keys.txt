@@ -12,6 +12,7 @@ tab:unnamed-chunk-14
 tab:unnamed-chunk-19
 tab:unnamed-chunk-24
 fig:unnamed-chunk-26
+fig:unnamed-chunk-31
 welcome-to-stat-870
 about-this-course
 logistics
@@ -59,6 +60,13 @@ estimation-of-variance-components
 estimating-random-effects
 degrees-of-freedom-in-mixed-models
 r-demo
+generalized-linear-mixed-models
+announcements-5
+review-about-the-general-linear-mixed-model
+generalized-linear-mixed-models-1
+three-steps-to-modeling-data
+implications-for-classical-non-bayesian-analysis
+reading
 semester-project-1
 learning-objectives
 partial-deadlines

@@ -1,0 +1,67 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+date: "2025-09-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R packages 
+
+```{r}
+library(tidyverse)
+library(lme4)
+library(emmeans)
+```
+
+# Data 
+```{r}
+library(agridat)
+data("gomez.splitplot.subsample")
+df <- gomez.splitplot.subsample
+str(df)
+```
+
+```{r}
+m_MLE <- lmer(height ~ time*manage + (1|rep) + (1|rep:manage) +
+                (1|rep:manage:time), 
+     REML = FALSE,
+     data = df )
+```
+
+```{r}
+m_REML <- lmer(height ~ time*manage + (1|rep) + (1|rep:manage) +
+                (1|rep:manage:time), 
+     REML = TRUE,
+     data = df )
+```
+
+```{r}
+VarCorr(m_MLE)
+VarCorr(m_REML)
+```
+
+```{r}
+aov(height ~ time*manage + Error(rep/manage/time),
+    data = df )
+```
+
+```{r}
+# sigma^2_e
+sqrt(167.39/96)
+
+# sigma^2_s
+MSs <- (1653.0808/48)
+MSe <- 167.39/96
+sqrt((MSs-MSe)/2)
+
+# sigma^2_w
+MSw <- (1324.295/14)
+MSs <- (1653.0808/48)
+sqrt((MSw-MSs)/(2*4))
+
+```
+

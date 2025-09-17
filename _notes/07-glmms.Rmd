@@ -1,0 +1,46 @@
+# Generalized Linear Mixed Models 
+
+September 17th 
+
+## Announcements 
+
+- Assignment 2 grades are posted 
+- Assignment 3 due on Sunday 
+
+
+## Review about the (general) linear mixed model
+
+One of the most common notations is the model equation form:
+
+$$y_{ij} = \mu + T_i + \varepsilon_{ij} , \\ \varepsilon_{ij}\sim N(0, \sigma^2),$$
+which is very much restrictive. 
+
+## Generalized linear mixed models
+
+Now, if we relax the assumption of the normal distributions, there are several other probability distributions that could describe how the data are generated. 
+GLMMs are linear models for variables from any distribution from the exponential family. 
+
+```{r echo=FALSE, fig.cap="Common variable distributions. Page 60 in Stroup et al. (2024)", out.width = '80%', fig.align='center'}
+knitr::include_graphics("../figures/stroup_distributions.jpg")
+```
+
+![Probability distributions](https://camo.githubusercontent.com/b30b7ec9ec68f28b892eb6d2159c69e79f59a881f05197392332a15787b6fb00/68747470733a2f2f7261772e6769746875622e636f6d2f7261736d757361622f646973747269627574696f6e5f6469616772616d732f6d61737465722f616c6c5f64697374735f736d616c6c65722e706e67)
+
+### Three steps to modeling data 
+
+1. Define the linear predictor $\boldsymbol\eta = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\mathbf{u}$, 
+2. Define the probability distribution for the data, $\mathbf{y}|\mathbf{u}$, 
+3. Define the link function $g(\cdot)$, $\boldsymbol\eta = g(\mathbf{y}|\mathbf{u})$. 
+
+### Implications for classical (non-Bayesian) analysis 
+
+- Least Squares Estimator is no longer Maximum Likelihood Estimator - The $Var(\mathbf{y}|\mathbf{u})$ may be specified, but not specify the full likelihood (check out the properties above) 
+- Quasi-likelihood for modeling overdispersion in GLMMs: 
+  - $E(\mathbf{y} \vert \mathbf{b}) = \boldsymbol{\mu}\vert \mathbf{b}$ 
+  - $Var(\mathbf{y} \vert \mathbf{b}) = \mathbf{V}_{\mu}^{1/2}\mathbf{A}\mathbf{V}_{\mu}^{1/2}$ 
+
+
+## Reading 
+
+- Stats majors: Chapter 5 in Stroup et al. (2024) 
+- Non-stats majors: [LMMs and GLMMs chapter by Ben Bolker](https://ms.mcmaster.ca/~bolker/R/misc/foxchapter/14-Fox-Chap13.pdf) 

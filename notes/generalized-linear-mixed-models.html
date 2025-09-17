@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Day 5 Linear mixed models | STAT 870 - Analysis of Messy Data</title>
-  <meta name="description" content="Day 5 Linear mixed models | STAT 870 - Analysis of Messy Data" />
+  <title>Day 7 Generalized Linear Mixed Models | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 7 Generalized Linear Mixed Models | STAT 870 - Analysis of Messy Data" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Day 5 Linear mixed models | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:title" content="Day 7 Generalized Linear Mixed Models | STAT 870 - Analysis of Messy Data" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Day 5 Linear mixed models | STAT 870 - Analysis of Messy Data" />
+  <meta name="twitter:title" content="Day 7 Generalized Linear Mixed Models | STAT 870 - Analysis of Messy Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="linear-mixed-models.html"/>
-<link rel="next" href="linear-mixed-models-3.html"/>
+<link rel="prev" href="linear-mixed-models-3.html"/>
+<link rel="next" href="semester-project-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -253,261 +253,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="linear-mixed-models-1" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Day 5</span> Linear mixed models<a href="linear-mixed-models-1.html#linear-mixed-models-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>September 10th</p>
-<div id="announcements-3" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Announcements<a href="linear-mixed-models-1.html#announcements-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="generalized-linear-mixed-models" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Day 7</span> Generalized Linear Mixed Models<a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>September 17th</p>
+<div id="announcements-5" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Announcements<a href="generalized-linear-mixed-models.html#announcements-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><a href="https://stat870.github.io/fall2025/assignments/Assignment2_YourLastName.pdf">Assignment 2</a> is due today!</li>
+<li>Assignment 2 grades are posted</li>
+<li>Assignment 3 due on Sunday</li>
 </ul>
 </div>
-<div id="linear-mixed-models-2" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Linear mixed models<a href="linear-mixed-models-1.html#linear-mixed-models-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Mixed models come in handy when the (in)famous independence assumption cannot be taken for granted, especially if we know the dependence patterns in the data.
-We typically know the dependence patterns in the data when running an experiment.
-For example, the fungicide-barley experiment.
-Let’s re-do the statistical model and ANOVA shell:</p>
-<p>A reasonable model could be</p>
-<p><span class="math display">\[y_{ijk}|b_k, u_{i(k)} \sim N(\mu_{ijk}, \sigma_e^2),\]</span></p>
-<p><span class="math display">\[\mu_{ijk} = \eta_{ijk},\]</span>
-<span class="math display">\[\eta_{ijk} = \eta_0 + F_i +G_j + (FG)_{ij}+b_k+ u_{i(k)},\]</span></p>
-<p>where:</p>
-<ul>
-<li><span class="math inline">\(y_{ijk}\)</span> is the observed yield for the <span class="math inline">\(i\)</span>th fungicide treatment, <span class="math inline">\(j\)</span>th genotype treatment, and <span class="math inline">\(k\)</span>th repetition,</li>
-<li><span class="math inline">\(\mu_{ijk}\)</span> is the expected value for the <span class="math inline">\(i\)</span>th fungicide treatment, <span class="math inline">\(j\)</span>th genotype treatment, and <span class="math inline">\(k\)</span>th repetition,<br />
-</li>
-<li><span class="math inline">\(\sigma^2\)</span> is the residual variance,</li>
-<li><span class="math inline">\(\eta_{ijk}\)</span>, the linear predictor is equivalent to the expected value because the link function is the identity function,</li>
-<li><span class="math inline">\(\eta_0\)</span> is the overall mean of the linear predictor,</li>
-<li><span class="math inline">\(F_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th fungicide treatment,</li>
-<li><span class="math inline">\(G_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th genotype treatment,</li>
-<li><span class="math inline">\((FG)_{ij}\)</span> is the interaction for the <span class="math inline">\(i\)</span>th fungicide treatment and <span class="math inline">\(j\)</span>th genotype treatment,</li>
-<li><span class="math inline">\(b_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th block, <span class="math inline">\(b_k \sim N(0, \sigma^2_b)\)</span></li>
-<li><span class="math inline">\(u_{i(k)}\)</span> is the effect of the whole plot corresponding to the <span class="math inline">\(i\)</span>th fungicide treatment in the <span class="math inline">\(k\)</span>th block, <span class="math inline">\(u_{i(k)} \sim N(0, \sigma^2_u)\)</span>.</li>
-</ul>
-<p>A reasonable ANOVA shell could be:</p>
-<table>
-<caption><span id="tab:unnamed-chunk-24">Table 5.1: </span>This would be the ANOVA under a CRD.</caption>
-<thead>
-<tr class="header">
-<th align="left">Source</th>
-<th align="left">df</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">-</td>
-<td align="left">-</td>
-</tr>
-<tr class="even">
-<td align="left">Fungicide</td>
-<td align="left">f-1 = 1</td>
-</tr>
-<tr class="odd">
-<td align="left">-</td>
-<td align="left">-</td>
-</tr>
-<tr class="even">
-<td align="left">Genotype</td>
-<td align="left">g-1 = 69</td>
-</tr>
-<tr class="odd">
-<td align="left">Fung x Gen</td>
-<td align="left">(f-1)(g-1) = 69</td>
-</tr>
-<tr class="even">
-<td align="left">Error</td>
-<td align="left">N-fg = 420</td>
-</tr>
-<tr class="odd">
-<td align="left">Total</td>
-<td align="left">N-1</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption><span id="tab:unnamed-chunk-24">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.</caption>
-<thead>
-<tr class="header">
-<th align="left">Source</th>
-<th align="left">df</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Block</td>
-<td align="left">b-1</td>
-</tr>
-<tr class="even">
-<td align="left">Fungicide</td>
-<td align="left">f-1</td>
-</tr>
-<tr class="odd">
-<td align="left">Fungicide(Block)</td>
-<td align="left">(b-1)(f-1)</td>
-</tr>
-<tr class="even">
-<td align="left">Genotype</td>
-<td align="left">g-1</td>
-</tr>
-<tr class="odd">
-<td align="left">Fung x Gen</td>
-<td align="left">(f-1)(g-1)</td>
-</tr>
-<tr class="even">
-<td align="left">Gen(Block x Fung)</td>
-<td align="left">f(b-1)(g-1)</td>
-</tr>
-<tr class="odd">
-<td align="left">Total</td>
-<td align="left">N-1</td>
-</tr>
-</tbody>
-</table>
-<table>
-<caption><span id="tab:unnamed-chunk-24">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design.</caption>
-<thead>
-<tr class="header">
-<th align="left">Source</th>
-<th align="left">df</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Block</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Fungicide</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Fungicide(Block)</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Genotype</td>
-<td align="left">69</td>
-</tr>
-<tr class="odd">
-<td align="left">Fung x Gen</td>
-<td align="left">69</td>
-</tr>
-<tr class="even">
-<td align="left">Gen(Block x Fung)</td>
-<td align="left">414</td>
-</tr>
-<tr class="odd">
-<td align="left">Total</td>
-<td align="left">559</td>
-</tr>
-</tbody>
-</table>
-<p>Notice that the 420 degrees of freedom (aka independent observations) from the CRD ANOVA are now spread across different levels, connected to different variance components: blocks, whole plots, and random error.
-This means that there is a different number of independent observations for Fungicide compared to Genotype.
-The variance components will affect the inference distinctly:</p>
-<ul>
-<li>Standard errors for comparisons at the whole plot: <span class="math inline">\(se(\mu_{i\cdot}-\mu_{i&#39;\cdot}) = \sqrt{\frac{2(\sigma^2_e + g\sigma^2_u)}{gb}}\)</span></li>
-<li>Standard errors for comparisons at the split plot: <span class="math inline">\(se(\mu_{\cdot j}-\mu_{\cdot j&#39;}) = \sqrt{\frac{2 \sigma^2_e }{fb}}\)</span></li>
-</ul>
-<p>Let’s apply that model:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-mixed-models-1.html#cb27-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb27-2"><a href="linear-mixed-models-1.html#cb27-2" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="linear-mixed-models-1.html#cb27-3" tabindex="-1"></a><span class="co"># load the data </span></span>
-<span id="cb27-4"><a href="linear-mixed-models-1.html#cb27-4" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fung_barley_sp.csv&quot;</span></span>
-<span id="cb27-5"><a href="linear-mixed-models-1.html#cb27-5" tabindex="-1"></a>fung_sp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
-<span id="cb27-6"><a href="linear-mixed-models-1.html#cb27-6" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="linear-mixed-models-1.html#cb27-7" tabindex="-1"></a>fung_sp <span class="sc">%&gt;%</span> </span>
-<span id="cb27-8"><a href="linear-mixed-models-1.html#cb27-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(bed, row))<span class="sc">+</span></span>
-<span id="cb27-9"><a href="linear-mixed-models-1.html#cb27-9" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()<span class="sc">+</span></span>
-<span id="cb27-10"><a href="linear-mixed-models-1.html#cb27-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb27-11"><a href="linear-mixed-models-1.html#cb27-11" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
-<span id="cb27-12"><a href="linear-mixed-models-1.html#cb27-12" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-1.png" width="672"  /></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="linear-mixed-models-1.html#cb28-1" tabindex="-1"></a><span class="co"># fit the model</span></span>
-<span id="cb28-2"><a href="linear-mixed-models-1.html#cb28-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> fung<span class="sc">*</span>gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>block<span class="sc">/</span>fung), <span class="at">data =</span> fung_sp)</span>
-<span id="cb28-3"><a href="linear-mixed-models-1.html#cb28-3" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="linear-mixed-models-1.html#cb28-4" tabindex="-1"></a><span class="co"># anova</span></span>
-<span id="cb28-5"><a href="linear-mixed-models-1.html#cb28-5" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
-<pre><code>## Analysis of Deviance Table (Type II Wald F tests with Kenward-Roger df)
-## 
-## Response: yield
-##                F Df Df.res    Pr(&gt;F)    
-## fung     40.2718  1      3  0.007915 ** 
-## gen       7.2008 69    414 &lt; 2.2e-16 ***
-## fung:gen  0.9331 69    414  0.629010    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div id="why-do-we-call-these-multi-level-models" class="section level3 hasAnchor" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Why do we call these multi-level models?<a href="linear-mixed-models-1.html#why-do-we-call-these-multi-level-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The data are clustered in <em>groups</em> that were generated under similar conditions.</p>
-<ul>
-<li>What are those groups in the barley example?</li>
-</ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-26"></span>
-<img src="../figures/barley_sp.jpg" alt="Intuitive visualization of a split-plot design model as a hierarchical (multilevel) model." width="85%"  />
+<div id="review-about-the-general-linear-mixed-model" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Review about the (general) linear mixed model<a href="generalized-linear-mixed-models.html#review-about-the-general-linear-mixed-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the most common notations is the model equation form:</p>
+<p><span class="math display">\[y_{ij} = \mu + T_i + \varepsilon_{ij} , \\ \varepsilon_{ij}\sim N(0, \sigma^2),\]</span>
+which is very much restrictive.</p>
+</div>
+<div id="generalized-linear-mixed-models-1" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Generalized linear mixed models<a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now, if we relax the assumption of the normal distributions, there are several other probability distributions that could describe how the data are generated.
+GLMMs are linear models for variables from any distribution from the exponential family.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-31"></span>
+<img src="../figures/stroup_distributions.jpg" alt="Common variable distributions. Page 60 in Stroup et al. (2024)" width="80%"  />
 <p class="caption">
-Figure 5.1: Intuitive visualization of a split-plot design model as a hierarchical (multilevel) model.
+Figure 7.1: Common variable distributions. Page 60 in Stroup et al. (2024)
 </p>
 </div>
+<div class="float">
+<img src="https://camo.githubusercontent.com/b30b7ec9ec68f28b892eb6d2159c69e79f59a881f05197392332a15787b6fb00/68747470733a2f2f7261772e6769746875622e636f6d2f7261736d757361622f646973747269627574696f6e5f6469616772616d732f6d61737465722f616c6c5f64697374735f736d616c6c65722e706e67" alt="Probability distributions" />
+<div class="figcaption">Probability distributions</div>
 </div>
-<div id="degrees-of-freedom-in-a-mixed-model" class="section level3 hasAnchor" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Degrees of freedom in a mixed model<a href="linear-mixed-models-1.html#degrees-of-freedom-in-a-mixed-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Degrees of freedom for means are not that easy and straightforward to compute under mixed models anymore.
-There are <strong>approximate methods</strong> to calculate the degrees of freedom, like Satterthwaite or Kenward-Roger.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="linear-mixed-models-1.html#cb30-1" tabindex="-1"></a>mg_means <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m, <span class="sc">~</span>fung<span class="sc">:</span>gen)</span>
-<span id="cb30-2"><a href="linear-mixed-models-1.html#cb30-2" tabindex="-1"></a><span class="fu">head</span>(mg_means)</span></code></pre></div>
-<pre><code>##  fung gen emmean    SE   df lower.CL upper.CL
-##  F1   G01   5.24 0.174 31.4     4.88     5.59
-##  F2   G01   4.58 0.174 31.4     4.23     4.94
-##  F1   G02   5.38 0.174 31.4     5.02     5.73
-##  F2   G02   4.75 0.174 31.4     4.39     5.11
-##  F1   G03   6.53 0.174 31.4     6.18     6.89
-##  F2   G03   5.62 0.174 31.4     5.26     5.97
-## 
-## Degrees-of-freedom method: kenward-roger 
-## Confidence level used: 0.95</code></pre>
-<p>However, computing the degrees of freedom for the comparisons is much more straightforward (esp. because this a balanced design).</p>
+<div id="three-steps-to-modeling-data" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Three steps to modeling data<a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Define the linear predictor <span class="math inline">\(\boldsymbol\eta = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\mathbf{u}\)</span>,</li>
+<li>Define the probability distribution for the data, <span class="math inline">\(\mathbf{y}|\mathbf{u}\)</span>,</li>
+<li>Define the link function <span class="math inline">\(g(\cdot)\)</span>, <span class="math inline">\(\boldsymbol\eta = g(\mathbf{y}|\mathbf{u})\)</span>.</li>
+</ol>
+</div>
+<div id="implications-for-classical-non-bayesian-analysis" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Implications for classical (non-Bayesian) analysis<a href="generalized-linear-mixed-models.html#implications-for-classical-non-bayesian-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Take a look at the ANOVA table, and the experimental units.</li>
+<li>Least Squares Estimator is no longer Maximum Likelihood Estimator - The <span class="math inline">\(Var(\mathbf{y}|\mathbf{u})\)</span> may be specified, but not specify the full likelihood (check out the properties above)</li>
+<li>Quasi-likelihood for modeling overdispersion in GLMMs:
+<ul>
+<li><span class="math inline">\(E(\mathbf{y} \vert \mathbf{b}) = \boldsymbol{\mu}\vert \mathbf{b}\)</span></li>
+<li><span class="math inline">\(Var(\mathbf{y} \vert \mathbf{b}) = \mathbf{V}_{\mu}^{1/2}\mathbf{A}\mathbf{V}_{\mu}^{1/2}\)</span></li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="linear-mixed-models-1.html#cb32-1" tabindex="-1"></a>sigma2_e <span class="ot">&lt;-</span> <span class="fu">sigma</span>(m)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb32-2"><a href="linear-mixed-models-1.html#cb32-2" tabindex="-1"></a>sigma2_wp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(m))[<span class="dv">1</span>,]<span class="sc">$</span>vcov</span>
-<span id="cb32-3"><a href="linear-mixed-models-1.html#cb32-3" tabindex="-1"></a>sigma2_b <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(m))[<span class="dv">2</span>,]<span class="sc">$</span>vcov</span>
-<span id="cb32-4"><a href="linear-mixed-models-1.html#cb32-4" tabindex="-1"></a>levels_wp <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(fung_sp<span class="sc">$</span>fung)</span>
-<span id="cb32-5"><a href="linear-mixed-models-1.html#cb32-5" tabindex="-1"></a>levels_sp <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(fung_sp<span class="sc">$</span>gen)</span>
-<span id="cb32-6"><a href="linear-mixed-models-1.html#cb32-6" tabindex="-1"></a>reps <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(fung_sp<span class="sc">$</span>block)</span></code></pre></div>
-<p>Differences between levels of the factor at the whole plot – <span class="math inline">\(se(\mu_{i\cdot}-\mu_{i&#39;\cdot}) = \sqrt{\frac{2(\sigma^2_e + g\sigma^2_u)}{gb}}\)</span>.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="linear-mixed-models-1.html#cb33-1" tabindex="-1"></a><span class="co"># get the s.e. for comparisons between fungicide treatments by hand</span></span>
-<span id="cb33-2"><a href="linear-mixed-models-1.html#cb33-2" tabindex="-1"></a><span class="fu">sqrt</span>( <span class="dv">2</span><span class="sc">*</span>(sigma2_e <span class="sc">+</span> levels_sp<span class="sc">*</span>sigma2_wp) <span class="sc">/</span> (levels_sp<span class="sc">*</span>reps))</span></code></pre></div>
-<pre><code>## [1] 0.086331</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="linear-mixed-models-1.html#cb35-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span>fung, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contr</span></code></pre></div>
-<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<pre><code>##  contrast estimate     SE df t.ratio p.value
-##  c(1, -1)    0.548 0.0863  3   6.346  0.0079
-## 
-## Results are averaged over the levels of: gen 
-## Degrees-of-freedom method: kenward-roger</code></pre>
-<p>Differences between levels of the factor at the split plot – <span class="math inline">\(se(\mu_{\cdot j}-\mu_{\cdot j&#39;}) = \sqrt{\frac{2 \sigma^2_e }{fb}}\)</span>.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="linear-mixed-models-1.html#cb38-1" tabindex="-1"></a><span class="co"># get the s.e. for comparisons between genotype treatments by hand</span></span>
-<span id="cb38-2"><a href="linear-mixed-models-1.html#cb38-2" tabindex="-1"></a><span class="fu">sqrt</span>( <span class="dv">2</span><span class="sc">*</span>(sigma2_e ) <span class="sc">/</span> (levels_wp<span class="sc">*</span>reps))</span></code></pre></div>
-<pre><code>## [1] 0.1405927</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="linear-mixed-models-1.html#cb40-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">68</span>))))<span class="sc">$</span>contr</span></code></pre></div>
-<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<pre><code>##  contrast                                                        estimate    SE  df t.ratio p.value
-##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    -0.152 0.141 414  -1.085  0.2787
-## 
-## Results are averaged over the levels of: fung 
-## Degrees-of-freedom method: kenward-roger</code></pre>
 </div>
 </div>
-<div id="next-week" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Next week<a href="linear-mixed-models-1.html#next-week" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="reading" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Reading<a href="generalized-linear-mixed-models.html#reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Monday: shrinkage, use of BLUPs versus BLUEs, REML<br />
-</li>
-<li>Wednesday: GLMMs</li>
+<li>Stats majors: Chapter 5 in Stroup et al. (2024)</li>
+<li>Non-stats majors: <a href="https://ms.mcmaster.ca/~bolker/R/misc/foxchapter/14-Fox-Chap13.pdf">LMMs and GLMMs chapter by Ben Bolker</a></li>
 </ul>
 
 </div>
@@ -517,8 +317,8 @@ There are <strong>approximate methods</strong> to calculate the degrees of freed
           </div>
         </div>
       </div>
-<a href="linear-mixed-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="linear-mixed-models-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-mixed-models-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -549,7 +349,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/stat720/book2025/edit/main/05-mixed_models2_final.Rmd",
+    "link": "https://github.com/stat720/book2025/edit/main/07-glmms.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -557,7 +357,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/stat720/book2025/blob/main/05-mixed_models2_final.Rmd",
+    "link": "https://github.com/stat720/book2025/blob/main/07-glmms.Rmd",
     "text": null
   },
   "download": null,
