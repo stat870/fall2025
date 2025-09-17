@@ -18,7 +18,7 @@ Sept. 15
     
 Sept. 17 
 : Generalized linear mixed models 
-  : [](#)
+  : [html](https://stat870.github.io/fall2025/notes/generalized-linear-mixed-models.html)
 
 Sept. 22 
 : TBD
