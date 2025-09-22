@@ -39,6 +39,18 @@ knitr::include_graphics("../figures/error_types.jpg")
 
 ### t-tests 
 
+```{r echo=FALSE, out.width="70%"}
+data.frame(x = seq(-3, 3, by = .05)) %>% 
+  mutate(d = dt(x, df = 30)) %>% 
+  ggplot(aes(x, d))+
+  geom_line()+
+  labs(y = "[t]", x = "t", title = "PDF for t with df = 30.")+
+  theme_classic()+
+  theme(aspect.ratio = .6,
+        panel.grid = element_blank(), 
+        axis.text = element_text(size = 8))
+```
+
 - Usually used to test whether **one** value/parameter/linear combination of parameters is different to a certain number. 
 - Steps: 
   1. Define the target quantity $\theta$. For example, $\theta = \beta_1-\beta_2$. 
@@ -54,6 +66,18 @@ knitr::include_graphics("../figures/error_types.jpg")
 - Note that $t_{crit}$ depends on $dfe$. 
 
 ### F-tests are multivariate t-tests 
+
+```{r echo=FALSE, out.width="70%"}
+data.frame(x = seq(0, 25, by = .01)) %>% 
+  mutate(d = df(x, df1 = 3, df2 =30)) %>% 
+  ggplot(aes(x, d))+
+  geom_line()+
+  labs(y = "[F]", x = "F", title = "PDF for F with df1 = 3 and df2 = 30.")+
+  theme_classic()+
+  theme(aspect.ratio = .6,
+        panel.grid = element_blank(), 
+        axis.text = element_text(size = 8))
+```
 
 - Test the relevance of multiple factors at once. 
 - Consistent with the "bins" concept of ANOVA. 
@@ -276,12 +300,18 @@ F.TF <- (1.505/6)/(26.44833/33)
 
 ### Adjusting degrees of freedom for mixed models 
 
+**From Assignment 3:** 
+
+>In class we learned that degrees of freedom represent the number of independent pieces of information. In the ANOVA tables these appear as whole numbers, but when we run mixed models in R I sometimes see fractional values (for example, 27.4). Why do mixed models produce non-integer degrees of freedom, and could you also provide a simpler or more intuitive way to think about what degrees of freedom really mean?  
+>*Answer: According to my understanding, in ANOVA, degrees of freedom come directly from how many observations are available and how many parameters are estimated, which gives whole numbers. Mixed models include both random and fixed effects and the structure of data involves often correlations among the observations for example: repeated measures on the same subject or split-plot designs). In this case, the information available to estimate parameters is not clearly separated as ANOVA. So, degrees of freedom in mixed models represent an effective amount of independent information, this might be the reason they can be fractional.* 
+
+
 - Contrasts for balanced \& complete designs have straightforward calculation of degrees of freedom. 
-- Sometimes, estimating the df is not as straightforward. 
-- For unbalanced designs, incomplete blocks, missing data, and cases with more complex variance-covariance structure, the ANOVA sheel do not give us exact degrees of freedom. 
+- For unbalanced designs, incomplete blocks, missing data, and cases with more complex variance-covariance structure, the ANOVA shell does not give us exact degrees of freedom. 
 - Downward bias of the variance of an estimable function, leading to: 
   - too narrow confidence intervals 
   - inflated type I error rates 
+- Bias adjustment methods estimate the approximate degrees of freedom, which might be a non-integer number.  
 
 **Satterthwaite approximation**  
 
@@ -294,9 +324,16 @@ $$\nu_2^\star \equiv \frac{(\sum_m c_m X_m^2)^2}{\sum_m\frac{(c_m X_m^2)}{df_m}}
 **Kenward-Roger approximation** 
 
 - [Paper](https://www.jstor.org/stable/2533558?seq=1) 
+- Based on REML 
 - Again, expept for variance-component-only LMMs with balanced data and their compound symmetry marginal model equivalents, the estimated covariance of $\beta \mathbf{K}$ will tend to be underestimated. 
-- KR somewhat more conservative than Satterthwaite. 
+- KR somewhat more conservative and reliable than Satterthwaite ([source](https://link.springer.com/article/10.1198/108571102726)). 
 - Integrated in most statistical software. 
+
+**R implementation** 
+
+- `emmeans` uses Kenward-Roger by default. [[see vignette](https://cran.r-project.org/web/packages/emmeans/vignettes/sophisticated.html)] 
+- Everything is more tricky in GLMMs (`df` is `Inf` in most applications). 
+
 
 ## Applied example II  
 
@@ -381,10 +418,14 @@ w_{i(k)} \sim N(0, \sigma^2_w), \\
 and can be fitted to the data with the following R code:
 
 ```{r}
-m <- lmer(force ~ 1 + Temperature*fat_perc + (1|Day/Temperature), data = df)
+m_splitplot <- lmer(force ~ 1 + Temperature*fat_perc + (1|Day/Temperature), data = df)
 ```
 
 The degrees of freedom for the denominator are not so straightforward anymore. 
+
+```{r}
+emmeans(m_splitplot, ~ Temperature:fat_perc, contr = list(c(1, -1, rep(0, 10))))
+```
 
 ## Wednesday  
 
