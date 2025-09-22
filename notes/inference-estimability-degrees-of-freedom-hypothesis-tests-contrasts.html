@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 8 Inference – Estimability, degrees of freedom, hypothesis tests, contrasts | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 8 Inference – Estimability, degrees of freedom, hypothesis tests, contrasts | STAT 870 - Analysis of Messy Data" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 8 Inference – Estimability, degrees of freedom, hypothesis tests, contrasts | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 8 Inference – Estimability, degrees of freedom, hypothesis tests, contrasts | STAT 870 - Analysis of Messy Data" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="generalized-linear-mixed-models.html"/>
+<link rel="next" href="semester-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 870</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#announcements-1"><i class="fa fa-check"></i><b>3.1</b> Announcements</a></li>
+<li class="chapter" data-level="3.2" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#semester-project"><i class="fa fa-check"></i><b>3.2</b> Semester project</a></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#designed-experiments-1"><i class="fa fa-check"></i><b>3.3</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.3.1</b> Design structures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.4</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.5" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.5</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#announcements-2"><i class="fa fa-check"></i><b>4.1</b> Announcements</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#statistical-models"><i class="fa fa-check"></i><b>4.2</b> Statistical models</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.3</b> The general linear model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#applied-example"><i class="fa fa-check"></i><b>4.3.1</b> Applied example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments"><i class="fa fa-check"></i><b>4.4</b> Linear mixed models applied to designed experiments</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#general-notation-for-linear-mixed-models"><i class="fa fa-check"></i><b>4.4.1</b> General notation for linear mixed models</a></li>
+<li class="chapter" data-level="4.4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#class-discussion-blocks---random-or-fixed"><i class="fa fa-check"></i><b>4.4.2</b> Class discussion: Blocks - random or fixed?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#homework"><i class="fa fa-check"></i><b>4.5</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html"><i class="fa fa-check"></i><b>5</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#announcements-3"><i class="fa fa-check"></i><b>5.1</b> Announcements</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#linear-mixed-models-2"><i class="fa fa-check"></i><b>5.2</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#why-do-we-call-these-multi-level-models"><i class="fa fa-check"></i><b>5.2.1</b> Why do we call these multi-level models?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#degrees-of-freedom-in-a-mixed-model"><i class="fa fa-check"></i><b>5.2.2</b> Degrees of freedom in a mixed model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#next-week"><i class="fa fa-check"></i><b>5.3</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html"><i class="fa fa-check"></i><b>6</b> Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#announcements-4"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#mixed-models-review"><i class="fa fa-check"></i><b>6.2</b> Mixed Models Review</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-parameters-in-mixed-models"><i class="fa fa-check"></i><b>6.3</b> Estimation of parameters in Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>6.3.1</b> Analysis of variance (ANOVA)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-fixed-effects"><i class="fa fa-check"></i><b>6.3.2</b> Estimation of fixed effects</a></li>
+<li class="chapter" data-level="6.3.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-variance-components"><i class="fa fa-check"></i><b>6.3.3</b> Estimation of variance components</a></li>
+<li class="chapter" data-level="6.3.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimating-random-effects"><i class="fa fa-check"></i><b>6.3.4</b> Estimating random effects</a></li>
+<li class="chapter" data-level="6.3.5" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#degrees-of-freedom-in-mixed-models"><i class="fa fa-check"></i><b>6.3.5</b> Degrees of freedom in mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#r-demo"><i class="fa fa-check"></i><b>6.4</b> R demo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#announcements-5"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#review-about-the-general-linear-mixed-model"><i class="fa fa-check"></i><b>7.2</b> Review about the (general) linear mixed model</a></li>
+<li class="chapter" data-level="7.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data"><i class="fa fa-check"></i><b>7.3.1</b> Three steps to modeling data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-model-fitting"><i class="fa fa-check"></i><b>7.3.2</b> Implications for model fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#reading"><i class="fa fa-check"></i><b>7.4</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><i class="fa fa-check"></i><b>8</b> Inference – Estimability, degrees of freedom, hypothesis tests, contrasts</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#announcements-6"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#review-hypothesis-tests-t-tests-f-tests"><i class="fa fa-check"></i><b>8.2</b> Review: Hypothesis tests, t-tests, F tests</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#hypothesis-tests"><i class="fa fa-check"></i><b>8.2.1</b> Hypothesis tests</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#on-p-values"><i class="fa fa-check"></i><b>8.2.2</b> On p-values</a></li>
+<li class="chapter" data-level="8.2.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests"><i class="fa fa-check"></i><b>8.2.3</b> t-tests</a></li>
+<li class="chapter" data-level="8.2.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests"><i class="fa fa-check"></i><b>8.2.4</b> F-tests are multivariate t-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-1"><i class="fa fa-check"></i><b>8.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test"><i class="fa fa-check"></i><b>8.3.1</b> t-test</a></li>
+<li class="chapter" data-level="8.3.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-test"><i class="fa fa-check"></i><b>8.3.2</b> F-test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#estimability"><i class="fa fa-check"></i><b>8.4</b> Estimability</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#contrasts"><i class="fa fa-check"></i><b>8.4.1</b> Contrasts</a></li>
+<li class="chapter" data-level="8.4.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models"><i class="fa fa-check"></i><b>8.4.2</b> Adjusting degrees of freedom for mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-ii"><i class="fa fa-check"></i><b>8.5</b> Applied example II</a></li>
+<li class="chapter" data-level="8.6" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday"><i class="fa fa-check"></i><b>8.6</b> Wednesday</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>9</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>9.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>9.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="9.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>9.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="9.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>9.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="9.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>9.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Day 8</span> Inference – Estimability, degrees of freedom, hypothesis tests, contrasts<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-6" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Announcements<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#announcements-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Highlight questions from Assignment 3:
+<ul>
+<li>Why are degrees of freedom not always integer numbers?</li>
+<li>What is the difference between sums of squares?</li>
+<li>What is the best size of blocks when designing an experiment?</li>
+</ul></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<img src="../figures/overview_0922.jpg" alt="Overview of today's class." width="80%" />
+<p class="caption">
+Figure 8.1: Overview of today’s class.
+</p>
+</div>
+</div>
+<div id="review-hypothesis-tests-t-tests-f-tests" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Review: Hypothesis tests, t-tests, F tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#review-hypothesis-tests-t-tests-f-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="hypothesis-tests" class="section level3 hasAnchor" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Hypothesis tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#hypothesis-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Classic statistics have been deeply associated to falsifiability in the advancement of Science.<br />
+</li>
+<li>Hugely influenced by <a href="https://en.wikipedia.org/wiki/Karl_Popper">Karl Popper</a>, the advancement of Science can be understood as a string of hypotheses that are constantly evaluated.</li>
+<li>In statistics, hypothesis tests evaluate whether a given statistic (i.e., a function of the data) is too extreme for the null hypothesis to be true.</li>
+<li>Normally, the null hypothesis is business as usual, and we want to evaluate if we just made a scientific discovery, or if there’s not enough evidence to say that there’s something different going on.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-35"></span>
+<img src="../figures/error_types.jpg" alt="Types of errors in hypothesis tests." width="80%" />
+<p class="caption">
+Figure 8.2: Types of errors in hypothesis tests.
+</p>
+</div>
+</div>
+<div id="on-p-values" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> On p-values<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#on-p-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>The p value is the probability of observing the [t/F] statistic under the null hypothesis.</li>
+<li>Often, we assume <span class="math inline">\(\alpha = 0.05\)</span>, and reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p&lt;\alpha\)</span>.</li>
+<li><a href="https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf">ASA’s statement on p-values</a></li>
+<li><a href="https://www.nature.com/articles/d41586-019-00857-9">Scientists rise up against statistical significance</a>
+<ul>
+<li><a href="https://statmodeling.stat.columbia.edu/2019/03/20/retire-statistical-significance-the-discussion/">Discussion</a></li>
+<li>Counterargument: <a href="https://esajournals.onlinelibrary.wiley.com/doi/10.1890/13-0590.1">In defense of p-values</a></li>
+</ul></li>
+<li>Gelman “Let us have the serenity to embrace the variation that we cannot reduce, the courage to reduce the variation we cannot embrace, and the wisdom to distinguish one from the other.” [<a href="https://www.youtube.com/watch?v=KS3yPw91iC0&amp;t=3252s">see talk</a>]</li>
+</ul>
+</div>
+<div id="t-tests" class="section level3 hasAnchor" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Usually used to test whether <strong>one</strong> value/parameter/linear combination of parameters is different to a certain number.</li>
+<li>Steps:
+<ol style="list-style-type: decimal">
+<li>Define the target quantity <span class="math inline">\(\theta\)</span>. For example, <span class="math inline">\(\theta = \beta_1-\beta_2\)</span>.</li>
+<li>After observing the data, estimate <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> and <span class="math inline">\(se(\hat{\boldsymbol\beta})\)</span>.</li>
+<li>Calculate the test <span class="math inline">\(t\)</span> statistic as <span class="math inline">\(t^\star = \frac{\hat\theta}{se(\hat\theta)}\)</span>.</li>
+<li>Compare <span class="math inline">\(t^{\star}\)</span> to <span class="math inline">\(t_{1-\frac{\alpha}{2}, dfe}\)</span>.</li>
+</ol></li>
+<li>Why <span class="math inline">\(t\)</span> distribution? <span class="math inline">\(N\)</span> for known se, <span class="math inline">\(t\)</span> for <span class="math inline">\(\hat{se}\)</span>.</li>
+<li>Note that <span class="math inline">\(t^\star\)</span> depends on:
+<ul>
+<li>sample size (<span class="math inline">\(dfe\)</span>)</li>
+<li>experiment design (other df)</li>
+<li>the variability <span class="math inline">\(\sigma^2\)</span> associated to that system.</li>
+</ul></li>
+<li>Note that <span class="math inline">\(t_{crit}\)</span> depends on <span class="math inline">\(dfe\)</span>.</li>
+</ul>
+</div>
+<div id="f-tests-are-multivariate-t-tests" class="section level3 hasAnchor" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> F-tests are multivariate t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Test the relevance of multiple factors at once.</li>
+<li>Consistent with the “bins” concept of ANOVA.</li>
+<li>Usually used to test whether <strong>a group</strong> of factor is relevant to explain variability in the data.</li>
+<li>Why <span class="math inline">\(F\)</span> distribution? Ratio between two independent <span class="math inline">\(\chi^2\)</span> distributions divided by their df.<br />
+</li>
+<li>Steps:
+<ol style="list-style-type: decimal">
+<li>Calculate Mean Squared Errors for the different sources of variability <span class="math inline">\(= \frac{SSH}{df}\)</span>.</li>
+<li>Calculate the F statistic as the ratio between mean squares, <span class="math inline">\(=\frac{MSH}{MSE}\)</span>.</li>
+<li>Compute <span class="math inline">\(P(F&gt;F^\star)\)</span>, using the degrees of freedom of both mean squares, df of the numerator and df of the denominator.</li>
+</ol></li>
+<li>Note, again, the relationship between the p value and sample size and <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>Note, again, that the <span class="math inline">\(P(F&gt;F^\star)\)</span> depends on the df of the denominator.</li>
+</ul>
+</div>
+</div>
+<div id="applied-example-1" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Applied example<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>From Milliken and Johnson (2009).</em></p>
+<p>A baker wanted to determine the effect that the amount of fat in a recipe of cookie dough would have on the texture of the cookie.
+She also wanted to determine if the temperature (°F) at which the cookies were baked would have an influence on the texture of the surface.
+The texture of the cookie is measured by determining the amount of force (g) required to penetrate the cookie surface.</p>
+<p><strong>Experimentation:</strong></p>
+<p>The process she used was to make a batch of cookie dough for each of the four recipes every day, and baked them one by one in the oven in different batches.
+She carried this process out each of four days when she baked cookies at three different temperatures.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb43-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-2" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb43-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-3" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb43-4"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-4" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../data/cookies.csv&quot;</span>)</span>
+<span id="cb43-6"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-6" tabindex="-1"></a>df<span class="sc">$</span>Temperature <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>Temperature)</span>
+<span id="cb43-7"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-7" tabindex="-1"></a>df<span class="sc">$</span>fat_perc <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>fat_perc)</span>
+<span id="cb43-8"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-8" tabindex="-1"></a>df<span class="sc">$</span>Day <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>Day)</span>
+<span id="cb43-9"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-9" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-10" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb43-11"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Temperature, force))<span class="sc">+</span></span>
+<span id="cb43-12"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-12" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb43-13"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-13" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#DCD6F7&quot;</span>, <span class="st">&quot;#B4869F&quot;</span>, <span class="st">&quot;#985F6F&quot;</span>, <span class="st">&quot;#4E4C67&quot;</span>))<span class="sc">+</span></span>
+<span id="cb43-14"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Temperature (°F)&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Fat (%)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Force (g)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb43-15"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb43-16"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">paste</span>(Temperature, fat_perc),</span>
+<span id="cb43-17"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-17" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="fu">factor</span>(fat_perc)))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+ANOVA table for cookie RCBD
+</title>
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<table>
+<tr>
+<th>
+Source
+</th>
+<th>
+df
+</th>
+</tr>
+<tr>
+<td>
+Block
+</td>
+<td>
+<span class="math display">\[r-1 = 3\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Temp
+</td>
+<td>
+<span class="math display">\[t-1 = 2\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Fat
+</td>
+<td>
+<span class="math display">\[f-1 = 3\]</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math display">\[T \times F\]</span>
+</td>
+<td>
+<span class="math display">\[(t-1)(f-1) = 6\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Error
+</td>
+<td>
+<span class="math display">\[N-tf-(r-1) = 3\]</span>
+</td>
+</tr>
+</table>
+</body>
+<p>The corresponding model is
+<span class="math display">\[y_{ijk} = \mu + T_i + F_j + TF_{ij} + d_k + \varepsilon_{ijk} , \\
+d_k \sim N(0, \sigma^2_d), \\
+\varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon), \]</span></p>
+<p>and can be fitted to the data with the following R code:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb44-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span></code></pre></div>
+<div id="t-test" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> t-test<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Objective</strong>: compare treatment means between 375 degrees temperature and 4% fat and 400 degrees temperature and 4% fat.</li>
+<li>Remember <span class="math inline">\(t^\star = \frac{\hat\theta}{se(\hat\theta)}\)</span></li>
+<li><span class="math inline">\(\hat\theta = \mu_{22} - \mu_{32}\)</span></li>
+<li><span class="math inline">\(se(\hat\theta) = \sqrt{\frac{2 \sigma^2_\varepsilon}{r}}\)</span></li>
+</ul>
+<details>
+<summary>
+R code to get t statistics by hand
+</summary>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb45-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Temperature =</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="dv">375</span>, <span class="dv">400</span>)), </span>
+<span id="cb45-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb45-2" tabindex="-1"></a>                <span class="at">fat_perc =</span> <span class="fu">factor</span>(<span class="dv">4</span>))</span>
+<span id="cb45-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb45-3" tabindex="-1"></a>hat.mu <span class="ot">&lt;-</span> <span class="fu">predict</span>(m, <span class="at">newdata =</span> d, <span class="at">re.form =</span> <span class="cn">NA</span>)</span>
+<span id="cb45-4"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb45-4" tabindex="-1"></a>hat.theta <span class="ot">&lt;-</span> hat.mu[<span class="dv">2</span>]<span class="sc">-</span>hat.mu[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb46-1" tabindex="-1"></a>hat.sigma2 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(m)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb46-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb46-2" tabindex="-1"></a>hat.sigma2_b <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(m))[<span class="dv">1</span>,<span class="dv">4</span>]</span>
+<span id="cb46-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb46-3" tabindex="-1"></a>reps <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(df<span class="sc">$</span>Day)</span>
+<span id="cb46-4"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb46-4" tabindex="-1"></a>se.hat.theta <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="dv">2</span><span class="sc">*</span> hat.sigma2)<span class="sc">/</span>reps)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb47-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span>Temperature<span class="sc">:</span>fat_perc, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, </span>
+<span id="cb47-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb47-2" tabindex="-1"></a>                                                 <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, </span>
+<span id="cb47-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb47-3" tabindex="-1"></a>                                                 <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">6</span>))))<span class="sc">$</span>contrasts</span></code></pre></div>
+<pre><code>##  contrast                               estimate    SE df t.ratio p.value
+##  c(0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0)     2.92 0.633 33   4.621  0.0001
+## 
+## Degrees-of-freedom method: kenward-roger</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb49-1" tabindex="-1"></a>hat.theta</span></code></pre></div>
+<pre><code>##     2 
+## 2.925</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb51-1" tabindex="-1"></a>se.hat.theta</span></code></pre></div>
+<pre><code>## [1] 0.6330342</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb53-1" tabindex="-1"></a>t.star <span class="ot">&lt;-</span> hat.theta<span class="sc">/</span>se.hat.theta</span>
+<span id="cb53-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb53-2" tabindex="-1"></a>t.star</span></code></pre></div>
+<pre><code>##        2 
+## 4.620603</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb55-1" tabindex="-1"></a><span class="fu">dt</span>(t.star, <span class="at">df =</span> <span class="dv">33</span>)</span></code></pre></div>
+<pre><code>##            2 
+## 8.202921e-05</code></pre>
+</details>
+</div>
+<div id="f-test" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> F-test<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Objective</strong>: find out if temperature, in general, affects the texture of the cookie.</li>
+<li><span class="math inline">\(H_0:\)</span> all temperatures have the same effect on texture.<br />
+</li>
+<li><span class="math inline">\(H_a:\)</span> at least one temperature has a different effect on texture.</li>
+<li><span class="math inline">\(F^\star = \frac{MS_{Temp}}{MS_{resid}}\)</span></li>
+<li><span class="math inline">\(F_{critical} = F_{1-\alpha, df_{numerator}, df_{denominator}}\)</span></li>
+</ul>
+<details>
+<summary>
+R code to get t statistics by hand
+</summary>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-1" tabindex="-1"></a>m.full <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df) </span>
+<span id="cb57-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-2" tabindex="-1"></a>m.TF <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature <span class="sc">+</span> fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-3" tabindex="-1"></a>m.T <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-4"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-4" tabindex="-1"></a>m.F <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-5"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-5" tabindex="-1"></a>m.n <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-6"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-6" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-7" tabindex="-1"></a><span class="co"># SS II residual </span></span>
+<span id="cb57-8"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-8" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">resid</span>(m.full)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 26.84223</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb59-1" tabindex="-1"></a><span class="co"># SS II TxF </span></span>
+<span id="cb59-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb59-2" tabindex="-1"></a><span class="fu">sum</span>((<span class="fu">predict</span>(m.full, <span class="at">re.form =</span> <span class="cn">NA</span>) <span class="sc">-</span> <span class="fu">predict</span>(m.TF, <span class="at">re.form =</span> <span class="cn">NA</span>))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1.505</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb61-1" tabindex="-1"></a><span class="co"># SS II F </span></span>
+<span id="cb61-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb61-2" tabindex="-1"></a><span class="fu">sum</span>((<span class="fu">predict</span>(m.TF, <span class="at">re.form =</span> <span class="cn">NA</span>) <span class="sc">-</span> <span class="fu">predict</span>(m.T, <span class="at">re.form =</span> <span class="cn">NA</span>))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 3.665</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb63-1" tabindex="-1"></a><span class="co"># SS II T </span></span>
+<span id="cb63-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb63-2" tabindex="-1"></a><span class="fu">sum</span>((<span class="fu">predict</span>(m.TF, <span class="at">re.form =</span> <span class="cn">NA</span>) <span class="sc">-</span> <span class="fu">predict</span>(m.F, <span class="at">re.form =</span> <span class="cn">NA</span>))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 179.5317</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb65-1" tabindex="-1"></a><span class="co"># P(F&gt;Fcrit) for temperature</span></span>
+<span id="cb65-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb65-2" tabindex="-1"></a>F.T <span class="ot">&lt;-</span> (<span class="fl">179.5317</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="fl">26.44833</span><span class="sc">/</span><span class="dv">33</span>)</span>
+<span id="cb65-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb65-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F.T, <span class="at">df1 =</span> <span class="dv">2</span>, <span class="at">df2 =</span> <span class="dv">33</span>)</span></code></pre></div>
+<pre><code>## [1] 1.998401e-15</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb67-1" tabindex="-1"></a><span class="co"># P(F&gt;Fcrit) for fat%</span></span>
+<span id="cb67-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb67-2" tabindex="-1"></a>F.F <span class="ot">&lt;-</span> (<span class="fl">3.665</span><span class="sc">/</span><span class="dv">3</span>)<span class="sc">/</span>(<span class="fl">26.44833</span><span class="sc">/</span><span class="dv">33</span>)</span>
+<span id="cb67-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb67-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F.F, <span class="at">df1 =</span> <span class="dv">3</span>, <span class="at">df2 =</span> <span class="dv">33</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2264496</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb69-1" tabindex="-1"></a><span class="co"># P(F&gt;Fcrit) for TxF</span></span>
+<span id="cb69-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb69-2" tabindex="-1"></a>F.TF <span class="ot">&lt;-</span> (<span class="fl">1.505</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">/</span>(<span class="fl">26.44833</span><span class="sc">/</span><span class="dv">33</span>)</span>
+<span id="cb69-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb69-3" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F.TF, <span class="at">df1 =</span> <span class="dv">6</span>, <span class="at">df2 =</span> <span class="dv">33</span>)</span></code></pre></div>
+<pre><code>## [1] 0.9256322</code></pre>
+</details>
+</div>
+</div>
+<div id="estimability" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Estimability<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#estimability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>A quantity is estimable if it is possible to find a linear combination of the data that provides an unbiased and unique estimate of that quantity.</li>
+<li>For matrix models, linear estimable functions of <span class="math inline">\(\boldsymbol\beta\)</span> take on the form of linear combinations of the parameter vector such as <span class="math inline">\(a&#39;\boldsymbol\beta\)</span> where a is a <span class="math inline">\(p\times1\)</span> vector of constants. A linear function <span class="math inline">\(a&#39;\boldsymbol\beta\)</span> is estimable if and only if there exists a vector <span class="math inline">\(r\)</span> such that <span class="math inline">\(a = \mathbf{X}&#39;\mathbf{X}r\)</span>. Each function <span class="math inline">\(x_i&#39;\boldsymbol\beta\)</span> is estimable where <span class="math inline">\(x_i\)</span> is the <span class="math inline">\(i\)</span>th row of <span class="math inline">\(\mathbf{X}\)</span>.</li>
+</ul>
+<div id="contrasts" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Contrasts<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#contrasts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Linear combinations of parameters.</li>
+<li>Often connected to hypothesis tests where <span class="math inline">\(H_0: \mathbf{K}\boldsymbol\beta = 0\)</span>.</li>
+</ul>
+</div>
+<div id="adjusting-degrees-of-freedom-for-mixed-models" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Adjusting degrees of freedom for mixed models<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Contrasts for balanced &amp; complete designs have straightforward calculation of degrees of freedom.</li>
+<li>Sometimes, estimating the df is not as straightforward.</li>
+<li>For unbalanced designs, incomplete blocks, missing data, and cases with more complex variance-covariance structure, the ANOVA sheel do not give us exact degrees of freedom.</li>
+<li>Downward bias of the variance of an estimable function, leading to:
+<ul>
+<li>too narrow confidence intervals</li>
+<li>inflated type I error rates</li>
+</ul></li>
+</ul>
+<p><strong>Satterthwaite approximation</strong></p>
+<ul>
+<li><a href="https://www.jstor.org/stable/3002019?seq=1">Paper</a></li>
+</ul>
+<p>Let <span class="math inline">\(\frac{X^2_{num}/\nu_1}{X_2^\star/\nu^\star_2}\)</span> be the ratio of interest, where <span class="math inline">\(X_{num}^2 \sim \chi^2_{\nu_1}\)</span> and <span class="math inline">\(X_2^\star\)</span> is a linear combination of chi-square random variables all independent of <span class="math inline">\(X_{num}^2\)</span>, then <span class="math inline">\(X_2^\star \sim\)</span> approximately <span class="math inline">\(\chi^2_{\nu^\star_2}\)</span>, where</p>
+<p><span class="math display">\[\nu_2^\star \equiv \frac{(\sum_m c_m X_m^2)^2}{\sum_m\frac{(c_m X_m^2)}{df_m}}.\]</span></p>
+<p><strong>Kenward-Roger approximation</strong></p>
+<ul>
+<li><p><a href="https://www.jstor.org/stable/2533558?seq=1">Paper</a></p></li>
+<li><p>Again, expept for variance-component-only LMMs with balanced data and their compound symmetry marginal model equivalents, the estimated covariance of <span class="math inline">\(\beta \mathbf{K}\)</span> will tend to be underestimated.</p></li>
+<li><p>KR somewhat more conservative than Satterthwaite</p></li>
+<li><p>Not perfect</p></li>
+<li><p>Integrated in most statistical software</p></li>
+</ul>
+</div>
+</div>
+<div id="applied-example-ii" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Applied example II<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-ii" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>From Milliken and Johnson (2009).</em></p>
+<p>A baker wanted to determine the effect that the amount of fat in a recipe of cookie dough would have on the texture of the cookie.
+She also wanted to determine if the temperature (°F) at which the cookies were baked would have an influence on the texture of the surface.
+The texture of the cookie is measured by determining the amount of force (g) required to penetrate the cookie surface.</p>
+<p><strong>Experimentation:</strong></p>
+<p>The process she used was to make a batch of cookie dough for each of the four recipes every day, and baked one cookie from each recipe in the oven together.
+She carried this process out each of four days when she baked cookies at three different temperatures.</p>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+ANOVA table for the cookie split-plot experiment.
+</title>
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<table>
+<tr>
+<th>
+Source
+</th>
+<th>
+df
+</th>
+<th>
+Sum of Squares (Partial or type III)
+</th>
+<th>
+Mean Square
+</th>
+<th>
+Expected Mean Square
+</th>
+</tr>
+<tr>
+<td>
+Block
+</td>
+<td>
+<span class="math display">\[r-1\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Temperature
+</td>
+<td>
+<span class="math display">\[t-1\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Error(oven)
+</td>
+<td>
+<span class="math display">\[(r-1)(t-1)\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Fat (%)
+</td>
+<td>
+<span class="math display">\[f-1\]</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math display">\[T \times F\]</span>
+</td>
+<td>
+<span class="math display">\[(t-1)(t-1)\]</span>
+</td>
+</tr>
+<tr>
+<td>
+Error(split plot)
+</td>
+<td>
+<span class="math display">\[t(r-1)(f-1)\]</span>
+</td>
+</tr>
+</table>
+</body>
+<p>The corresponding model is
+<span class="math display">\[y_{ijk} = \mu + T_i + F_j + TF_{ij} + d_k + w_{i(k)} + \varepsilon_{ijk} , \\
+d_k \sim N(0, \sigma^2_d), \\
+w_{i(k)} \sim N(0, \sigma^2_w), \\
+\varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon), \]</span></p>
+<p>and can be fitted to the data with the following R code:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb71-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day<span class="sc">/</span>Temperature), <span class="at">data =</span> df)</span></code></pre></div>
+</div>
+<div id="wednesday" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Wednesday<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Come early and bring your computer.</li>
+<li>Read Ch 6 in Stroup et al (2024).</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="generalized-linear-mixed-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/08-hypothesis_test_contrasts.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/08-hypothesis_test_contrasts.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
