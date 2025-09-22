@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What is the best size of blocks when designing an experiment?</li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-64"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
 <img src="../figures/overview_0922.jpg" alt="Overview of today's class." width="80%" />
 <p class="caption">
 Figure 8.1: Overview of today’s class.
@@ -306,7 +306,7 @@ Figure 8.1: Overview of today’s class.
 <li>In statistics, hypothesis tests evaluate whether a given statistic (i.e., a function of the data) is too extreme for the null hypothesis to be true.</li>
 <li>Normally, the null hypothesis is business as usual, and we want to evaluate if we just made a scientific discovery, or if there’s not enough evidence to say that there’s something different going on.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-65"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
 <img src="../figures/error_types.jpg" alt="Types of errors in hypothesis tests." width="80%" />
 <p class="caption">
 Figure 8.2: Types of errors in hypothesis tests.
@@ -329,7 +329,7 @@ Figure 8.2: Types of errors in hypothesis tests.
 </div>
 <div id="t-tests" class="section level3 hasAnchor" number="8.2.3">
 <h3><span class="header-section-number">8.2.3</span> t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-66-1.png" width="70%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="70%" /></p>
 <ul>
 <li>Usually used to test whether <strong>one</strong> value/parameter/linear combination of parameters is different to a certain number.</li>
 <li>Steps:
@@ -351,7 +351,7 @@ Figure 8.2: Types of errors in hypothesis tests.
 </div>
 <div id="f-tests-are-multivariate-t-tests" class="section level3 hasAnchor" number="8.2.4">
 <h3><span class="header-section-number">8.2.4</span> F-tests are multivariate t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="70%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-1.png" width="70%" /></p>
 <ul>
 <li>Test the relevance of multiple factors at once.</li>
 <li>Consistent with the “bins” concept of ANOVA.</li>
@@ -395,7 +395,7 @@ She carried this process out each of four days when she baked cookies at three d
 <span id="cb43-15"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
 <span id="cb43-16"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">paste</span>(Temperature, fat_perc),</span>
 <span id="cb43-17"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-17" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="fu">factor</span>(fat_perc)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p><strong>ANOVA table for cookie RCBD</strong></p>
 <head>
 <meta charset="UTF-8">
@@ -587,10 +587,8 @@ R code to get t statistics by hand
 <h3><span class="header-section-number">8.4.2</span> Adjusting degrees of freedom for mixed models<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>From Assignment 3:</strong></p>
 <blockquote>
-<blockquote>
-<p>In class we learned that degrees of freedom represent the number of independent pieces of information. In the ANOVA tables these appear as whole numbers, but when we run mixed models in R I sometimes see fractional values (for example, 27.4). Why do mixed models produce non-integer degrees of freedom, and could you also provide a simpler or more intuitive way to think about what degrees of freedom really mean?
+<p>In class we learned that degrees of freedom represent the number of independent pieces of information. In the ANOVA tables these appear as whole numbers, but when we run mixed models in R I sometimes see fractional values (for example, 27.4). Why do mixed models produce non-integer degrees of freedom, and could you also provide a simpler or more intuitive way to think about what degrees of freedom really mean?<br />
 <em>Answer: According to my understanding, in ANOVA, degrees of freedom come directly from how many observations are available and how many parameters are estimated, which gives whole numbers. Mixed models include both random and fixed effects and the structure of data involves often correlations among the observations for example: repeated measures on the same subject or split-plot designs). In this case, the information available to estimate parameters is not clearly separated as ANOVA. So, degrees of freedom in mixed models represent an effective amount of independent information, this might be the reason they can be fractional.</em></p>
-</blockquote>
 </blockquote>
 <ul>
 <li>Contrasts for balanced &amp; complete designs have straightforward calculation of degrees of freedom.</li>
