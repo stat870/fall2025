@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What is the best size of blocks when designing an experiment?</li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
 <img src="../figures/overview_0922.jpg" alt="Overview of today's class." width="80%" />
 <p class="caption">
 Figure 8.1: Overview of today’s class.
@@ -306,7 +306,7 @@ Figure 8.1: Overview of today’s class.
 <li>In statistics, hypothesis tests evaluate whether a given statistic (i.e., a function of the data) is too extreme for the null hypothesis to be true.</li>
 <li>Normally, the null hypothesis is business as usual, and we want to evaluate if we just made a scientific discovery, or if there’s not enough evidence to say that there’s something different going on.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-38"></span>
 <img src="../figures/error_types.jpg" alt="Types of errors in hypothesis tests." width="80%" />
 <p class="caption">
 Figure 8.2: Types of errors in hypothesis tests.
@@ -329,7 +329,7 @@ Figure 8.2: Types of errors in hypothesis tests.
 </div>
 <div id="t-tests" class="section level3 hasAnchor" number="8.2.3">
 <h3><span class="header-section-number">8.2.3</span> t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="70%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-39-1.png" width="70%" /></p>
 <ul>
 <li>Usually used to test whether <strong>one</strong> value/parameter/linear combination of parameters is different to a certain number.</li>
 <li>Steps:
@@ -351,7 +351,7 @@ Figure 8.2: Types of errors in hypothesis tests.
 </div>
 <div id="f-tests-are-multivariate-t-tests" class="section level3 hasAnchor" number="8.2.4">
 <h3><span class="header-section-number">8.2.4</span> F-tests are multivariate t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-1.png" width="70%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-40-1.png" width="70%" /></p>
 <ul>
 <li>Test the relevance of multiple factors at once.</li>
 <li>Consistent with the “bins” concept of ANOVA.</li>
@@ -395,7 +395,7 @@ She carried this process out each of four days when she baked cookies at three d
 <span id="cb43-15"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
 <span id="cb43-16"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">paste</span>(Temperature, fat_perc),</span>
 <span id="cb43-17"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-17" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="fu">factor</span>(fat_perc)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p><strong>ANOVA table for cookie RCBD</strong></p>
 <head>
 <meta charset="UTF-8">
@@ -535,16 +535,17 @@ R code to get t statistics by hand
 </ul>
 <details>
 <summary>
-R code to get t statistics by hand
+R code to get F statistics by hand
 </summary>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-1" tabindex="-1"></a>m.full <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df) </span>
-<span id="cb57-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-2" tabindex="-1"></a>m.TF <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature <span class="sc">+</span> fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
-<span id="cb57-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-3" tabindex="-1"></a>m.T <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
-<span id="cb57-4"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-4" tabindex="-1"></a>m.F <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
-<span id="cb57-5"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-5" tabindex="-1"></a>m.n <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
-<span id="cb57-6"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-6" tabindex="-1"></a></span>
-<span id="cb57-7"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-7" tabindex="-1"></a><span class="co"># SS II residual </span></span>
-<span id="cb57-8"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-8" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">resid</span>(m.full)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-1" tabindex="-1"></a><span class="co"># create models that account for different sources of variability</span></span>
+<span id="cb57-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-2" tabindex="-1"></a>m.full <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df) </span>
+<span id="cb57-3"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-3" tabindex="-1"></a>m.TF <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature <span class="sc">+</span> fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-4"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-4" tabindex="-1"></a>m.T <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-5"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-5" tabindex="-1"></a>m.F <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-6"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-6" tabindex="-1"></a>m.n <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span>
+<span id="cb57-7"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-7" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-8" tabindex="-1"></a><span class="co"># SS II residual </span></span>
+<span id="cb57-9"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb57-9" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">resid</span>(m.full)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 26.84223</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb59-1" tabindex="-1"></a><span class="co"># SS II TxF </span></span>
 <span id="cb59-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb59-2" tabindex="-1"></a><span class="fu">sum</span>((<span class="fu">predict</span>(m.full, <span class="at">re.form =</span> <span class="cn">NA</span>) <span class="sc">-</span> <span class="fu">predict</span>(m.TF, <span class="at">re.form =</span> <span class="cn">NA</span>))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
@@ -581,7 +582,36 @@ R code to get t statistics by hand
 <ul>
 <li>Linear combinations of parameters.</li>
 <li>Often connected to hypothesis tests where <span class="math inline">\(H_0: \mathbf{K}\boldsymbol\beta = 0\)</span>.</li>
+<li>We specify the matrix <span class="math inline">\(\mathbf{K}\)</span> that combines elements in <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>.</li>
+<li>For example, if <span class="math inline">\(\mathbf{K} = \begin{bmatrix} 1 &amp; -1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; -1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}\)</span>, we are estimating the contrast between [2%Fat, 350°F] and [2%Fat, 375°F] (row 1), and [4%Fat, 375°F] and [4%Fat, 400°F].</li>
+<li><code>emmeans</code>also gives us some SE, a t value and p value associated to a hypothesis test: <span class="math inline">\(H_0:\)</span> each row =0.</li>
 </ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb71-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span>Temperature<span class="sc">:</span>fat_perc, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>( <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)), </span>
+<span id="cb71-2"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb71-2" tabindex="-1"></a>                                               <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">6</span>))))</span></code></pre></div>
+<pre><code>## $emmeans
+##  Temperature fat_perc emmean    SE   df lower.CL upper.CL
+##  350         2          8.05 0.534 18.2     6.93     9.17
+##  375         2         10.00 0.534 18.2     8.88    11.12
+##  400         2         12.12 0.534 18.2    11.00    13.25
+##  350         4          7.42 0.534 18.2     6.30     8.55
+##  375         4          9.43 0.534 18.2     8.30    10.55
+##  400         4         12.35 0.534 18.2    11.23    13.47
+##  350         6          7.33 0.534 18.2     6.20     8.45
+##  375         6          9.18 0.534 18.2     8.05    10.30
+##  400         6         12.25 0.534 18.2    11.13    13.37
+##  350         8          7.00 0.534 18.2     5.88     8.12
+##  375         8          8.95 0.534 18.2     7.83    10.07
+##  400         8         11.93 0.534 18.2    10.80    13.05
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast                               estimate    SE df t.ratio p.value
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)    -1.95 0.633 33  -3.080  0.0041
+##  c(0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0)     2.92 0.633 33   4.621  0.0001
+## 
+## Degrees-of-freedom method: kenward-roger</code></pre>
 </div>
 <div id="adjusting-degrees-of-freedom-for-mixed-models" class="section level3 hasAnchor" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> Adjusting degrees of freedom for mixed models<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -610,6 +640,7 @@ R code to get t statistics by hand
 <ul>
 <li><a href="https://www.jstor.org/stable/2533558?seq=1">Paper</a></li>
 <li>Based on REML</li>
+<li>Focused on <span class="math inline">\((\mathbf{X}^T\mathbf{V}^{-1} \mathbf{X})^{-1}\)</span> (the variance of <span class="math inline">\(\hat{\boldsymbol\beta}\)</span>)</li>
 <li>Again, expept for variance-component-only LMMs with balanced data and their compound symmetry marginal model equivalents, the estimated covariance of <span class="math inline">\(\beta \mathbf{K}\)</span> will tend to be underestimated.</li>
 <li>KR somewhat more conservative and reliable than Satterthwaite (<a href="https://link.springer.com/article/10.1198/108571102726">source</a>).</li>
 <li>Integrated in most statistical software.</li>
@@ -665,6 +696,9 @@ Source
 <th>
 df
 </th>
+<th>
+EMS
+</th>
 </tr>
 <tr>
 <td>
@@ -672,6 +706,9 @@ Block
 </td>
 <td>
 <span class="math inline">\(r-1 = 3\)</span>
+</td>
+<td>
+<span class="math display">\[\sigma^2_{\varepsilon}+f\sigma^2_w+tf\sigma^2_d\]</span>
 </td>
 </tr>
 <tr>
@@ -681,6 +718,9 @@ Temperature
 <td>
 <span class="math inline">\(t-1\)</span> = 2
 </td>
+<td>
+<span class="math display">\[\sigma^2_{\varepsilon}+f\sigma^2_w+\phi^2(\alpha)\]</span>
+</td>
 </tr>
 <tr>
 <td>
@@ -688,6 +728,9 @@ Error(oven)
 </td>
 <td>
 <span class="math inline">\((r-1)(t-1) = 6\)</span>
+</td>
+<td>
+<span class="math display">\[\sigma^2_{\varepsilon}+f\sigma^2_w\]</span>
 </td>
 </tr>
 <tr>
@@ -697,6 +740,9 @@ Fat (%)
 <td>
 <span class="math inline">\(f-1 = 3\)</span>
 </td>
+<td>
+<span class="math display">\[\sigma^2_{\varepsilon}+\phi^2(\gamma)\]</span>
+</td>
 </tr>
 <tr>
 <td>
@@ -705,6 +751,9 @@ Fat (%)
 <td>
 <span class="math inline">\((t-1)(f-1) = 6\)</span>
 </td>
+<td>
+<span class="math display">\[\sigma^2_{\varepsilon}+\phi^2(\alpha \gamma)\]</span>
+</td>
 </tr>
 <tr>
 <td>
@@ -712,6 +761,9 @@ Error(split plot)
 </td>
 <td>
 <span class="math inline">\(t(r-1)(f-1) = 27\)</span>
+</td>
+<td>
+<span class="math display">\[\sigma^2_{\varepsilon}\]</span>
 </td>
 </tr>
 </table>
@@ -722,9 +774,9 @@ d_k \sim N(0, \sigma^2_d), \\
 w_{i(k)} \sim N(0, \sigma^2_w), \\
 \varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon), \]</span></p>
 <p>and can be fitted to the data with the following R code:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb71-1" tabindex="-1"></a>m_splitplot <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day<span class="sc">/</span>Temperature), <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb73-1" tabindex="-1"></a>m_splitplot <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day<span class="sc">/</span>Temperature), <span class="at">data =</span> df)</span></code></pre></div>
 <p>The degrees of freedom for the denominator are not so straightforward anymore.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb72-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_splitplot, <span class="sc">~</span> Temperature<span class="sc">:</span>fat_perc, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>))))</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb74-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_splitplot, <span class="sc">~</span> Temperature<span class="sc">:</span>fat_perc, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>))))</span></code></pre></div>
 <pre><code>## $emmeans
 ##  Temperature fat_perc emmean    SE df lower.CL upper.CL
 ##  350         2          8.05 0.534 10     6.86     9.24

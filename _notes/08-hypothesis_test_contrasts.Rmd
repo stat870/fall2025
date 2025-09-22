@@ -250,9 +250,10 @@ dt(t.star, df = 33)
 - $F_{critical} = F_{1-\alpha, df_{numerator}, df_{denominator}}$
 
 <details>
-<summary>R code to get t statistics by hand</summary>
+<summary>R code to get F statistics by hand</summary>
 
 ```{r message=FALSE, warning=FALSE}
+# create models that account for different sources of variability
 m.full <- lmer(force ~ 1 + Temperature*fat_perc + (1|Day), data = df) 
 m.TF <- lmer(force ~ 1 + Temperature + fat_perc + (1|Day), data = df)
 m.T <- lmer(force ~ 1 + Temperature + (1|Day), data = df)
@@ -297,6 +298,14 @@ F.TF <- (1.505/6)/(26.44833/33)
 
 - Linear combinations of parameters. 
 - Often connected to hypothesis tests where $H_0: \mathbf{K}\boldsymbol\beta = 0$. 
+- We specify the matrix $\mathbf{K}$ that combines elements in $\hat{\boldsymbol\beta}$. 
+- For example, if $\mathbf{K} = \begin{bmatrix} 1 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & -1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \end{bmatrix}$, we are estimating the contrast between [2%Fat, 350°F] and [2%Fat, 375°F] (row 1), and [4%Fat, 375°F] and [4%Fat, 400°F]. 
+- `emmeans`also gives us some SE, a t value and p value associated to a hypothesis test: $H_0:$ each row =0. 
+
+```{r}
+emmeans(m, ~Temperature:fat_perc, contr = list(c( 1, -1, rep(0, 10)), 
+                                               c(0, 0, 0, 0, -1, 1, rep(0, 6))))
+```
 
 ### Adjusting degrees of freedom for mixed models 
 
@@ -325,6 +334,7 @@ $$\nu_2^\star \equiv \frac{(\sum_m c_m X_m^2)^2}{\sum_m\frac{(c_m X_m^2)}{df_m}}
 
 - [Paper](https://www.jstor.org/stable/2533558?seq=1) 
 - Based on REML 
+- Focused on $(\mathbf{X}^T\mathbf{V}^{-1} \mathbf{X})^{-1}$ (the variance of $\hat{\boldsymbol\beta}$)
 - Again, expept for variance-component-only LMMs with balanced data and their compound symmetry marginal model equivalents, the estimated covariance of $\beta \mathbf{K}$ will tend to be underestimated. 
 - KR somewhat more conservative and reliable than Satterthwaite ([source](https://link.springer.com/article/10.1198/108571102726)). 
 - Integrated in most statistical software. 
@@ -379,30 +389,37 @@ She carried this process out each of four days when she baked cookies at three d
     <tr>
         <th>Source</th>
         <th>df</th>
+        <th>EMS</th>
     </tr>
     <tr>
         <td>Block</td>
         <td>$r-1 = 3$</td>
+        <td>$$\sigma^2_{\varepsilon}+f\sigma^2_w+tf\sigma^2_d$$</td>
     </tr>
     <tr>
         <td>Temperature</td>
         <td>$t-1$ = 2</td>
+        <td>$$\sigma^2_{\varepsilon}+f\sigma^2_w+\phi^2(\alpha)$$</td>
     </tr>
     <tr>
         <td>Error(oven)</td>
         <td>$(r-1)(t-1) = 6$</td>
+        <td>$$\sigma^2_{\varepsilon}+f\sigma^2_w$$</td>
     </tr>
     <tr>
         <td>Fat (%)</td>
         <td>$f-1 = 3$</td>
+        <td>$$\sigma^2_{\varepsilon}+\phi^2(\gamma)$$</td>
     </tr>
     <tr>
         <td>$T \times F$</td>
         <td>$(t-1)(f-1) = 6$</td>
+        <td>$$\sigma^2_{\varepsilon}+\phi^2(\alpha \gamma)$$</td>
     </tr>
     <tr>
         <td>Error(split plot)</td>
         <td>$t(r-1)(f-1) = 27$</td>
+        <td>$$\sigma^2_{\varepsilon}$$</td>
     </tr>
 
 </table>
