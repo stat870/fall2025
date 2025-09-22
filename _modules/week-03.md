@@ -7,7 +7,7 @@ Sept. 22
   : [html](https://stat870.github.io/fall2025/notes/inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html)
 
 Sept. 24  
-: Estimability  
+: Practice  
   : [](#)
   
 Sept. 29 
