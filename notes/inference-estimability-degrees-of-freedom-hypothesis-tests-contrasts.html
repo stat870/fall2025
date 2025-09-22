@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What is the best size of blocks when designing an experiment?</li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
 <img src="../figures/overview_0922.jpg" alt="Overview of today's class." width="80%" />
 <p class="caption">
 Figure 8.1: Overview of today’s class.
@@ -306,7 +306,7 @@ Figure 8.1: Overview of today’s class.
 <li>In statistics, hypothesis tests evaluate whether a given statistic (i.e., a function of the data) is too extreme for the null hypothesis to be true.</li>
 <li>Normally, the null hypothesis is business as usual, and we want to evaluate if we just made a scientific discovery, or if there’s not enough evidence to say that there’s something different going on.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-35"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
 <img src="../figures/error_types.jpg" alt="Types of errors in hypothesis tests." width="80%" />
 <p class="caption">
 Figure 8.2: Types of errors in hypothesis tests.
@@ -393,7 +393,8 @@ She carried this process out each of four days when she baked cookies at three d
 <span id="cb43-15"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
 <span id="cb43-16"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">paste</span>(Temperature, fat_perc),</span>
 <span id="cb43-17"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb43-17" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="fu">factor</span>(fat_perc)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><strong>ANOVA table for cookie RCBD</strong></p>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -435,7 +436,7 @@ df
 Block
 </td>
 <td>
-<span class="math display">\[r-1 = 3\]</span>
+<span class="math inline">\(r-1 = 3\)</span>
 </td>
 </tr>
 <tr>
@@ -443,7 +444,7 @@ Block
 Temp
 </td>
 <td>
-<span class="math display">\[t-1 = 2\]</span>
+<span class="math inline">\(t-1 = 2\)</span>
 </td>
 </tr>
 <tr>
@@ -451,15 +452,15 @@ Temp
 Fat
 </td>
 <td>
-<span class="math display">\[f-1 = 3\]</span>
+<span class="math inline">\(f-1 = 3\)</span>
 </td>
 </tr>
 <tr>
 <td>
-<span class="math display">\[T \times F\]</span>
+<span class="math inline">\(T \times F\)</span>
 </td>
 <td>
-<span class="math display">\[(t-1)(f-1) = 6\]</span>
+<span class="math inline">\((t-1)(f-1) = 6\)</span>
 </td>
 </tr>
 <tr>
@@ -467,7 +468,7 @@ Fat
 Error
 </td>
 <td>
-<span class="math display">\[N-tf-(r-1) = 3\]</span>
+<span class="math inline">\(N-tf-(r-1) = 33\)</span>
 </td>
 </tr>
 </table>
@@ -478,6 +479,7 @@ d_k \sim N(0, \sigma^2_d), \\
 \varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon), \]</span></p>
 <p>and can be fitted to the data with the following R code:</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb44-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day), <span class="at">data =</span> df)</span></code></pre></div>
+<p>The degrees of freedom for the denominator are straightforward.</p>
 <div id="t-test" class="section level3 hasAnchor" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> t-test<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
@@ -599,11 +601,10 @@ R code to get t statistics by hand
 <p><span class="math display">\[\nu_2^\star \equiv \frac{(\sum_m c_m X_m^2)^2}{\sum_m\frac{(c_m X_m^2)}{df_m}}.\]</span></p>
 <p><strong>Kenward-Roger approximation</strong></p>
 <ul>
-<li><p><a href="https://www.jstor.org/stable/2533558?seq=1">Paper</a></p></li>
-<li><p>Again, expept for variance-component-only LMMs with balanced data and their compound symmetry marginal model equivalents, the estimated covariance of <span class="math inline">\(\beta \mathbf{K}\)</span> will tend to be underestimated.</p></li>
-<li><p>KR somewhat more conservative than Satterthwaite</p></li>
-<li><p>Not perfect</p></li>
-<li><p>Integrated in most statistical software</p></li>
+<li><a href="https://www.jstor.org/stable/2533558?seq=1">Paper</a></li>
+<li>Again, expept for variance-component-only LMMs with balanced data and their compound symmetry marginal model equivalents, the estimated covariance of <span class="math inline">\(\beta \mathbf{K}\)</span> will tend to be underestimated.</li>
+<li>KR somewhat more conservative than Satterthwaite.</li>
+<li>Integrated in most statistical software.</li>
 </ul>
 </div>
 </div>
@@ -651,22 +652,13 @@ Source
 <th>
 df
 </th>
-<th>
-Sum of Squares (Partial or type III)
-</th>
-<th>
-Mean Square
-</th>
-<th>
-Expected Mean Square
-</th>
 </tr>
 <tr>
 <td>
 Block
 </td>
 <td>
-<span class="math display">\[r-1\]</span>
+<span class="math inline">\(r-1 = 3\)</span>
 </td>
 </tr>
 <tr>
@@ -674,7 +666,7 @@ Block
 Temperature
 </td>
 <td>
-<span class="math display">\[t-1\]</span>
+<span class="math inline">\(t-1\)</span> = 2
 </td>
 </tr>
 <tr>
@@ -682,7 +674,7 @@ Temperature
 Error(oven)
 </td>
 <td>
-<span class="math display">\[(r-1)(t-1)\]</span>
+<span class="math inline">\((r-1)(t-1) = 6\)</span>
 </td>
 </tr>
 <tr>
@@ -690,15 +682,15 @@ Error(oven)
 Fat (%)
 </td>
 <td>
-<span class="math display">\[f-1\]</span>
+<span class="math inline">\(f-1 = 3\)</span>
 </td>
 </tr>
 <tr>
 <td>
-<span class="math display">\[T \times F\]</span>
+<span class="math inline">\(T \times F\)</span>
 </td>
 <td>
-<span class="math display">\[(t-1)(t-1)\]</span>
+<span class="math inline">\((t-1)(f-1) = 6\)</span>
 </td>
 </tr>
 <tr>
@@ -706,7 +698,7 @@ Fat (%)
 Error(split plot)
 </td>
 <td>
-<span class="math display">\[t(r-1)(f-1)\]</span>
+<span class="math inline">\(t(r-1)(f-1) = 27\)</span>
 </td>
 </tr>
 </table>
@@ -718,6 +710,7 @@ w_{i(k)} \sim N(0, \sigma^2_w), \\
 \varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon), \]</span></p>
 <p>and can be fitted to the data with the following R code:</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb71-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(force <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Temperature<span class="sc">*</span>fat_perc <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Day<span class="sc">/</span>Temperature), <span class="at">data =</span> df)</span></code></pre></div>
+<p>The degrees of freedom for the denominator are not so straightforward anymore.</p>
 </div>
 <div id="wednesday" class="section level2 hasAnchor" number="8.6">
 <h2><span class="header-section-number">8.6</span> Wednesday<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday" class="anchor-section" aria-label="Anchor link to header"></a></h2>
