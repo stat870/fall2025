@@ -8,7 +8,7 @@ Sept. 22
 
 Sept. 24  
 : Practice  
-  : [](#)
+  : [html](https://stat870.github.io/fall2025/notes/practice.html)
   
 Sept. 29 
 : Hypothesis tests, Contrasts 

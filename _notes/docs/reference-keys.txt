@@ -298,3 +298,6 @@ contrasts
 adjusting-degrees-of-freedom-for-mixed-models
 why-are-lmm-best-for-analyzing-unbalanced-experimentsincomplete-blocks
 wednesday
+applied-example-ii
+practice
+in-class-activity
