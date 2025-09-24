@@ -34,7 +34,7 @@ As jaw deformities are formed at an early stage of growth and are not healed, de
 
 - Download the [Rmd](../scripts/09242025_inclass_ex.Rmd) that will give you access to the data. 
 
-**FINISH BY 12:20PM**
+**FINISH BY 12:20PM \& class debate**
 
 1. Read the data, analyze it, and answer the researcher's questions. 
 2. Mention one way they could improve the power of their experiment to detect differences in final weight between treatments. 
