@@ -1,0 +1,63 @@
+---
+title: "In-class hands-on analysis"
+author: "J Lacasa"
+date: "2025-09-24"
+output: html_document
+---
+
+Your colleague's email: 
+
+>I hope you are doing well. I am writing to request assistance with my statistical analysis for an aquaculture clinical field trial in the Bay of Fundy, Canada. Please find a description of the study below.  
+>
+>The objective of our research was to compare the performance of different vaccines on the growth and survival of Atlantic salmon under standard production conditions. 
+On day 0 of the study, we applied 4 different vaccines to a total of 100 randomly selected fish. 
+Salmons were individually tagged in February 2005 and followed through to harvest in August 2007. 
+All fish were always kept in the same cage. 
+We recorded (1) presence of jaw deformity, and (2) weight throughout the trial. 
+As jaw deformities are formed at an early stage of growth and are not healed, detection of a jaw deformity at any sampling event implied that the fish was labelled as having a jaw deformity throughout the entire growth period. 
+>
+>The outcome of interest is the weight, as weights increase from means of 60 g at day 0, to 5,700 g at harvest. However, it is also important to know whether there are differences in propensity to presenting jaw deformity among vaccines. 
+>
+>I need help with the following:  
+>
+>- Describing the experiment design for materials and methods. 
+>- Analyzing the data and determining: 
+  - If there are differences between vaccines, especially at harvest, 
+  - If there is a "better vaccine" for final weight, 
+  - If there is difference in jaw deformity between vaccine treatments. 
+
+REMEMBER:
+
+1. Read the data and its description and answer the researcher's questions. 
+2. Mention one way they could do to improve the power of their experiment to detect differences in final weight between treatments. 
+
+
+You may want to use the following packages: 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse) # data wrangling 
+library(glmmTMB) # generalized linear mixed models (+ repeated measures)
+library(lme4) # linear mixed models 
+library(DHARMa) # model diagnostics 
+```
+
+Data 
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fish_vaccines.csv"
+fish <- read.csv(url)
+```
+
+```{r}
+fish %>% 
+  ggplot(aes(day, wt))+
+  geom_point(aes(fill = factor(vaccine), 
+                 group = factor(vaccine)),
+             position = position_dodge(width = 60),
+             shape=21, size =3.5, alpha =.7)+
+  labs(y = expression(Weight~(g~fish^{-1})), x = "Time (days)")+
+  theme_classic()+
+  labs(fill="Vaccine treatment")+
+  theme(legend.position = "bottom")+
+  scico::scale_fill_scico_d()
+```
+
