@@ -108,9 +108,15 @@ $$\boldsymbol{\Sigma}_{ik} =
 ### Deciding which covariance function for a given problem
 
 - Over-modeling correlation compromises power and under-modeling compromises type I error control. 
-- Potential criteria: 
-  - AIC, AICC, BIC 
-  - Plot covariance as a function of distance (time or space).  
+- Information criteria: 
+  - Used as a metric for predictive ability and model fit. 
+  - Lower value = better 
+  - No general rule about AIC magnitude 
+  - Akaike Information Criterion (AIC): $\text{AIC} = 2p - 2 \ln(\hat{L})$ 
+  - AICC: correction for small sample sizes $\text{AICc} = \text{AIC} + \frac{2p^2+2p}{n-p-1}$ 
+  - Bayesian Information Criterion (BIC) $\text{BIC} = p \log(n) -2\log(\hat{L})$ 
+  - [$p$: number of parameters estimated in the model, $\hat{L}$: likelihood for the model, $\hat{L}=p(\mathbf{y}\vert \hat{\boldsymbol{\beta}}, M)$]
+  - Plot covariance as a function of distance (could be time or space).  
   - Likelihood ratio tests are not always reliable for mixed models [[see Bolker's GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#is-the-likelihood-ratio-test-reliable-for-mixed-models)] 
 
 ## Last week's practice
