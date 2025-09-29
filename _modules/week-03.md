@@ -11,9 +11,9 @@ Sept. 24
   : [html](https://stat870.github.io/fall2025/notes/practice.html)
   
 Sept. 29 
-: Hypothesis tests, Contrasts 
-  : [](#)
+: Repeated measures I  
+  : [html](https://stat870.github.io/fall2025/notes/repeated-measures-practice-ii.html)
     
 October 1  
-: R implementation & Kahoot!  
+: Repeated measures II  
   : [](#)
