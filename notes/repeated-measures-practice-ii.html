@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 10 Repeated Measures, Practice II | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 10 Repeated Measures, Practice II | STAT 870 - Analysis of Messy Data" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 10 Repeated Measures, Practice II | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 10 Repeated Measures, Practice II | STAT 870 - Analysis of Messy Data" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="practice.html"/>
+<link rel="next" href="semester-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 870</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#announcements-1"><i class="fa fa-check"></i><b>3.1</b> Announcements</a></li>
+<li class="chapter" data-level="3.2" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#semester-project"><i class="fa fa-check"></i><b>3.2</b> Semester project</a></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#designed-experiments-1"><i class="fa fa-check"></i><b>3.3</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.3.1</b> Design structures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.4</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.5" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.5</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#announcements-2"><i class="fa fa-check"></i><b>4.1</b> Announcements</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#statistical-models"><i class="fa fa-check"></i><b>4.2</b> Statistical models</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.3</b> The general linear model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#applied-example"><i class="fa fa-check"></i><b>4.3.1</b> Applied example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments"><i class="fa fa-check"></i><b>4.4</b> Linear mixed models applied to designed experiments</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#general-notation-for-linear-mixed-models"><i class="fa fa-check"></i><b>4.4.1</b> General notation for linear mixed models</a></li>
+<li class="chapter" data-level="4.4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#class-discussion-blocks---random-or-fixed"><i class="fa fa-check"></i><b>4.4.2</b> Class discussion: Blocks - random or fixed?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#homework"><i class="fa fa-check"></i><b>4.5</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html"><i class="fa fa-check"></i><b>5</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#announcements-3"><i class="fa fa-check"></i><b>5.1</b> Announcements</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#linear-mixed-models-2"><i class="fa fa-check"></i><b>5.2</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#why-do-we-call-these-multi-level-models"><i class="fa fa-check"></i><b>5.2.1</b> Why do we call these multi-level models?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#degrees-of-freedom-in-a-mixed-model"><i class="fa fa-check"></i><b>5.2.2</b> Degrees of freedom in a mixed model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#next-week"><i class="fa fa-check"></i><b>5.3</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html"><i class="fa fa-check"></i><b>6</b> Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#announcements-4"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#mixed-models-review"><i class="fa fa-check"></i><b>6.2</b> Mixed Models Review</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-parameters-in-mixed-models"><i class="fa fa-check"></i><b>6.3</b> Estimation of parameters in Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>6.3.1</b> Analysis of variance (ANOVA)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-fixed-effects"><i class="fa fa-check"></i><b>6.3.2</b> Estimation of fixed effects</a></li>
+<li class="chapter" data-level="6.3.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-variance-components"><i class="fa fa-check"></i><b>6.3.3</b> Estimation of variance components</a></li>
+<li class="chapter" data-level="6.3.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimating-random-effects"><i class="fa fa-check"></i><b>6.3.4</b> Estimating random effects</a></li>
+<li class="chapter" data-level="6.3.5" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#degrees-of-freedom-in-mixed-models"><i class="fa fa-check"></i><b>6.3.5</b> Degrees of freedom in mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#r-demo"><i class="fa fa-check"></i><b>6.4</b> R demo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#announcements-5"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#review-about-the-general-linear-mixed-model"><i class="fa fa-check"></i><b>7.2</b> Review about the (general) linear mixed model</a></li>
+<li class="chapter" data-level="7.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data"><i class="fa fa-check"></i><b>7.3.1</b> Three steps to modeling data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-model-fitting"><i class="fa fa-check"></i><b>7.3.2</b> Implications for model fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#reading"><i class="fa fa-check"></i><b>7.4</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><i class="fa fa-check"></i><b>8</b> Inference – Estimability, degrees of freedom, hypothesis tests, contrasts</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#announcements-6"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#review-hypothesis-tests-t-tests-f-tests"><i class="fa fa-check"></i><b>8.2</b> Review: Hypothesis tests, t-tests, F tests</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#hypothesis-tests"><i class="fa fa-check"></i><b>8.2.1</b> Hypothesis tests</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#on-p-values"><i class="fa fa-check"></i><b>8.2.2</b> On p-values</a></li>
+<li class="chapter" data-level="8.2.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests"><i class="fa fa-check"></i><b>8.2.3</b> t-tests</a></li>
+<li class="chapter" data-level="8.2.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests"><i class="fa fa-check"></i><b>8.2.4</b> F-tests are multivariate t-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-1"><i class="fa fa-check"></i><b>8.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test"><i class="fa fa-check"></i><b>8.3.1</b> t-test</a></li>
+<li class="chapter" data-level="8.3.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-test"><i class="fa fa-check"></i><b>8.3.2</b> F-test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#estimability"><i class="fa fa-check"></i><b>8.4</b> Estimability</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#contrasts"><i class="fa fa-check"></i><b>8.4.1</b> Contrasts</a></li>
+<li class="chapter" data-level="8.4.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models"><i class="fa fa-check"></i><b>8.4.2</b> Adjusting degrees of freedom for mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-ii"><i class="fa fa-check"></i><b>8.5</b> Applied example II</a></li>
+<li class="chapter" data-level="8.6" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday"><i class="fa fa-check"></i><b>8.6</b> Wednesday</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>9</b> Practice</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="practice.html"><a href="practice.html#announcements-7"><i class="fa fa-check"></i><b>9.1</b> Announcements</a></li>
+<li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#in-class-activity"><i class="fa fa-check"></i><b>9.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html"><i class="fa fa-check"></i><b>10</b> Repeated Measures, Practice II</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#announcements-8"><i class="fa fa-check"></i><b>10.1</b> Announcements</a></li>
+<li class="chapter" data-level="10.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#repeated-measures"><i class="fa fa-check"></i><b>10.2</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#correlation-functions"><i class="fa fa-check"></i><b>10.2.1</b> Correlation functions</a></li>
+<li class="chapter" data-level="10.2.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#deciding-which-covariance-function-for-a-given-problem"><i class="fa fa-check"></i><b>10.2.2</b> Deciding which covariance function for a given problem</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#last-weeks-practice"><i class="fa fa-check"></i><b>10.3</b> Last week’s practice</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#weight"><i class="fa fa-check"></i><b>10.3.1</b> Weight</a></li>
+<li class="chapter" data-level="10.3.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#jaw-deformity"><i class="fa fa-check"></i><b>10.3.2</b> Jaw deformity</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#task-for-today"><i class="fa fa-check"></i><b>10.4</b> Task for today</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>11</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>11.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="11.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>11.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>11.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="11.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>11.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="11.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>11.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="11.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>11.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="repeated-measures-practice-ii" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Day 10</span> Repeated Measures, Practice II<a href="repeated-measures-practice-ii.html#repeated-measures-practice-ii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-8" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Announcements<a href="repeated-measures-practice-ii.html#announcements-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Comments on project proposals.</li>
+<li>Zoom classes on 10/13 and 10/15.</li>
+</ul>
+</div>
+<div id="repeated-measures" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Repeated measures<a href="repeated-measures-practice-ii.html#repeated-measures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Repeated measures designs as a special case of split-plot design.</p>
+<p><strong>Split-plot designs:</strong></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-47"></span>
+<img src="../figures/designs_splitplot.PNG" alt="Schematic description of a field experiment with a split-plot design" width="100%" />
+<p class="caption">
+Figure 10.1: Schematic description of a field experiment with a split-plot design
+</p>
+</div>
+<p>Model behind split plots:</p>
+<p><span class="math display">\[y_{ijk} \vert \boldsymbol{u} \sim P(\mu_{ijk}, \phi),\\
+g(\mu_{ijk}) = \eta_{ijk} = \eta_0 + A_i + C_j +AC_{ij} + b_k + u_{i(k)},\\
+b_k \sim N(0, \sigma^2_b),\\ u_{i(k)} \sim N(0, \sigma^2_u),\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(y_{ijk}\)</span> is the observed value for the <span class="math inline">\(i\)</span>th level of treatment factor A, the <span class="math inline">\(j\)</span>th level of treatment factor B in the <span class="math inline">\(k\)</span>th block, that arises from a probability distribution <span class="math inline">\(P\)</span>, where:
+<ul>
+<li><span class="math inline">\(\mu_{ijk}\)</span> is the expected value for that observation,<br />
+</li>
+<li><span class="math inline">\(\eta_{ijk}\)</span> is the linear predictor for <span class="math inline">\(\mu\)</span> after applying the link function <span class="math inline">\(g(\cdot)\)</span>,<br />
+</li>
+<li><span class="math inline">\(\phi\)</span> is the dispersion parameter,</li>
+</ul></li>
+<li><span class="math inline">\(\eta_0\)</span> is the overall mean for the linear predictor,</li>
+<li><span class="math inline">\(A_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th level of treatment factor A,</li>
+<li><span class="math inline">\(C_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th level of treatment factor B</li>
+<li><span class="math inline">\(AC_{ij}\)</span> is the interaction between the <span class="math inline">\(i\)</span>th level of treatment factor A and the <span class="math inline">\(j\)</span>th level of treatment factor B in the <span class="math inline">\(k\)</span>th block,</li>
+<li><span class="math inline">\(b_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th block,</li>
+<li><span class="math inline">\(u_{i(k)}\)</span> is the effect of the whole plot of the <span class="math inline">\(i\)</span>th level of treatment factor A within block <span class="math inline">\(k\)</span>.</li>
+</ul>
+<p>Under a Gaussian distribution, we can also write
+<span class="math display">\[y_{ijk} = \mu_0 + A_i + C_j +AC_{ij} + b_k + u_{i(k)} + \varepsilon_{ijk},\\
+b_k \sim N(0, \sigma^2_b),\\ u_{i(k)} \sim N(0, \sigma^2_u), \\
+\varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon).\]</span></p>
+<ul>
+<li>Assumptions for residuals in marginal distributions</li>
+</ul>
+<p><strong>Repeated measures:</strong></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-48"></span>
+<img src="../figures/designs_repeated.PNG" alt="Schematic description of a field experiment with repeated measures" width="100%" />
+<p class="caption">
+Figure 10.2: Schematic description of a field experiment with repeated measures
+</p>
+</div>
+<div id="correlation-functions" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Correlation functions<a href="repeated-measures-practice-ii.html#correlation-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(\mathbf{v}_{i k}\)</span> be the vector for the <span class="math inline">\(k\)</span>th individual under the <span class="math inline">\(i\)</span>th vaccine treatment, at the different timepoints of the experiment.</p>
+<p><span class="math display">\[\mathbf{v}_{i k} \sim MVN(\boldsymbol{0}, \boldsymbol{\Sigma}_{ik})\]</span></p>
+<p><strong>Independent observations</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p><strong>Compound symmetry</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; 1 &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; 1 &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; 1 &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p><strong>AR(1)</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho^2 &amp; \rho^3 &amp; \rho^4 \\
+\rho &amp; 1 &amp; \rho &amp; \rho^2 &amp; \rho^3 \\
+\rho^2 &amp; \rho &amp; 1 &amp; \rho &amp; \rho^2 \\
+\rho^3 &amp; \rho^2 &amp; \rho &amp; 1 &amp; \rho \\
+\rho^4 &amp; \rho^3 &amp; \rho^2 &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p><strong>Unstructured</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\begin{bmatrix}
+\sigma^2_{1} &amp; \sigma^2_{12} &amp; \sigma^2_{13} &amp; \sigma^2_{14} &amp; \sigma^2_{15} \\
+&amp; \sigma^2_{2} &amp; \sigma^2_{23} &amp; \sigma^2_{24} &amp; \sigma^2_{25} \\
+&amp;   &amp; \sigma^2_{3} &amp; \sigma^2_{34} &amp; \sigma^2_{35} \\
+  &amp;  &amp;  &amp; \sigma^2_{4} &amp; \sigma^2_{45} \\
+&amp;  &amp;  &amp;  &amp; \sigma^2_{5} \\
+\end{bmatrix}\]</span></p>
+</div>
+<div id="deciding-which-covariance-function-for-a-given-problem" class="section level3 hasAnchor" number="10.2.2">
+<h3><span class="header-section-number">10.2.2</span> Deciding which covariance function for a given problem<a href="repeated-measures-practice-ii.html#deciding-which-covariance-function-for-a-given-problem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Over-modeling correlation compromises power and under-modeling compromises type I error control.</li>
+<li>Potential criteria:
+<ul>
+<li>AIC, AICC, BIC</li>
+<li>Plot covariance as a function of distance (time or space).<br />
+</li>
+<li>Likelihood ratio tests are not always reliable for mixed models [<a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#is-the-likelihood-ratio-test-reliable-for-mixed-models">see Bolker’s GLMM FAQ</a>]</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="last-weeks-practice" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Last week’s practice<a href="repeated-measures-practice-ii.html#last-weeks-practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We know that last week’s assignment was a clinical field trial comparing the performance of different vaccines on the growth and survival of Atlantic salmon under standard production conditions.</p>
+<ul>
+<li>Treatment structure: one-way treatment (4 different)</li>
+<li>Design structure: completely randomized design with 100 reps</li>
+<li>Experimental unit: fish</li>
+<li>Response: (1) presence of jaw deformity (same for its whole life), and (2) weight.</li>
+</ul>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="repeated-measures-practice-ii.html#cb75-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># data wrangling </span></span>
+<span id="cb75-2"><a href="repeated-measures-practice-ii.html#cb75-2" tabindex="-1"></a><span class="fu">library</span>(glmmTMB) <span class="co"># generalized linear mixed models (+ repeated measures)</span></span>
+<span id="cb75-3"><a href="repeated-measures-practice-ii.html#cb75-3" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># linear mixed models </span></span>
+<span id="cb75-4"><a href="repeated-measures-practice-ii.html#cb75-4" tabindex="-1"></a><span class="fu">library</span>(DHARMa) <span class="co"># model diagnostics </span></span>
+<span id="cb75-5"><a href="repeated-measures-practice-ii.html#cb75-5" tabindex="-1"></a> </span>
+<span id="cb75-6"><a href="repeated-measures-practice-ii.html#cb75-6" tabindex="-1"></a><span class="co"># load data</span></span>
+<span id="cb75-7"><a href="repeated-measures-practice-ii.html#cb75-7" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fish_vaccines.csv&quot;</span></span>
+<span id="cb75-8"><a href="repeated-measures-practice-ii.html#cb75-8" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
+<span id="cb75-9"><a href="repeated-measures-practice-ii.html#cb75-9" tabindex="-1"></a></span>
+<span id="cb75-10"><a href="repeated-measures-practice-ii.html#cb75-10" tabindex="-1"></a><span class="co"># plot the data</span></span>
+<span id="cb75-11"><a href="repeated-measures-practice-ii.html#cb75-11" tabindex="-1"></a>fish <span class="sc">%&gt;%</span> </span>
+<span id="cb75-12"><a href="repeated-measures-practice-ii.html#cb75-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(day, wt))<span class="sc">+</span></span>
+<span id="cb75-13"><a href="repeated-measures-practice-ii.html#cb75-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">factor</span>(vaccine), </span>
+<span id="cb75-14"><a href="repeated-measures-practice-ii.html#cb75-14" tabindex="-1"></a>                 <span class="at">group =</span> <span class="fu">factor</span>(vaccine)),</span>
+<span id="cb75-15"><a href="repeated-measures-practice-ii.html#cb75-15" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">60</span>),</span>
+<span id="cb75-16"><a href="repeated-measures-practice-ii.html#cb75-16" tabindex="-1"></a>             <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size =</span><span class="fl">3.5</span>, <span class="at">alpha =</span>.<span class="dv">7</span>)<span class="sc">+</span></span>
+<span id="cb75-17"><a href="repeated-measures-practice-ii.html#cb75-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="fu">expression</span>(Weight<span class="sc">~</span>(g<span class="sc">~</span>fish<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), <span class="at">x =</span> <span class="st">&quot;Time (days)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb75-18"><a href="repeated-measures-practice-ii.html#cb75-18" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb75-19"><a href="repeated-measures-practice-ii.html#cb75-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&quot;Vaccine treatment&quot;</span>)<span class="sc">+</span></span>
+<span id="cb75-20"><a href="repeated-measures-practice-ii.html#cb75-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
+<span id="cb75-21"><a href="repeated-measures-practice-ii.html#cb75-21" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico_d</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<div id="weight" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Weight<a href="repeated-measures-practice-ii.html#weight" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Considering that the variance increases with the mean, a fair model for fish weight could be:</p>
+<p><span class="math display">\[y_{ijk}|u_{ijk} \sim Gamma(\mu_{ijk}, \phi),\\
+\log(\mu_{ijk}) = \eta_{ijk} = \eta_0 + V_i + T_j + VT_{ij} + u_{ijk},\]</span>
+where:</p>
+<ul>
+<li><p><span class="math inline">\(y_{ijk}\)</span> is the fish weight of the <span class="math inline">\(k\)</span>th fish under the <span class="math inline">\(i\)</span>th vaccine treatment at the <span class="math inline">\(j\)</span>th timepoint, and (conditional on <span class="math inline">\(u_{ijk}\)</span>) arises from a Gamma distribution with mean <span class="math inline">\(\mu_{ijk}\)</span> and dispersion <span class="math inline">\(\phi\)</span>,</p></li>
+<li><p><span class="math inline">\(\eta_{ijk}\)</span> is the linear predictor,</p></li>
+<li><p><span class="math inline">\(\eta_0\)</span> is the overall mean mean of the linear predictor,</p></li>
+<li><p><span class="math inline">\(V_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th vaccine treatment,</p></li>
+<li><p><span class="math inline">\(T_j\)</span> is the effect of the <span class="math inline">\(j\)</span>th timepoint,</p></li>
+<li><p><span class="math inline">\(VT_{ij}\)</span> is the interaction between the <span class="math inline">\(i\)</span>th vaccine treatment and the <span class="math inline">\(j\)</span>th timepoint, and</p></li>
+<li><p><span class="math inline">\(u_{ijk}\)</span> is the random effect for the fish weight of the <span class="math inline">\(k\)</span>th fish under the <span class="math inline">\(i\)</span>th vaccine treatment at the <span class="math inline">\(j\)</span>th timepoint, <strong>that is accounting for the fact that repeated measures are not independent</strong>.</p></li>
+<li><p>Gamma distribution versus log-transformation.</p></li>
+</ul>
+<p><strong>How do we account for the fact that repeated measures are not independent?</strong></p>
+<p><strong>Independent observations</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}\]</span></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="repeated-measures-practice-ii.html#cb76-1" tabindex="-1"></a><span class="co"># let vaccine be a factor</span></span>
+<span id="cb76-2"><a href="repeated-measures-practice-ii.html#cb76-2" tabindex="-1"></a>fish<span class="sc">$</span>vaccine <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(fish<span class="sc">$</span>vaccine)</span>
+<span id="cb76-3"><a href="repeated-measures-practice-ii.html#cb76-3" tabindex="-1"></a><span class="co">#create a new variable, day as factor</span></span>
+<span id="cb76-4"><a href="repeated-measures-practice-ii.html#cb76-4" tabindex="-1"></a>fish<span class="sc">$</span>day_f <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(fish<span class="sc">$</span>day)</span>
+<span id="cb76-5"><a href="repeated-measures-practice-ii.html#cb76-5" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="repeated-measures-practice-ii.html#cb76-6" tabindex="-1"></a>m_indep <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(wt <span class="sc">~</span> vaccine<span class="sc">*</span>day_f,</span>
+<span id="cb76-7"><a href="repeated-measures-practice-ii.html#cb76-7" tabindex="-1"></a>                   <span class="at">REML =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb76-8"><a href="repeated-measures-practice-ii.html#cb76-8" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>),</span>
+<span id="cb76-9"><a href="repeated-measures-practice-ii.html#cb76-9" tabindex="-1"></a>                   <span class="at">data =</span> fish)</span>
+<span id="cb76-10"><a href="repeated-measures-practice-ii.html#cb76-10" tabindex="-1"></a></span>
+<span id="cb76-11"><a href="repeated-measures-practice-ii.html#cb76-11" tabindex="-1"></a><span class="co"># dispersion parameter</span></span>
+<span id="cb76-12"><a href="repeated-measures-practice-ii.html#cb76-12" tabindex="-1"></a><span class="fu">sigma</span>(m_indep)</span></code></pre></div>
+<pre><code>## [1] 0.215569</code></pre>
+<p><strong>Compound symmetry</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; 1 &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; 1 &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; 1 &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="repeated-measures-practice-ii.html#cb78-1" tabindex="-1"></a>m_cs <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(wt <span class="sc">~</span> vaccine<span class="sc">*</span>day_f <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>fish),</span>
+<span id="cb78-2"><a href="repeated-measures-practice-ii.html#cb78-2" tabindex="-1"></a>                <span class="at">REML =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb78-3"><a href="repeated-measures-practice-ii.html#cb78-3" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>),</span>
+<span id="cb78-4"><a href="repeated-measures-practice-ii.html#cb78-4" tabindex="-1"></a>                <span class="at">data =</span> fish)</span>
+<span id="cb78-5"><a href="repeated-measures-practice-ii.html#cb78-5" tabindex="-1"></a><span class="co"># variance of random effects </span></span>
+<span id="cb78-6"><a href="repeated-measures-practice-ii.html#cb78-6" tabindex="-1"></a><span class="fu">VarCorr</span>(m_cs)</span></code></pre></div>
+<pre><code>## 
+## Conditional model:
+##  Groups Name        Std.Dev.
+##  fish   (Intercept) 0.1486</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="repeated-measures-practice-ii.html#cb80-1" tabindex="-1"></a><span class="co"># dispersion parameter</span></span>
+<span id="cb80-2"><a href="repeated-measures-practice-ii.html#cb80-2" tabindex="-1"></a><span class="fu">sigma</span>(m_cs)</span></code></pre></div>
+<pre><code>## [1] 0.1571353</code></pre>
+<p><strong>AR(1)</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho^2 &amp; \rho^3 &amp; \rho^4 \\
+\rho &amp; 1 &amp; \rho &amp; \rho^2 &amp; \rho^3 \\
+\rho^2 &amp; \rho &amp; 1 &amp; \rho &amp; \rho^2 \\
+\rho^3 &amp; \rho^2 &amp; \rho &amp; 1 &amp; \rho \\
+\rho^4 &amp; \rho^3 &amp; \rho^2 &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="repeated-measures-practice-ii.html#cb82-1" tabindex="-1"></a>m_ar1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(wt <span class="sc">~</span> vaccine<span class="sc">*</span>day_f <span class="sc">+</span> <span class="fu">ar1</span>(<span class="dv">1</span> <span class="sc">+</span> day_f<span class="sc">|</span>fish),</span>
+<span id="cb82-2"><a href="repeated-measures-practice-ii.html#cb82-2" tabindex="-1"></a>                <span class="at">REML =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb82-3"><a href="repeated-measures-practice-ii.html#cb82-3" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>),</span>
+<span id="cb82-4"><a href="repeated-measures-practice-ii.html#cb82-4" tabindex="-1"></a>                <span class="at">data =</span> fish)</span>
+<span id="cb82-5"><a href="repeated-measures-practice-ii.html#cb82-5" tabindex="-1"></a><span class="co"># variance of random effects </span></span>
+<span id="cb82-6"><a href="repeated-measures-practice-ii.html#cb82-6" tabindex="-1"></a><span class="fu">VarCorr</span>(m_ar1)</span></code></pre></div>
+<pre><code>## 
+## Conditional model:
+##  Groups Name        Std.Dev. Corr       
+##  fish   (Intercept) 0.1382   0.448 (ar1)</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="repeated-measures-practice-ii.html#cb84-1" tabindex="-1"></a><span class="co"># dispersion parameter</span></span>
+<span id="cb84-2"><a href="repeated-measures-practice-ii.html#cb84-2" tabindex="-1"></a><span class="fu">sigma</span>(m_ar1)</span></code></pre></div>
+<pre><code>## [1] 0.1111098</code></pre>
+<p><strong>Unstructured</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\begin{bmatrix}
+\sigma^2_{1} &amp; \sigma^2_{12} &amp; \sigma^2_{13} &amp; \sigma^2_{14} &amp; \sigma^2_{15} \\
+&amp; \sigma^2_{2} &amp; \sigma^2_{23} &amp; \sigma^2_{24} &amp; \sigma^2_{25} \\
+&amp;   &amp; \sigma^2_{3} &amp; \sigma^2_{34} &amp; \sigma^2_{35} \\
+  &amp;  &amp;  &amp; \sigma^2_{4} &amp; \sigma^2_{45} \\
+&amp;  &amp;  &amp;  &amp; \sigma^2_{5} \\
+\end{bmatrix}\]</span></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="repeated-measures-practice-ii.html#cb86-1" tabindex="-1"></a>m_us <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(wt <span class="sc">~</span> vaccine<span class="sc">*</span>day_f <span class="sc">+</span> <span class="fu">us</span>(<span class="dv">1</span> <span class="sc">+</span> day_f<span class="sc">|</span>fish),</span>
+<span id="cb86-2"><a href="repeated-measures-practice-ii.html#cb86-2" tabindex="-1"></a>                <span class="at">REML =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb86-3"><a href="repeated-measures-practice-ii.html#cb86-3" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">&quot;log&quot;</span>),</span>
+<span id="cb86-4"><a href="repeated-measures-practice-ii.html#cb86-4" tabindex="-1"></a>                <span class="at">data =</span> fish)</span>
+<span id="cb86-5"><a href="repeated-measures-practice-ii.html#cb86-5" tabindex="-1"></a><span class="co"># variance of random effects </span></span>
+<span id="cb86-6"><a href="repeated-measures-practice-ii.html#cb86-6" tabindex="-1"></a><span class="fu">VarCorr</span>(m_us)</span></code></pre></div>
+<pre><code>## 
+## Conditional model:
+##  Groups Name        Std.Dev. Corr                        
+##  fish   (Intercept) 0.174360                             
+##         day_f82     0.029283  0.086                      
+##         day_f246    0.149262 -0.461  0.832               
+##         day_f505    0.228821 -0.236  0.496  0.674        
+##         day_f901    0.268994 -0.424  0.201  0.492  0.508</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="repeated-measures-practice-ii.html#cb88-1" tabindex="-1"></a><span class="co"># dispersion parameter</span></span>
+<span id="cb88-2"><a href="repeated-measures-practice-ii.html#cb88-2" tabindex="-1"></a><span class="fu">sigma</span>(m_us)</span></code></pre></div>
+<pre><code>## [1] 0.06238086</code></pre>
+<div id="comparing-covariance-functions" class="section level4 hasAnchor" number="10.3.1.1">
+<h4><span class="header-section-number">10.3.1.1</span> Comparing covariance functions<a href="repeated-measures-practice-ii.html#comparing-covariance-functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Information criteria</strong></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="repeated-measures-practice-ii.html#cb90-1" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)</span>
+<span id="cb90-2"><a href="repeated-measures-practice-ii.html#cb90-2" tabindex="-1"></a>model_comparison <span class="ot">&lt;-</span> <span class="fu">AIC</span>(m_indep, m_cs, m_ar1, m_us)</span>
+<span id="cb90-3"><a href="repeated-measures-practice-ii.html#cb90-3" tabindex="-1"></a>model_comparison<span class="sc">$</span>AICc <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb90-4"><a href="repeated-measures-practice-ii.html#cb90-4" tabindex="-1"></a>  <span class="fu">AICc</span>(m_indep), </span>
+<span id="cb90-5"><a href="repeated-measures-practice-ii.html#cb90-5" tabindex="-1"></a>  <span class="fu">AICc</span>(m_cs),</span>
+<span id="cb90-6"><a href="repeated-measures-practice-ii.html#cb90-6" tabindex="-1"></a>  <span class="fu">AICc</span>(m_ar1), </span>
+<span id="cb90-7"><a href="repeated-measures-practice-ii.html#cb90-7" tabindex="-1"></a>  <span class="fu">AICc</span>(m_us)</span>
+<span id="cb90-8"><a href="repeated-measures-practice-ii.html#cb90-8" tabindex="-1"></a>)</span>
+<span id="cb90-9"><a href="repeated-measures-practice-ii.html#cb90-9" tabindex="-1"></a>model_comparison<span class="sc">$</span>BIC <span class="ot">&lt;-</span> <span class="fu">BIC</span>(m_indep, m_cs, m_ar1, m_us)<span class="sc">$</span>BIC</span>
+<span id="cb90-10"><a href="repeated-measures-practice-ii.html#cb90-10" tabindex="-1"></a>model_comparison</span></code></pre></div>
+<pre><code>##         df      AIC     AICc      BIC
+## m_indep 21 24587.91 24588.38 24705.53
+## m_cs    22 23996.17 23996.68 24119.39
+## m_ar1   23 23923.06 23923.62 24051.88
+## m_us    36 23355.32 23356.68 23556.96</code></pre>
+<p><strong>Visualizing</strong></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="repeated-measures-practice-ii.html#cb92-1" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb92-2"><a href="repeated-measures-practice-ii.html#cb92-2" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
+<span id="cb92-3"><a href="repeated-measures-practice-ii.html#cb92-3" tabindex="-1"></a>fish_autocorr <span class="ot">&lt;-</span> fish</span>
+<span id="cb92-4"><a href="repeated-measures-practice-ii.html#cb92-4" tabindex="-1"></a>fish_autocorr<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(m_indep)</span>
+<span id="cb92-5"><a href="repeated-measures-practice-ii.html#cb92-5" tabindex="-1"></a>fish_autocorr<span class="sc">$</span>i <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb92-6"><a href="repeated-measures-practice-ii.html#cb92-6" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="repeated-measures-practice-ii.html#cb92-7" tabindex="-1"></a><span class="fu">coordinates</span>(fish_autocorr) <span class="ot">&lt;-</span> <span class="er">~</span> day<span class="sc">+</span>i</span>
+<span id="cb92-8"><a href="repeated-measures-practice-ii.html#cb92-8" tabindex="-1"></a></span>
+<span id="cb92-9"><a href="repeated-measures-practice-ii.html#cb92-9" tabindex="-1"></a>semivariogram_model <span class="ot">&lt;-</span> <span class="fu">variogram</span>(wt <span class="sc">~</span> day_f<span class="sc">*</span>vaccine, <span class="at">data =</span> fish_autocorr)</span>
+<span id="cb92-10"><a href="repeated-measures-practice-ii.html#cb92-10" tabindex="-1"></a></span>
+<span id="cb92-11"><a href="repeated-measures-practice-ii.html#cb92-11" tabindex="-1"></a><span class="co"># Plot the semivariogram</span></span>
+<span id="cb92-12"><a href="repeated-measures-practice-ii.html#cb92-12" tabindex="-1"></a><span class="fu">plot</span>(semivariogram_model, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">270</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500000</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="repeated-measures-practice-ii.html#cb93-1" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb93-2"><a href="repeated-measures-practice-ii.html#cb93-2" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="repeated-measures-practice-ii.html#cb93-3" tabindex="-1"></a>marginal_means <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(m_us, <span class="sc">~</span> vaccine, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">day_f =</span> <span class="fu">factor</span>(<span class="dv">901</span>)), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb93-4"><a href="repeated-measures-practice-ii.html#cb93-4" tabindex="-1"></a>marginal_means</span></code></pre></div>
+<pre><code>##  vaccine response  SE  df asymp.LCL asymp.UCL
+##  1           5715 148 Inf      5432      6012
+##  2           5451 141 Inf      5181      5734
+##  3           5915 153 Inf      5623      6223
+##  4           5365 139 Inf      5100      5644
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="repeated-measures-practice-ii.html#cb95-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_us, <span class="sc">~</span> vaccine,</span>
+<span id="cb95-2"><a href="repeated-measures-practice-ii.html#cb95-2" tabindex="-1"></a>        <span class="at">at =</span> <span class="fu">list</span>(<span class="at">day_f =</span> <span class="fu">factor</span>(<span class="dv">901</span>)),</span>
+<span id="cb95-3"><a href="repeated-measures-practice-ii.html#cb95-3" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, </span>
+<span id="cb95-4"><a href="repeated-measures-practice-ii.html#cb95-4" tabindex="-1"></a>        </span>
+<span id="cb95-5"><a href="repeated-measures-practice-ii.html#cb95-5" tabindex="-1"></a>        <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb95-6"><a href="repeated-measures-practice-ii.html#cb95-6" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb95-7"><a href="repeated-measures-practice-ii.html#cb95-7" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))<span class="sc">$</span>contr</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<pre><code>##  contrast       ratio     SE  df null z.ratio p.value
+##  c(-1, 0, 1, 0)  1.04 0.0378 Inf    1   0.943  0.3458
+##  c(0, -1, 1, 0)  1.09 0.0397 Inf    1   2.235  0.0254
+##  c(0, 0, 1, -1)  1.10 0.0403 Inf    1   2.670  0.0076
+## 
+## Tests are performed on the log scale</code></pre>
+</div>
+</div>
+<div id="jaw-deformity" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Jaw deformity<a href="repeated-measures-practice-ii.html#jaw-deformity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Considering that the jaw deformity was observed only once in the fish’s cylcle, a fair model for fish jaw deformity could be:</p>
+<p><span class="math display">\[y_{ij} \sim Binomial(\mu_{ij}, 1),\\
+\text{logit}(\mu_{ij}) = \eta_{ij} = \eta_0 + V_i\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(y_{ijk}\)</span> is the presence (1) or absence (0) of jaw deformity on the <span class="math inline">\(j\)</span>th fish under the <span class="math inline">\(i\)</span>th vaccine treatment and arises from a Binomial distribution with mean <span class="math inline">\(\mu_{ijk}\)</span> and only one trial (i.e., Bernoulli distribution),</li>
+<li><span class="math inline">\(\eta_{ij}\)</span> is the linear predictor,</li>
+<li><span class="math inline">\(\eta_0\)</span> is the overall mean mean of the linear predictor,</li>
+<li><span class="math inline">\(V_i\)</span> is the effect of the <span class="math inline">\(i\)</span>th vaccine treatment.</li>
+</ul>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="repeated-measures-practice-ii.html#cb98-1" tabindex="-1"></a><span class="co"># take a subset so that the data are not cloned 5 times</span></span>
+<span id="cb98-2"><a href="repeated-measures-practice-ii.html#cb98-2" tabindex="-1"></a>fish_sub <span class="ot">&lt;-</span> fish <span class="sc">%&gt;%</span> <span class="fu">filter</span>(day <span class="sc">==</span> <span class="dv">901</span>)</span>
+<span id="cb98-3"><a href="repeated-measures-practice-ii.html#cb98-3" tabindex="-1"></a></span>
+<span id="cb98-4"><a href="repeated-measures-practice-ii.html#cb98-4" tabindex="-1"></a><span class="co"># fit binomial model</span></span>
+<span id="cb98-5"><a href="repeated-measures-practice-ii.html#cb98-5" tabindex="-1"></a>m_jaw <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(jaw <span class="sc">~</span> vaccine,</span>
+<span id="cb98-6"><a href="repeated-measures-practice-ii.html#cb98-6" tabindex="-1"></a>                 <span class="at">REML =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb98-7"><a href="repeated-measures-practice-ii.html#cb98-7" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb98-8"><a href="repeated-measures-practice-ii.html#cb98-8" tabindex="-1"></a>                 <span class="at">data =</span> fish_sub)</span>
+<span id="cb98-9"><a href="repeated-measures-practice-ii.html#cb98-9" tabindex="-1"></a></span>
+<span id="cb98-10"><a href="repeated-measures-practice-ii.html#cb98-10" tabindex="-1"></a><span class="co"># dispersion parameter</span></span>
+<span id="cb98-11"><a href="repeated-measures-practice-ii.html#cb98-11" tabindex="-1"></a><span class="fu">sigma</span>(m_jaw)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="repeated-measures-practice-ii.html#cb100-1" tabindex="-1"></a><span class="fu">emmeans</span>(m_jaw, <span class="sc">~</span> vaccine,</span>
+<span id="cb100-2"><a href="repeated-measures-practice-ii.html#cb100-2" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;response&quot;</span>,</span>
+<span id="cb100-3"><a href="repeated-measures-practice-ii.html#cb100-3" tabindex="-1"></a>        <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb100-4"><a href="repeated-measures-practice-ii.html#cb100-4" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb100-5"><a href="repeated-measures-practice-ii.html#cb100-5" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)))</span></code></pre></div>
+<pre><code>## $emmeans
+##  vaccine prob     SE  df asymp.LCL asymp.UCL
+##  1       0.09 0.0286 Inf    0.0475     0.164
+##  2       0.14 0.0347 Inf    0.0847     0.223
+##  3       0.12 0.0325 Inf    0.0694     0.200
+##  4       0.12 0.0325 Inf    0.0694     0.200
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the logit scale 
+## 
+## $contrasts
+##  contrast       odds.ratio    SE  df null z.ratio p.value
+##  c(-1, 0, 1, 0)      1.379 0.642 Inf    1   0.690  0.4903
+##  c(0, -1, 1, 0)      0.838 0.353 Inf    1  -0.420  0.6744
+##  c(0, 0, 1, -1)      1.000 0.435 Inf    1   0.000  1.0000
+## 
+## Tests are performed on the log odds ratio scale</code></pre>
+</div>
+</div>
+<div id="task-for-today" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Task for today<a href="repeated-measures-practice-ii.html#task-for-today" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Answer the researcher’s questions and mention one way they could improve the power of their experiment to detect differences in final weight between treatments.
+Write an email answering the researcher’s questions and email them tonight midnight.</p>
+<p><strong>Last week’s prompt:</strong></p>
+<p>You are consultant statisticians. A researcher has come to you to request help analyzing data generated by a designed experiment. They described the experiment in the following email:</p>
+<blockquote>
+<p>I hope you are doing well. I am writing to request assistance with my statistical analysis for an aquaculture clinical field trial in the Bay of Fundy, Canada. Please find a description of the study below.</p>
+<p>The objective of our research was to compare the performance of different vaccines on the growth and survival of Atlantic salmon under standard production conditions.
+On day 0 of the study, we applied 4 different vaccines to a total of 100 randomly selected fish.
+Salmons were individually tagged in February 2005 and followed through to harvest in August 2007.
+All fish were always kept in the same cage.
+We recorded (1) presence of jaw deformity, and (2) weight throughout the trial.
+As jaw deformities are formed at an early stage of growth and are not healed, detection of a jaw deformity at any sampling event implied that the fish was labelled as having a jaw deformity throughout the entire growth period.</p>
+<p>The outcome of interest is the weight, as weights increase from means of 60 g at day 0, to 5,700 g at harvest. However, it is also important to know whether there are differences in propensity to presenting jaw deformity among vaccines.</p>
+<p>I need help with the following:</p>
+<ul>
+<li>Describing the experiment design for materials and methods.</li>
+<li>Analyzing the data and determining:</li>
+<li>If there are differences between vaccines, especially at harvest,</li>
+<li>If there is a “better vaccine” for final weight,</li>
+<li>If there is difference in jaw deformity between vaccine treatments.</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="practice.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/10-practice2.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/10-practice2.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

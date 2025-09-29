@@ -1,0 +1,390 @@
+# Repeated Measures, Practice II 
+
+## Announcements 
+
+- Comments on project proposals. 
+- Zoom classes on 10/13 and 10/15. 
+
+## Repeated measures 
+
+Repeated measures designs as a special case of split-plot design.  
+
+**Split-plot designs:**  
+
+```{r echo=FALSE, fig.cap="Schematic description of a field experiment with a split-plot design", out.width = '100%'}
+knitr::include_graphics("../figures/designs_splitplot.PNG")
+```
+
+Model behind split plots:
+
+$$y_{ijk} \vert \boldsymbol{u} \sim P(\mu_{ijk}, \phi),\\
+g(\mu_{ijk}) = \eta_{ijk} = \eta_0 + A_i + C_j +AC_{ij} + b_k + u_{i(k)},\\
+b_k \sim N(0, \sigma^2_b),\\ u_{i(k)} \sim N(0, \sigma^2_u),$$
+where: 
+
+- $y_{ijk}$ is the observed value for the $i$th level of treatment factor A, the $j$th level of treatment factor B in the $k$th block, that arises from a probability distribution $P$, where:
+  - $\mu_{ijk}$ is the expected value for that observation,  
+  - $\eta_{ijk}$ is the linear predictor for $\mu$ after applying the link function $g(\cdot)$,  
+  - $\phi$ is the dispersion parameter, 
+- $\eta_0$ is the overall mean for the linear predictor, 
+- $A_i$ is the effect of the $i$th level of treatment factor A, 
+- $C_j$ is the effect of the $j$th level of treatment factor B
+- $AC_{ij}$ is the interaction between the $i$th level of treatment factor A and the $j$th level of treatment factor B in the $k$th block, 
+- $b_k$ is the effect of the $k$th block, 
+- $u_{i(k)}$ is the effect of the whole plot of the $i$th level of treatment factor A within block $k$. 
+
+Under a Gaussian distribution, we can also write 
+$$y_{ijk} = \mu_0 + A_i + C_j +AC_{ij} + b_k + u_{i(k)} + \varepsilon_{ijk},\\
+b_k \sim N(0, \sigma^2_b),\\ u_{i(k)} \sim N(0, \sigma^2_u), \\
+\varepsilon_{ijk} \sim N(0, \sigma^2_\varepsilon).$$
+
+- Assumptions for residuals in marginal distributions 
+
+
+**Repeated measures:**
+
+```{r echo=FALSE, fig.cap="Schematic description of a field experiment with repeated measures", out.width = '100%'}
+knitr::include_graphics("../figures/designs_repeated.PNG")
+```
+
+
+### Correlation functions 
+
+Let $\mathbf{v}_{i k}$ be the vector for the $k$th individual under the $i$th vaccine treatment, at the different timepoints of the experiment. 
+
+$$\mathbf{v}_{i k} \sim MVN(\boldsymbol{0}, \boldsymbol{\Sigma}_{ik})$$
+
+**Independent observations** 
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1\\
+\end{bmatrix}$$
+
+
+**Compound symmetry** 
+
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho & \rho & \rho \\
+\rho & 1 & \rho & \rho & \rho \\
+\rho & \rho & 1 & \rho & \rho \\
+\rho & \rho & \rho & 1 & \rho \\
+\rho & \rho & \rho & \rho & 1\\
+\end{bmatrix}$$
+
+**AR(1)**
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho^2 & \rho^3 & \rho^4 \\
+\rho & 1 & \rho & \rho^2 & \rho^3 \\
+\rho^2 & \rho & 1 & \rho & \rho^2 \\
+\rho^3 & \rho^2 & \rho & 1 & \rho \\
+\rho^4 & \rho^3 & \rho^2 & \rho & 1\\
+\end{bmatrix}$$
+
+**Unstructured** 
+
+$$\boldsymbol{\Sigma}_{ik} =
+\begin{bmatrix}
+\sigma^2_{1} & \sigma^2_{12} & \sigma^2_{13} & \sigma^2_{14} & \sigma^2_{15} \\
+ & \sigma^2_{2} & \sigma^2_{23} & \sigma^2_{24} & \sigma^2_{25} \\
+ &   & \sigma^2_{3} & \sigma^2_{34} & \sigma^2_{35} \\
+  &  &  & \sigma^2_{4} & \sigma^2_{45} \\
+ &  &  &  & \sigma^2_{5} \\
+\end{bmatrix}$$
+
+
+
+### Deciding which covariance function for a given problem
+
+- Over-modeling correlation compromises power and under-modeling compromises type I error control. 
+- Potential criteria: 
+  - AIC, AICC, BIC 
+  - Plot covariance as a function of distance (time or space).  
+  - Likelihood ratio tests are not always reliable for mixed models [[see Bolker's GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#is-the-likelihood-ratio-test-reliable-for-mixed-models)] 
+
+## Last week's practice
+
+We know that last week's assignment was a clinical field trial comparing the performance of different vaccines on the growth and survival of Atlantic salmon under standard production conditions. 
+
+- Treatment structure: one-way treatment (4 different) 
+- Design structure: completely randomized design with 100 reps 
+- Experimental unit: fish 
+- Response: (1) presence of jaw deformity (same for its whole life), and (2) weight. 
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse) # data wrangling 
+library(glmmTMB) # generalized linear mixed models (+ repeated measures)
+library(lme4) # linear mixed models 
+library(DHARMa) # model diagnostics 
+ 
+# load data
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fish_vaccines.csv"
+fish <- read.csv(url)
+
+# plot the data
+fish %>% 
+  ggplot(aes(day, wt))+
+  geom_point(aes(fill = factor(vaccine), 
+                 group = factor(vaccine)),
+             position = position_dodge(width = 60),
+             shape=21, size =3.5, alpha =.7)+
+  labs(y = expression(Weight~(g~fish^{-1})), x = "Time (days)")+
+  theme_classic()+
+  labs(fill="Vaccine treatment")+
+  theme(legend.position = "bottom")+
+  scico::scale_fill_scico_d()
+```
+
+### Weight 
+
+Considering that the variance increases with the mean, a fair model for fish weight could be: 
+
+$$y_{ijk}|u_{ijk} \sim Gamma(\mu_{ijk}, \phi),\\
+\log(\mu_{ijk}) = \eta_{ijk} = \eta_0 + V_i + T_j + VT_{ij} + u_{ijk},$$
+where: 
+
+- $y_{ijk}$ is the fish weight of the $k$th fish under the $i$th vaccine treatment at the $j$th timepoint, and (conditional on $u_{ijk}$) arises from a Gamma distribution with mean $\mu_{ijk}$ and dispersion $\phi$, 
+- $\eta_{ijk}$ is the linear predictor, 
+- $\eta_0$ is the overall mean mean of the linear predictor, 
+- $V_i$ is the effect of the $i$th vaccine treatment, 
+- $T_j$ is the effect of the $j$th timepoint, 
+- $VT_{ij}$ is the interaction between the $i$th vaccine treatment and the $j$th timepoint, and
+- $u_{ijk}$ is the random effect for the fish weight of the $k$th fish under the $i$th vaccine treatment at the $j$th timepoint, **that is accounting for the fact that repeated measures are not independent**. 
+
+- Gamma distribution versus log-transformation. 
+
+**How do we account for the fact that repeated measures are not independent?** 
+
+**Independent observations** 
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1\\
+\end{bmatrix}$$
+
+```{r}
+# let vaccine be a factor
+fish$vaccine <- as.factor(fish$vaccine)
+#create a new variable, day as factor
+fish$day_f <- as.factor(fish$day)
+
+m_indep <- glmmTMB(wt ~ vaccine*day_f,
+                   REML = TRUE,
+                   family = Gamma(link = "log"),
+                   data = fish)
+
+# dispersion parameter
+sigma(m_indep)
+```
+
+
+**Compound symmetry** 
+
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho & \rho & \rho \\
+\rho & 1 & \rho & \rho & \rho \\
+\rho & \rho & 1 & \rho & \rho \\
+\rho & \rho & \rho & 1 & \rho \\
+\rho & \rho & \rho & \rho & 1\\
+\end{bmatrix}$$
+
+
+```{r}
+m_cs <- glmmTMB(wt ~ vaccine*day_f + (1|fish),
+                REML = TRUE,
+                family = Gamma(link = "log"),
+                data = fish)
+# variance of random effects 
+VarCorr(m_cs)
+
+# dispersion parameter
+sigma(m_cs)
+```
+
+**AR(1)**
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho^2 & \rho^3 & \rho^4 \\
+\rho & 1 & \rho & \rho^2 & \rho^3 \\
+\rho^2 & \rho & 1 & \rho & \rho^2 \\
+\rho^3 & \rho^2 & \rho & 1 & \rho \\
+\rho^4 & \rho^3 & \rho^2 & \rho & 1\\
+\end{bmatrix}$$
+
+```{r}
+m_ar1 <- glmmTMB(wt ~ vaccine*day_f + ar1(1 + day_f|fish),
+                REML = TRUE,
+                family = Gamma(link = "log"),
+                data = fish)
+# variance of random effects 
+VarCorr(m_ar1)
+
+# dispersion parameter
+sigma(m_ar1)
+```
+
+
+**Unstructured** 
+
+$$\boldsymbol{\Sigma}_{ik} =
+\begin{bmatrix}
+\sigma^2_{1} & \sigma^2_{12} & \sigma^2_{13} & \sigma^2_{14} & \sigma^2_{15} \\
+ & \sigma^2_{2} & \sigma^2_{23} & \sigma^2_{24} & \sigma^2_{25} \\
+ &   & \sigma^2_{3} & \sigma^2_{34} & \sigma^2_{35} \\
+  &  &  & \sigma^2_{4} & \sigma^2_{45} \\
+ &  &  &  & \sigma^2_{5} \\
+\end{bmatrix}$$
+
+```{r}
+m_us <- glmmTMB(wt ~ vaccine*day_f + us(1 + day_f|fish),
+                REML = TRUE,
+                family = Gamma(link = "log"),
+                data = fish)
+# variance of random effects 
+VarCorr(m_us)
+
+# dispersion parameter
+sigma(m_us)
+```
+
+
+
+#### Comparing covariance functions 
+
+**Information criteria** 
+
+```{r warning=FALSE, message=FALSE}
+library(AICcmodavg)
+model_comparison <- AIC(m_indep, m_cs, m_ar1, m_us)
+model_comparison$AICc <- c(
+  AICc(m_indep), 
+  AICc(m_cs),
+  AICc(m_ar1), 
+  AICc(m_us)
+)
+model_comparison$BIC <- BIC(m_indep, m_cs, m_ar1, m_us)$BIC
+model_comparison
+```
+
+**Visualizing** 
+
+```{r}
+library(sp)
+library(gstat)
+fish_autocorr <- fish
+fish_autocorr$residuals <- resid(m_indep)
+fish_autocorr$i <- 1
+
+coordinates(fish_autocorr) <- ~ day+i
+
+semivariogram_model <- variogram(wt ~ day_f*vaccine, data = fish_autocorr)
+
+# Plot the semivariogram
+plot(semivariogram_model, xlim = c(0, 270), ylim = c(0, 500000))
+```
+
+```{r warning=FALSE, message=FALSE}
+library(emmeans)
+
+marginal_means <- emmeans(m_us, ~ vaccine, at = list(day_f = factor(901)), type = "response")
+marginal_means
+```
+
+```{r}
+emmeans(m_us, ~ vaccine,
+        at = list(day_f = factor(901)),
+        type = "response", 
+        
+        contr = list(c(-1, 0, 1, 0),
+                     c(0, -1, 1, 0), 
+                     c(0, 0, 1, -1)))$contr
+```
+
+### Jaw deformity 
+
+Considering that the jaw deformity was observed only once in the fish's cylcle, a fair model for fish jaw deformity could be: 
+
+$$y_{ij} \sim Binomial(\mu_{ij}, 1),\\
+\text{logit}(\mu_{ij}) = \eta_{ij} = \eta_0 + V_i$$
+where: 
+
+- $y_{ijk}$ is the presence (1) or absence (0) of jaw deformity on the $j$th fish under the $i$th vaccine treatment and arises from a Binomial distribution with mean $\mu_{ijk}$ and only one trial (i.e., Bernoulli distribution), 
+- $\eta_{ij}$ is the linear predictor, 
+- $\eta_0$ is the overall mean mean of the linear predictor, 
+- $V_i$ is the effect of the $i$th vaccine treatment. 
+
+```{r}
+# take a subset so that the data are not cloned 5 times
+fish_sub <- fish %>% filter(day == 901)
+
+# fit binomial model
+m_jaw <- glmmTMB(jaw ~ vaccine,
+                 REML = TRUE,
+                 family = binomial(link = "logit"),
+                 data = fish_sub)
+
+# dispersion parameter
+sigma(m_jaw)
+```
+
+```{r}
+emmeans(m_jaw, ~ vaccine,
+        type = "response",
+        contr = list(c(-1, 0, 1, 0),
+                     c(0, -1, 1, 0), 
+                     c(0, 0, 1, -1)))
+```
+
+
+## Task for today 
+
+Answer the researcher's questions and mention one way they could improve the power of their experiment to detect differences in final weight between treatments. 
+Write an email answering the researcher's questions and email them tonight midnight.
+
+
+**Last week's prompt:**  
+
+You are consultant statisticians. A researcher has come to you to request help analyzing data generated by a designed experiment. They described the experiment in the following email: 
+
+>I hope you are doing well. I am writing to request assistance with my statistical analysis for an aquaculture clinical field trial in the Bay of Fundy, Canada. Please find a description of the study below.  
+>
+>The objective of our research was to compare the performance of different vaccines on the growth and survival of Atlantic salmon under standard production conditions. 
+On day 0 of the study, we applied 4 different vaccines to a total of 100 randomly selected fish. 
+Salmons were individually tagged in February 2005 and followed through to harvest in August 2007. 
+All fish were always kept in the same cage. 
+We recorded (1) presence of jaw deformity, and (2) weight throughout the trial. 
+As jaw deformities are formed at an early stage of growth and are not healed, detection of a jaw deformity at any sampling event implied that the fish was labelled as having a jaw deformity throughout the entire growth period. 
+>
+>The outcome of interest is the weight, as weights increase from means of 60 g at day 0, to 5,700 g at harvest. However, it is also important to know whether there are differences in propensity to presenting jaw deformity among vaccines. 
+>
+>I need help with the following:  
+>
+>- Describing the experiment design for materials and methods. 
+>- Analyzing the data and determining: 
+  - If there are differences between vaccines, especially at harvest, 
+  - If there is a "better vaccine" for final weight, 
+  - If there is difference in jaw deformity between vaccine treatments. 
+
+
