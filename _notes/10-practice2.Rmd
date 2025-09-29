@@ -290,20 +290,50 @@ model_comparison
 
 **Visualizing** 
 
-```{r}
-library(sp)
-library(gstat)
-fish_autocorr <- fish
-fish_autocorr$residuals <- resid(m_indep)
-fish_autocorr$i <- 1
+Use fitted variance covariance matrix from unstructured covariance matrix. 
 
-coordinates(fish_autocorr) <- ~ day+i
-
-semivariogram_model <- variogram(wt ~ day_f*vaccine, data = fish_autocorr)
-
-# Plot the semivariogram
-plot(semivariogram_model, xlim = c(0, 270), ylim = c(0, 500000))
+```{r echo=FALSE}
+varcor_us <- data.frame(time1 = c(1, 1, 1, 1, 1, 
+                                  2, 2, 2, 2, 
+                                  3, 3, 3, 
+                                  4, 4, 
+                                  5),
+                        time2 = c(1, 2, 3, 4, 5,
+                                  2, 3, 4, 5, 
+                                  3, 4, 5, 
+                                  4, 5, 
+                                  5),
+                        cor = c(0.174360, 0.029283, 0.149262, 0.228821, 0.268994, 
+                                0.086, -0.461, -0.236, -.424, 
+                                0.832, 0.496, .201, 
+                                0.674, 0.492, 
+                                .508))
 ```
+
+```{r}
+varcor_us %>% 
+  ggplot(aes(time2-time1, cor))+
+  geom_line(aes(group = time1, linetype = factor(time1)))+
+  geom_point(aes(shape = factor(time1)), size =3)+
+  labs(x = "Distance", 
+       shape = "From Time", 
+       linetype = "From Time", 
+       y = "Covariance of Within Subject Effects")+
+  theme_minimal()+
+  theme(legend.position = "bottom")
+```
+
+- Discuss what would be ideal under the different assumptions. 
+
+**Residual diagnostics** 
+
+```{r}
+simulateResiduals(m_us, plot = T)
+```
+
+- Check out [DHARMa documentation](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html). 
+
+#### Inference 
 
 ```{r warning=FALSE, message=FALSE}
 library(emmeans)
