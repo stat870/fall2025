@@ -1,19 +1,19 @@
 ---
-title: Generalized Additive Models 
+title: Software implementation 
 ---
   
 October 6  
-: Splines I  
+: R implementation I  
   : [](#)
 
 October 8  
-: Splines II & Kahoot!  
+: R implementation II   
   : [](#)
   
 October 13 
-: Application I 
+: : Splines I  
   : [](#)
 
 October 15  
-: Application II & Kahoot!  
+: Splines II & Kahoot!  
   : [](#)
