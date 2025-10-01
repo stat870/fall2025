@@ -266,15 +266,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#task-for-today"><i class="fa fa-check"></i><b>10.4</b> Task for today</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>11</b> Semester Project</a>
+<li class="chapter" data-level="11" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html"><i class="fa fa-check"></i><b>11</b> Repeated Measures II</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>11.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="11.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>11.2</b> Partial deadlines</a>
+<li class="chapter" data-level="11.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#announcements-9"><i class="fa fa-check"></i><b>11.1</b> Announcements</a></li>
+<li class="chapter" data-level="11.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#linear-mixed-models-review"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models review</a></li>
+<li class="chapter" data-level="11.3" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#repeated-measures-1"><i class="fa fa-check"></i><b>11.3</b> Repeated measures</a>
 <ul>
-<li class="chapter" data-level="11.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>11.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
-<li class="chapter" data-level="11.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>11.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
-<li class="chapter" data-level="11.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>11.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
-<li class="chapter" data-level="11.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>11.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="11.3.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#correlation---g-side-conditional-and-r-side-marginal"><i class="fa fa-check"></i><b>11.3.1</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="11.3.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#review-correlation-functions"><i class="fa fa-check"></i><b>11.3.2</b> Review – correlation functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>12</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>12.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="12.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>12.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>12.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="12.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>12.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="12.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>12.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="12.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>12.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -320,7 +330,7 @@ GLMMs are linear models for variables from any distribution from the exponential
 <p>Exponential family: pdf can be written as
 <span class="math display">\[f(y\vert \theta) = \exp \begin{bmatrix} \frac{y\theta- b(\theta)}{a(\theta)} + c(y, \phi) \end{bmatrix} ,\]</span>
 where <span class="math inline">\(y\)</span> is the random variable (e.g., the response), <span class="math inline">\(\theta\)</span> is a canonical parameter (related to the mean) and <span class="math inline">\(\phi\)</span> is a scale parameter (related to the dispersion).</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-31"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
 <img src="../figures/stroup_distributions.jpg" alt="Common variable distributions. Page 60 in Stroup et al. (2024)" width="80%" />
 <p class="caption">
 Figure 7.1: Common variable distributions. Page 60 in Stroup et al. (2024)

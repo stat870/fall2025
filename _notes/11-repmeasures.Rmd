@@ -1,0 +1,101 @@
+# Repeated Measures II 
+
+## Announcements 
+
+- Zoom classes on 10/13 and 10/15. 
+
+## Linear mixed models review 
+
+Consider the vector notation 
+
+$$\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{V}),$$
+where:
+
+- $\mathbf{y}$ is the vector of the response, 
+- $\mathbf{X}$ is the model matrix (often containing treatment allocation), 
+- $\boldsymbol{\beta}$ is a vector containing the estimates for the effects of all variables in $\mathbf{X}$, 
+- $\mathbf{V}$ is the variance covariance matrix for $\mathbf{y}$. 
+
+The specific form of $\mathbf{V}$ depends on the design. 
+For mixed models, where the linear predictor is 
+$$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u} + \boldsymbol{\varepsilon}, \\
+\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \sigma^2 \mathbf{I}),$$
+the marginal distribution of $\mathbf{y}$ is 
+$$\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}'+\mathbf{R}),$$
+and the conditional distribution of $\mathbf{y}$ is 
+$$\mathbf{y} \vert \boldsymbol{u} \sim MVN(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).$$
+
+```{r echo=FALSE, fig.cap="Illustrative example of the variance-covariance matrix.", out.width = '100%'}
+knitr::include_graphics("../figures/Var_matrix.jpg")
+```
+
+
+## Repeated measures 
+
+
+```{r echo=FALSE, fig.cap="Schematic description of a field experiment with repeated measures", out.width = '100%'}
+knitr::include_graphics("../figures/designs_repeated.PNG")
+```
+
+### Correlation - G side (conditional) and R side (marginal)
+ 
+- Inference implications 
+- Power implications 
+
+
+### Review -- correlation functions 
+
+Let $\mathbf{v}_{i k}$ be the vector for the $k$th individual under the $i$th vaccine treatment, at the different timepoints of the experiment. 
+
+$$\mathbf{v}_{i k} \sim MVN(\boldsymbol{0}, \boldsymbol{\Sigma}_{ik})$$
+
+**Independent observations** 
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 1\\
+\end{bmatrix}$$
+
+
+**Compound symmetry** 
+
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho & \rho & \rho \\
+\rho & 1 & \rho & \rho & \rho \\
+\rho & \rho & 1 & \rho & \rho \\
+\rho & \rho & \rho & 1 & \rho \\
+\rho & \rho & \rho & \rho & 1\\
+\end{bmatrix}$$
+
+**AR(1)**
+
+$$\boldsymbol{\Sigma}_{ik} =
+\sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho^2 & \rho^3 & \rho^4 \\
+\rho & 1 & \rho & \rho^2 & \rho^3 \\
+\rho^2 & \rho & 1 & \rho & \rho^2 \\
+\rho^3 & \rho^2 & \rho & 1 & \rho \\
+\rho^4 & \rho^3 & \rho^2 & \rho & 1\\
+\end{bmatrix}$$
+
+**Unstructured** 
+
+$$\boldsymbol{\Sigma}_{ik} =
+\begin{bmatrix}
+\sigma^2_{1} & \sigma^2_{12} & \sigma^2_{13} & \sigma^2_{14} & \sigma^2_{15} \\
+ & \sigma^2_{2} & \sigma^2_{23} & \sigma^2_{24} & \sigma^2_{25} \\
+ &   & \sigma^2_{3} & \sigma^2_{34} & \sigma^2_{35} \\
+  &  &  & \sigma^2_{4} & \sigma^2_{45} \\
+ &  &  &  & \sigma^2_{5} \\
+\end{bmatrix}$$
+
+

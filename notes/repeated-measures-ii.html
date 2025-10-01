@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Day 12 Semester Project | STAT 870 - Analysis of Messy Data</title>
-  <meta name="description" content="Day 12 Semester Project | STAT 870 - Analysis of Messy Data" />
+  <title>Day 11 Repeated Measures II | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 11 Repeated Measures II | STAT 870 - Analysis of Messy Data" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Day 12 Semester Project | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:title" content="Day 11 Repeated Measures II | STAT 870 - Analysis of Messy Data" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Day 12 Semester Project | STAT 870 - Analysis of Messy Data" />
+  <meta name="twitter:title" content="Day 11 Repeated Measures II | STAT 870 - Analysis of Messy Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="repeated-measures-ii.html"/>
-
+<link rel="prev" href="repeated-measures-practice-ii.html"/>
+<link rel="next" href="semester-project-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -306,53 +306,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="semester-project-1" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Day 12</span> Semester Project<a href="semester-project-1.html#semester-project-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Semester projects may deal with any topic that interests you [the student], as long as it is approved by the instructor.</p>
-<p>Broadly, projects are expected to (i) identify a research problem, (ii) develop an appropriate workflow that is appropriate for solving that problem, and (iii) create a report and reproducible tutorial.</p>
-<div id="learning-objectives" class="section level2 hasAnchor" number="12.1">
-<h2><span class="header-section-number">12.1</span> Learning objectives<a href="semester-project-1.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="repeated-measures-ii" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Day 11</span> Repeated Measures II<a href="repeated-measures-ii.html#repeated-measures-ii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-9" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Announcements<a href="repeated-measures-ii.html#announcements-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Be able to identify an experiment design that is appropriate for answering a given research question and discuss the strengths and weaknesses of that design for answering the question.<br />
-</li>
-<li>Be able to write the materials and methods section of a paper/thesis, including the statistical model that corresponds the experiment design.</li>
+<li>Zoom classes on 10/13 and 10/15.</li>
 </ul>
 </div>
-<div id="partial-deadlines" class="section level2 hasAnchor" number="12.2">
-<h2><span class="header-section-number">12.2</span> Partial deadlines<a href="semester-project-1.html#partial-deadlines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="project-proposal---due-friday-september-24-at-1159pm-ct" class="section level3 hasAnchor" number="12.2.1">
-<h3><span class="header-section-number">12.2.1</span> Project proposal - Due Friday September 24 at 11:59pm CT<a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Write a page-long project proposal that states your research problem and the objective of your project. An example of an appropriate project proposal can be found <a href="https://stat870.github.io/fall2025/assignments/proposal_example.pdf">here</a>.</p>
-</div>
-<div id="written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review" class="section level3 hasAnchor" number="12.2.2">
-<h3><span class="header-section-number">12.2.2</span> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review<a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-</div>
-<div id="oral-presentation---somewhere-between-december-3---december-12" class="section level3 hasAnchor" number="12.2.3">
-<h3><span class="header-section-number">12.2.3</span> Oral presentation - Somewhere between December 3 - December 12<a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Prepare a 15 minute presentation of the core aspects of your project.
-Presentations should include at least:</p>
+<div id="linear-mixed-models-review" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Linear mixed models review<a href="repeated-measures-ii.html#linear-mixed-models-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider the vector notation</p>
+<p><span class="math display">\[\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{V}),\]</span>
+where:</p>
 <ul>
-<li>Motivation,<br />
-</li>
-<li>Methods, including a clear and complete description of the statistical model and code,</li>
-<li>Discussion of strengths and weaknesses.</li>
+<li><span class="math inline">\(\mathbf{y}\)</span> is the vector of the response,</li>
+<li><span class="math inline">\(\mathbf{X}\)</span> is the model matrix (often containing treatment allocation),</li>
+<li><span class="math inline">\(\boldsymbol{\beta}\)</span> is a vector containing the estimates for the effects of all variables in <span class="math inline">\(\mathbf{X}\)</span>,</li>
+<li><span class="math inline">\(\mathbf{V}\)</span> is the variance covariance matrix for <span class="math inline">\(\mathbf{y}\)</span>.</li>
+</ul>
+<p>The specific form of <span class="math inline">\(\mathbf{V}\)</span> depends on the design.
+For mixed models, where the linear predictor is
+<span class="math display">\[\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u} + \boldsymbol{\varepsilon}, \\
+\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \sigma^2 \mathbf{I}),\]</span>
+the marginal distribution of <span class="math inline">\(\mathbf{y}\)</span> is
+<span class="math display">\[\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}&#39;+\mathbf{R}),\]</span>
+and the conditional distribution of <span class="math inline">\(\mathbf{y}\)</span> is
+<span class="math display">\[\mathbf{y} \vert \boldsymbol{u} \sim MVN(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).\]</span></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-63"></span>
+<img src="../figures/Var_matrix.jpg" alt="Illustrative example of the variance-covariance matrix." width="100%" />
+<p class="caption">
+Figure 11.1: Illustrative example of the variance-covariance matrix.
+</p>
+</div>
+</div>
+<div id="repeated-measures-1" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Repeated measures<a href="repeated-measures-ii.html#repeated-measures-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-64"></span>
+<img src="../figures/designs_repeated.PNG" alt="Schematic description of a field experiment with repeated measures" width="100%" />
+<p class="caption">
+Figure 11.2: Schematic description of a field experiment with repeated measures
+</p>
+</div>
+<div id="correlation---g-side-conditional-and-r-side-marginal" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> Correlation - G side (conditional) and R side (marginal)<a href="repeated-measures-ii.html#correlation---g-side-conditional-and-r-side-marginal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Inference implications</li>
+<li>Power implications</li>
 </ul>
 </div>
-<div id="written-report---due-friday-december-19-at-1159pm-ct-for-peer-review" class="section level3 hasAnchor" number="12.2.4">
-<h3><span class="header-section-number">12.2.4</span> Written report - Due Friday December 19 at 11:59pm CT for peer review<a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Submit a manuscript including:</p>
-<ul>
-<li>Introduction (background &amp; justification of the problem)</li>
-<li>Methods, including:
-<ul>
-<li>A complete ANOVA table describing the degrees of freedom associated to mean comparisons,</li>
-<li>A clear and complete description of the statistical model,</li>
-<li>R code to implement that model,</li>
-</ul></li>
-<li>Results</li>
-<li>Discussion including strengths and weaknesses of the design/analysis,</li>
-<li>Conclusions.</li>
-</ul>
+<div id="review-correlation-functions" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> Review – correlation functions<a href="repeated-measures-ii.html#review-correlation-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(\mathbf{v}_{i k}\)</span> be the vector for the <span class="math inline">\(k\)</span>th individual under the <span class="math inline">\(i\)</span>th vaccine treatment, at the different timepoints of the experiment.</p>
+<p><span class="math display">\[\mathbf{v}_{i k} \sim MVN(\boldsymbol{0}, \boldsymbol{\Sigma}_{ik})\]</span></p>
+<p><strong>Independent observations</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p><strong>Compound symmetry</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; 1 &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; 1 &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; 1 &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p><strong>AR(1)</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho^2 &amp; \rho^3 &amp; \rho^4 \\
+\rho &amp; 1 &amp; \rho &amp; \rho^2 &amp; \rho^3 \\
+\rho^2 &amp; \rho &amp; 1 &amp; \rho &amp; \rho^2 \\
+\rho^3 &amp; \rho^2 &amp; \rho &amp; 1 &amp; \rho \\
+\rho^4 &amp; \rho^3 &amp; \rho^2 &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p><strong>Unstructured</strong></p>
+<p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
+\begin{bmatrix}
+\sigma^2_{1} &amp; \sigma^2_{12} &amp; \sigma^2_{13} &amp; \sigma^2_{14} &amp; \sigma^2_{15} \\
+&amp; \sigma^2_{2} &amp; \sigma^2_{23} &amp; \sigma^2_{24} &amp; \sigma^2_{25} \\
+&amp;   &amp; \sigma^2_{3} &amp; \sigma^2_{34} &amp; \sigma^2_{35} \\
+  &amp;  &amp;  &amp; \sigma^2_{4} &amp; \sigma^2_{45} \\
+&amp;  &amp;  &amp;  &amp; \sigma^2_{5} \\
+\end{bmatrix}\]</span></p>
 
 </div>
 </div>
@@ -362,8 +407,8 @@ Presentations should include at least:</p>
           </div>
         </div>
       </div>
-<a href="repeated-measures-ii.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="repeated-measures-practice-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -394,7 +439,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/stat720/book2025/edit/main/90-project-outline.Rmd",
+    "link": "https://github.com/stat720/book2025/edit/main/11-repmeasures.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -402,7 +447,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/stat720/book2025/blob/main/90-project-outline.Rmd",
+    "link": "https://github.com/stat720/book2025/blob/main/11-repmeasures.Rmd",
     "text": null
   },
   "download": null,
