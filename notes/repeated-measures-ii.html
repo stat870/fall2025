@@ -326,23 +326,38 @@ where:</p>
 <li><span class="math inline">\(\mathbf{V}\)</span> is the variance covariance matrix for <span class="math inline">\(\mathbf{y}\)</span>.</li>
 </ul>
 <p>The specific form of <span class="math inline">\(\mathbf{V}\)</span> depends on the design.
-For mixed models, where the linear predictor is
+For mixed models, the linear predictor is
 <span class="math display">\[\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u} + \boldsymbol{\varepsilon}, \\
-\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \sigma^2 \mathbf{I}),\]</span>
-the marginal distribution of <span class="math inline">\(\mathbf{y}\)</span> is
-<span class="math display">\[\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}&#39;+\mathbf{R}),\]</span>
-and the conditional distribution of <span class="math inline">\(\mathbf{y}\)</span> is
-<span class="math display">\[\mathbf{y} \vert \boldsymbol{u} \sim MVN(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).\]</span></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-63"></span>
+\boldsymbol{u}\sim N(\boldsymbol{0}, \mathbf{G}) \\
+\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \mathbf{R}),\]</span>
+where <span class="math inline">\(\mathbf{Z}\)</span> is the matrix including the information about the random effects and <span class="math inline">\(\boldsymbol{u}\)</span> is the vector of the random effects.
+The marginal distribution of <span class="math inline">\(\mathbf{y}\)</span> for a normal distribution is then
+<span class="math display">\[\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}&#39;+\mathbf{R}).\]</span></p>
+<p>Take a look at the variance-covariance matrix below. In this case, all residuals are independent (see yellow diagonal), and all information about groups sharing information is in the G matrix.</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-62"></span>
 <img src="../figures/Var_matrix.jpg" alt="Illustrative example of the variance-covariance matrix." width="100%" />
 <p class="caption">
 Figure 11.1: Illustrative example of the variance-covariance matrix.
 </p>
 </div>
+<p>Note that, for all mixed models we have been handling so far,
+<span class="math display">\[\mathbf{G} = \sigma^2_u\mathbf{I} =
+\begin{bmatrix}
+\sigma^2_u &amp; 0 &amp; 0 &amp; &amp; 0\\
+0 &amp; \sigma^2_u &amp; 0 &amp;  &amp; 0\\
+0 &amp; 0 &amp; \sigma^2_u &amp;  &amp; 0\\
+&amp;  &amp;  &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; \sigma^2_u\\
+\end{bmatrix},\]</span>
+which, will result in the matrix above.</p>
+<p>The conditional distribution of <span class="math inline">\(\mathbf{y}\)</span> is
+<span class="math display">\[\mathbf{y} \vert \boldsymbol{u} \sim MVN(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).\]</span></p>
+<p>This conditional distribution comes most handy for non-normal data,</p>
+<p><span class="math display">\[\mathbf{y} \vert \boldsymbol{u} \sim P(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).\]</span></p>
 </div>
 <div id="repeated-measures-1" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> Repeated measures<a href="repeated-measures-ii.html#repeated-measures-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-64"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-63"></span>
 <img src="../figures/designs_repeated.PNG" alt="Schematic description of a field experiment with repeated measures" width="100%" />
 <p class="caption">
 Figure 11.2: Schematic description of a field experiment with repeated measures
@@ -372,6 +387,26 @@ Figure 11.2: Schematic description of a field experiment with repeated measures
 <p><strong>Compound symmetry</strong></p>
 <p><span class="math display">\[\boldsymbol{\Sigma}_{ik} =
 \sigma^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; 1 &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; 1 &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; 1 &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span></p>
+<p>This could mean
+<span class="math display">\[\mathbf{G}_{ik} =
+\sigma_v^2
+\begin{bmatrix}
+1 &amp; \rho &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; 1 &amp; \rho &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; 1 &amp; \rho &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; 1 &amp; \rho \\
+\rho &amp; \rho &amp; \rho &amp; \rho &amp; 1\\
+\end{bmatrix}\]</span>
+or
+<span class="math display">\[\mathbf{R}_{ik} =
+\sigma_\varepsilon^2
 \begin{bmatrix}
 1 &amp; \rho &amp; \rho &amp; \rho &amp; \rho \\
 \rho &amp; 1 &amp; \rho &amp; \rho &amp; \rho \\

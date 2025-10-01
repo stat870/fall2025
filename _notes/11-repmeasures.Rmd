@@ -17,18 +17,37 @@ where:
 - $\mathbf{V}$ is the variance covariance matrix for $\mathbf{y}$. 
 
 The specific form of $\mathbf{V}$ depends on the design. 
-For mixed models, where the linear predictor is 
+For mixed models, the linear predictor is 
 $$\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{u} + \boldsymbol{\varepsilon}, \\
-\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \sigma^2 \mathbf{I}),$$
-the marginal distribution of $\mathbf{y}$ is 
-$$\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}'+\mathbf{R}),$$
-and the conditional distribution of $\mathbf{y}$ is 
-$$\mathbf{y} \vert \boldsymbol{u} \sim MVN(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).$$
+\boldsymbol{u}\sim N(\boldsymbol{0}, \mathbf{G}) \\
+\boldsymbol{\varepsilon}\sim N(\boldsymbol{0}, \mathbf{R}),$$
+where $\mathbf{Z}$ is the matrix including the information about the random effects and $\boldsymbol{u}$ is the vector of the random effects. 
+The marginal distribution of $\mathbf{y}$ for a normal distribution is then 
+$$\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}'+\mathbf{R}).$$
+
+Take a look at the variance-covariance matrix below. In this case, all residuals are independent (see yellow diagonal), and all information about groups sharing information is in the G matrix.   
 
 ```{r echo=FALSE, fig.cap="Illustrative example of the variance-covariance matrix.", out.width = '100%'}
 knitr::include_graphics("../figures/Var_matrix.jpg")
 ```
 
+Note that, for all mixed models we have been handling so far, 
+$$\mathbf{G} = \sigma^2_u\mathbf{I} = 
+\begin{bmatrix} 
+\sigma^2_u & 0 & 0 & & 0\\
+0 & \sigma^2_u & 0 &  & 0\\
+0 & 0 & \sigma^2_u &  & 0\\
+ &  &  & \ddots & \vdots \\
+0 & 0 & 0 & \dots & \sigma^2_u\\
+\end{bmatrix},$$
+which, will result in the matrix above. 
+
+The conditional distribution of $\mathbf{y}$ is 
+$$\mathbf{y} \vert \boldsymbol{u} \sim MVN(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).$$
+
+This conditional distribution comes most handy for non-normal data, 
+
+$$\mathbf{y} \vert \boldsymbol{u} \sim P(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{u}, \mathbf{R}).$$
 
 ## Repeated measures 
 
@@ -41,6 +60,11 @@ knitr::include_graphics("../figures/designs_repeated.PNG")
  
 - Inference implications 
 - Power implications 
+
+```{r}
+
+```
+
 
 
 ### Review -- correlation functions 
@@ -67,6 +91,27 @@ $$\boldsymbol{\Sigma}_{ik} =
 
 $$\boldsymbol{\Sigma}_{ik} =
 \sigma^2 
+\begin{bmatrix}
+1 & \rho & \rho & \rho & \rho \\
+\rho & 1 & \rho & \rho & \rho \\
+\rho & \rho & 1 & \rho & \rho \\
+\rho & \rho & \rho & 1 & \rho \\
+\rho & \rho & \rho & \rho & 1\\
+\end{bmatrix}$$
+
+This could mean 
+$$\mathbf{G}_{ik} =
+\sigma_v^2 
+\begin{bmatrix}
+1 & \rho & \rho & \rho & \rho \\
+\rho & 1 & \rho & \rho & \rho \\
+\rho & \rho & 1 & \rho & \rho \\
+\rho & \rho & \rho & 1 & \rho \\
+\rho & \rho & \rho & \rho & 1\\
+\end{bmatrix}$$
+or
+$$\mathbf{R}_{ik} =
+\sigma_\varepsilon^2 
 \begin{bmatrix}
 1 & \rho & \rho & \rho & \rho \\
 \rho & 1 & \rho & \rho & \rho \\
