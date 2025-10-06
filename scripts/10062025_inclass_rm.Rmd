@@ -27,6 +27,18 @@ head(d)
 n_distinct(d$Pig)
 ```
 
+We can describe the data generating process with 
+
+$$y_{ijklm} | \boldsymbol{u} \sim N(\mu_{ijklm}, \sigma^2),\\
+\mu_{ijklm} = \mu_0 + Diet_i + Time_j + Diet*Time_{ij} + room_k + v_{jkl} + w_{jklm},$$
+where
+
+- $room_k \sim N(0 , \sigma^2_r)$ is the random effect of the $k$th room, 
+- $\boldsymbol{v}_{lk} \sim N(\boldsymbol{0}, \Sigma_{kl})$ are the random effects of the $l$th pen in room $k$, at the different timepoints,  
+- $\boldsymbol{w}_{klm} \sim N(\boldsymbol{0}, \Sigma_{klm})$ are the random effects of the $m$th pig in the $l$th pen in room $k$, at the different timepoints. 
+
+We can specify in AR(1) covariance structure to the $\Sigma$s.
+
 ```{r }
 m_Gside_AR1 <- 
   glmmTMB(Dry_matter_perc ~ Trt * Day + Room+
@@ -34,7 +46,22 @@ m_Gside_AR1 <-
           dispformula = ~1, # default iid residuals
           REML = TRUE,
           data = d)
+```
 
+
+OR we can describe the data generating process with 
+
+$$\mathbf{y}_{ikl} | room_k \sim N(\boldsymbol{\mu}_{ijk}, \Sigma_{ikl}),$$
+where
+
+- $room_k \sim N(0 , \sigma^2_r)$ is the random effect of the $k$th room, 
+- the linear predictor contains the same fixed effects (diet, time, and the interaction) and the room random effect, 
+- $\Sigma_{ikl}$ contains the correlation between subsequent observations of the same pen, and the same pig.
+
+We can also specify in AR(1) covariance structure for $\Sigma$, similar to the G-side covariance above.
+
+
+```{r }
 m_Rside_AR1 <- 
   glmmTMB(Dry_matter_perc ~ 0 + Trt * Day + Room+
             ar1(0+Day|Pen/Pig), # pseudo residuals
@@ -48,7 +75,10 @@ m_Rside_AR1 <-
 #                    correlation = corAR1(form = ~ 1|Pen/Pig),
 #                    method = "REML",
 #                    data = d)
+```
 
+Comparing 
+```{r }
 VarCorr(m_Gside_AR1)
 VarCorr(m_Rside_AR1)
 
