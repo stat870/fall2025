@@ -207,7 +207,7 @@ where $y$ is the response, $\boldsymbol{u}$ are the random effects, $\mu$ is the
 we know that $\mu$ and $\phi$ may not be independent. 
 
 - G-side ~ 'true GLMM' 
-- R-side: pseudo-likelihood 
+- R-side: quasi-likelihood models 
 - Marginal models often lead to less powerful tests.
 - Several discussions:
   - Philosophical, Power, and more [Lee and Nelder (2004)](https://projecteuclid.org/journals/statistical-science/volume-19/issue-2/Conditional-and-Marginal-Models-Another-View/10.1214/088342304000000305.full) 
