@@ -1,0 +1,59 @@
+---
+title: "In-class R versus G"
+author: "J Lacasa"
+date: "2025-10-01"
+output: html_document
+---
+
+```{r message=FALSE, warning=FALSE}
+library(nlme)
+library(glmmTMB)
+library(emmeans)
+library(tidyverse)
+```
+
+The data were generated from an experiment that was studying the effect of different feed additives in swine production. A total of 180 pigs were used in this study, with dietary treatment applied to pen in a randomized complete block design.
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fecalm_swine.csv"
+d <- read.csv(url)
+d$Day <- as.factor(d$Day)
+d$Pig <- as.factor(d$Pig)
+d$Pen <- as.factor(d$Pen)
+head(d)
+n_distinct(d$Pig)
+```
+
+```{r }
+
+m_Gside_AR1 <- 
+  glmmTMB(Dry_matter_perc ~ Trt * Day +
+            ar1(0+Day|Pen/Pig),
+          dispformula = ~1, # default iid residuals
+          REML = TRUE,
+          data = d)
+
+m_Rside_AR1 <- 
+  glmmTMB(Dry_matter_perc ~ 0 + Trt * Day +
+            ar1(0+Day|Pen/Pig), # pseudo residuals
+          dispformula = ~0, # fix residuals to 0
+          REML = TRUE,
+          data = d)
+
+# alternative using nlme
+# m_Rside_AR1 <- lme(Dry_matter_perc ~ 0 + Trt * Day,
+#                    random = ~ 1|Pen/Pig,
+#                    correlation = corAR1(form = ~ 1|Pen/Pig),
+#                    method = "REML",
+#                    data = d)
+
+VarCorr(m_Gside_AR1)
+VarCorr(m_Rside_AR1)
+
+m_Rside_AR1
+m_Gside_AR1
+
+emmeans(m_Rside_AR1, ~ Trt:Day, df = 54)
+emmeans(m_Gside_AR1, ~ Trt:Day, df = 54)
+
+```
