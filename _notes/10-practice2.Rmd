@@ -123,8 +123,8 @@ $$\boldsymbol{\Sigma}_{ik} =
 
 We know that last week's assignment was a clinical field trial comparing the performance of different vaccines on the growth and survival of Atlantic salmon under standard production conditions. 
 
-- Treatment structure: one-way treatment (4 different) 
-- Design structure: completely randomized design with 100 reps 
+- Treatment structure: two-way factorial (4 vaccines x 5 times) 
+- Design structure: completely randomized design with repeated measures and 100 reps 
 - Experimental unit: fish 
 - Response: (1) presence of jaw deformity (same for its whole life), and (2) weight. 
 

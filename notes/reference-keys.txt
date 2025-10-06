@@ -19,6 +19,9 @@ fig:unnamed-chunk-47
 fig:unnamed-chunk-48
 fig:unnamed-chunk-62
 fig:unnamed-chunk-63
+fig:unnamed-chunk-64
+fig:unnamed-chunk-65
+fig:unnamed-chunk-66
 welcome-to-stat-870
 about-this-course
 logistics
@@ -108,6 +111,14 @@ linear-mixed-models-review
 repeated-measures-1
 correlation---g-side-conditional-and-r-side-marginal
 review-correlation-functions
+repeated-measures-iii
+announcements-10
+where-were-standing-in-this-course
+repeated-measures-2
+correlation---g-side-conditional-and-r-side-marginal-1
+repeated-measures-in-glmms
+appendix-a-common-response-variable-y-b-distributions
+applied-example-using-r
 semester-project-1
 learning-objectives
 partial-deadlines

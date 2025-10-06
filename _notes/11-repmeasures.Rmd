@@ -61,9 +61,7 @@ knitr::include_graphics("../figures/designs_repeated.PNG")
 - Inference implications 
 - Power implications 
 
-```{r}
-
-```
+Applied example in R
 
 
 
