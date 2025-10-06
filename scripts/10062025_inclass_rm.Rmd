@@ -25,16 +25,15 @@ n_distinct(d$Pig)
 ```
 
 ```{r }
-
 m_Gside_AR1 <- 
-  glmmTMB(Dry_matter_perc ~ Trt * Day +
+  glmmTMB(Dry_matter_perc ~ Trt * Day + 
             ar1(0+Day|Pen/Pig),
           dispformula = ~1, # default iid residuals
           REML = TRUE,
           data = d)
 
 m_Rside_AR1 <- 
-  glmmTMB(Dry_matter_perc ~ 0 + Trt * Day +
+  glmmTMB(Dry_matter_perc ~ 0 + Trt * Day + 
             ar1(0+Day|Pen/Pig), # pseudo residuals
           dispformula = ~0, # fix residuals to 0
           REML = TRUE,
