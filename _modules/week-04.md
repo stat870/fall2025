@@ -2,18 +2,18 @@
 title: Software implementation 
 ---
   
-October 6  
+October 13  
 : R implementation I  
   : [](#)
 
-October 8  
+October 15  
 : R implementation II   
   : [](#)
   
-October 13 
+October 20 
 : : Splines I  
   : [](#)
 
-October 15  
+October 22  
 : Splines II & Kahoot!  
   : [](#)
