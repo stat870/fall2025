@@ -1,0 +1,113 @@
+# Modeling designed experiments in the presence of spatial variability  
+October 8th 
+
+## Announcements 
+
+- Zoom classes on 10/13 and 10/15. 
+- Assignment 4 due today midnight. 
+
+## Spatial variability  
+
+- Most commonly found in field experiments. 
+- Whiteboard: going from the normal iid model to a spatial dependence model. 
+
+### Spatial patterns 
+
+Consider the model
+$$\mathbf{y} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma}),$$
+where $\boldsymbol{\Sigma}$ is the variance-covariance model. 
+In the presence of spatial patterns, there are parametric and non-parametric tools to account for spatial dependence. 
+
+Sometimes, we can clearly define the shape of the spatial dependence pattern. For example:
+
+**Matérn covariance function**
+
+$$C(d; \sigma^2, \phi, \kappa) = \sigma^2 \frac{(h/\phi)^\kappa K_\kappa (h/\phi)}{2^{\kappa-1} \Gamma(\kappa)}$$
+
+**Gaussian covariance function**
+
+$$C(d; \sigma^2, \phi) = \sigma^2 \exp \left\{ - \frac{d^2}{2\phi^2} \right\} $$
+
+**Exponential covariance function**
+
+$$C(d; \sigma^2, \phi, \kappa) = \sigma^2 \exp\{-(d/\phi)^\kappa\}$$
+
+### Applied example  
+
+Yield data from an advanced Nebraska Intrastate Nursery (NIN) breeding trial conducted at
+Alliance, Nebraska, in 1988/89.
+
+```{r}
+library(tidyverse)
+library(agridat)
+library(ggpubr)
+data <- drop_na(stroup.nin)
+
+data %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = rep), color = "black")+
+  theme_pubr()+
+  labs(fill = "Block")+
+  theme(axis.line = element_blank())
+```
+
+The statistical model:
+
+$$y_{ij}\sim N(\mu_{ij}, \sigma^2), \\
+\mu_{ij} = \eta_{ij} = \eta_0 + G_i + b_j, \\
+b_j \sim N(0, \sigma^2_b).$$
+
+Assumptions: 
+
+- iid, normal residuals 
+
+```{r}
+library(lme4)
+m <- lmer(yield ~ gen + (1|rep), data = stroup.nin)
+data$res <- resid(m)
+```
+
+```{r}
+data %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = res), color = "black")+
+  theme_pubr()+
+  scico::scale_fill_scico()+
+  theme(axis.line = element_blank())+
+  labs(fill = expression(Residual~(bu~ac^{-1})))
+```
+
+```{r}
+as.data.frame(emmeans(m, ~ gen)) %>% 
+  arrange(-emmean) %>% 
+  head()
+```
+
+
+```{r}
+library(glmmTMB)
+
+data$coordinate <- numFactor(data$col, data$row)
+data$group <- factor(1) 
+
+m_spatial <- glmmTMB(yield ~ gen + (1|rep) + mat(coordinate + 0 | group), data = data)
+```
+
+```{r}
+data$resid_spatial <- resid(m_spatial)
+
+data %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = resid_spatial), color = "black")+
+  theme_pubr()+
+  scico::scale_fill_scico()+
+  theme(axis.line = element_blank())+
+  labs(fill = expression(Residual~(bu~ac^{-1})))
+```
+
+```{r}
+as.data.frame(emmeans(m_spatial, ~ gen)) %>% 
+  arrange(-emmean) %>% 
+  head()
+```
+
