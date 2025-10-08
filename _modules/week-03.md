@@ -18,6 +18,6 @@ October 1
 : Repeated measures II  
   : [html](https://stat870.github.io/fall2025/notes/repeated-measures-ii.html)
 
-October 1  
+October 3  
 : Repeated measures III  
   : [html](https://stat870.github.io/fall2025/notes/repeated-measures-iii.html)
