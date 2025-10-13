@@ -31,7 +31,8 @@ The data below come from an experiment studying different feeding treatments on 
 They wish to study whether the treatments had an effect on Serum haptoglobin before versus after applying the treatment. 
 
 ```{r}
-d <- read.csv("../data/blood_study_pigs.csv")
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/blood_study_pigs.csv"
+d <- read.csv(url)
 d$Day <- as.factor(d$Day)
 m <- lm(Serum_haptoglobin_mg.dL ~ Trt * Day , data = d)
 ```
@@ -61,7 +62,8 @@ The process she used was to make a batch of cookie dough for each of the four re
 
 ```{r}
 library(lme4)
-d2 <- read.csv("../data/cookies.csv")
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/cookies.csv"
+d2 <- read.csv(url)
 d2$Day <- as.factor(d2$Day)
 d2$Temperature <- as.factor(d2$Temperature)
 d2$fat_perc <- as.factor(d2$fat_perc)
@@ -88,8 +90,8 @@ The data below come from a CRD with repeated measures.
 
 ```{r}
 library(glmmTMB)
-
-d3 <- read.csv("../data/fecalm_swine2.csv")
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fecalm_swine2.csv"
+d3 <- read.csv(url)
 d3$Day <- as.factor(d3$Day)
 d3$Pen <- as.factor(d3$Pen)
 
@@ -137,7 +139,8 @@ At the end of the study, the researchers count how many colony forming units (go
 They wish to study whether the treatments had a different effect on the number of CFUs. 
 
 ```{r}
-d4 <- read.csv("../data/sanitizers.csv")
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/sanitizers.csv"
+d4 <- read.csv(url)
 d4$Treatment <- as.factor(d4$Treatment)
 d4$Time <- as.factor(d4$Time)
 d4$Biological.Rep <- as.factor(d4$Biological.Rep)
@@ -156,14 +159,19 @@ Dogs meeting the eligibility criteria for entry into the trial had the tumor sur
 Dogs were randomly assigned with each center, so the total number of dogs on each treatment group are not exactly equal for all treatments, each dog was followed from the time of treatment until it dies from a relapse of the lymphosarcoma or was lost to follow up and the time to the occurrence of either of those was recorded. 
 
 ```{r}
-d5 <- readxl::read_xls("../../../animal_problems/lympho.xls")
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/lympho.csv"
+d5 <- read.csv(url)
+
 d5 <- d5 %>%
   mutate(across(c(rad, chemo), ~as.factor(.)))
 m5 <- glmmTMB(died ~ rad*chemo + (1|clinic) , 
               family = binomial(link = "logit"), 
               REML = TRUE,
               data = d5)
-m5
+
+summary(m5)
+
+emmeans(m5, ~ rad:chemo, type = "response")
 ```
 
 
