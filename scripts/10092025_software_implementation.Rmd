@@ -105,8 +105,24 @@ m3_ar1 <- glmmTMB(Dry_matter_perc ~ Trt*Day + ar1(0+Pen|Day),
               REML = TRUE,
               data = d3)
 
-update(m3_ar1, control = glmmTMBControl(optimizer=optim,
-                                        optArgs=list(method="BFGS")))
+# up the number of iterations 
+update(m3_ar1, 
+       control = glmmTMBControl(optCtrl=list(iter.max=3000, eval.max=1000)))
+
+#change optimizer 
+update(m3_ar1, 
+       control = glmmTMBControl(optimizer=optim,
+                                optArgs=list(method="CG")))
+
+#change optimizer 
+update(m3_ar1, 
+       control = glmmTMBControl(optimizer=optim,
+                                optArgs=list(method="Nelder-Mead")))
+
+#change optimizer 
+update(m3_ar1, 
+       control = glmmTMBControl(optimizer=optim,
+                                optArgs=list(method="BFGS")))
 
 
 AICcmodavg::AICc(m3_cs)
@@ -141,7 +157,7 @@ Dogs were randomly assigned with each center, so the total number of dogs on eac
 
 ```{r}
 d5 <- readxl::read_xls("../../../animal_problems/lympho.xls")
-d5 <- d5 %>% 
+d5 <- d5 %>%
   mutate(across(c(rad, chemo), ~as.factor(.)))
 m5 <- glmmTMB(died ~ rad*chemo + (1|clinic) , 
               family = binomial(link = "logit"), 
