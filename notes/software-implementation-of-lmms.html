@@ -298,10 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html"><i class="fa fa-check"></i><b>14</b> Software Implementation of LMMs</a>
 <ul>
 <li class="chapter" data-level="14.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#announcements-12"><i class="fa fa-check"></i><b>14.1</b> Announcements</a></li>
-<li class="chapter" data-level="14.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#model-review"><i class="fa fa-check"></i><b>14.2</b> Model review</a>
-<ul>
-<li class="chapter" data-level="14.2.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#important-considerations"><i class="fa fa-check"></i><b>14.2.1</b> Important considerations</a></li>
-</ul></li>
+<li class="chapter" data-level="14.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#model-review"><i class="fa fa-check"></i><b>14.2</b> Model review</a></li>
 <li class="chapter" data-level="14.3" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#computational-tricks"><i class="fa fa-check"></i><b>14.3</b> Computational tricks</a>
 <ul>
 <li class="chapter" data-level="14.3.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#improving-computational-stability"><i class="fa fa-check"></i><b>14.3.1</b> Improving computational stability</a></li>
@@ -353,17 +350,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In general, we can write LLMs as</p>
 <p><span class="math display">\[\mathbf{y} \vert \boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{b}, \sigma^2 \mathbf{W}^{-1})\]</span></p>
 <p><span class="math inline">\(\boldsymbol{b} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>, where<span class="math inline">\(\boldsymbol{\Sigma}\)</span> must be positive semidefinite and can be expressed also as <span class="math inline">\(\boldsymbol{\Sigma}_{\theta} = \sigma^2\boldsymbol{\Lambda}_\theta \boldsymbol{\Lambda}_\theta^T\)</span>, where <span class="math inline">\(\sigma\)</span> is the scale factor (same as above) and <span class="math inline">\(\boldsymbol{\Lambda}_\theta\)</span> is a relative covariance factor that depends on the variance component <span class="math inline">\(\theta\)</span>.</p>
-<div id="important-considerations" class="section level3 hasAnchor" number="14.2.1">
-<h3><span class="header-section-number">14.2.1</span> Important considerations<a href="software-implementation-of-lmms.html#important-considerations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>The equations above can be rewritten into making it very obvious that
-<ul>
-<li>Hessian matrix must be positive-definite</li>
-<li></li>
-</ul></li>
-<li>For more details check out <a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf">Bates et al., 2015</a></li>
+<li>Check out <a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf">Bates et al. (2015)</a></li>
 </ul>
-</div>
 </div>
 <div id="computational-tricks" class="section level2 hasAnchor" number="14.3">
 <h2><span class="header-section-number">14.3</span> Computational tricks<a href="software-implementation-of-lmms.html#computational-tricks" class="anchor-section" aria-label="Anchor link to header"></a></h2>

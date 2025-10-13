@@ -13,12 +13,7 @@ $$\mathbf{y} \vert \boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{
 
 $\boldsymbol{b} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})$, where$\boldsymbol{\Sigma}$ must be positive semidefinite and can be expressed also as $\boldsymbol{\Sigma}_{\theta} = \sigma^2\boldsymbol{\Lambda}_\theta \boldsymbol{\Lambda}_\theta^T$, where $\sigma$ is the scale factor (same as above) and $\boldsymbol{\Lambda}_\theta$ is a relative covariance factor that depends on the variance component $\theta$. 
 
-### Important considerations 
-
-- The equations above can be rewritten into making it very obvious that 
-  - Hessian matrix must be positive-definite 
-  - 
-- For more details check out [Bates et al., 2015](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf) 
+- Check out [Bates et al. (2015)](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf) 
 
 
 ## Computational tricks 
