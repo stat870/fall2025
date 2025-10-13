@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Day 12 Repeated Measures III | Common Response Variable Distributions</title>
-  <meta name="description" content="Day 12 Repeated Measures III | Common Response Variable Distributions" />
+  <title>Day 14 Software Implementation of LMMs | Common Response Variable Distributions</title>
+  <meta name="description" content="Day 14 Software Implementation of LMMs | Common Response Variable Distributions" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Day 12 Repeated Measures III | Common Response Variable Distributions" />
+  <meta property="og:title" content="Day 14 Software Implementation of LMMs | Common Response Variable Distributions" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Day 12 Repeated Measures III | Common Response Variable Distributions" />
+  <meta name="twitter:title" content="Day 14 Software Implementation of LMMs | Common Response Variable Distributions" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="repeated-measures-ii.html"/>
-<link rel="next" href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"/>
+<link rel="prev" href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"/>
+<link rel="next" href="semester-project-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -339,342 +339,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="repeated-measures-iii" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Day 12</span> Repeated Measures III<a href="repeated-measures-iii.html#repeated-measures-iii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="announcements-10" class="section level2 hasAnchor" number="12.1">
-<h2><span class="header-section-number">12.1</span> Announcements<a href="repeated-measures-iii.html#announcements-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="software-implementation-of-lmms" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Day 14</span> Software Implementation of LMMs<a href="software-implementation-of-lmms.html#software-implementation-of-lmms" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-12" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Announcements<a href="software-implementation-of-lmms.html#announcements-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Zoom classes on 10/13 and 10/15.</li>
-<li>Assignment 4 due Wednesday.</li>
+<li>Assignment 4 grades will be posted tonight</li>
+<li>Projects</li>
 </ul>
 </div>
-<div id="where-were-standing-in-this-course" class="section level2 hasAnchor" number="12.2">
-<h2><span class="header-section-number">12.2</span> Where we’re standing in this course<a href="repeated-measures-iii.html#where-were-standing-in-this-course" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Considering the linear mixed model</p>
-<p><span class="math display">\[\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \mathbf{V}),\]</span>
-where:</p>
+<div id="model-review" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Model review<a href="software-implementation-of-lmms.html#model-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In general, we can write LLMs as</p>
+<p><span class="math display">\[\mathbf{y} \vert \boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{b}, \sigma^2 \mathbf{W}^{-1})\]</span></p>
+<p><span class="math inline">\(\boldsymbol{b} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>, where<span class="math inline">\(\boldsymbol{\Sigma}\)</span> must be positive semidefinite and can be expressed also as <span class="math inline">\(\boldsymbol{\Sigma}_{\theta} = \sigma^2\boldsymbol{\Lambda}_\theta \boldsymbol{\Lambda}_\theta^T\)</span>, where <span class="math inline">\(\sigma\)</span> is the scale factor (same as above) and <span class="math inline">\(\boldsymbol{\Lambda}_\theta\)</span> is a relative covariance factor that depends on the variance component <span class="math inline">\(\theta\)</span>.</p>
+<div id="important-considerations" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Important considerations<a href="software-implementation-of-lmms.html#important-considerations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><span class="math inline">\(\mathbf{y}\)</span> is the vector of the response,</li>
-<li><span class="math inline">\(\mathbf{X}\)</span> is the model matrix (often containing treatment allocation),</li>
-<li><span class="math inline">\(\boldsymbol{\beta}\)</span> is a vector containing the estimates for the effects of all variables in <span class="math inline">\(\mathbf{X}\)</span>,</li>
-<li><span class="math inline">\(\mathbf{V}\)</span> is the variance covariance matrix for <span class="math inline">\(\mathbf{y}\)</span>.</li>
-</ul>
-<p>The marginal distribution of <span class="math inline">\(\mathbf{y}\)</span> for a normal distribution can also be written as
-<span class="math display">\[\mathbf{y} \sim MVN(\mathbf{X}\boldsymbol{\beta}, \mathbf{ZGZ}&#39;+\mathbf{R}).\]</span></p>
-<p>The variance-covariance matrices below represent the variance/covariance of all <span class="math inline">\(y\)</span>s.</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-126"></span>
-<img src="../figures/Var_matrix.jpg" alt="Illustrative example of the variance-covariance matrix." width="100%" />
-<p class="caption">
-Figure 12.1: Illustrative example of the variance-covariance matrix.
-</p>
-</div>
-<p>We consider <strong>messy data</strong> the different dependence patterns in <span class="math inline">\(\mathbf{G}\)</span> and/or <span class="math inline">\(\mathbf{R}\)</span>.</p>
-<p>Note that, for all mixed models we have been handling so far,
-<span class="math display">\[\mathbf{G} = \sigma^2_u\mathbf{I} =
-\begin{bmatrix}
-\sigma^2_u &amp; 0 &amp; 0 &amp; &amp; 0\\
-0 &amp; \sigma^2_u &amp; 0 &amp;  &amp; 0\\
-0 &amp; 0 &amp; \sigma^2_u &amp;  &amp; 0\\
-&amp;  &amp;  &amp; \ddots &amp; \vdots \\
-0 &amp; 0 &amp; 0 &amp; \dots &amp; \sigma^2_u\\
-\end{bmatrix},\]</span>
-which, will result in some variation of the matrix above.</p>
-</div>
-<div id="repeated-measures-2" class="section level2 hasAnchor" number="12.3">
-<h2><span class="header-section-number">12.3</span> Repeated measures<a href="repeated-measures-iii.html#repeated-measures-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-127"></span>
-<img src="../figures/designs_repeated.PNG" alt="Schematic description of a field experiment with repeated measures" width="100%" />
-<p class="caption">
-Figure 12.2: Schematic description of a field experiment with repeated measures
-</p>
-</div>
-</div>
-<div id="correlation---g-side-conditional-and-r-side-marginal-1" class="section level2 hasAnchor" number="12.4">
-<h2><span class="header-section-number">12.4</span> Correlation - G side (conditional) and R side (marginal)<a href="repeated-measures-iii.html#correlation---g-side-conditional-and-r-side-marginal-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<li>The equations above can be rewritten into making it very obvious that
 <ul>
-<li>Typically, <code>REPEATED</code> (in SAS’s <code>MIXED</code> procedure) is equivalent to R-side (marginal) covariance in <code>GLIMMIX</code>.</li>
-<li>Look at marginal variance-covariance matrix on the board.</li>
-<li>What happens if we model G-side covariance?</li>
-</ul>
-<p><strong>Implications on inference</strong></p>
-<ul>
-<li>Similar CI for marginal means (lsmeans)<br />
-</li>
-<li>Confidence intervals estimated with different DF approximations</li>
-<li>May see some discrepancy in test statistics.</li>
+<li>Hessian matrix must be positive-definite</li>
+<li></li>
+</ul></li>
+<li>For more details check out <a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf">Bates et al., 2015</a></li>
 </ul>
 </div>
-<div id="repeated-measures-in-glmms" class="section level2 hasAnchor" number="12.5">
-<h2><span class="header-section-number">12.5</span> Repeated measures in GLMMs<a href="repeated-measures-iii.html#repeated-measures-in-glmms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Recall distributions of non-Gaussian GLMMs:</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-128"></span>
-<img src="../figures/stroup_distributions.jpg" alt="Common variable distributions. Page 60 in Stroup et al. (2024)" width="80%" />
-<p class="caption">
-Figure 12.3: Common variable distributions. Page 60 in Stroup et al. (2024)
-</p>
 </div>
-</div>
-<div id="appendix-a-common-response-variable-y-b-distributions" class="section level2 hasAnchor" number="12.6">
-<h2><span class="header-section-number">12.6</span> Appendix A: Common Response Variable (<span class="math inline">\(y | b\)</span>) Distributions<a href="repeated-measures-iii.html#appendix-a-common-response-variable-y-b-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Below is a table of commonly used distributions, their properties, and related probability density functions (PDFs).</p>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-GLMMs
-</title>
-<style>
-        .table-wrapper {
-            width: 100%; 
-            overflow-x: auto; 
-            border: 1px solid #ccc; 
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
-</head>
-<body>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr>
-<th>
-<b>Distribution</b>
-</th>
-<th>
-<b>Range of Variable</b>
-</th>
-<th>
-<b>Mean</b>
-</th>
-<th>
-<b>Commonly Used Link(s)</b>
-</th>
-<th>
-<b>Variance</b>
-</th>
-<th>
-<b>PDF</b>
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Gaussian/normal
-</td>
-<td>
-<span class="math inline">\(-\infty &lt; y &lt; \infty\)</span>
-</td>
-<td>
-<span class="math inline">\(\mu\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \mu\)</span>
-</td>
-<td>
-<span class="math inline">\(\sigma^2\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(y-\mu)^2}{2\sigma^2}}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Log normal
-</td>
-<td>
-<span class="math inline">\(-\infty &lt; y &lt; \infty\)</span>
-</td>
-<td>
-<span class="math inline">\(\mu\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log(\mu)\)</span>
-</td>
-<td>
-<span class="math inline">\(\sigma^2\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \frac{1}{y\sigma\sqrt{2\pi}} e^{-\frac{(\log y - \mu)^2}{2\sigma^2}}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Gamma
-</td>
-<td>
-<span class="math inline">\(y &gt; 0\)</span>
-</td>
-<td>
-<span class="math inline">\(\mu\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log(\mu), \frac{1}{\mu}\)</span>
-</td>
-<td>
-<span class="math inline">\(\phi \mu^2\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \frac{y^{\frac{\mu}{\phi} - 1} e^{-\frac{y}{\phi}}}{\phi^{\mu} \Gamma(\mu)}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Exponential
-</td>
-<td>
-<span class="math inline">\(y &gt; 0\)</span>
-</td>
-<td>
-<span class="math inline">\(\mu\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log(\mu), \frac{1}{\mu}\)</span>
-</td>
-<td>
-<span class="math inline">\(\mu^2\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \frac{1}{\mu} e^{-\frac{y}{\mu}}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Binomial
-</td>
-<td>
-0, <span class="math inline">\(\frac{1}{N}, \dots, \frac{N}{N}\)</span>
-</td>
-<td>
-<span class="math inline">\(\pi = \frac{\mu}{N}\)</span>
-</td>
-<td>
-Logit: <span class="math inline">\(\eta = \log\left(\frac{\pi}{1-\pi}\right)\)</span>
-</td>
-<td>
-<span class="math inline">\(N\pi(1-\pi)\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \binom{N}{y} \pi^y (1-\pi)^{N-y}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Beta
-</td>
-<td>
-0 &lt; <span class="math inline">\(y &lt; 1\)</span>
-</td>
-<td>
-<span class="math inline">\(\mu\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log\left(\frac{\mu}{1-\mu}\right)\)</span>
-</td>
-<td>
-<span class="math inline">\(\frac{\mu(1-\mu)}{1+\phi}\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \frac{y^{\alpha-1}(1-y)^{\beta-1}}{B(\alpha, \beta)}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Poisson
-</td>
-<td>
-<span class="math inline">\(y = 0, 1, 2, \dots\)</span>
-</td>
-<td>
-<span class="math inline">\(\lambda\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log(\lambda)\)</span>
-</td>
-<td>
-<span class="math inline">\(\lambda\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \frac{\lambda^y e^{-\lambda}}{y!}\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Geometric
-</td>
-<td>
-<span class="math inline">\(y = 0, 1, 2, \dots\)</span>
-</td>
-<td>
-<span class="math inline">\(\lambda\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log(\lambda)\)</span>
-</td>
-<td>
-<span class="math inline">\(\lambda(1+\lambda)\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = (1-\lambda)^y \lambda\]</span>
-</td>
-</tr>
-<tr>
-<td>
-Negative binomial
-</td>
-<td>
-<span class="math inline">\(y = 0, 1, 2, \dots\)</span>
-</td>
-<td>
-<span class="math inline">\(\lambda\)</span>
-</td>
-<td>
-<span class="math inline">\(\eta = \log(\lambda)\)</span>
-</td>
-<td>
-<span class="math inline">\(\lambda(1+\phi\lambda)\)</span>
-</td>
-<td>
-<span class="math display">\[f(y) = \binom{y + r - 1}{y} \lambda^r (1-\lambda)^y\]</span>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>If we describe a non-Gaussian GLMM with</p>
-<p><span class="math display">\[{y}|\boldsymbol{u} \sim P({\mu}, \phi),\]</span>
-where <span class="math inline">\(y\)</span> is the response, <span class="math inline">\(\boldsymbol{u}\)</span> are the random effects, <span class="math inline">\(\mu\)</span> is the mean, and <span class="math inline">\(\phi\)</span> is the dispersion,
-we know that <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi\)</span> may not be independent.</p>
+<div id="computational-tricks" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Computational tricks<a href="software-implementation-of-lmms.html#computational-tricks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="improving-computational-stability" class="section level3 hasAnchor" number="14.3.1">
+<h3><span class="header-section-number">14.3.1</span> Improving computational stability<a href="software-implementation-of-lmms.html#improving-computational-stability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>G-side ~ ‘true GLMM’</li>
-<li>R-side: quasi-likelihood models</li>
-<li>Marginal models often lead to less powerful tests.</li>
-<li>Several discussions:
+<li>For computational stability and efficiency, reformulate the model such that <span class="math inline">\(\theta\)</span> appears only in the conditional distribution for the response.</li>
+<li>For ML, minimize -2 log-likelihood, <span class="math inline">\(-2 \mathcal{L}(\boldsymbol{\theta}, \boldsymbol{\beta}, \sigma^2\vert\mathbf{y})=\log \frac{\vert\boldsymbol{L}_\theta\vert^2}{\vert\boldsymbol{W}\vert} + n \log(2\pi\sigma^2)+ \frac{r^2(\boldsymbol{\theta})}{\sigma^2} + \frac{\vert\vert \mathbf{R}_X(\boldsymbol{\beta}-\hat{\boldsymbol{\beta}}_\theta) \vert\vert}{\sigma^2}\)</span></li>
+</ul>
+</div>
+<div id="nonlinear-optimizing-algorithms" class="section level3 hasAnchor" number="14.3.2">
+<h3><span class="header-section-number">14.3.2</span> Nonlinear optimizing algorithms<a href="software-implementation-of-lmms.html#nonlinear-optimizing-algorithms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Philosophical, Power, and more <a href="https://projecteuclid.org/journals/statistical-science/volume-19/issue-2/Conditional-and-Marginal-Models-Another-View/10.1214/088342304000000305.full">Lee and Nelder (2004)</a></li>
-<li>Many unknowns for the software implementation of non-Gaussian GLMMs <a href="jstor.org/stable/48736894">Stroup and Claassen (2020)</a></li>
+<li>Bound Optimization by Quadratic Approximation (bobyqa)
+<ul>
+<li>Used in <code>lme4</code> (default)</li>
+</ul></li>
+<li>Nelder Mead
+<ul>
+<li>Alternative in <code>lme4</code></li>
+<li><a href="https://www.youtube.com/watch?v=XfdHAcHat7M">Visualization</a></li>
+</ul></li>
+<li>Template Model Builder (TMB)
+<ul>
+<li><code>nlminb()</code> or <code>optim()</code> under the hood</li>
+<li>GLMMs</li>
 </ul></li>
 </ul>
+<p><a href="../scripts/10092025_software_implementation.Rmd">Download R script for implementing LMMs</a></p>
 </div>
-<div id="applied-example-using-r" class="section level2 hasAnchor" number="12.7">
-<h2><span class="header-section-number">12.7</span> Applied example using R<a href="repeated-measures-iii.html#applied-example-using-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="../scripts/10062025_inclass_rm.Rmd">Get R code</a></p>
+</div>
+<div id="references" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> References<a href="software-implementation-of-lmms.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf">Fitting Linear Mixed-Effects Models Using lme4</a></li>
+</ul>
 
 </div>
 </div>
@@ -683,8 +408,8 @@ we know that <span class="math inline">\(\mu\)</span> and <span class="math inli
           </div>
         </div>
       </div>
-<a href="repeated-measures-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -715,7 +440,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/stat720/book2025/edit/main/12-repmeasures3.Rmd",
+    "link": "https://github.com/stat720/book2025/edit/main/14-implementation.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -723,7 +448,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/stat720/book2025/blob/main/12-repmeasures3.Rmd",
+    "link": "https://github.com/stat720/book2025/blob/main/14-implementation.Rmd",
     "text": null
   },
   "download": null,

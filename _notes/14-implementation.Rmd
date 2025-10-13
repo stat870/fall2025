@@ -1,0 +1,47 @@
+# Software Implementation of LMMs 
+
+## Announcements
+
+- Assignment 4 grades will be posted tonight 
+- Projects 
+
+## Model review 
+
+In general, we can write LLMs as
+
+$$\mathbf{y} \vert \boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta} + \mathbf{Z}\boldsymbol{b}, \sigma^2 \mathbf{W}^{-1})$$
+
+$\boldsymbol{b} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})$, where$\boldsymbol{\Sigma}$ must be positive semidefinite and can be expressed also as $\boldsymbol{\Sigma}_{\theta} = \sigma^2\boldsymbol{\Lambda}_\theta \boldsymbol{\Lambda}_\theta^T$, where $\sigma$ is the scale factor (same as above) and $\boldsymbol{\Lambda}_\theta$ is a relative covariance factor that depends on the variance component $\theta$. 
+
+### Important considerations 
+
+- The equations above can be rewritten into making it very obvious that 
+  - Hessian matrix must be positive-definite 
+  - 
+- For more details check out [Bates et al., 2015](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf) 
+
+
+## Computational tricks 
+
+### Improving computational stability 
+
+- For computational stability and efficiency, reformulate the model such that $\theta$ appears only in the conditional distribution for the response. 
+- For ML, minimize -2 log-likelihood, $-2 \mathcal{L}(\boldsymbol{\theta}, \boldsymbol{\beta}, \sigma^2\vert\mathbf{y})=\log \frac{\vert\boldsymbol{L}_\theta\vert^2}{\vert\boldsymbol{W}\vert} + n \log(2\pi\sigma^2)+ \frac{r^2(\boldsymbol{\theta})}{\sigma^2} + \frac{\vert\vert \mathbf{R}_X(\boldsymbol{\beta}-\hat{\boldsymbol{\beta}}_\theta) \vert\vert}{\sigma^2}$ 
+
+### Nonlinear optimizing algorithms 
+
+- Bound Optimization by Quadratic Approximation (bobyqa) 
+  - Used in `lme4` (default) 
+- Nelder Mead 
+  - Alternative in `lme4` 
+  - [Visualization](https://www.youtube.com/watch?v=XfdHAcHat7M) 
+- Template Model Builder (TMB) 
+  - `nlminb()` or `optim()` under the hood 
+  - GLMMs 
+  
+[Download R script for implementing LMMs](../scripts/10092025_software_implementation.Rmd)
+
+
+## References 
+
+- [Fitting Linear Mixed-Effects Models Using lme4](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf)
