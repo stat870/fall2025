@@ -1,0 +1,156 @@
+---
+title: "Software implementation of models"
+author: "J Lacasa"
+date: "2025-10-09"
+output: 
+  html_document:
+    toc: true  
+---
+
+## Introduction 
+
+This document presents the R implementation of some of the most important models covered in STAT 870 (so far). 
+
+## General linear model 
+
+The general linear model generally assumes: 
+
+- Linearity
+- Normality and iid residuals 
+
+$$\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}), $$
+where:
+
+- $\mathbf{y}$ is the response data 
+- $\mathbf{X}\boldsymbol{\beta}$ are the fixed effects [$\mathbf{X}$ shows treatment allocation and $\boldsymbol{\beta}$ are the fixed effects] 
+- $\sigma^2\mathbf{I}$ is the variance-covariance matrix (also $\mathbf{R}$), which is the residual variance times $\text{diag}(1)_{n\times n}$ 
+
+### Applied example I (general linear model) 
+
+The data below come from an experiment studying different feeding treatments on Pig health. The researchers randomly allocated 6 Treatments to 96 pens of 5 pigs each (16 repetitions) and measured the response, Serum haptoglobin (mg/dL), before and after applying the treatment. 
+They wish to study whether the treatments had an effect on Serum haptoglobin before versus after applying the treatment. 
+
+```{r}
+d <- read.csv("../data/blood_study_pigs.csv")
+d$Day <- as.factor(d$Day)
+m <- lm(Serum_haptoglobin_mg.dL ~ Trt * Day , data = d)
+```
+
+Note: it is hard to find an applied example where this model holds, due to the strong assumption of iid residuals. 
+
+## General linear mixed models  
+
+The general linear model typically assumes: 
+
+- Linearity
+- Normality and iid residuals, **conditional on the random effects**
+
+$$\mathbf{y} \vert \boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{b}, \mathbf{R}), $$
+where:
+
+- $\mathbf{y}$ is the data 
+- $\mathbf{X}\boldsymbol{\beta}$ are the fixed effects [$\mathbf{X}$ shows treatment allocation and $\boldsymbol{\beta}$ are the fixed effects] 
+- $\mathbf{Z}\boldsymbol{b}$ are the random effects [$\mathbf{Z}$ shows design and $\boldsymbol{b}$ are the random effects]. $\boldsymbol{b} \sim N(\boldsymbol{0}, \mathbf{G})$. 
+- $\mathbf{R}=\sigma^2\mathbf{I}$ is the residual variance. `lme4` supports mostly $\mathbf{R}=\sigma^2\mathbf{I}$. `glmmTMB` supports other functions for $\mathbf{R}$. 
+
+### Applied example II - LMM
+
+The data below come from a split-plot experiment in an RCBD, where a baker wanted to determine the effect that the amount of fat in a recipe of cookie dough would have on the texture of the cookie. She also wanted to determine if the temperature (°F) at which the cookies were baked would have an influence on the texture of the surface. The texture of the cookie is measured by determining the amount of force (g) required to penetrate the cookie surface.  
+
+The process she used was to make a batch of cookie dough for each of the four recipes every day, and baked one cookie from each recipe in the oven together. She carried this process out each of four days when she baked cookies at three different temperatures.
+
+```{r}
+library(lme4)
+d2 <- read.csv("../data/cookies.csv")
+d2$Day <- as.factor(d2$Day)
+d2$Temperature <- as.factor(d2$Temperature)
+d2$fat_perc <- as.factor(d2$fat_perc)
+
+m1 <- lmer(force ~ Temperature * fat_perc + (1|Day/Temperature),
+           data = d2)
+```
+
+
+
+
+## Troubleshooting linear mixed models 
+
+**Helpful resources:** 
+
+- [lme4 troubleshooting I](https://rstudio-pubs-static.s3.amazonaws.com/33653_57fc7b8e5d484c909b615d8633c01d51.html) 
+- [lme4 troubleshooting II](https://search.r-project.org/CRAN/refmans/lme4/html/troubleshooting.html) 
+- Anything by [Ben Bolker](https://math.mcmaster.ca/~bolker/) 
+
+### Applied example III - LMM
+
+
+The data below come from a CRD with repeated measures. 
+
+```{r}
+library(glmmTMB)
+
+d3 <- read.csv("../data/fecalm_swine2.csv")
+d3$Day <- as.factor(d3$Day)
+d3$Pen <- as.factor(d3$Pen)
+
+m3 <- glmmTMB(Dry_matter_perc ~ Trt*Day + ar1(Pen|Day), 
+              REML = TRUE,
+              data = d3)
+
+m3_cs <- glmmTMB(Dry_matter_perc ~ Trt*Day + (1|Day), 
+              REML = TRUE,
+              data = d3)
+
+m3_ar1 <- glmmTMB(Dry_matter_perc ~ Trt*Day + ar1(0+Pen|Day), 
+              REML = TRUE,
+              data = d3)
+
+update(m3_ar1, control = glmmTMBControl(optimizer=optim,
+                                        optArgs=list(method="BFGS")))
+
+
+AICcmodavg::AICc(m3_cs)
+AICcmodavg::AICc(m3_ar1)
+```
+
+
+### Applied example IV - LMM
+
+The data below come from an experiment studying different sanitizer treatments on the survival of bacteria on different surfaces. There are 5 different sanitizer treatments applied for 2 different times (e.g., leave the sanitizer it for 1 minute or for 5 minutes), and on 5 different surfaces. 
+At the end of the study, the researchers count how many colony forming units (good sources of bacteria growth) they find. 
+They wish to study whether the treatments had a different effect on the number of CFUs. 
+
+```{r}
+d4 <- read.csv("../data/sanitizers.csv")
+d4$Treatment <- as.factor(d4$Treatment)
+d4$Time <- as.factor(d4$Time)
+d4$Biological.Rep <- as.factor(d4$Biological.Rep)
+d4$Technical.Rep <- as.factor(d4$Technical.Rep)
+
+m4 <- lmer(`Log.CFU.coupon` ~ Treatment * Time * Material +
+             (1|Biological.Rep), 
+           data = d4)
+```
+
+### Applied example V - GLMM 
+
+Clinical trial with dog being the unit of record. These data are from a fictional clinical trial of two treatments for lymphosarcoma in dogs. 
+The study was conducted as a multicenter controlled trial. 
+Dogs meeting the eligibility criteria for entry into the trial had the tumor surgically removed and then were randomly assigned to one of four treatment group, no treatment, radiation only, chemotherapy only and both radiation and chemotherapy. 
+Dogs were randomly assigned with each center, so the total number of dogs on each treatment group are not exactly equal for all treatments, each dog was followed from the time of treatment until it dies from a relapse of the lymphosarcoma or was lost to follow up and the time to the occurrence of either of those was recorded. 
+
+```{r}
+d5 <- readxl::read_xls("../../../animal_problems/lympho.xls")
+d5 <- d5 %>% 
+  mutate(across(c(rad, chemo), ~as.factor(.)))
+m5 <- glmmTMB(died ~ rad*chemo + (1|clinic) , 
+              family = binomial(link = "logit"), 
+              REML = TRUE,
+              data = d5)
+m5
+```
+
+
+- [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html) 
+
+
