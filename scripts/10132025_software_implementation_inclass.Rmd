@@ -1,0 +1,174 @@
+---
+title: "Software implementation of models -- in class"
+author: "J Lacasa"
+date: "2025-10-09"
+output: 
+  html_document:
+    toc: true  
+---
+
+## Introduction 
+
+This document presents the R implementation of some of the most important models covered in STAT 870 (so far). 
+
+## General linear model 
+
+The general linear model generally assumes: 
+
+- Linearity
+- Normality and iid residuals 
+
+$$\mathbf{y} \sim N(\mathbf{X}\boldsymbol{\beta}, \sigma^2\mathbf{I}), $$
+where:
+
+- $\mathbf{y}$ is the response data 
+- $\mathbf{X}\boldsymbol{\beta}$ are the fixed effects [$\mathbf{X}$ shows treatment allocation and $\boldsymbol{\beta}$ are the fixed effects] 
+- $\sigma^2\mathbf{I}$ is the variance-covariance matrix (also $\mathbf{R}$), which is the residual variance times $\text{diag}(1)_{n\times n}$ 
+
+### Applied example I (general linear model) 
+
+The data below come from an experiment studying different feeding treatments on Pig health. The researchers randomly allocated 6 Treatments to 96 pens of 5 pigs each (16 repetitions) and measured the response, Serum haptoglobin (mg/dL), before and after applying the treatment. 
+They wish to study whether the treatments had an effect on Serum haptoglobin before versus after applying the treatment. 
+
+- Treatment structure is a 6 x 2 factorial treatment structure. 
+- Design structure is a CRD 
+
+Model 
+
+$$y_{ijk} \sim N(\mu_{ijk}, \sigma^2), \\ \mu_{ijk} = \mu_0 + T_i + D_j + TD_{ij} $$
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/blood_study_pigs.csv"
+d <- read.csv(url)
+d$Day <- as.factor(d$Day)
+
+unique(d$Day)
+
+m <- lm(Serum_haptoglobin_mg.dL ~ 1 + Trt*Day, data = d)
+
+```
+
+
+
+$$y_{ijk} \sim N(\mu_{ijk}, \sigma^2), \\ \mu_{ijk} = \mu_k + T_i + D_j + TD_{ij}, \\ \mu_k = \mu_0 + b_k, \\ b_k \sim N(0, \sigma^2_b) $$
+
+
+
+## General linear mixed models  
+
+The general linear model typically assumes: 
+
+- Linearity
+- Normality and iid residuals, **conditional on the random effects**
+
+$$\mathbf{y} \vert \boldsymbol{b} \sim N(\mathbf{X}\boldsymbol{\beta}+\mathbf{Z}\boldsymbol{b}, \mathbf{R}), $$
+where:
+
+- $\mathbf{y}$ is the data 
+- $\mathbf{X}\boldsymbol{\beta}$ are the fixed effects [$\mathbf{X}$ shows treatment allocation and $\boldsymbol{\beta}$ are the fixed effects] 
+- $\mathbf{Z}\boldsymbol{b}$ are the random effects [$\mathbf{Z}$ shows design and $\boldsymbol{b}$ are the random effects]. $\boldsymbol{b} \sim N(\boldsymbol{0}, \mathbf{G})$. 
+- $\mathbf{R}=\sigma^2\mathbf{I}$ is the residual variance. `lme4` supports mostly $\mathbf{R}=\sigma^2\mathbf{I}$. `glmmTMB` supports other functions for $\mathbf{R}$. 
+
+### Applied example II - LMM
+
+The data below come from a split-plot experiment in an RCBD, where a baker wanted to determine the effect that the amount of fat in a recipe of cookie dough would have on the texture of the cookie. She also wanted to determine if the temperature (°F) at which the cookies were baked would have an influence on the texture of the surface. The texture of the cookie is measured by determining the amount of force (g) required to penetrate the cookie surface.
+
+The process she used was to make a batch of cookie dough for each of the four recipes every day, and baked one cookie from each recipe in the oven together. She carried this process out each of four days when she baked cookies at three different temperatures.
+
+
+Trt structure: 3 x 4 factorial trt str
+Design str: split-plot (temperature =wp, recipe = sp) in a rcbd (day =blocks)
+
+$\mathbf{X}\boldsymbol{\beta}$: T, F, TF 
+
+
+$$y_{ijk}\vert \boldsymbol{b} \sim N(\mu_{ijk}, \sigma^2), \\ \mu_{ijk} = \mu_k + T_i + F_j + TF_{ij} + day_k + oven_{i(k)}, \\ day_k \sim N(0, \sigma^2_d), \\ oven_{i(k)} \sim N(0, \sigma^2_o) $$
+
+```{r}
+library(lme4)
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/cookies.csv"
+d2 <- read.csv(url)
+d2$Temperature <- as.factor(d2$Temperature)
+d2$fat_perc <- as.factor(d2$fat_perc)
+d2$Day <- as.factor(d2$Day)
+
+m2 <- lmer(force ~ (1| Day)+ (1|Day:Temperature)+ Temperature*fat_perc ,
+           data =d2)
+```
+
+
+
+## Troubleshooting linear mixed models 
+
+**Helpful resources:** 
+
+- [lme4 troubleshooting I](https://rstudio-pubs-static.s3.amazonaws.com/33653_57fc7b8e5d484c909b615d8633c01d51.html) 
+- [lme4 troubleshooting II](https://search.r-project.org/CRAN/refmans/lme4/html/troubleshooting.html) 
+- Anything by [Ben Bolker](https://math.mcmaster.ca/~bolker/) 
+
+
+
+### Applied example III - LMM
+
+
+The data below come from a CRD with repeated measures. 
+
+$$\mathbf{y}\vert \boldsymbol{b} \sim N(\boldsymbol{\mu}, \Sigma), \\ \mu_{ijk} = \mu_k + T_i + D_j + TD_{ij}$$
+
+$\Sigma = \sigma^2 I$
+
+```{r}
+library(glmmTMB)
+library(tidyverse)
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fecalm_swine2.csv"
+d3 <- read.csv(url)
+unique(d3$Trt)
+unique(d3$Day)
+
+d3 <- d3 %>% 
+  mutate(across(c(Trt, Day, Pen), ~ as.factor(.)))
+
+m3_cs <- glmmTMB(Dry_matter_perc ~ Trt * Day + (1|Pen), REML = TRUE, data = d3)
+
+m3_ar1 <- glmmTMB(Dry_matter_perc ~ Trt * Day + ar1(0+Day|Pen),  REML = TRUE,data = d3)
+
+diagnose(m3_ar1)
+
+update(m3_ar1, 
+       control = glmmTMBControl(
+         optimizer = optim, optArgs=list(method="BFGS")
+       )
+       )
+```
+
+
+### Applied example IV - LMM
+
+The data below come from an experiment studying different sanitizer treatments on the survival of bacteria on different surfaces. There are 5 different sanitizer treatments applied for 2 different times (e.g., leave the sanitizer it for 1 minute or for 5 minutes), and on 5 different surfaces. 
+At the end of the study, the researchers count how many colony forming units (good sources of bacteria growth) they find. 
+They wish to study whether the treatments had a different effect on the number of CFUs. 
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/sanitizers.csv"
+d4 <- read.csv(url)
+
+
+```
+
+### Applied example V - GLMM 
+
+Clinical trial with dog being the unit of record. These data are from a fictional clinical trial of two treatments for lymphosarcoma in dogs. 
+The study was conducted as a multicenter controlled trial. 
+Dogs meeting the eligibility criteria for entry into the trial had the tumor surgically removed and then were randomly assigned to one of four treatment group, no treatment, radiation only, chemotherapy only and both radiation and chemotherapy. 
+Dogs were randomly assigned with each center, so the total number of dogs on each treatment group are not exactly equal for all treatments, each dog was followed from the time of treatment until it dies from a relapse of the lymphosarcoma or was lost to follow up and the time to the occurrence of either of those was recorded. 
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/lympho.csv"
+d5 <- read.csv(url)
+
+
+```
+
+
+- [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html) 
+
