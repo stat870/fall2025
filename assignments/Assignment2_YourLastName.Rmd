@@ -1,12 +1,3 @@
----
-title: "Assignment 2"
-author: "Your Name"
-date: "2025-09-03"
-output: 
-  pdf_document:
-    extra_dependencies: ["float"]
----
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.pos = "H", out.extra = "", echo = TRUE)
 ```
