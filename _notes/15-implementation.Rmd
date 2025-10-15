@@ -5,7 +5,7 @@
 - Assignment 4 grades will be posted tonight 
 - Projects 
 
-[Download R script for implementing LMMs (from last Monday)](../scripts/10092025_software_implementation_inclass.Rmd)
+[Download R script for implementing LMMs (from last Monday)](../scripts/10132025_software_implementation_inclass.Rmd)
 
 ## Issues 
 
