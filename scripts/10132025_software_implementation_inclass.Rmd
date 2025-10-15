@@ -192,6 +192,9 @@ d6 %>%
 ```
 
 ```{r}
-d7 <- drop_na(agridat::stroup.nin)
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/rcbd_negvar.csv"
+d7 <- read.csv(url)
+
+
 ```
 
