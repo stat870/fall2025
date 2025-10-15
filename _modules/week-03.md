@@ -21,3 +21,7 @@ October 1
 October 3  
 : Repeated measures III  
   : [html](https://stat870.github.io/fall2025/notes/repeated-measures-iii.html)
+
+October 8  
+: Spatial patterns   
+  : [html](https://stat870.github.io/fall2025/notes/modeling-designed-experiments-in-the-presence-of-spatial-variability.html)

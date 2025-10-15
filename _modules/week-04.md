@@ -1,10 +1,6 @@
 ---
 title: Software implementation 
 ---
-  
-October 8  
-: Spatial patterns   
-  : [html](https://stat870.github.io/fall2025/notes/modeling-designed-experiments-in-the-presence-of-spatial-variability.html)
 
 October 13  
 : R implementation I  
@@ -12,12 +8,5 @@ October 13
 
 October 15  
 : R implementation II   
-  : [](#)
+  : [html](https://stat870.github.io/fall2025/notes/software-implementation-of-lmms-1.html)
   
-October 20 
-: : Splines I  
-  : [](#)
-
-October 22  
-: Splines II & Kahoot!  
-  : [](#)
