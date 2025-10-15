@@ -194,7 +194,6 @@ d6 %>%
 ```{r}
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/rcbd_negvar.csv"
 d7 <- read.csv(url)
-
-
+d7$block <- as.factor(d7$block)
 ```
 
