@@ -192,7 +192,6 @@ d6 %>%
 ```
 
 ```{r}
-aov(logCFU ~ Trt*Time + Error(patient_id), 
-    data = d6)
+d7 <- drop_na(agridat::stroup.nin)
 ```
 
