@@ -170,5 +170,29 @@ d5 <- read.csv(url)
 ```
 
 
-- [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html) 
+### Applied example VI - LMM
+
+Designed experiment studying the effect of 4 treatments on gut microorganisms. 
+Colony forming units were studied before and after 4 interventions. 
+Patient was the EU, and all patients were handled the same. 
+
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/gut_miscroorganisms.csv"
+d6 <- read.csv(url)
+d6$Time <- as.factor(d6$Time)
+d6$Trt <- as.factor(d6$Trt)
+d6$patient_id <- as.factor(d6$patient_id)
+
+d6 %>% 
+  ggplot(aes(Time, logCFU))+
+  facet_wrap(~Trt)+
+  geom_point(aes(color = factor(pig_id)))
+
+```
+
+```{r}
+aov(logCFU ~ Trt*Time + Error(patient_id), 
+    data = d6)
+```
 
