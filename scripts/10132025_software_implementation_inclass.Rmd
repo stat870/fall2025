@@ -113,27 +113,33 @@ m2 <- lmer(force ~ (1| Day)+ (1|Day:Temperature)+ Temperature*fat_perc ,
 
 The data below come from a CRD with repeated measures. 
 
+Trt structure: 6 x 3 factorial 
+
 $$\mathbf{y}\vert \boldsymbol{b} \sim N(\boldsymbol{\mu}, \Sigma), \\ \mu_{ijk} = \mu_k + T_i + D_j + TD_{ij}$$
 
 $\Sigma = \sigma^2 I$
 
-```{r}
+```{r warning=TRUE}
 library(glmmTMB)
 library(tidyverse)
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fecalm_swine2.csv"
 d3 <- read.csv(url)
-unique(d3$Trt)
 unique(d3$Day)
 
 d3 <- d3 %>% 
   mutate(across(c(Trt, Day, Pen), ~ as.factor(.)))
 
-m3_cs <- glmmTMB(Dry_matter_perc ~ Trt * Day + (1|Pen), REML = TRUE, data = d3)
+m3_cs <- glmmTMB(Dry_matter_perc ~ Trt * Day +
+                   (1|Pen), REML = TRUE, data = d3)
 
-m3_ar1 <- glmmTMB(Dry_matter_perc ~ Trt * Day + ar1(0+Day|Pen),  REML = TRUE,data = d3)
+m3_ar1 <- glmmTMB(Dry_matter_perc ~ Trt * Day + 
+                    ar1(0+Day|Pen),  REML = TRUE,data = d3)
 
-diagnose(m3_ar1)
+m3_ar1
+```
 
+
+```{r}
 update(m3_ar1, 
        control = glmmTMBControl(
          optimizer = optim, optArgs=list(method="BFGS")
@@ -144,15 +150,33 @@ update(m3_ar1,
 
 ### Applied example IV - LMM
 
-The data below come from an experiment studying different sanitizer treatments on the survival of bacteria on different surfaces. There are 5 different sanitizer treatments applied for 2 different times (e.g., leave the sanitizer it for 1 minute or for 5 minutes), and on 5 different surfaces. 
+The data below come from an experiment studying different *sanitizer treatments* on the survival of bacteria on different surfaces. There are 8 different sanitizer treatments applied for *2 different times* (e.g., leave the sanitizer it for 1 minute or for 5 minutes), and on *5 different surfaces*. 
 At the end of the study, the researchers count how many colony forming units (good sources of bacteria growth) they find. 
 They wish to study whether the treatments had a different effect on the number of CFUs. 
 
+Trt str: Fractional factorial treatment structure
+
+$$y_{ijklm} = \mu + Tr_i +Ti_j + M_k + Tr\times Ti_{ij} + u_{l(ijk)} + \varepsilon_{ijklm}$$
+
 ```{r}
+library(emmeans)
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/sanitizers.csv"
 d4 <- read.csv(url)
+d4$Treatment <- as.factor(d4$Treatment)
+d4$Time <- as.factor(d4$Time)
 
+d4 %>% 
+  dplyr::select(Treatment, Time) %>% 
+  unique()
 
+m4 <- lmer(Log.CFU.coupon ~ 
+             Treatment * Time * Material +(1|Treatment:Time:Material:Biological.Rep),
+     data =d4)
+
+getME(m4, "X")
+hist(as.vector(getME(m4, "b")))
+
+emmeans(m4, ~Treatment:Time)
 ```
 
 ### Applied example V - GLMM 
@@ -176,9 +200,14 @@ Designed experiment studying the effect of 4 treatments on gut microorganisms.
 Colony forming units were studied before and after 4 interventions. 
 Patient was the EU, and all patients were handled the same. 
 
+- two-way factorial trt structure (4 treatments x 2 moments) 
+- crd 
+
+$$y_{ijk} = \mu_0 + T_i +M_j +(TM)_{ij} + u_{k}+ \varepsilon_{ijk}$$
+
 
 ```{r}
-url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/gut_miscroorganisms.csv"
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/gut_microorganisms.csv"
 d6 <- read.csv(url)
 d6$Time <- as.factor(d6$Time)
 d6$Trt <- as.factor(d6$Trt)
@@ -187,13 +216,49 @@ d6$patient_id <- as.factor(d6$patient_id)
 d6 %>% 
   ggplot(aes(Time, logCFU))+
   facet_wrap(~Trt)+
-  geom_point(aes(color = factor(pig_id)))
+  geom_point(aes(color = factor(patient_id)))
 
 ```
+
+```{r}
+m6.f <- lm(logCFU ~ Trt*Time + patient_id, data = d6)
+sigma(m6.f)
+```
+
+```{r}
+m6 <- lmer(logCFU ~ Trt*Time + (1|patient_id), data = d6)
+
+isSingular(m6)
+
+VarCorr(m6)
+```
+
+
+### Example VII
+
+RCBD yield trial 
+
+$$y_{ij}=\mu_0 +T_i+b_j + \varepsilon_{ij}, b_j\sim N(0, \sigma^2_b)$$
 
 ```{r}
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/rcbd_negvar.csv"
 d7 <- read.csv(url)
 d7$block <- as.factor(d7$block)
+n_distinct(d7$trt)
+
+m7 <- lmer(yield~ trt + (1|block), data =d7)
+VarCorr(m7)
+
+d7$res <- resid(m7)
 ```
+```{r}
+emmeans( lm(yield~ trt + block, data =d7), ~ block)
+```
+
+```{r}
+d7 %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = block))
+```
+
 
