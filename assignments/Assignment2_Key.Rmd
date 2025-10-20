@@ -97,6 +97,10 @@ m <- lmer(height ~ time*manage + (1|rep/manage/time), data = df)
 ```
 
 ```{r}
+DHARMa::simulateResiduals(m, plot = T)
+```
+
+```{r}
 plot(m)
 ```
 
