@@ -322,8 +322,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16.4" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#b-splines"><i class="fa fa-check"></i><b>16.4</b> B-splines</a>
 <ul>
-<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.1</b> Penalized splines</a></li>
-<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.2</b> Other types of splines</a></li>
+<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#illustrating-splines"><i class="fa fa-check"></i><b>16.4.1</b> Illustrating splines</a></li>
+<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.2</b> Penalized splines</a></li>
+<li class="chapter" data-level="16.4.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.3</b> Other types of splines</a></li>
 </ul></li>
 <li class="chapter" data-level="16.5" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#final-comments"><i class="fa fa-check"></i><b>16.5</b> Final comments</a></li>
 <li class="chapter" data-level="16.6" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#resources"><i class="fa fa-check"></i><b>16.6</b> Resources</a></li>
@@ -372,7 +373,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Correlation functions</li>
 </ul>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-75-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-125-1.png" width="672"  /></p>
 </div>
 <div id="non-parametric-tools" class="section level2 hasAnchor" number="16.3">
 <h2><span class="header-section-number">16.3</span> Non-parametric tools<a href="accounting-for-spatial-effects.html#non-parametric-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -407,7 +408,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 where:</p>
 <ul>
 <li><span class="math inline">\(\kappa_1, \kappa_2, \dots, \kappa_K\)</span> are the knots,</li>
-<li><span class="math inline">\(b1, b2, \dots, bK\)</span> are the spline coefficients.</li>
+<li><span class="math inline">\(b_1, b_2, \dots, b_K\)</span> are the spline coefficients.</li>
 </ul>
 <p>Using matrix notation:
 <span class="math display">\[f(X_i) = \beta_0 + X_i \beta_1 + X^2_i \beta_2 + \dots + X_i^p \beta_p \\+ b_1(X_i - \kappa_1)^p_+ + b_2(X_i - \kappa_2)^p_+ + \dots + b_K(X_i - \kappa_K)^p_+ \\
@@ -425,8 +426,10 @@ where <span class="math inline">\(\lambda \mathbf{b}^T\mathbf{Db}\)</span> preve
 where:</p>
 <ul>
 <li><span class="math inline">\(\kappa_1, \kappa_2, \dots, \kappa_K\)</span> are the knots,</li>
-<li><span class="math inline">\(b1, b2, \dots, bK\)</span> are the spline coefficients.</li>
+<li><span class="math inline">\(b_1, b_2, \dots, b_K\)</span> are the spline coefficients.</li>
 </ul>
+<div id="illustrating-splines" class="section level3 hasAnchor" number="16.4.1">
+<h3><span class="header-section-number">16.4.1</span> Illustrating splines<a href="accounting-for-spatial-effects.html#illustrating-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start with a simple piecewise linear regression. Take the following data example:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="accounting-for-spatial-effects.html#cb113-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
 <span id="cb113-2"><a href="accounting-for-spatial-effects.html#cb113-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="at">by =</span> .<span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
@@ -438,7 +441,7 @@ where:</p>
 <span id="cb113-8"><a href="accounting-for-spatial-effects.html#cb113-8" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
 <span id="cb113-9"><a href="accounting-for-spatial-effects.html#cb113-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Some predictor&quot;</span>, </span>
 <span id="cb113-10"><a href="accounting-for-spatial-effects.html#cb113-10" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Some response&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-126-1.png" width="672"  /></p>
 <p>Let’s start with
 <span class="math display">\[f(x) = \sum_{i=1}^k B_i^m(x) \beta_i\]</span>
 with <span class="math inline">\(m=1\)</span> and <span class="math inline">\(k=7\)</span>.
@@ -456,7 +459,7 @@ More specifically, we expect to have 7 basis functions and 7 knots.</p>
 <span id="cb114-10"><a href="accounting-for-spatial-effects.html#cb114-10" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> knots, <span class="at">linetype =</span><span class="dv">2</span>)<span class="sc">+</span></span>
 <span id="cb114-11"><a href="accounting-for-spatial-effects.html#cb114-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb114-12"><a href="accounting-for-spatial-effects.html#cb114-12" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672"  /></p>
 <p>Now, the straight lines might not be the best way to represent the relationship between x and y, not even within each region in x.
 Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polynomic regression.</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="accounting-for-spatial-effects.html#cb115-1" tabindex="-1"></a>bspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">k=</span><span class="dv">7</span>), <span class="at">data =</span> df)</span>
@@ -471,18 +474,19 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
 <span id="cb115-10"><a href="accounting-for-spatial-effects.html#cb115-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;grey45&quot;</span>)<span class="sc">+</span></span>
 <span id="cb115-11"><a href="accounting-for-spatial-effects.html#cb115-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline_m3), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb115-12"><a href="accounting-for-spatial-effects.html#cb115-12" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-1.png" width="672"  /></p>
 <p>Many questions may arise from looking at this:</p>
 <ul>
 <li>What is the best <span class="math inline">\(k\)</span>?</li>
 <li>Does a piecewise polynomial really lead to the best results?</li>
 </ul>
-<div id="penalized-splines" class="section level3 hasAnchor" number="16.4.1">
-<h3><span class="header-section-number">16.4.1</span> Penalized splines<a href="accounting-for-spatial-effects.html#penalized-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="penalized-splines" class="section level3 hasAnchor" number="16.4.2">
+<h3><span class="header-section-number">16.4.2</span> Penalized splines<a href="accounting-for-spatial-effects.html#penalized-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><p>low rank smoothers using a B-spline basis</p></li>
 <li><p><span class="math inline">\(\kappa_1, \kappa_2, \dots, \kappa_K\)</span> are the knots,</p></li>
-<li><p><span class="math inline">\(b1, b2, \dots, bK\)</span> are the spline coefficients.</p></li>
+<li><p><span class="math inline">\(b_1, b_2, \dots, b_K\)</span> are the spline coefficients.</p></li>
 </ul>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="accounting-for-spatial-effects.html#cb116-1" tabindex="-1"></a>bspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>), <span class="at">data =</span> df)</span>
 <span id="cb116-2"><a href="accounting-for-spatial-effects.html#cb116-2" tabindex="-1"></a>pspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;ps&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>), <span class="at">data =</span> df)</span>
@@ -500,10 +504,10 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
 <span id="cb116-14"><a href="accounting-for-spatial-effects.html#cb116-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fitted, <span class="at">group =</span> spline, <span class="at">color =</span> spline), <span class="at">size =</span> <span class="fl">1.5</span>)<span class="sc">+</span></span>
 <span id="cb116-15"><a href="accounting-for-spatial-effects.html#cb116-15" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
 <span id="cb116-16"><a href="accounting-for-spatial-effects.html#cb116-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Smoothing basis&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672"  /></p>
 </div>
-<div id="other-types-of-splines" class="section level3 hasAnchor" number="16.4.2">
-<h3><span class="header-section-number">16.4.2</span> Other types of splines<a href="accounting-for-spatial-effects.html#other-types-of-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="other-types-of-splines" class="section level3 hasAnchor" number="16.4.3">
+<h3><span class="header-section-number">16.4.3</span> Other types of splines<a href="accounting-for-spatial-effects.html#other-types-of-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Cyclic splines</li>
 <li>Thin-plate regression splines
@@ -518,15 +522,15 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
 </div>
 <div id="final-comments" class="section level2 hasAnchor" number="16.5">
 <h2><span class="header-section-number">16.5</span> Final comments<a href="accounting-for-spatial-effects.html#final-comments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="accounting-for-spatial-effects.html#cb117-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb117-2"><a href="accounting-for-spatial-effects.html#cb117-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(row, res))<span class="sc">+</span></span>
-<span id="cb117-3"><a href="accounting-for-spatial-effects.html#cb117-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">factor</span>(col), <span class="at">color=</span> <span class="fu">factor</span>(col)), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb117-4"><a href="accounting-for-spatial-effects.html#cb117-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(col)), <span class="at">show.legend =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb117-5"><a href="accounting-for-spatial-effects.html#cb117-5" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
-<span id="cb117-6"><a href="accounting-for-spatial-effects.html#cb117-6" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_color_scico_d</span>(<span class="st">&quot;hawaii&quot;</span>)<span class="sc">+</span></span>
-<span id="cb117-7"><a href="accounting-for-spatial-effects.html#cb117-7" tabindex="-1"></a>  <span class="co"># scico::scico_palette_show(categorical = T)</span></span>
-<span id="cb117-8"><a href="accounting-for-spatial-effects.html#cb117-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+<ul>
+<li>Generalized additive models</li>
+<li>Choosing parametric vs. semi-parametric</li>
+<li>Choosing types of splines</li>
+<li>Model selection</li>
+<li>G-side vs. R-side discussion</li>
+</ul>
+<p>How to apply this in the spatial model from before:</p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672"  /></p>
 </div>
 <div id="resources" class="section level2 hasAnchor" number="16.6">
 <h2><span class="header-section-number">16.6</span> Resources<a href="accounting-for-spatial-effects.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>

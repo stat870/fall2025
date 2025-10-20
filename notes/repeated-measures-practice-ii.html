@@ -322,8 +322,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16.4" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#b-splines"><i class="fa fa-check"></i><b>16.4</b> B-splines</a>
 <ul>
-<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.1</b> Penalized splines</a></li>
-<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.2</b> Other types of splines</a></li>
+<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#illustrating-splines"><i class="fa fa-check"></i><b>16.4.1</b> Illustrating splines</a></li>
+<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.2</b> Penalized splines</a></li>
+<li class="chapter" data-level="16.4.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.3</b> Other types of splines</a></li>
 </ul></li>
 <li class="chapter" data-level="16.5" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#final-comments"><i class="fa fa-check"></i><b>16.5</b> Final comments</a></li>
 <li class="chapter" data-level="16.6" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#resources"><i class="fa fa-check"></i><b>16.6</b> Resources</a></li>
@@ -371,8 +372,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">10.2</span> Repeated measures<a href="repeated-measures-practice-ii.html#repeated-measures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Repeated measures designs as a special case of split-plot design.</p>
 <p><strong>Split-plot designs:</strong></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-48"></span>
-<img src="../figures/designs_splitplot.PNG" alt="Schematic description of a field experiment with a split-plot design" width="100%" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-98"></span>
+<img src="../figures/designs_splitplot.PNG" alt="Schematic description of a field experiment with a split-plot design" width="100%"  />
 <p class="caption">
 Figure 10.1: Schematic description of a field experiment with a split-plot design
 </p>
@@ -406,8 +407,8 @@ b_k \sim N(0, \sigma^2_b),\\ u_{i(k)} \sim N(0, \sigma^2_u), \\
 <li>Assumptions for residuals in marginal distributions</li>
 </ul>
 <p><strong>Repeated measures:</strong></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-49"></span>
-<img src="../figures/designs_repeated.PNG" alt="Schematic description of a field experiment with repeated measures" width="100%" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-99"></span>
+<img src="../figures/designs_repeated.PNG" alt="Schematic description of a field experiment with repeated measures" width="100%"  />
 <p class="caption">
 Figure 10.2: Schematic description of a field experiment with repeated measures
 </p>
@@ -506,7 +507,7 @@ Figure 10.2: Schematic description of a field experiment with repeated measures
 <span id="cb75-19"><a href="repeated-measures-practice-ii.html#cb75-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&quot;Vaccine treatment&quot;</span>)<span class="sc">+</span></span>
 <span id="cb75-20"><a href="repeated-measures-practice-ii.html#cb75-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
 <span id="cb75-21"><a href="repeated-measures-practice-ii.html#cb75-21" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico_d</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-100-1.png" width="672"  /></p>
 <div id="weight" class="section level3 hasAnchor" number="10.3.1">
 <h3><span class="header-section-number">10.3.1</span> Weight<a href="repeated-measures-practice-ii.html#weight" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Considering that the variance increases with the mean, a fair model for fish weight could be:</p>
@@ -649,13 +650,13 @@ where:</p>
 <span id="cb92-8"><a href="repeated-measures-practice-ii.html#cb92-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Covariance of Within Subject Effects&quot;</span>)<span class="sc">+</span></span>
 <span id="cb92-9"><a href="repeated-measures-practice-ii.html#cb92-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
 <span id="cb92-10"><a href="repeated-measures-practice-ii.html#cb92-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672"  /></p>
 <ul>
 <li>Discuss what would be ideal under the different assumptions.</li>
 </ul>
 <p><strong>Residual diagnostics</strong></p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="repeated-measures-practice-ii.html#cb93-1" tabindex="-1"></a><span class="fu">simulateResiduals</span>(m_us, <span class="at">plot =</span> T)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672"  /></p>
 <pre><code>## Object of Class DHARMa with simulated residuals based on 250 simulations with refit = FALSE . See ?DHARMa::simulateResiduals for help. 
 ##  
 ## Scaled residual values: 0.864 0.796 0.796 0.7 0.612 0.932 0.992 0.964 0.512 0.288 0.764 0.6 0.696 0.172 0.492 0.548 0.56 0.46 0.732 0.88 ...</code></pre>
