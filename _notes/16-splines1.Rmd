@@ -1,0 +1,211 @@
+# Accounting for spatial effects  
+
+## Announcements
+
+- Comments on Assignment 4 
+- Assignment 5 is due this Friday
+
+## Parametric tools 
+
+- Correlation functions  
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(lme4)
+library(gstat)
+library(sp)
+library(ggpubr)
+data <- drop_na(agridat::stroup.nin)
+m <- lmer(yield ~ gen + (1|rep), data = data)
+data$res <- resid(m)
+
+data_sp <- data
+coordinates(data_sp) <- ~col+row
+
+v = variogram(res~row+col, data_sp)
+v.fit.sph = fit.variogram(v, vgm(1, "Sph", 3, 1))
+v.fit.mat = fit.variogram(v, vgm(1, "Mat", 3, 1))
+v.fit.gau = fit.variogram(v, vgm(1, "Gau", 3, 1))
+v.fit.exp = fit.variogram(v, vgm(1, "Exp", 3, 1))
+
+plot(v, v.fit1)
+
+df_plot <- data.frame(dist = seq(1, max(v$dist), by = .5))
+df_plot$Spherical <- variogramLine(v.fit.sph, dist_vector = df_plot$dist)$gamma
+df_plot$Matern <- variogramLine(v.fit.mat, dist_vector = df_plot$dist)$gamma
+df_plot$Gaussian <- variogramLine(v.fit.gau, dist_vector = df_plot$dist)$gamma
+df_plot$Exponential <- variogramLine(v.fit.exp, dist_vector = df_plot$dist)$gamma
+
+df_plot <- df_plot %>% 
+  pivot_longer(cols = Spherical:Exponential, names_to = "model", values_to = "gamma")
+
+as.data.frame(v) %>% 
+  ggplot(aes(dist, gamma))+
+  geom_point()+
+  geom_line(aes(group = model, color = model), data = df_plot)+
+  labs(color = "Spatial correlation", 
+       x = "Distance")+
+  theme_pubclean()+
+  theme(legend.position = "bottom")
+```
+
+## Non-parametric tools
+
+- Minimize/relax assumptions 
+- No free lunches! 
+  - Interpretability 
+  - bias-variance tradeoff 
+
+### Splines 
+
+- Splines are special cases of non-parametric tools. 
+- Introduced in the sixties [(Schoenberg, 1964)](https://www.jstor.org/stable/pdf/72390.pdf) 
+- They provide a flexible tool to model the variability in the data, where the functional (~ "the shape") is unknown 
+
+Polynomials: 
+
+- good for local approximation 
+- bad for global approximation
+
+## B-splines  
+
+We can generally describe smoothing splines as the sum of many basis functions: 
+$$f(x) = \sum_{i=1}^k B_i^m(x) \beta_i $$
+
+Expanded equation:
+$$f(x) = \beta_0 + \beta_1 x +\beta_2 x^2 +\dots + \beta_p x^p + \left\{ b_1(x - \kappa_1)^p_{+} + b_2(x - \kappa_2)^p_{+} + \dots + b_K(x - \kappa_K)^p_{+} \right\},$$
+where:
+
+- $\kappa_1, \kappa_2, \dots, \kappa_K$ are the knots, 
+- $b1, b2, \dots, bK$ are the spline coefficients. 
+
+Using matrix notation: 
+$$f(X_i) = \beta_0 + X_i \beta_1 + X^2_i \beta_2 + \dots + X_i^p \beta_p \\+ b_1(X_i - \kappa_1)^p_+ + b_2(X_i - \kappa_2)^p_+ + \dots + b_K(X_i - \kappa_K)^p_+ \\
+= \mathbf{X}_i^T \boldsymbol{\beta}_X + \mathbf{B}^T(X_i)\mathbf{b},$$
+minimize:
+$$\sum_{i=1}^n \left\{ Y_i - (\mathbf{X}_i^T \boldsymbol{\beta}_X + \mathbf{B}^T(X_i)\mathbf{b}) \right\}^2 + \lambda \mathbf{b}^T\mathbf{Db},$$
+where $\lambda \mathbf{b}^T\mathbf{Db}$ prevents overfitting:
+
+- $\mathbf{D}$ positive semidefinite.  
+- $\lambda$ controls penalization and is very important. 
+
+Then, for a straight line:
+
+$$f(x) = \beta_0 + \beta_1 x + \left\{ b_1(x - \kappa_1)_{+} + b_2(x - \kappa_2)_{+} + \dots + b_K(x - \kappa_K)_{+} \right\},$$
+where:
+
+- $\kappa_1, \kappa_2, \dots, \kappa_K$ are the knots, 
+- $b1, b2, \dots, bK$ are the spline coefficients. 
+
+Let's start with a simple piecewise linear regression. Take the following data example:
+
+```{r}
+set.seed(2)
+df <- data.frame(x = seq(1, 50, by = .3)) %>%
+  mutate(y = 10  + 4*cos(.4*x) + rnorm(n(), 0, 2))
+
+df %>% 
+  ggplot(aes(x, y))+
+  geom_point(alpha= .2)+
+  theme_pubclean()+
+  labs(x = "Some predictor", 
+       y = "Some response")
+```
+
+Let's start with 
+$$f(x) = \sum_{i=1}^k B_i^m(x) \beta_i$$
+with $m=1$ and $k=7$.
+This means that we have a bunch of connected straight lines. 
+More specifically, we expect to have 7 basis functions and 7 knots.  
+
+```{r}
+library(mgcv)
+bspline <- gam(y ~ s(x, bs = "bs", m = 1, k = 7), data = df)
+df$Bspline <- bspline$fitted.values
+
+knots <- data.frame(knots = bspline$smooth[[1]]$knots[-c(1, 9)])
+
+df %>% 
+  ggplot(aes(x, y))+
+  geom_point(alpha= .2)+
+  geom_vline(aes(xintercept = knots), data = knots, linetype =2)+
+  geom_line(aes(y = Bspline), size = 1)+
+  theme_pubclean()
+```
+
+Now, the straight lines might not be the best way to represent the relationship between x and y, not even within each region in x. 
+Now, with $m=2$ we will have piecewise polynomic regression. 
+
+```{r}
+bspline <- gam(y ~ s(x, bs = "bs", m = 2, k=7), data = df)
+df$Bspline_m3 <- bspline$fitted.values
+
+knots <- data.frame(knots = bspline$smooth[[1]]$knots[-c(1,2,9,10)])
+
+df %>% 
+  ggplot(aes(x, y))+
+  geom_point(alpha= .2)+
+  geom_vline(aes(xintercept = knots), data = knots, linetype =2)+
+  geom_line(aes(y = Bspline), size = 1, color = "grey45")+
+  geom_line(aes(y = Bspline_m3), size = 1)+
+  theme_pubclean()
+
+```
+
+Many questions may arise from looking at this: 
+
+- What is the best $k$? 
+- Does a piecewise polynomial really lead to the best results?
+
+### Penalized splines 
+
+- low rank smoothers using a B-spline basis
+
+- $\kappa_1, \kappa_2, \dots, \kappa_K$ are the knots, 
+- $b1, b2, \dots, bK$ are the spline coefficients. 
+
+
+```{r}
+bspline <- gam(y ~ s(x, bs = "bs", m = 2), data = df)
+pspline <- gam(y ~ s(x, bs = "ps", m = 2), data = df)
+df$Bspline <- bspline$fitted.values
+df$Pspline <- pspline$fitted.values
+
+df <- df %>% pivot_longer(c(Bspline,Pspline), names_to = "spline", values_to = "fitted")
+
+knots <- data.frame(knots = bspline$smooth[[1]]$knots[-c(1, 2,12, 13)])
+
+df %>% 
+  ggplot(aes(x, y))+
+  geom_point(alpha= .2)+
+  geom_vline(aes(xintercept = knots), data = knots, linetype =2)+
+  geom_line(aes(y = fitted, group = spline, color = spline), size = 1.5)+
+  theme_pubclean()+
+  labs(color = "Smoothing basis")
+```
+
+### Other types of splines 
+
+- Cyclic splines 
+- Thin-plate regression splines 
+  - supports multiple predictor variables (unlike other basis)  
+  - avoid the problem of knot placement
+- See Chapter 5 in Wood (2017) 
+
+## Final comments 
+
+```{r}
+data %>% 
+  ggplot(aes(row, res))+
+  geom_line(aes(group = factor(col), color= factor(col)), show.legend = FALSE)+
+  geom_point(aes(color = factor(col)), show.legend = FALSE)+
+  theme_pubclean()+
+  scico::scale_color_scico_d("hawaii")+
+  # scico::scico_palette_show(categorical = T)
+  theme(legend.position = "bottom")
+```
+
+## Resources 
+
+- Wood, S.N. (2017). Generalized Additive Models. Chapman and Hall/CRC. [[link](https://www.taylorfrancis.com/books/mono/10.1201/9781315370279/generalized-additive-models-simon-wood)] 
+- Ruppert, D. (2004). Nonparametric Regression and Splines. In: Statistics and Finance. Springer Texts in Statistics. Springer, New York, NY. [https://doi.org/10.1007/978-1-4419-6876-0_13](https://doi.org/10.1007/978-1-4419-6876-0_13)

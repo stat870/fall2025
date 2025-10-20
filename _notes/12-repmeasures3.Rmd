@@ -70,10 +70,6 @@ Recall distributions of non-Gaussian GLMMs:
 knitr::include_graphics("../figures/stroup_distributions.jpg")
 ```
 
----
-title: "Common Response Variable Distributions"
-output: html_document
----
 
 ## Appendix A: Common Response Variable (\(y | b\)) Distributions
 
