@@ -28,7 +28,7 @@ For the statistical models, you can use \LaTeX code embedded in your Rmd, or pas
 
 Load the data below and answer the following questions. 
 
-The data below come from an experiment studying different sanitizer treatments on the survival of bacteria on different surfaces. There are 5 different sanitizer treatments applied for 2 different times (e.g., leave the sanitizer it for 1 minute or for 5 minutes), and on 5 different surfaces. 
+The data below come from an experiment studying different sanitizer treatments on the survival of bacteria on different surfaces. There are 8 different sanitizer treatments applied for 2 different times (e.g., leave the sanitizer it for 1 minute or for 5 minutes), and on 5 different surfaces. 
 At the end of the study, the researchers count how many colony forming units (good sources of bacteria growth) they find. 
 They wish to study whether the treatments had a different effect on the number of CFUs. 
 
