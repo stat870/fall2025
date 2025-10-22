@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 17 Accounting for spatial effects | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 17 Accounting for spatial effects | STAT 870 - Analysis of Messy Data" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 17 Accounting for spatial effects | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 17 Accounting for spatial effects | STAT 870 - Analysis of Messy Data" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="accounting-for-spatial-effects.html"/>
+<link rel="next" href="semester-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 870</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#announcements-1"><i class="fa fa-check"></i><b>3.1</b> Announcements</a></li>
+<li class="chapter" data-level="3.2" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#semester-project"><i class="fa fa-check"></i><b>3.2</b> Semester project</a></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#designed-experiments-1"><i class="fa fa-check"></i><b>3.3</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.3.1</b> Design structures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.4</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.5" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.5</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#announcements-2"><i class="fa fa-check"></i><b>4.1</b> Announcements</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#statistical-models"><i class="fa fa-check"></i><b>4.2</b> Statistical models</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.3</b> The general linear model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#applied-example"><i class="fa fa-check"></i><b>4.3.1</b> Applied example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments"><i class="fa fa-check"></i><b>4.4</b> Linear mixed models applied to designed experiments</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#general-notation-for-linear-mixed-models"><i class="fa fa-check"></i><b>4.4.1</b> General notation for linear mixed models</a></li>
+<li class="chapter" data-level="4.4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#class-discussion-blocks---random-or-fixed"><i class="fa fa-check"></i><b>4.4.2</b> Class discussion: Blocks - random or fixed?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#homework"><i class="fa fa-check"></i><b>4.5</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html"><i class="fa fa-check"></i><b>5</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#announcements-3"><i class="fa fa-check"></i><b>5.1</b> Announcements</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#linear-mixed-models-2"><i class="fa fa-check"></i><b>5.2</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#why-do-we-call-these-multi-level-models"><i class="fa fa-check"></i><b>5.2.1</b> Why do we call these multi-level models?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#degrees-of-freedom-in-a-mixed-model"><i class="fa fa-check"></i><b>5.2.2</b> Degrees of freedom in a mixed model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#next-week"><i class="fa fa-check"></i><b>5.3</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html"><i class="fa fa-check"></i><b>6</b> Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#announcements-4"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#mixed-models-review"><i class="fa fa-check"></i><b>6.2</b> Mixed Models Review</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-parameters-in-mixed-models"><i class="fa fa-check"></i><b>6.3</b> Estimation of parameters in Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>6.3.1</b> Analysis of variance (ANOVA)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-fixed-effects"><i class="fa fa-check"></i><b>6.3.2</b> Estimation of fixed effects</a></li>
+<li class="chapter" data-level="6.3.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-variance-components"><i class="fa fa-check"></i><b>6.3.3</b> Estimation of variance components</a></li>
+<li class="chapter" data-level="6.3.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimating-random-effects"><i class="fa fa-check"></i><b>6.3.4</b> Estimating random effects</a></li>
+<li class="chapter" data-level="6.3.5" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#degrees-of-freedom-in-mixed-models"><i class="fa fa-check"></i><b>6.3.5</b> Degrees of freedom in mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#r-demo"><i class="fa fa-check"></i><b>6.4</b> R demo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#announcements-5"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#review-about-the-general-linear-mixed-model"><i class="fa fa-check"></i><b>7.2</b> Review about the (general) linear mixed model</a></li>
+<li class="chapter" data-level="7.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data"><i class="fa fa-check"></i><b>7.3.1</b> Three steps to modeling data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-model-fitting"><i class="fa fa-check"></i><b>7.3.2</b> Implications for model fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#reading"><i class="fa fa-check"></i><b>7.4</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><i class="fa fa-check"></i><b>8</b> Inference – Estimability, degrees of freedom, hypothesis tests, contrasts</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#announcements-6"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#review-hypothesis-tests-t-tests-f-tests"><i class="fa fa-check"></i><b>8.2</b> Review: Hypothesis tests, t-tests, F tests</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#hypothesis-tests"><i class="fa fa-check"></i><b>8.2.1</b> Hypothesis tests</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#on-p-values"><i class="fa fa-check"></i><b>8.2.2</b> On p-values</a></li>
+<li class="chapter" data-level="8.2.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests"><i class="fa fa-check"></i><b>8.2.3</b> t-tests</a></li>
+<li class="chapter" data-level="8.2.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests"><i class="fa fa-check"></i><b>8.2.4</b> F-tests are multivariate t-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-1"><i class="fa fa-check"></i><b>8.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test"><i class="fa fa-check"></i><b>8.3.1</b> t-test</a></li>
+<li class="chapter" data-level="8.3.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-test"><i class="fa fa-check"></i><b>8.3.2</b> F-test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#estimability"><i class="fa fa-check"></i><b>8.4</b> Estimability</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#contrasts"><i class="fa fa-check"></i><b>8.4.1</b> Contrasts</a></li>
+<li class="chapter" data-level="8.4.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models"><i class="fa fa-check"></i><b>8.4.2</b> Adjusting degrees of freedom for mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-ii"><i class="fa fa-check"></i><b>8.5</b> Applied example II</a></li>
+<li class="chapter" data-level="8.6" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday"><i class="fa fa-check"></i><b>8.6</b> Wednesday</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>9</b> Practice</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="practice.html"><a href="practice.html#announcements-7"><i class="fa fa-check"></i><b>9.1</b> Announcements</a></li>
+<li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#in-class-activity"><i class="fa fa-check"></i><b>9.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html"><i class="fa fa-check"></i><b>10</b> Repeated Measures, Practice II</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#announcements-8"><i class="fa fa-check"></i><b>10.1</b> Announcements</a></li>
+<li class="chapter" data-level="10.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#repeated-measures"><i class="fa fa-check"></i><b>10.2</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#correlation-functions"><i class="fa fa-check"></i><b>10.2.1</b> Correlation functions</a></li>
+<li class="chapter" data-level="10.2.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#deciding-which-covariance-function-for-a-given-problem"><i class="fa fa-check"></i><b>10.2.2</b> Deciding which covariance function for a given problem</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#last-weeks-practice"><i class="fa fa-check"></i><b>10.3</b> Last week’s practice</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#weight"><i class="fa fa-check"></i><b>10.3.1</b> Weight</a></li>
+<li class="chapter" data-level="10.3.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#jaw-deformity"><i class="fa fa-check"></i><b>10.3.2</b> Jaw deformity</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#task-for-today"><i class="fa fa-check"></i><b>10.4</b> Task for today</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html"><i class="fa fa-check"></i><b>11</b> Repeated Measures II</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#announcements-9"><i class="fa fa-check"></i><b>11.1</b> Announcements</a></li>
+<li class="chapter" data-level="11.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#linear-mixed-models-review"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models review</a></li>
+<li class="chapter" data-level="11.3" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#repeated-measures-1"><i class="fa fa-check"></i><b>11.3</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#correlation---g-side-conditional-and-r-side-marginal"><i class="fa fa-check"></i><b>11.3.1</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="11.3.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#review-correlation-functions"><i class="fa fa-check"></i><b>11.3.2</b> Review – correlation functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html"><i class="fa fa-check"></i><b>12</b> Repeated Measures III</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#announcements-10"><i class="fa fa-check"></i><b>12.1</b> Announcements</a></li>
+<li class="chapter" data-level="12.2" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#where-were-standing-in-this-course"><i class="fa fa-check"></i><b>12.2</b> Where we’re standing in this course</a></li>
+<li class="chapter" data-level="12.3" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#repeated-measures-2"><i class="fa fa-check"></i><b>12.3</b> Repeated measures</a></li>
+<li class="chapter" data-level="12.4" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#correlation---g-side-conditional-and-r-side-marginal-1"><i class="fa fa-check"></i><b>12.4</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="12.5" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#repeated-measures-in-glmms"><i class="fa fa-check"></i><b>12.5</b> Repeated measures in GLMMs</a></li>
+<li class="chapter" data-level="12.6" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#appendix-a-common-response-variable-y-b-distributions"><i class="fa fa-check"></i><b>12.6</b> Appendix A: Common Response Variable (<span class="math inline">\(y | b\)</span>) Distributions</a></li>
+<li class="chapter" data-level="12.7" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#applied-example-using-r"><i class="fa fa-check"></i><b>12.7</b> Applied example using R</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><i class="fa fa-check"></i><b>13</b> Modeling designed experiments in the presence of spatial variability</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#announcements-11"><i class="fa fa-check"></i><b>13.1</b> Announcements</a></li>
+<li class="chapter" data-level="13.2" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#spatial-variability"><i class="fa fa-check"></i><b>13.2</b> Spatial variability</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#spatial-patterns"><i class="fa fa-check"></i><b>13.2.1</b> Spatial patterns</a></li>
+<li class="chapter" data-level="13.2.2" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#applied-example-2"><i class="fa fa-check"></i><b>13.2.2</b> Applied example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html"><i class="fa fa-check"></i><b>14</b> Software Implementation of LMMs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#announcements-12"><i class="fa fa-check"></i><b>14.1</b> Announcements</a></li>
+<li class="chapter" data-level="14.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#model-review"><i class="fa fa-check"></i><b>14.2</b> Model review</a></li>
+<li class="chapter" data-level="14.3" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#computational-tricks"><i class="fa fa-check"></i><b>14.3</b> Computational tricks</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#improving-computational-stability"><i class="fa fa-check"></i><b>14.3.1</b> Improving computational stability</a></li>
+<li class="chapter" data-level="14.3.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#nonlinear-optimizing-algorithms"><i class="fa fa-check"></i><b>14.3.2</b> Nonlinear optimizing algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#references"><i class="fa fa-check"></i><b>14.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html"><i class="fa fa-check"></i><b>15</b> Software Implementation of LMMs</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#announcements-13"><i class="fa fa-check"></i><b>15.1</b> Announcements</a></li>
+<li class="chapter" data-level="15.2" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#issues"><i class="fa fa-check"></i><b>15.2</b> Issues</a></li>
+<li class="chapter" data-level="15.3" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#references-1"><i class="fa fa-check"></i><b>15.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html"><i class="fa fa-check"></i><b>16</b> Accounting for spatial effects</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#announcements-14"><i class="fa fa-check"></i><b>16.1</b> Announcements</a></li>
+<li class="chapter" data-level="16.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#parametric-tools"><i class="fa fa-check"></i><b>16.2</b> Parametric tools</a></li>
+<li class="chapter" data-level="16.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#non-parametric-tools"><i class="fa fa-check"></i><b>16.3</b> Non-parametric tools</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#splines"><i class="fa fa-check"></i><b>16.3.1</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#b-splines"><i class="fa fa-check"></i><b>16.4</b> B-splines</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#illustrating-splines"><i class="fa fa-check"></i><b>16.4.1</b> Illustrating splines</a></li>
+<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.2</b> Penalized splines</a></li>
+<li class="chapter" data-level="16.4.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.3</b> Other types of splines</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#final-comments"><i class="fa fa-check"></i><b>16.5</b> Final comments</a></li>
+<li class="chapter" data-level="16.6" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#resources"><i class="fa fa-check"></i><b>16.6</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html"><i class="fa fa-check"></i><b>17</b> Accounting for spatial effects</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#announcements-15"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
+<li class="chapter" data-level="17.2" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#non-parametric-tools-1"><i class="fa fa-check"></i><b>17.2</b> Non-parametric tools</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#splines-1"><i class="fa fa-check"></i><b>17.2.1</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#thin-plate-regression-splines"><i class="fa fa-check"></i><b>17.3</b> Thin-plate regression splines</a></li>
+<li class="chapter" data-level="17.4" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#final-comments-1"><i class="fa fa-check"></i><b>17.4</b> Final comments</a></li>
+<li class="chapter" data-level="17.5" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#resources-1"><i class="fa fa-check"></i><b>17.5</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>18</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>18.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="18.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>18.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>18.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="18.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>18.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="18.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>18.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="18.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>18.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="accounting-for-spatial-effects-1" class="section level1 hasAnchor" number="17">
+<h1><span class="header-section-number">Day 17</span> Accounting for spatial effects<a href="accounting-for-spatial-effects-1.html#accounting-for-spatial-effects-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-15" class="section level2 hasAnchor" number="17.1">
+<h2><span class="header-section-number">17.1</span> Announcements<a href="accounting-for-spatial-effects-1.html#announcements-15" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Comments on Assignment 4</li>
+<li>Assignment 5 is due this Friday</li>
+</ul>
+</div>
+<div id="non-parametric-tools-1" class="section level2 hasAnchor" number="17.2">
+<h2><span class="header-section-number">17.2</span> Non-parametric tools<a href="accounting-for-spatial-effects-1.html#non-parametric-tools-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Minimize/relax assumptions</li>
+<li>No free lunches!
+<ul>
+<li>Interpretability</li>
+<li>bias-variance tradeoff</li>
+</ul></li>
+</ul>
+<div id="splines-1" class="section level3 hasAnchor" number="17.2.1">
+<h3><span class="header-section-number">17.2.1</span> Splines<a href="accounting-for-spatial-effects-1.html#splines-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Splines are special cases of non-parametric tools.</li>
+<li>Introduced in the sixties <a href="https://www.jstor.org/stable/pdf/72390.pdf">(Schoenberg, 1964)</a></li>
+<li>They provide a flexible tool to model the variability in the data, where the functional (~ “the shape”) is unknown</li>
+</ul>
+<p>Polynomials:</p>
+<ul>
+<li>good for local approximation</li>
+<li>bad for global approximation</li>
+</ul>
+<p>We can represent the data with the equation
+<span class="math display">\[y_i = \beta_0 + f(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),\]</span>
+where</p>
+<ul>
+<li><p>B-splines</p></li>
+<li><p>Penalized splines</p>
+<ul>
+<li>low rank smoothers using a B-spline basis</li>
+</ul></li>
+<li><p>Cyclic splines</p></li>
+</ul>
+</div>
+</div>
+<div id="thin-plate-regression-splines" class="section level2 hasAnchor" number="17.3">
+<h2><span class="header-section-number">17.3</span> Thin-plate regression splines<a href="accounting-for-spatial-effects-1.html#thin-plate-regression-splines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Origin of the name “thin-plate”</li>
+<li>supports multiple predictor variables (unlike other basis)<br />
+</li>
+<li>avoid the problem of knot placement</li>
+<li>not so computationally costly, but may become more relevant for large data (scaling <span class="math inline">\(O(k^3)\)</span>)</li>
+<li>basis functions and basis funciton dimension</li>
+<li>See Chapter 5 in Wood (2017)</li>
+</ul>
+<p>In thin-plate regression, we can represent the data with the equation
+<span class="math display">\[y_i = \beta_0 + g(\mathbf{x}_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),\]</span>
+where <span class="math inline">\(\mathbf{x}_i\)</span> is a <span class="math inline">\(d-\)</span>vector with the predictors.
+Thin-plate smoothers estimate <span class="math inline">\(g(\cdot)\)</span> by finding the <span class="math inline">\(\hat{f}(\cdot)\)</span> that minimizes
+<span class="math display">\[||\mathbf{y} - \mathbf{f}||^2 + \lambda J_{md}(f),\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y}\)</span> is the vector of observations,</li>
+<li><span class="math inline">\(\mathbf{f} = [f(\mathbf{x}_1), f(\mathbf{x}_2), \dots, f(\mathbf{x}_n)]^T\)</span>,</li>
+<li><span class="math inline">\(J_{md}(f)\)</span> is penalty functional affecting the ‘wiggliness’ of <span class="math inline">\(f\)</span></li>
+<li><span class="math inline">\(\lambda\)</span> is a smoothing parameter controlling the tradeoff between data fitting and smoothness of <span class="math inline">\(f\)</span></li>
+</ul>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="accounting-for-spatial-effects-1.html#cb117-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb117-2"><a href="accounting-for-spatial-effects-1.html#cb117-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb117-3"><a href="accounting-for-spatial-effects-1.html#cb117-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="dv">15</span><span class="sc">*</span><span class="fu">sin</span>(<span class="fu">sqrt</span>(x<span class="sc">*</span>.<span class="dv">15</span>  <span class="sc">-</span> x<span class="sc">*</span>.<span class="dv">006</span>))<span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb117-4"><a href="accounting-for-spatial-effects-1.html#cb117-4" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="accounting-for-spatial-effects-1.html#cb118-1" tabindex="-1"></a>splines_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
+<span id="cb118-2"><a href="accounting-for-spatial-effects-1.html#cb118-2" tabindex="-1"></a>m_spline_tp <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>), <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>, <span class="at">data =</span> splines_df)</span>
+<span id="cb118-3"><a href="accounting-for-spatial-effects-1.html#cb118-3" tabindex="-1"></a>m_spline_bs <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">k =</span> <span class="dv">7</span>), <span class="at">data =</span> splines_df)</span>
+<span id="cb118-4"><a href="accounting-for-spatial-effects-1.html#cb118-4" tabindex="-1"></a>m_spline_tpresid <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">list</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="sc">~</span><span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>)), </span>
+<span id="cb118-5"><a href="accounting-for-spatial-effects-1.html#cb118-5" tabindex="-1"></a>                        <span class="at">family =</span> <span class="fu">gaulss</span>(),</span>
+<span id="cb118-6"><a href="accounting-for-spatial-effects-1.html#cb118-6" tabindex="-1"></a>                        <span class="at">data =</span> splines_df)</span>
+<span id="cb118-7"><a href="accounting-for-spatial-effects-1.html#cb118-7" tabindex="-1"></a></span>
+<span id="cb118-8"><a href="accounting-for-spatial-effects-1.html#cb118-8" tabindex="-1"></a>splines_df<span class="sc">$</span>tp_spline <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_tp, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb118-9"><a href="accounting-for-spatial-effects-1.html#cb118-9" tabindex="-1"></a>splines_df<span class="sc">$</span>tp_spline_se <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_tp, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">se.fit =</span> T)<span class="sc">$</span>se.fit</span>
+<span id="cb118-10"><a href="accounting-for-spatial-effects-1.html#cb118-10" tabindex="-1"></a>splines_df<span class="sc">$</span>bs_spline <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_bs, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb118-11"><a href="accounting-for-spatial-effects-1.html#cb118-11" tabindex="-1"></a>splines_df<span class="sc">$</span>bs_spline_se <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_bs, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">se.fit =</span> T)<span class="sc">$</span>se.fit</span>
+<span id="cb118-12"><a href="accounting-for-spatial-effects-1.html#cb118-12" tabindex="-1"></a></span>
+<span id="cb118-13"><a href="accounting-for-spatial-effects-1.html#cb118-13" tabindex="-1"></a>knots <span class="ot">&lt;-</span> m_spline_bs<span class="sc">$</span>smooth[[<span class="dv">1</span>]]<span class="sc">$</span>knots</span>
+<span id="cb118-14"><a href="accounting-for-spatial-effects-1.html#cb118-14" tabindex="-1"></a></span>
+<span id="cb118-15"><a href="accounting-for-spatial-effects-1.html#cb118-15" tabindex="-1"></a><span class="fu">coef</span>(m_spline_bs)[<span class="fu">grep</span>(<span class="st">&quot;s</span><span class="sc">\\</span><span class="st">(x</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="fu">names</span>(<span class="fu">coef</span>(m_spline_bs)))]</span></code></pre></div>
+<pre><code>##     s(x).1     s(x).2     s(x).3     s(x).4     s(x).5 
+## 15.1395243 25.7142080 26.5998814 21.1537518  6.5841344 
+##     s(x).6 
+## -0.3487202</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="accounting-for-spatial-effects-1.html#cb120-1" tabindex="-1"></a>beta_smooth <span class="ot">&lt;-</span> <span class="fu">coef</span>(m_spline_bs)[<span class="fu">grep</span>(<span class="st">&quot;s</span><span class="sc">\\</span><span class="st">(x</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="fu">names</span>(<span class="fu">coef</span>(m_spline_bs)))]</span>
+<span id="cb120-2"><a href="accounting-for-spatial-effects-1.html#cb120-2" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="accounting-for-spatial-effects-1.html#cb120-3" tabindex="-1"></a>Xp <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_bs, <span class="at">type =</span> <span class="st">&quot;lpmatrix&quot;</span>)  <span class="co"># each column = basis function</span></span>
+<span id="cb120-4"><a href="accounting-for-spatial-effects-1.html#cb120-4" tabindex="-1"></a></span>
+<span id="cb120-5"><a href="accounting-for-spatial-effects-1.html#cb120-5" tabindex="-1"></a><span class="co"># Remove intercept column for plotting</span></span>
+<span id="cb120-6"><a href="accounting-for-spatial-effects-1.html#cb120-6" tabindex="-1"></a>Xp_smooth <span class="ot">&lt;-</span> Xp[, <span class="fu">grep</span>(<span class="st">&quot;s</span><span class="sc">\\</span><span class="st">(x</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="fu">colnames</span>(Xp))]</span>
+<span id="cb120-7"><a href="accounting-for-spatial-effects-1.html#cb120-7" tabindex="-1"></a></span>
+<span id="cb120-8"><a href="accounting-for-spatial-effects-1.html#cb120-8" tabindex="-1"></a><span class="co"># Plot basis functions</span></span>
+<span id="cb120-9"><a href="accounting-for-spatial-effects-1.html#cb120-9" tabindex="-1"></a><span class="fu">matplot</span>(x, Xp_smooth, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
+<span id="cb120-10"><a href="accounting-for-spatial-effects-1.html#cb120-10" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Spline Basis Functions&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Basis value&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="accounting-for-spatial-effects-1.html#cb121-1" tabindex="-1"></a><span class="co"># Add contribution from each basis function</span></span>
+<span id="cb121-2"><a href="accounting-for-spatial-effects-1.html#cb121-2" tabindex="-1"></a>y_basis <span class="ot">&lt;-</span> <span class="fu">sweep</span>(Xp_smooth, <span class="dv">2</span>, beta_smooth, <span class="st">&quot;*&quot;</span>)</span>
+<span id="cb121-3"><a href="accounting-for-spatial-effects-1.html#cb121-3" tabindex="-1"></a><span class="fu">matplot</span>(x, y_basis, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
+<span id="cb121-4"><a href="accounting-for-spatial-effects-1.html#cb121-4" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Contribution of Each Basis Function&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Contribution&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-87-2.png" width="672" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="accounting-for-spatial-effects-1.html#cb122-1" tabindex="-1"></a>df_basis <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(x, Xp_smooth)) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-2"><a href="accounting-for-spatial-effects-1.html#cb122-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">s(x).1</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">s(x).6</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="accounting-for-spatial-effects-1.html#cb123-1" tabindex="-1"></a>splines_df <span class="sc">%&gt;%</span> </span>
+<span id="cb123-2"><a href="accounting-for-spatial-effects-1.html#cb123-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span>  </span>
+<span id="cb123-3"><a href="accounting-for-spatial-effects-1.html#cb123-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">18</span> <span class="sc">+</span> value<span class="sc">*</span><span class="dv">10</span>, </span>
+<span id="cb123-4"><a href="accounting-for-spatial-effects-1.html#cb123-4" tabindex="-1"></a>                <span class="at">group =</span> name, </span>
+<span id="cb123-5"><a href="accounting-for-spatial-effects-1.html#cb123-5" tabindex="-1"></a>                <span class="at">color =</span> name),</span>
+<span id="cb123-6"><a href="accounting-for-spatial-effects-1.html#cb123-6" tabindex="-1"></a>            <span class="at">show.legend =</span> F,</span>
+<span id="cb123-7"><a href="accounting-for-spatial-effects-1.html#cb123-7" tabindex="-1"></a>            <span class="at">data =</span> df_basis, </span>
+<span id="cb123-8"><a href="accounting-for-spatial-effects-1.html#cb123-8" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb123-9"><a href="accounting-for-spatial-effects-1.html#cb123-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb123-10"><a href="accounting-for-spatial-effects-1.html#cb123-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.border =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb123-11"><a href="accounting-for-spatial-effects-1.html#cb123-11" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb123-12"><a href="accounting-for-spatial-effects-1.html#cb123-12" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> <span class="fu">data.frame</span>(knots), <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb123-13"><a href="accounting-for-spatial-effects-1.html#cb123-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> bs_spline<span class="sc">+</span>(bs_spline_se<span class="sc">*</span><span class="fl">1.96</span>)), <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb123-14"><a href="accounting-for-spatial-effects-1.html#cb123-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> bs_spline<span class="sc">-</span>(bs_spline_se<span class="sc">*</span><span class="fl">1.96</span>)), <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb123-15"><a href="accounting-for-spatial-effects-1.html#cb123-15" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> bs_spline))<span class="sc">+</span></span>
+<span id="cb123-16"><a href="accounting-for-spatial-effects-1.html#cb123-16" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))<span class="sc">+</span></span>
+<span id="cb123-17"><a href="accounting-for-spatial-effects-1.html#cb123-17" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Columns (x1)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y or f(x1)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb123-18"><a href="accounting-for-spatial-effects-1.html#cb123-18" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="accounting-for-spatial-effects-1.html#cb124-1" tabindex="-1"></a><span class="fu">matplot</span>(x, <span class="fu">rowSums</span>(y_basis), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
+<span id="cb124-2"><a href="accounting-for-spatial-effects-1.html#cb124-2" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Contribution of Each Basis Function&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Contribution&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+</div>
+<div id="final-comments-1" class="section level2 hasAnchor" number="17.4">
+<h2><span class="header-section-number">17.4</span> Final comments<a href="accounting-for-spatial-effects-1.html#final-comments-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Generalized additive models</li>
+<li>Choosing parametric vs. semi-parametric</li>
+<li>Choosing types of splines
+<ul>
+<li>B-splines</li>
+<li>P-splines</li>
+<li>Thin-plate splines</li>
+</ul></li>
+<li>Model selection</li>
+<li>G-side vs. R-side discussion</li>
+</ul>
+</div>
+<div id="resources-1" class="section level2 hasAnchor" number="17.5">
+<h2><span class="header-section-number">17.5</span> Resources<a href="accounting-for-spatial-effects-1.html#resources-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Wood, S.N. (2017). Generalized Additive Models. Chapman and Hall/CRC. [<a href="https://www.taylorfrancis.com/books/mono/10.1201/9781315370279/generalized-additive-models-simon-wood">link</a>]</li>
+<li>Ruppert, D. (2004). Nonparametric Regression and Splines. In: Statistics and Finance. Springer Texts in Statistics. Springer, New York, NY. <a href="https://doi.org/10.1007/978-1-4419-6876-0_13">https://doi.org/10.1007/978-1-4419-6876-0_13</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="accounting-for-spatial-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/17-splines2.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/17-splines2.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
