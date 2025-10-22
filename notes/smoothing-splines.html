@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Day 16 Accounting for spatial effects | STAT 870 - Analysis of Messy Data</title>
-  <meta name="description" content="Day 16 Accounting for spatial effects | STAT 870 - Analysis of Messy Data" />
+  <title>Day 17 Smoothing Splines | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 17 Smoothing Splines | STAT 870 - Analysis of Messy Data" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Day 16 Accounting for spatial effects | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:title" content="Day 17 Smoothing Splines | STAT 870 - Analysis of Messy Data" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Day 16 Accounting for spatial effects | STAT 870 - Analysis of Messy Data" />
+  <meta name="twitter:title" content="Day 17 Smoothing Splines | STAT 870 - Analysis of Messy Data" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="software-implementation-of-lmms-1.html"/>
-<link rel="next" href="smoothing-splines.html"/>
+<link rel="prev" href="accounting-for-spatial-effects.html"/>
+<link rel="next" href="semester-project-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -370,24 +370,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="accounting-for-spatial-effects" class="section level1 hasAnchor" number="16">
-<h1><span class="header-section-number">Day 16</span> Accounting for spatial effects<a href="accounting-for-spatial-effects.html#accounting-for-spatial-effects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="announcements-14" class="section level2 hasAnchor" number="16.1">
-<h2><span class="header-section-number">16.1</span> Announcements<a href="accounting-for-spatial-effects.html#announcements-14" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="smoothing-splines" class="section level1 hasAnchor" number="17">
+<h1><span class="header-section-number">Day 17</span> Smoothing Splines<a href="smoothing-splines.html#smoothing-splines" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-15" class="section level2 hasAnchor" number="17.1">
+<h2><span class="header-section-number">17.1</span> Announcements<a href="smoothing-splines.html#announcements-15" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>Comments on Assignment 4</p></li>
-<li><p>Assignment 5 is due this Friday</p></li>
+<li>Comments on Assignment 4</li>
+<li>Assignment 5 is due this Friday</li>
 </ul>
 </div>
-<div id="parametric-tools" class="section level2 hasAnchor" number="16.2">
-<h2><span class="header-section-number">16.2</span> Parametric tools<a href="accounting-for-spatial-effects.html#parametric-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Correlation functions</li>
-</ul>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
-</div>
-<div id="non-parametric-tools" class="section level2 hasAnchor" number="16.3">
-<h2><span class="header-section-number">16.3</span> Non-parametric tools<a href="accounting-for-spatial-effects.html#non-parametric-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="non-parametric-tools-1" class="section level2 hasAnchor" number="17.2">
+<h2><span class="header-section-number">17.2</span> Non-parametric tools<a href="smoothing-splines.html#non-parametric-tools-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Minimize/relax assumptions</li>
 <li>No free lunches!
@@ -396,8 +389,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>bias-variance tradeoff</li>
 </ul></li>
 </ul>
-<div id="splines" class="section level3 hasAnchor" number="16.3.1">
-<h3><span class="header-section-number">16.3.1</span> Splines<a href="accounting-for-spatial-effects.html#splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="splines-1" class="section level3 hasAnchor" number="17.2.1">
+<h3><span class="header-section-number">17.2.1</span> Splines<a href="smoothing-splines.html#splines-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Splines are special cases of non-parametric tools.</li>
 <li>Introduced in the sixties <a href="https://www.jstor.org/stable/pdf/72390.pdf">(Schoenberg, 1964)</a></li>
@@ -408,143 +401,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>good for local approximation</li>
 <li>bad for global approximation</li>
 </ul>
-</div>
-</div>
-<div id="b-splines" class="section level2 hasAnchor" number="16.4">
-<h2><span class="header-section-number">16.4</span> B-splines<a href="accounting-for-spatial-effects.html#b-splines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We can generally describe smoothing splines as the sum of many basis functions:
-<span class="math display">\[f(x) = \sum_{i=1}^k B_i^m(x) \beta_i \]</span></p>
-<p>Expanded equation:
-<span class="math display">\[f(x) = \beta_0 + \beta_1 x +\beta_2 x^2 +\dots + \beta_p x^p + \left\{ b_1(x - \kappa_1)^p_{+} + b_2(x - \kappa_2)^p_{+} + \dots + b_K(x - \kappa_K)^p_{+} \right\},\]</span>
-where:</p>
+<p>We can represent the data with the equation
+<span class="math display">\[y_i = \beta_0 + f(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),\]</span>
+where</p>
 <ul>
-<li><span class="math inline">\(\kappa_1, \kappa_2, \dots, \kappa_K\)</span> are the knots,</li>
-<li><span class="math inline">\(b_1, b_2, \dots, b_K\)</span> are the spline coefficients.</li>
-</ul>
-<p>Using matrix notation:
-<span class="math display">\[f(X_i) = \beta_0 + X_i \beta_1 + X^2_i \beta_2 + \dots + X_i^p \beta_p \\+ b_1(X_i - \kappa_1)^p_+ + b_2(X_i - \kappa_2)^p_+ + \dots + b_K(X_i - \kappa_K)^p_+ \\
-= \mathbf{X}_i^T \boldsymbol{\beta}_X + \mathbf{B}^T(X_i)\mathbf{b},\]</span>
-minimize:
-<span class="math display">\[\sum_{i=1}^n \left\{ Y_i - (\mathbf{X}_i^T \boldsymbol{\beta}_X + \mathbf{B}^T(X_i)\mathbf{b}) \right\}^2 + \lambda \mathbf{b}^T\mathbf{Db},\]</span>
-where <span class="math inline">\(\lambda \mathbf{b}^T\mathbf{Db}\)</span> prevents overfitting:</p>
+<li><p>B-splines</p></li>
+<li><p>Penalized splines</p>
 <ul>
-<li><span class="math inline">\(\mathbf{D}\)</span> positive semidefinite.<br />
-</li>
-<li><span class="math inline">\(\lambda\)</span> controls penalization and is very important.</li>
-</ul>
-<p>Then, for a straight line:</p>
-<p><span class="math display">\[f(x) = \beta_0 + \beta_1 x + \left\{ b_1(x - \kappa_1)_{+} + b_2(x - \kappa_2)_{+} + \dots + b_K(x - \kappa_K)_{+} \right\},\]</span>
-where:</p>
-<ul>
-<li><span class="math inline">\(\kappa_1, \kappa_2, \dots, \kappa_K\)</span> are the knots,</li>
-<li><span class="math inline">\(b_1, b_2, \dots, b_K\)</span> are the spline coefficients.</li>
-</ul>
-<div id="illustrating-splines" class="section level3 hasAnchor" number="16.4.1">
-<h3><span class="header-section-number">16.4.1</span> Illustrating splines<a href="accounting-for-spatial-effects.html#illustrating-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let’s start with a simple piecewise linear regression. Take the following data example:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="accounting-for-spatial-effects.html#cb113-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb113-2"><a href="accounting-for-spatial-effects.html#cb113-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="at">by =</span> .<span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb113-3"><a href="accounting-for-spatial-effects.html#cb113-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> <span class="dv">10</span>  <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">cos</span>(.<span class="dv">4</span><span class="sc">*</span>x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">2</span>))</span>
-<span id="cb113-4"><a href="accounting-for-spatial-effects.html#cb113-4" tabindex="-1"></a></span>
-<span id="cb113-5"><a href="accounting-for-spatial-effects.html#cb113-5" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb113-6"><a href="accounting-for-spatial-effects.html#cb113-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
-<span id="cb113-7"><a href="accounting-for-spatial-effects.html#cb113-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span> .<span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb113-8"><a href="accounting-for-spatial-effects.html#cb113-8" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
-<span id="cb113-9"><a href="accounting-for-spatial-effects.html#cb113-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Some predictor&quot;</span>, </span>
-<span id="cb113-10"><a href="accounting-for-spatial-effects.html#cb113-10" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Some response&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
-<p>Let’s start with
-<span class="math display">\[f(x) = \sum_{i=1}^k B_i^m(x) \beta_i\]</span>
-with <span class="math inline">\(m=1\)</span> and <span class="math inline">\(k=7\)</span>.
-This means that we have a bunch of connected straight lines.
-More specifically, we expect to have 7 basis functions and 7 knots.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="accounting-for-spatial-effects.html#cb114-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
-<span id="cb114-2"><a href="accounting-for-spatial-effects.html#cb114-2" tabindex="-1"></a>bspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">k =</span> <span class="dv">7</span>), <span class="at">data =</span> df)</span>
-<span id="cb114-3"><a href="accounting-for-spatial-effects.html#cb114-3" tabindex="-1"></a>df<span class="sc">$</span>Bspline <span class="ot">&lt;-</span> bspline<span class="sc">$</span>fitted.values</span>
-<span id="cb114-4"><a href="accounting-for-spatial-effects.html#cb114-4" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="accounting-for-spatial-effects.html#cb114-5" tabindex="-1"></a>knots <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">knots =</span> bspline<span class="sc">$</span>smooth[[<span class="dv">1</span>]]<span class="sc">$</span>knots[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">9</span>)])</span>
-<span id="cb114-6"><a href="accounting-for-spatial-effects.html#cb114-6" tabindex="-1"></a></span>
-<span id="cb114-7"><a href="accounting-for-spatial-effects.html#cb114-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb114-8"><a href="accounting-for-spatial-effects.html#cb114-8" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
-<span id="cb114-9"><a href="accounting-for-spatial-effects.html#cb114-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span> .<span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb114-10"><a href="accounting-for-spatial-effects.html#cb114-10" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> knots, <span class="at">linetype =</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb114-11"><a href="accounting-for-spatial-effects.html#cb114-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb114-12"><a href="accounting-for-spatial-effects.html#cb114-12" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
-<p>Now, the straight lines might not be the best way to represent the relationship between x and y, not even within each region in x.
-Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polynomic regression.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="accounting-for-spatial-effects.html#cb115-1" tabindex="-1"></a>bspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">k=</span><span class="dv">7</span>), <span class="at">data =</span> df)</span>
-<span id="cb115-2"><a href="accounting-for-spatial-effects.html#cb115-2" tabindex="-1"></a>df<span class="sc">$</span>Bspline_m3 <span class="ot">&lt;-</span> bspline<span class="sc">$</span>fitted.values</span>
-<span id="cb115-3"><a href="accounting-for-spatial-effects.html#cb115-3" tabindex="-1"></a></span>
-<span id="cb115-4"><a href="accounting-for-spatial-effects.html#cb115-4" tabindex="-1"></a>knots <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">knots =</span> bspline<span class="sc">$</span>smooth[[<span class="dv">1</span>]]<span class="sc">$</span>knots[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">9</span>,<span class="dv">10</span>)])</span>
-<span id="cb115-5"><a href="accounting-for-spatial-effects.html#cb115-5" tabindex="-1"></a></span>
-<span id="cb115-6"><a href="accounting-for-spatial-effects.html#cb115-6" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb115-7"><a href="accounting-for-spatial-effects.html#cb115-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
-<span id="cb115-8"><a href="accounting-for-spatial-effects.html#cb115-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span> .<span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb115-9"><a href="accounting-for-spatial-effects.html#cb115-9" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> knots, <span class="at">linetype =</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb115-10"><a href="accounting-for-spatial-effects.html#cb115-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;grey45&quot;</span>)<span class="sc">+</span></span>
-<span id="cb115-11"><a href="accounting-for-spatial-effects.html#cb115-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline_m3), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb115-12"><a href="accounting-for-spatial-effects.html#cb115-12" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
-<p>Many questions may arise from looking at this:</p>
-<ul>
-<li>What is the best <span class="math inline">\(k\)</span>?</li>
-<li>Does a piecewise polynomial really lead to the best results?</li>
+<li>low rank smoothers using a B-spline basis</li>
+</ul></li>
+<li><p>Cyclic splines</p></li>
 </ul>
 </div>
-<div id="penalized-splines" class="section level3 hasAnchor" number="16.4.2">
-<h3><span class="header-section-number">16.4.2</span> Penalized splines<a href="accounting-for-spatial-effects.html#penalized-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>low rank smoothers using a B-spline basis</p></li>
-<li><p><span class="math inline">\(\kappa_1, \kappa_2, \dots, \kappa_K\)</span> are the knots,</p></li>
-<li><p><span class="math inline">\(b_1, b_2, \dots, b_K\)</span> are the spline coefficients.</p></li>
-</ul>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="accounting-for-spatial-effects.html#cb116-1" tabindex="-1"></a>bspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>), <span class="at">data =</span> df)</span>
-<span id="cb116-2"><a href="accounting-for-spatial-effects.html#cb116-2" tabindex="-1"></a>pspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;ps&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>), <span class="at">data =</span> df)</span>
-<span id="cb116-3"><a href="accounting-for-spatial-effects.html#cb116-3" tabindex="-1"></a>df<span class="sc">$</span>Bspline <span class="ot">&lt;-</span> bspline<span class="sc">$</span>fitted.values</span>
-<span id="cb116-4"><a href="accounting-for-spatial-effects.html#cb116-4" tabindex="-1"></a>df<span class="sc">$</span>Pspline <span class="ot">&lt;-</span> pspline<span class="sc">$</span>fitted.values</span>
-<span id="cb116-5"><a href="accounting-for-spatial-effects.html#cb116-5" tabindex="-1"></a></span>
-<span id="cb116-6"><a href="accounting-for-spatial-effects.html#cb116-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="fu">c</span>(Bspline,Pspline), <span class="at">names_to =</span> <span class="st">&quot;spline&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;fitted&quot;</span>)</span>
-<span id="cb116-7"><a href="accounting-for-spatial-effects.html#cb116-7" tabindex="-1"></a></span>
-<span id="cb116-8"><a href="accounting-for-spatial-effects.html#cb116-8" tabindex="-1"></a>knots <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">knots =</span> bspline<span class="sc">$</span>smooth[[<span class="dv">1</span>]]<span class="sc">$</span>knots[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>,<span class="dv">12</span>, <span class="dv">13</span>)])</span>
-<span id="cb116-9"><a href="accounting-for-spatial-effects.html#cb116-9" tabindex="-1"></a></span>
-<span id="cb116-10"><a href="accounting-for-spatial-effects.html#cb116-10" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb116-11"><a href="accounting-for-spatial-effects.html#cb116-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
-<span id="cb116-12"><a href="accounting-for-spatial-effects.html#cb116-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span> .<span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb116-13"><a href="accounting-for-spatial-effects.html#cb116-13" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> knots, <span class="at">linetype =</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb116-14"><a href="accounting-for-spatial-effects.html#cb116-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fitted, <span class="at">group =</span> spline, <span class="at">color =</span> spline), <span class="at">size =</span> <span class="fl">1.5</span>)<span class="sc">+</span></span>
-<span id="cb116-15"><a href="accounting-for-spatial-effects.html#cb116-15" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
-<span id="cb116-16"><a href="accounting-for-spatial-effects.html#cb116-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Smoothing basis&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 </div>
-<div id="other-types-of-splines" class="section level3 hasAnchor" number="16.4.3">
-<h3><span class="header-section-number">16.4.3</span> Other types of splines<a href="accounting-for-spatial-effects.html#other-types-of-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="thin-plate-regression-splines" class="section level2 hasAnchor" number="17.3">
+<h2><span class="header-section-number">17.3</span> Thin-plate regression splines<a href="smoothing-splines.html#thin-plate-regression-splines" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Cyclic splines</li>
-<li>Thin-plate regression splines
-<ul>
+<li>Origin of the name “thin-plate”</li>
 <li>supports multiple predictor variables (unlike other basis)<br />
 </li>
 <li>avoid the problem of knot placement</li>
-</ul></li>
+<li>not so computationally costly, but may become more relevant for large data (scaling <span class="math inline">\(O(k^3)\)</span>)</li>
+<li>basis functions and basis funciton dimension</li>
 <li>See Chapter 5 in Wood (2017)</li>
 </ul>
+<p>In thin-plate regression, we can represent the data with the equation
+<span class="math display">\[y_i = \beta_0 + g(\mathbf{x}_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),\]</span>
+where <span class="math inline">\(\mathbf{x}_i\)</span> is a <span class="math inline">\(d-\)</span>vector with the predictors.
+Thin-plate smoothers estimate <span class="math inline">\(g(\cdot)\)</span> by finding the <span class="math inline">\(\hat{f}(\cdot)\)</span> that minimizes
+<span class="math display">\[||\mathbf{y} - \mathbf{f}||^2 + \lambda J_{md}(f),\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y}\)</span> is the vector of observations,</li>
+<li><span class="math inline">\(\mathbf{f} = [f(\mathbf{x}_1), f(\mathbf{x}_2), \dots, f(\mathbf{x}_n)]^T\)</span>,</li>
+<li><span class="math inline">\(J_{md}(f)\)</span> is penalty functional affecting the ‘wiggliness’ of <span class="math inline">\(f\)</span></li>
+<li><span class="math inline">\(\lambda\)</span> is a smoothing parameter controlling the tradeoff between data fitting and smoothness of <span class="math inline">\(f\)</span></li>
+</ul>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="smoothing-splines.html#cb117-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb117-2"><a href="smoothing-splines.html#cb117-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb117-3"><a href="smoothing-splines.html#cb117-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="dv">15</span><span class="sc">*</span><span class="fu">sin</span>(<span class="fu">sqrt</span>(x<span class="sc">*</span>.<span class="dv">15</span>  <span class="sc">-</span> x<span class="sc">*</span>.<span class="dv">006</span>))<span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb117-4"><a href="smoothing-splines.html#cb117-4" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="smoothing-splines.html#cb118-1" tabindex="-1"></a>splines_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
+<span id="cb118-2"><a href="smoothing-splines.html#cb118-2" tabindex="-1"></a>m_spline_tp <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>, <span class="at">k =</span> <span class="dv">7</span>), <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>, <span class="at">data =</span> splines_df)</span>
+<span id="cb118-3"><a href="smoothing-splines.html#cb118-3" tabindex="-1"></a></span>
+<span id="cb118-4"><a href="smoothing-splines.html#cb118-4" tabindex="-1"></a>splines_df<span class="sc">$</span>bs_spline <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_tp, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb118-5"><a href="smoothing-splines.html#cb118-5" tabindex="-1"></a>splines_df<span class="sc">$</span>bs_spline_se <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_tp, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">se.fit =</span> T)<span class="sc">$</span>se.fit</span>
+<span id="cb118-6"><a href="smoothing-splines.html#cb118-6" tabindex="-1"></a></span>
+<span id="cb118-7"><a href="smoothing-splines.html#cb118-7" tabindex="-1"></a>knots <span class="ot">&lt;-</span> m_spline_tp<span class="sc">$</span>smooth[[<span class="dv">1</span>]]<span class="sc">$</span>knots</span>
+<span id="cb118-8"><a href="smoothing-splines.html#cb118-8" tabindex="-1"></a></span>
+<span id="cb118-9"><a href="smoothing-splines.html#cb118-9" tabindex="-1"></a><span class="fu">coef</span>(m_spline_tp)[<span class="fu">grep</span>(<span class="st">&quot;s</span><span class="sc">\\</span><span class="st">(x</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="fu">names</span>(<span class="fu">coef</span>(m_spline_tp)))]</span></code></pre></div>
+<pre><code>##    s(x).1    s(x).2    s(x).3    s(x).4    s(x).5    s(x).6 
+## -7.076170  9.538457 -4.898365  7.277189 18.206627  6.552186</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="smoothing-splines.html#cb120-1" tabindex="-1"></a>beta_smooth <span class="ot">&lt;-</span> <span class="fu">coef</span>(m_spline_tp)[<span class="fu">grep</span>(<span class="st">&quot;s</span><span class="sc">\\</span><span class="st">(x</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="fu">names</span>(<span class="fu">coef</span>(m_spline_tp)))]</span>
+<span id="cb120-2"><a href="smoothing-splines.html#cb120-2" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="smoothing-splines.html#cb120-3" tabindex="-1"></a>Xp <span class="ot">&lt;-</span> <span class="fu">predict</span>(m_spline_tp, <span class="at">type =</span> <span class="st">&quot;lpmatrix&quot;</span>)  <span class="co"># each column = basis function</span></span>
+<span id="cb120-4"><a href="smoothing-splines.html#cb120-4" tabindex="-1"></a></span>
+<span id="cb120-5"><a href="smoothing-splines.html#cb120-5" tabindex="-1"></a><span class="co"># Remove intercept column for plotting</span></span>
+<span id="cb120-6"><a href="smoothing-splines.html#cb120-6" tabindex="-1"></a>Xp_smooth <span class="ot">&lt;-</span> Xp[, <span class="fu">grep</span>(<span class="st">&quot;s</span><span class="sc">\\</span><span class="st">(x</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="fu">colnames</span>(Xp))]</span>
+<span id="cb120-7"><a href="smoothing-splines.html#cb120-7" tabindex="-1"></a></span>
+<span id="cb120-8"><a href="smoothing-splines.html#cb120-8" tabindex="-1"></a><span class="co"># Plot basis functions</span></span>
+<span id="cb120-9"><a href="smoothing-splines.html#cb120-9" tabindex="-1"></a><span class="fu">matplot</span>(x, Xp_smooth, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
+<span id="cb120-10"><a href="smoothing-splines.html#cb120-10" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Spline Basis Functions&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Basis value&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="smoothing-splines.html#cb121-1" tabindex="-1"></a><span class="co"># Add contribution from each basis function</span></span>
+<span id="cb121-2"><a href="smoothing-splines.html#cb121-2" tabindex="-1"></a><span class="co"># multiply basis functions by their contribution </span></span>
+<span id="cb121-3"><a href="smoothing-splines.html#cb121-3" tabindex="-1"></a>y_basis <span class="ot">&lt;-</span> <span class="fu">sweep</span>(Xp_smooth, <span class="dv">2</span>, beta_smooth, <span class="st">&quot;*&quot;</span>)</span>
+<span id="cb121-4"><a href="smoothing-splines.html#cb121-4" tabindex="-1"></a><span class="fu">matplot</span>(x, y_basis, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
+<span id="cb121-5"><a href="smoothing-splines.html#cb121-5" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Contribution of Each Basis Function&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Contribution&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="smoothing-splines.html#cb122-1" tabindex="-1"></a>df_basis <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(x, Xp_smooth)) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-2"><a href="smoothing-splines.html#cb122-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">s(x).1</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">s(x).6</span><span class="st">`</span>)</span>
+<span id="cb122-3"><a href="smoothing-splines.html#cb122-3" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="smoothing-splines.html#cb122-4" tabindex="-1"></a>splines_df <span class="sc">%&gt;%</span> </span>
+<span id="cb122-5"><a href="smoothing-splines.html#cb122-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span>  </span>
+<span id="cb122-6"><a href="smoothing-splines.html#cb122-6" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">18</span> <span class="sc">+</span> value<span class="sc">*</span><span class="dv">10</span>, </span>
+<span id="cb122-7"><a href="smoothing-splines.html#cb122-7" tabindex="-1"></a>                <span class="at">group =</span> name, </span>
+<span id="cb122-8"><a href="smoothing-splines.html#cb122-8" tabindex="-1"></a>                <span class="at">color =</span> name),</span>
+<span id="cb122-9"><a href="smoothing-splines.html#cb122-9" tabindex="-1"></a>            <span class="at">show.legend =</span> F,</span>
+<span id="cb122-10"><a href="smoothing-splines.html#cb122-10" tabindex="-1"></a>            <span class="at">data =</span> df_basis, </span>
+<span id="cb122-11"><a href="smoothing-splines.html#cb122-11" tabindex="-1"></a>            <span class="at">alpha =</span> .<span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb122-12"><a href="smoothing-splines.html#cb122-12" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb122-13"><a href="smoothing-splines.html#cb122-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.border =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb122-14"><a href="smoothing-splines.html#cb122-14" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb122-15"><a href="smoothing-splines.html#cb122-15" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> <span class="fu">data.frame</span>(knots), <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb122-16"><a href="smoothing-splines.html#cb122-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> bs_spline<span class="sc">+</span>(bs_spline_se<span class="sc">*</span><span class="fl">1.96</span>)), <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb122-17"><a href="smoothing-splines.html#cb122-17" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> bs_spline<span class="sc">-</span>(bs_spline_se<span class="sc">*</span><span class="fl">1.96</span>)), <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb122-18"><a href="smoothing-splines.html#cb122-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> bs_spline))<span class="sc">+</span></span>
+<span id="cb122-19"><a href="smoothing-splines.html#cb122-19" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))<span class="sc">+</span></span>
+<span id="cb122-20"><a href="smoothing-splines.html#cb122-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Columns (x1)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y or f(x1)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb122-21"><a href="smoothing-splines.html#cb122-21" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="smoothing-splines.html#cb123-1" tabindex="-1"></a><span class="fu">matplot</span>(x, <span class="fu">rowSums</span>(y_basis), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
+<span id="cb123-2"><a href="smoothing-splines.html#cb123-2" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Sum of the contributions of all basis functions&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 </div>
-</div>
-<div id="final-comments" class="section level2 hasAnchor" number="16.5">
-<h2><span class="header-section-number">16.5</span> Final comments<a href="accounting-for-spatial-effects.html#final-comments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="final-comments-1" class="section level2 hasAnchor" number="17.4">
+<h2><span class="header-section-number">17.4</span> Final comments<a href="smoothing-splines.html#final-comments-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Generalized additive models</li>
 <li>Choosing parametric vs. semi-parametric</li>
-<li>Choosing types of splines</li>
+<li>Choosing types of splines
+<ul>
+<li>B-splines</li>
+<li>P-splines</li>
+<li>Thin-plate splines</li>
+</ul></li>
 <li>Model selection</li>
 <li>G-side vs. R-side discussion</li>
 </ul>
-<p>How to apply this in the spatial model from before:</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 </div>
-<div id="resources" class="section level2 hasAnchor" number="16.6">
-<h2><span class="header-section-number">16.6</span> Resources<a href="accounting-for-spatial-effects.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resources-1" class="section level2 hasAnchor" number="17.5">
+<h2><span class="header-section-number">17.5</span> Resources<a href="smoothing-splines.html#resources-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Wood, S.N. (2017). Generalized Additive Models. Chapman and Hall/CRC. [<a href="https://www.taylorfrancis.com/books/mono/10.1201/9781315370279/generalized-additive-models-simon-wood">link</a>]</li>
 <li>Ruppert, D. (2004). Nonparametric Regression and Splines. In: Statistics and Finance. Springer Texts in Statistics. Springer, New York, NY. <a href="https://doi.org/10.1007/978-1-4419-6876-0_13">https://doi.org/10.1007/978-1-4419-6876-0_13</a></li>
@@ -557,8 +525,8 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
           </div>
         </div>
       </div>
-<a href="software-implementation-of-lmms-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="smoothing-splines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="accounting-for-spatial-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -589,7 +557,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/stat720/book2025/edit/main/16-splines1.Rmd",
+    "link": "https://github.com/stat720/book2025/edit/main/17-splines2.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -597,7 +565,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/stat720/book2025/blob/main/16-splines1.Rmd",
+    "link": "https://github.com/stat720/book2025/blob/main/17-splines2.Rmd",
     "text": null
   },
   "download": null,

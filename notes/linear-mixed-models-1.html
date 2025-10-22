@@ -329,16 +329,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.5" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#final-comments"><i class="fa fa-check"></i><b>16.5</b> Final comments</a></li>
 <li class="chapter" data-level="16.6" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#resources"><i class="fa fa-check"></i><b>16.6</b> Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html"><i class="fa fa-check"></i><b>17</b> Accounting for spatial effects</a>
+<li class="chapter" data-level="17" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>17</b> Smoothing Splines</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#announcements-15"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
-<li class="chapter" data-level="17.2" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#non-parametric-tools-1"><i class="fa fa-check"></i><b>17.2</b> Non-parametric tools</a>
+<li class="chapter" data-level="17.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#announcements-15"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
+<li class="chapter" data-level="17.2" data-path="smoothing-splines.html"><a href="smoothing-splines.html#non-parametric-tools-1"><i class="fa fa-check"></i><b>17.2</b> Non-parametric tools</a>
 <ul>
-<li class="chapter" data-level="17.2.1" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#splines-1"><i class="fa fa-check"></i><b>17.2.1</b> Splines</a></li>
+<li class="chapter" data-level="17.2.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#splines-1"><i class="fa fa-check"></i><b>17.2.1</b> Splines</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#thin-plate-regression-splines"><i class="fa fa-check"></i><b>17.3</b> Thin-plate regression splines</a></li>
-<li class="chapter" data-level="17.4" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#final-comments-1"><i class="fa fa-check"></i><b>17.4</b> Final comments</a></li>
-<li class="chapter" data-level="17.5" data-path="accounting-for-spatial-effects-1.html"><a href="accounting-for-spatial-effects-1.html#resources-1"><i class="fa fa-check"></i><b>17.5</b> Resources</a></li>
+<li class="chapter" data-level="17.3" data-path="smoothing-splines.html"><a href="smoothing-splines.html#thin-plate-regression-splines"><i class="fa fa-check"></i><b>17.3</b> Thin-plate regression splines</a></li>
+<li class="chapter" data-level="17.4" data-path="smoothing-splines.html"><a href="smoothing-splines.html#final-comments-1"><i class="fa fa-check"></i><b>17.4</b> Final comments</a></li>
+<li class="chapter" data-level="17.5" data-path="smoothing-splines.html"><a href="smoothing-splines.html#resources-1"><i class="fa fa-check"></i><b>17.5</b> Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>18</b> Semester Project</a>
 <ul>
@@ -405,7 +405,7 @@ Let’s re-do the statistical model and ANOVA shell:</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-30">Table 5.1: </span>This would be the ANOVA under a CRD.</caption>
+<caption><span id="tab:unnamed-chunk-60">Table 5.1: </span>This would be the ANOVA under a CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -444,7 +444,7 @@ Let’s re-do the statistical model and ANOVA shell:</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-30">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.</caption>
+<caption><span id="tab:unnamed-chunk-60">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -483,7 +483,7 @@ Let’s re-do the statistical model and ANOVA shell:</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-30">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design.</caption>
+<caption><span id="tab:unnamed-chunk-60">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -541,7 +541,7 @@ The variance components will affect the inference distinctly:</p>
 <span id="cb26-10"><a href="linear-mixed-models-1.html#cb26-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
 <span id="cb26-11"><a href="linear-mixed-models-1.html#cb26-11" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
 <span id="cb26-12"><a href="linear-mixed-models-1.html#cb26-12" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-mixed-models-1.html#cb27-1" tabindex="-1"></a><span class="co"># fit the model</span></span>
 <span id="cb27-2"><a href="linear-mixed-models-1.html#cb27-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> fung<span class="sc">*</span>gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>block<span class="sc">/</span>fung), <span class="at">data =</span> fung_sp)</span>
 <span id="cb27-3"><a href="linear-mixed-models-1.html#cb27-3" tabindex="-1"></a></span>
@@ -562,7 +562,7 @@ The variance components will affect the inference distinctly:</p>
 <ul>
 <li>What are those groups in the barley example?</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-62"></span>
 <img src="../figures/barley_sp.jpg" alt="Intuitive visualization of a split-plot design model as a hierarchical (multilevel) model." width="85%" />
 <p class="caption">
 Figure 5.1: Intuitive visualization of a split-plot design model as a hierarchical (multilevel) model.
@@ -612,10 +612,10 @@ There are <strong>approximate methods</strong> to calculate the degrees of freed
 <pre><code>## [1] 0.1405927</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="linear-mixed-models-1.html#cb39-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">68</span>))))<span class="sc">$</span>contr</span></code></pre></div>
 <pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<pre><code>##  contrast                                                       
-##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-##  estimate    SE  df t.ratio p.value
-##    -0.152 0.141 414  -1.085  0.2787
+<pre><code>##  contrast                                                        estimate    SE  df
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    -0.152 0.141 414
+##  t.ratio p.value
+##   -1.085  0.2787
 ## 
 ## Results are averaged over the levels of: fung 
 ## Degrees-of-freedom method: kenward-roger</code></pre>

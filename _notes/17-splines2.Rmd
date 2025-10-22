@@ -1,4 +1,4 @@
-# Accounting for spatial effects  
+# Smoothing Splines  
 
 ## Announcements
 
@@ -64,25 +64,19 @@ y <- 15 + 15*sin(sqrt(x*.15  - x*.006))+ rnorm(length(x), 0, 1.5)
 plot(x, y)
 
 splines_df <- data.frame(x, y)
-m_spline_tp <- gam(y ~ s(x, bs = "tp"), method = "REML", data = splines_df)
-m_spline_bs <- gam(y ~ s(x, bs = "bs", k = 7), data = splines_df)
-m_spline_tpresid <- gam(list(y ~ 1, ~s(x, bs = "tp")), 
-                        family = gaulss(),
-                        data = splines_df)
+m_spline_tp <- gam(y ~ s(x, bs = "tp", k = 7), method = "REML", data = splines_df)
 
-splines_df$tp_spline <- predict(m_spline_tp, type = "response")
-splines_df$tp_spline_se <- predict(m_spline_tp, type = "response", se.fit = T)$se.fit
-splines_df$bs_spline <- predict(m_spline_bs, type = "response")
-splines_df$bs_spline_se <- predict(m_spline_bs, type = "response", se.fit = T)$se.fit
+splines_df$bs_spline <- predict(m_spline_tp, type = "response")
+splines_df$bs_spline_se <- predict(m_spline_tp, type = "response", se.fit = T)$se.fit
 
-knots <- m_spline_bs$smooth[[1]]$knots
+knots <- m_spline_tp$smooth[[1]]$knots
 
-coef(m_spline_bs)[grep("s\\(x\\)", names(coef(m_spline_bs)))]
+coef(m_spline_tp)[grep("s\\(x\\)", names(coef(m_spline_tp)))]
 ```
 ```{r}
-beta_smooth <- coef(m_spline_bs)[grep("s\\(x\\)", names(coef(m_spline_bs)))]
+beta_smooth <- coef(m_spline_tp)[grep("s\\(x\\)", names(coef(m_spline_tp)))]
 
-Xp <- predict(m_spline_bs, type = "lpmatrix")  # each column = basis function
+Xp <- predict(m_spline_tp, type = "lpmatrix")  # each column = basis function
 
 # Remove intercept column for plotting
 Xp_smooth <- Xp[, grep("s\\(x\\)", colnames(Xp))]
@@ -92,6 +86,7 @@ matplot(x, Xp_smooth, type = "l", lty = 1, col = rainbow(ncol(Xp_smooth)),
         main = "Spline Basis Functions", xlab = "x", ylab = "Basis value")
 
 # Add contribution from each basis function
+# multiply basis functions by their contribution 
 y_basis <- sweep(Xp_smooth, 2, beta_smooth, "*")
 matplot(x, y_basis, type = "l", lty = 1, col = rainbow(ncol(Xp_smooth)),
         main = "Contribution of Each Basis Function", xlab = "x", ylab = "Contribution")
@@ -100,11 +95,7 @@ matplot(x, y_basis, type = "l", lty = 1, col = rainbow(ncol(Xp_smooth)),
 ```{r}
 df_basis <- as.data.frame(cbind(x, Xp_smooth)) %>% 
   pivot_longer(cols = `s(x).1`:`s(x).6`)
-```
 
-
-
-```{r}
 splines_df %>% 
   ggplot(aes(x, y))+  
   geom_line(aes(y = 18 + value*10, 
@@ -127,7 +118,7 @@ splines_df %>%
 
 ```{r}
 matplot(x, rowSums(y_basis), type = "l", lty = 1, col = rainbow(ncol(Xp_smooth)),
-        main = "Contribution of Each Basis Function", xlab = "x", ylab = "Contribution")
+        main = "Sum of the contributions of all basis functions", xlab = "x", ylab = "f(x)")
 ```
 
 
