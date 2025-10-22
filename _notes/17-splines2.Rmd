@@ -25,19 +25,22 @@ Polynomials:
 
 
 We can represent the data with the equation 
-$$y_i = \beta_0 + f(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),$$
+$$y_i = \beta_0 + g(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),$$
 where 
 
-- B-splines  
+- $g(x_i) = \sum_{i=1}^k B_i^m(x) \beta_i$. 
 
+- B-splines  
+  - minimize $\sum_{i=1}^n \left\{ y_i - (\mathbf{x}_i'\boldsymbol{\beta}_x + \mathbf{B}^T(\mathbf{x}_i) \boldsymbol{b}) \right\}^2$ 
 - Penalized splines 
   - low rank smoothers using a B-spline basis
-
+  - minimize $\sum_{i=1}^n \left\{ y_i - (\mathbf{x}_i'\boldsymbol{\beta}_x + \mathbf{B}'(\mathbf{x}_i) \boldsymbol{b}) \right\}^2 + \lambda \boldsymbol{b}'\mathbf{D}\boldsymbol{b}$ 
 - Cyclic splines 
 
 ## Thin-plate regression splines 
 
 - Origin of the name "thin-plate" 
+- radial basis functions 
 - supports multiple predictor variables (unlike other basis)  
 - avoid the problem of knot placement 
 - not so computationally costly, but may become more relevant for large data (scaling $O(k^3)$) 
