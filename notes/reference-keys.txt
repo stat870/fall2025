@@ -22,6 +22,7 @@ fig:unnamed-chunk-63
 fig:unnamed-chunk-64
 fig:unnamed-chunk-65
 fig:unnamed-chunk-66
+fig:unnamed-chunk-80
 welcome-to-stat-870
 about-this-course
 logistics

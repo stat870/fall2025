@@ -59,6 +59,10 @@ where:
 - $J_{md}(f)$ is penalty functional affecting the 'wiggliness' of $f$ 
 - $\lambda$ is a smoothing parameter controlling the tradeoff between data fitting and smoothness of $f$ 
 
+```{r echo=FALSE, fig.cap="From Wood (2007)", out.width = '80%', fig.align='center'}
+knitr::include_graphics("../figures/basis_functions.jpg")
+```
+
 
 ```{r}
 x <- seq(1, 50, by = 1)
