@@ -411,7 +411,7 @@ Let’s re-do the statistical model and ANOVA shell:</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-42">Table 5.1: </span>This would be the ANOVA under a CRD.</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 5.1: </span>This would be the ANOVA under a CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -450,7 +450,7 @@ Let’s re-do the statistical model and ANOVA shell:</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-42">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design. See also Table 24.9 from Milliken and Johnson as a helpful reference.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -489,7 +489,7 @@ Let’s re-do the statistical model and ANOVA shell:</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-42">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design.</caption>
+<caption><span id="tab:unnamed-chunk-37">Table 5.1: </span>ANOVA table for the fungicide-barley split-plot design.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -547,7 +547,7 @@ The variance components will affect the inference distinctly:</p>
 <span id="cb26-10"><a href="linear-mixed-models-1.html#cb26-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
 <span id="cb26-11"><a href="linear-mixed-models-1.html#cb26-11" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> fung))<span class="sc">+</span></span>
 <span id="cb26-12"><a href="linear-mixed-models-1.html#cb26-12" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="linear-mixed-models-1.html#cb27-1" tabindex="-1"></a><span class="co"># fit the model</span></span>
 <span id="cb27-2"><a href="linear-mixed-models-1.html#cb27-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> fung<span class="sc">*</span>gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>block<span class="sc">/</span>fung), <span class="at">data =</span> fung_sp)</span>
 <span id="cb27-3"><a href="linear-mixed-models-1.html#cb27-3" tabindex="-1"></a></span>
@@ -568,7 +568,7 @@ The variance components will affect the inference distinctly:</p>
 <ul>
 <li>What are those groups in the barley example?</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-44"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
 <img src="../figures/barley_sp.jpg" alt="Intuitive visualization of a split-plot design model as a hierarchical (multilevel) model." width="85%" />
 <p class="caption">
 Figure 5.1: Intuitive visualization of a split-plot design model as a hierarchical (multilevel) model.

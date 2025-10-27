@@ -181,16 +181,16 @@ where
 
 ```{r}
 m1 <- gam(GHG_flux ~ diet + s(group, bs = "re") + 
-            s(doy, bs = "tp", k = 35), data = dat,
+            s(doy, bs = "tp", k =35), data = dat,
           family = Gamma(link = "log"))
 
 dat_plot <- expand.grid(doy = seq(min(dat$doy), max(dat$doy), length.out = 1000), 
                         diet = unique(dat$diet)) %>% 
-  mutate(group = case_when(doy <95 ~ 1, 
-                           between(doy, 97, 121) ~ 2, 
-                           between(doy, 122, 151.4) ~ 3, 
-                           between(doy, 151.5, 177.8) ~ 4, 
-                           doy>178 ~ 5, 
+  mutate(group = case_when(doy <35 ~ 1, 
+                           between(doy, 37, 61) ~ 2, 
+                           between(doy, 61, 71.4) ~ 3, 
+                           between(doy, 71.4, 117.8) ~ 4, 
+                           doy>118 ~ 5, 
                            TRUE ~ 6)) %>% 
   filter(group %in% unique(dat$group)) %>% 
   mutate(across(c( diet), ~as.factor(.)))
@@ -207,7 +207,7 @@ dat_plot %>%
                   fill = diet,
                   ymin = exp(pred_m1 - se_m1) , ymax = exp(pred_m1 +se_m1)), 
               alpha = .3)+
-  geom_line(aes(group = paste(diet, group), color = diet))+
+  geom_point(aes(group = paste(diet, group), color = diet))+
   scale_fill_manual(values = c("#FFBC42", "#218380"))+
   scale_color_manual(values = c("#FFBC42", "#218380"))+
   coord_cartesian(ylim = c(0, 800))+
