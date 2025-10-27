@@ -1,0 +1,223 @@
+# Applications of Smoothing Splines  
+
+## Announcements
+
+- Assignment 5 is due tonight 
+
+## Splines review 
+
+- Piecewise polynomic functions 
+- PROS: 
+  - Flexibility
+  - No need to specify functional 
+- CONS: 
+  - Less interpretable 
+  - Computational cost 
+  - Risk of overfitting 
+
+## Applications of splines 
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse) # data wrangling 
+library(ggpubr) # data viz
+library(lme4) # fit LMMs (only supports simple random effects - sompound symmetry)
+library(mgcv) # fit GAMs (supports both random effects and splines)
+```
+
+#### Spatial effects 
+
+**Traditional approach** 
+
+The data below come from a multi-environment experiment that studies yield of lupin for different genotypes. 
+
+```{r}
+dat <- drop_na(agridat::verbyla.lupin)
+
+dat %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = yield))+
+  facet_grid(year~loc)+
+  coord_fixed()+
+  scico::scale_fill_scico()+
+  theme_pubclean()
+```
+
+A (typically) reasonable model could be 
+$$y_{ijk} \sim N(\mu_{ijk}, \sigma^2),\\ \mu_{ijk} = \mu_0 + T_i + l_j + b_{k(j)}, \\ l_j \sim N(0, \sigma^2_l), \\ b_{k(j)} \sim N(0, \sigma^2_b),$$
+where: 
+
+- $y_{ijk}$ is the observed yield and arises from a normal distribution with mean $\mu_{ijk}$ and variance $\sigma^2$,
+- $\mu_0$ is the overall mean yield for all fields, 
+- $l_j$ is the (random) effect of the $j$th field that arises from a normal distribution with variance $\sigma^2_l$ (note that $\mu_0 + l_j$ is the overall yield for the $j$th field), 
+- $b_{k(j)}$ is the (random) effect of the $k$th block in the $j$th field that arises from a normal distribution with variance $\sigma^2_b$, 
+- $T_i$ is the treatment effect of the $i$th genotype. 
+
+
+```{r}
+tictoc::tic()
+m1 <- lmer(yield ~ gen + (1|site/rep), data = dat)
+tictoc::toc()
+
+VarCorr(m1)
+
+dat$resid_1 <- resid(m1)
+```
+ 
+```{r}
+dat %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = resid_1))+
+  facet_grid(~site)+
+  coord_fixed()+
+  scico::scale_fill_scico()+
+  labs(main = "Residuals assuming within-block homogeneity")+
+  theme_pubclean()
+```
+
+**Relaxing an assumption from the traditional approach** 
+
+Alternatively, we could add an element to the linear predictor. Previously, we said $\mu_{ijk} = \mu_0 + T_i + l_j + b_{k(j)}$. 
+
+Potential risks of assuming within-block homogeneity: 
+
+- loss of power 
+- 
+
+Alternative: expand the linear predictor into $\mu_{ijk} = \mu_0 + T_i + l_j + b_{k(j)} + f(\mathbf{s}_{ijk})$, where $\mathbf{s}_{ijk}$ is a vector of the coordinates of the observation $ijk$, and $f(\cdot)$ is a smooth function of space. We consider $f(\cdot)$ can be approximated using smoothing splines. 
+
+```{r}
+tictoc::tic()
+m2 <- gam(yield ~ gen + s(rep, site, bs = "re") + s(row, col, bs = "tp", by = site), data = dat)
+tictoc::toc()
+summary(m2)
+dat$resid_2 <- resid(m2)
+```
+ 
+```{r}
+dat %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = resid_2))+
+  facet_grid(~site)+
+  coord_fixed()+
+  labs(main = "Residuals relaxing the assumption of within-block homogeneity")+
+  scico::scale_fill_scico()+
+  theme_pubclean()
+```
+
+**An intuitive visualization of splines** 
+
+```{r}
+d_predict <- dat %>% 
+  transmute(gen = "Merrit", 
+            row, col, site, rep)
+d_predict$yhat_1 <- predict(m1, newdata = d_predict)
+d_predict$yhat_2 <- predict(m2, newdata = d_predict)
+```
+
+```{r}
+sp_effects_trad <- 
+  d_predict %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = yhat_1))+
+  facet_grid(~site)+
+  coord_fixed()+
+  scico::scale_fill_scico(palette = "bamako")+
+  labs(fill = expression(Yield~(ton~ha^{-1})))+
+  theme_pubclean()
+
+sp_effects_splines <- 
+  d_predict %>% 
+  ggplot(aes(col, row))+
+  geom_tile(aes(fill = yhat_2))+
+  facet_grid(~site)+
+  coord_fixed()+
+  scico::scale_fill_scico(palette = "bamako")+
+  labs(fill = expression(Yield~(ton~ha^{-1})))+
+  theme_pubclean()
+
+ggarrange(sp_effects_trad, sp_effects_splines, 
+          common.legend = T,
+          ncol = 1)
+```
+
+- Some thoughts on missing data imputation. 
+- Use of multilevel models for missing data imputation 
+- Use of GAM models for missing data imputation 
+
+
+#### Modeling time 
+
+The data below come from an experiment aiming to test whether a diet treatment in cows can reduce the (GH) gas emmission. 
+
+The experiment consists of 3 groups of cows 
+
+```{r}
+dat <- read.csv("../../data_confid/fluxes.csv")
+
+dat %>% 
+  ggplot(aes(doy, GHG_flux))+
+  geom_point(aes(fill = diet), shape= 21)+
+  scale_fill_manual(values = c("#FFBC42", "#218380"))+
+  labs(fill  ="Diet", 
+       y = expression(gas~flux~cow^{-1}))+
+  theme_pubclean()
+```
+
+We can generally describe any point as 
+$$y_{ijk} \sim D(\mu_{ijk}, \psi), \\ g(\mu_{ijk}) = \eta_{ijk}$$
+where $y_{ijk}$ is the observation of the flux per head for the $i$th diet, $j$th group and $l$th moment. 
+
+- Discussion of predictor $\eta_{ijk}$ 
+
+We can, for example, use 
+$$\eta_{ijk} = \mu_0 + D_i + f(t_{ij}) + b_{k},$$
+
+where 
+
+- $\mu_0$ is the overall mean, 
+- $D_i$ is the effect of the $i$th diet,  
+- $f(t_{ij})$ is the function of time, 
+- $b_{k}$ is the effect of the $k$th group. 
+
+```{r}
+m1 <- gam(GHG_flux ~ diet + s(group, bs = "re") + 
+            s(doy, bs = "tp", k = 35), data = dat,
+          family = Gamma(link = "log"))
+
+dat_plot <- expand.grid(doy = seq(min(dat$doy), max(dat$doy), length.out = 1000), 
+                        diet = unique(dat$diet)) %>% 
+  mutate(group = case_when(doy <95 ~ 1, 
+                           between(doy, 97, 121) ~ 2, 
+                           between(doy, 122, 151.4) ~ 3, 
+                           between(doy, 151.5, 177.8) ~ 4, 
+                           doy>178 ~ 5, 
+                           TRUE ~ 6)) %>% 
+  filter(group %in% unique(dat$group)) %>% 
+  mutate(across(c( diet), ~as.factor(.)))
+
+pred_plot <- predict(m1, newdata = dat_plot, type = "link", se = T)
+
+dat_plot$pred_m1 <- pred_plot$fit
+dat_plot$se_m1 <- pred_plot$se.fit
+
+dat_plot %>% 
+  ggplot(aes(doy, exp(pred_m1)))+
+  geom_point(aes(doy, GHG_flux, color = diet), data = dat, alpha = .3)+
+  geom_ribbon(aes(group = paste(diet, group),
+                  fill = diet,
+                  ymin = exp(pred_m1 - se_m1) , ymax = exp(pred_m1 +se_m1)), 
+              alpha = .3)+
+  geom_line(aes(group = paste(diet, group), color = diet))+
+  scale_fill_manual(values = c("#FFBC42", "#218380"))+
+  scale_color_manual(values = c("#FFBC42", "#218380"))+
+  coord_cartesian(ylim = c(0, 800))+
+  theme_pubclean()+
+  labs(fill  ="Diet", color = "Diet",
+       y = expression(gas~flux~cow^{-1}))
+```
+
+
+```{r}
+summary(m1)
+```
+

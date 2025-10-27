@@ -33,8 +33,41 @@ At the end of the study, the researchers count how many colony forming units (go
 They wish to study whether the treatments had a different effect on the number of CFUs. 
 
 ```{r}
+library(tidyverse)
+
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/sanitizers.csv"
 d <- read.csv(url)
+
+d %>% 
+  ggplot(aes(Treatment, Log.CFU.coupon))+
+  geom_point()
+```
+
+
+```{r}
+library(lme4)
+m <- lmer(Log.CFU.coupon ~  factor(Treatment) * factor(Material) * Time + (1|Treatment:Time:Material:Biological.Rep),
+          data = d)
+
+library(mgcv)
+m <- gam(list(Log.CFU.coupon ~  factor(Treatment) * factor(Material) * Time ,  
+              ~ factor(Treatment):factor(Material)),
+          family = gaulss(),
+          data = d)
+plot(m)
+
+plot(predict(m)[,2], resid(m))
+
+ggplot(data.frame(resid = resid(m)), aes(resid)) +
+    stat_qq() +
+    stat_qq_line() +
+    theme_classic() +
+    ggtitle(paste("Q-Q Plot of the residuals:", response))
+ 
+qqnorm( resid(m))
+qqline( resid(m))
+
+hist(resid(m))
 ```
 
 ### 1.a. 
@@ -56,5 +89,56 @@ Fit the statistical model in (1c) to the data.
 ### 1.e. 
 
 Considering that lower logCFU values are better, what is/are the best treatment(s) overall? 
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+d4 <- readxl::read_xlsx("../../../../../consulting/aysu/biofilms/data/Sessile Listeria UV OREI data for stats.xlsx")
+
+d4 <- d4 %>% 
+  mutate(Time = as.factor(ifelse(is.na(`Application time (minutes)`), 0,
+                       `Application time (minutes)`)),
+         .before = `Application time (minutes)`)
+
+m <- lmer(y ~  Treatment * Material * Time + (1|Treatment:Time:Material:`Biological Rep`),
+          data = d4)
+DHARMa::simulateResiduals(m, plot =T)
+
+d4$p <- predict(m)
+d4$r <- resid(m)
+
+d4 %>% 
+  filter(!str_detect(Treatment, "SDC") & Treatment != "UV- light only") %>% 
+  ggplot(aes(p, r))+
+  geom_point(aes(color = Treatment))
+
+
+d4$y <- simulate(m)$sim_1
+
+
+unique(d4$Treatment)
+DHARMa::simulateResiduals(m, plot = T)
+
+d4 %>% 
+  mutate(Treatment =as.numeric(as.factor(Treatment)), 
+         Material =LETTERS[as.numeric(as.factor(Material))]) %>% 
+  mutate(Time = ifelse(Time ==0, .5, `Application time (minutes)`)) %>%
+  dplyr::select(-c(`Application time (minutes)`)) %>% 
+  dplyr::select(Treatment, Time, Material, `Biological Rep`, `Technical Rep`, 
+                logCFU = y) %>% 
+  write.csv("../data/sanitizers.csv")
+```
+
+
+
+
 
 
