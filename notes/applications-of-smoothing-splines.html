@@ -387,7 +387,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="splines-review" class="section level2 hasAnchor" number="18.2">
 <h2><span class="header-section-number">18.2</span> Splines review<a href="applications-of-smoothing-splines.html#splines-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Piecewise polynomic functions</li>
+<li>Piecewise polynomial functions
+<ul>
+<li>pros of local approximation of polynomials without cons of global approximation of polynomials</li>
+</ul></li>
+<li>maximal smoothness</li>
 <li>PROS:
 <ul>
 <li>Flexibility</li>
@@ -397,14 +401,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Less interpretable</li>
 <li>Computational cost</li>
+<li>Flexibility must be selected by adjusting the smoothing parameter <span class="math inline">\(\lambda\)</span></li>
 </ul></li>
 </ul>
 <p>We can represent the data with the equation
-<span class="math display">\[y_i = \beta_0 + g(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),\]</span>
-where <span class="math inline">\(g(x_i) = \sum_{i=1}^k B_i^m(x) \beta_i\)</span>.</p>
+<span class="math display">\[y_i = \beta_0 + f(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),\]</span>
+where <span class="math inline">\(f(\cdot)\)</span> is estimated with the function <span class="math inline">\(g(\cdot)\)</span> that minimizes <span class="math inline">\(||\mathbf{y}-\mathbf{g}||^2 + \lambda J_{md}(g)\)</span>.
+Reember that <span class="math inline">\(\mathbf{g} = [g(\mathbf{x}_1), g(\mathbf{x}_2), \dots, g(\mathbf{x}_n)]&#39;\)</span>
+<span class="math inline">\(J_{md}(g)\)</span> is a penalty funcitonal that regulates the wiggliness of <span class="math inline">\(g(\cdot)\)</span> and <span class="math inline">\(\lambda\)</span> controls the smoothness of <span class="math inline">\(g(\cdot)\)</span>.</p>
 <ul>
 <li><a href="https://academic.oup.com/jrsssb/article-abstract/65/1/95/7110632">Thin Plate Regression Splines (Wood, 2003)</a></li>
 <li><a href="https://projecteuclid.org/journals/statistical-science/volume-35/issue-2/A-Conversation-with-Grace-Wahba/10.1214/19-STS734.full">A Conversation with Grace Wahba</a></li>
+</ul>
+<p><strong>Importance of basis dimension</strong></p>
+<ul>
+<li>Impact on flexibility of the model</li>
+<li>Checking if basis dimension is too small (residuals vs. neighbours)</li>
+<li>Comparing effective degrees of freedom with basis dimension<br />
+</li>
+<li>Implemented in <code>gam.check</code>
+<ul>
+<li><code>k'</code> gives the maximum possible EDF for that smooth</li>
+<li>compare <code>k'</code> with <code>EDF</code> in a model</li>
+</ul></li>
 </ul>
 </div>
 <div id="applications-of-splines" class="section level2 hasAnchor" number="18.3">
@@ -467,7 +486,7 @@ where:</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="applications-of-smoothing-splines.html#cb132-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb132-2"><a href="applications-of-smoothing-splines.html#cb132-2" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">gam</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> <span class="fu">s</span>(rep, site, <span class="at">bs =</span> <span class="st">&quot;re&quot;</span>) <span class="sc">+</span> <span class="fu">s</span>(row, col, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>, <span class="at">by =</span> site), <span class="at">data =</span> dat)</span>
 <span id="cb132-3"><a href="applications-of-smoothing-splines.html#cb132-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 9.09 sec elapsed</code></pre>
+<pre><code>## 8.37 sec elapsed</code></pre>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="applications-of-smoothing-splines.html#cb134-1" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
 <pre><code>## 
 ## Family: gaussian 

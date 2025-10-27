@@ -20,10 +20,22 @@
 We can represent the data with the equation 
 $$y_i = \beta_0 + f(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),$$
 where $f(\cdot)$ is estimated with the function $g(\cdot)$ that minimizes $||\mathbf{y}-\mathbf{g}||^2 + \lambda J_{md}(g)$.
+Reember that $\mathbf{g} = [g(\mathbf{x}_1), g(\mathbf{x}_2), \dots, g(\mathbf{x}_n)]'$
 $J_{md}(g)$ is a penalty funcitonal that regulates the wiggliness of $g(\cdot)$ and $\lambda$ controls the smoothness of $g(\cdot)$.
 
 - [Thin Plate Regression Splines (Wood, 2003)](https://academic.oup.com/jrsssb/article-abstract/65/1/95/7110632) 
 - [A Conversation with Grace Wahba](https://projecteuclid.org/journals/statistical-science/volume-35/issue-2/A-Conversation-with-Grace-Wahba/10.1214/19-STS734.full) 
+
+
+**Importance of basis dimension**
+
+- Impact on flexibility of the model 
+- Checking if basis dimension is too small (residuals vs. neighbours) 
+- Comparing effective degrees of freedom with basis dimension  
+- Implemented in `gam.check` 
+  - `k'` gives the maximum possible EDF for that smooth 
+  - compare `k'` with `EDF` in a model 
+
 
 ## Applications of splines 
 

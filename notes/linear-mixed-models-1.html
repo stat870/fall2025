@@ -618,10 +618,8 @@ There are <strong>approximate methods</strong> to calculate the degrees of freed
 <pre><code>## [1] 0.1405927</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="linear-mixed-models-1.html#cb39-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span>gen, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">68</span>))))<span class="sc">$</span>contr</span></code></pre></div>
 <pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<pre><code>##  contrast                                                       
-##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-##  estimate    SE  df t.ratio p.value
-##    -0.152 0.141 414  -1.085  0.2787
+<pre><code>##  contrast                                                        estimate    SE  df t.ratio p.value
+##  c(1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    -0.152 0.141 414  -1.085  0.2787
 ## 
 ## Results are averaged over the levels of: fung 
 ## Degrees-of-freedom method: kenward-roger</code></pre>

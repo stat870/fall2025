@@ -9,3 +9,7 @@ October 20
 October 22  
 : Splines II & Kahoot!  
   : [html](https://stat870.github.io/fall2025/notes/smoothing-splines.html)
+
+October 27  
+: Splines III  
+  : [html](https://stat870.github.io/fall2025/notes/applications-of-smoothing-splines.html)
