@@ -13,10 +13,12 @@
 - CONS: 
   - Less interpretable 
   - Computational cost 
+  - Flexibility must be selected by adjusting the smoothing parameter $\lambda$ 
   
 We can represent the data with the equation 
-$$y_i = \beta_0 + g(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),$$
-where $g(x_i) = \sum_{i=1}^k B_i^m(x) \beta_i$. 
+$$y_i = \beta_0 + f(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),$$
+where $f(\cdot)$ is estimated with the function $g(\cdot)$ that minimizes $||\mathbf{y}-\mathbf{g}||^2 + \lambda J_{md}(g)$.
+$J_{md}(g)$ is a penalty funcitonal that regulates the wiggliness of $g(\cdot)$ and $\lambda$ controls the smoothness of $g(\cdot)$.
 
 - [Thin Plate Regression Splines (Wood, 2003)](https://academic.oup.com/jrsssb/article-abstract/65/1/95/7110632) 
 - [A Conversation with Grace Wahba](https://projecteuclid.org/journals/statistical-science/volume-35/issue-2/A-Conversation-with-Grace-Wahba/10.1214/19-STS734.full) 
