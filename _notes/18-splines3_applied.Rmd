@@ -13,7 +13,13 @@
 - CONS: 
   - Less interpretable 
   - Computational cost 
-  - Risk of overfitting 
+  
+We can represent the data with the equation 
+$$y_i = \beta_0 + g(x_i) + \varepsilon_i, \\ \varepsilon_i \sim N(0, \sigma^2),$$
+where $g(x_i) = \sum_{i=1}^k B_i^m(x) \beta_i$. 
+
+- [Thin Plate Regression Splines (Wood, 2003)](https://academic.oup.com/jrsssb/article-abstract/65/1/95/7110632) 
+- [A Conversation with Grace Wahba](https://projecteuclid.org/journals/statistical-science/volume-35/issue-2/A-Conversation-with-Grace-Wahba/10.1214/19-STS734.full) 
 
 ## Applications of splines 
 
@@ -149,7 +155,7 @@ ggarrange(sp_effects_trad, sp_effects_splines,
 
 The data below come from an experiment aiming to test whether a diet treatment in cows can reduce the (GH) gas emmission. 
 
-The experiment consists of 3 groups of cows 
+The experiment consists of 4 groups of cows that were hosted turns in the same facility. Each group contained similar cows and they were randomly divided into 2 subgroups. Those subgroups were assigned to a corral and each corral was assigned with a diet treatment. 
 
 ```{r}
 dat <- read.csv("../../data_confid/fluxes.csv")
@@ -170,7 +176,7 @@ where $y_{ijk}$ is the observation of the flux per head for the $i$th diet, $j$t
 - Discussion of predictor $\eta_{ijk}$ 
 
 We can, for example, use 
-$$\eta_{ijk} = \mu_0 + D_i + f(t_{ij}) + b_{k},$$
+$$\eta_{ijk} = \mu_0 + D_i + f(t_{ij}) + b_{k} + u_{ik},$$
 
 where 
 
@@ -180,8 +186,12 @@ where
 - $b_{k}$ is the effect of the $k$th group. 
 
 ```{r}
-m1 <- gam(GHG_flux ~ diet + s(group, bs = "re") + 
-            s(doy, bs = "tp", k =35), data = dat,
+dat$diet_group <- factor(paste(dat$diet, dat$group))
+m1 <- gam(GHG_flux ~ diet + 
+            s(doy, bs = "tp", k =35) + 
+            s(group, bs = "re") +
+            s(diet_group, bs = "re") , 
+          data = dat,
           family = Gamma(link = "log"))
 
 dat_plot <- expand.grid(doy = seq(min(dat$doy), max(dat$doy), length.out = 1000), 
@@ -190,10 +200,11 @@ dat_plot <- expand.grid(doy = seq(min(dat$doy), max(dat$doy), length.out = 1000)
                            between(doy, 37, 61) ~ 2, 
                            between(doy, 61, 71.4) ~ 3, 
                            between(doy, 71.4, 117.8) ~ 4, 
-                           doy>118 ~ 5, 
+                           doy>117.8 ~ 5, 
                            TRUE ~ 6)) %>% 
   filter(group %in% unique(dat$group)) %>% 
-  mutate(across(c( diet), ~as.factor(.)))
+  mutate(across(c( diet), ~as.factor(.)), 
+         diet_group = factor(paste(diet, group)))
 
 pred_plot <- predict(m1, newdata = dat_plot, type = "link", se = T)
 
@@ -205,7 +216,7 @@ dat_plot %>%
   geom_point(aes(doy, GHG_flux, color = diet), data = dat, alpha = .3)+
   geom_ribbon(aes(group = paste(diet, group),
                   fill = diet,
-                  ymin = exp(pred_m1 - se_m1) , ymax = exp(pred_m1 +se_m1)), 
+                  ymin = exp(pred_m1 - (se_m1*1.96)) , ymax = exp(pred_m1 +(se_m1*1.96))), 
               alpha = .3)+
   geom_point(aes(group = paste(diet, group), color = diet))+
   scale_fill_manual(values = c("#FFBC42", "#218380"))+
