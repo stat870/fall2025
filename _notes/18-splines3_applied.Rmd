@@ -234,7 +234,7 @@ dat_plot %>%
                   fill = diet,
                   ymin = exp(pred_m1 - (se_m1*1.96)) , ymax = exp(pred_m1 +(se_m1*1.96))), 
               alpha = .3)+
-  geom_point(aes(group = paste(diet, group), color = diet))+
+  geom_line(aes(group = paste(diet, group), color = diet))+
   scale_fill_manual(values = c("#FFBC42", "#218380"))+
   scale_color_manual(values = c("#FFBC42", "#218380"))+
   coord_cartesian(ylim = c(0, 800))+
@@ -242,6 +242,7 @@ dat_plot %>%
   labs(fill  ="Diet", color = "Diet",
        y = expression(gas~flux~cow^{-1}))
 ```
+
 
 
 ```{r}

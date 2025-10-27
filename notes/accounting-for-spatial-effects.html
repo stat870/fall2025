@@ -390,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Correlation functions</li>
 </ul>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 </div>
 <div id="non-parametric-tools" class="section level2 hasAnchor" number="16.3">
 <h2><span class="header-section-number">16.3</span> Non-parametric tools<a href="accounting-for-spatial-effects.html#non-parametric-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -458,7 +458,7 @@ where:</p>
 <span id="cb113-8"><a href="accounting-for-spatial-effects.html#cb113-8" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
 <span id="cb113-9"><a href="accounting-for-spatial-effects.html#cb113-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Some predictor&quot;</span>, </span>
 <span id="cb113-10"><a href="accounting-for-spatial-effects.html#cb113-10" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Some response&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
 <p>Let’s start with
 <span class="math display">\[f(x) = \sum_{i=1}^k B_i^m(x) \beta_i\]</span>
 with <span class="math inline">\(m=1\)</span> and <span class="math inline">\(k=7\)</span>.
@@ -476,7 +476,7 @@ More specifically, we expect to have 7 basis functions and 7 knots.</p>
 <span id="cb114-10"><a href="accounting-for-spatial-effects.html#cb114-10" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> knots), <span class="at">data =</span> knots, <span class="at">linetype =</span><span class="dv">2</span>)<span class="sc">+</span></span>
 <span id="cb114-11"><a href="accounting-for-spatial-effects.html#cb114-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb114-12"><a href="accounting-for-spatial-effects.html#cb114-12" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 <p>Now, the straight lines might not be the best way to represent the relationship between x and y, not even within each region in x.
 Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polynomic regression.</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="accounting-for-spatial-effects.html#cb115-1" tabindex="-1"></a>bspline <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;bs&quot;</span>, <span class="at">m =</span> <span class="dv">2</span>, <span class="at">k=</span><span class="dv">7</span>), <span class="at">data =</span> df)</span>
@@ -491,7 +491,7 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
 <span id="cb115-10"><a href="accounting-for-spatial-effects.html#cb115-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;grey45&quot;</span>)<span class="sc">+</span></span>
 <span id="cb115-11"><a href="accounting-for-spatial-effects.html#cb115-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Bspline_m3), <span class="at">size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
 <span id="cb115-12"><a href="accounting-for-spatial-effects.html#cb115-12" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 <p>Many questions may arise from looking at this:</p>
 <ul>
 <li>What is the best <span class="math inline">\(k\)</span>?</li>
@@ -521,7 +521,7 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
 <span id="cb116-14"><a href="accounting-for-spatial-effects.html#cb116-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fitted, <span class="at">group =</span> spline, <span class="at">color =</span> spline), <span class="at">size =</span> <span class="fl">1.5</span>)<span class="sc">+</span></span>
 <span id="cb116-15"><a href="accounting-for-spatial-effects.html#cb116-15" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
 <span id="cb116-16"><a href="accounting-for-spatial-effects.html#cb116-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Smoothing basis&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 </div>
 <div id="other-types-of-splines" class="section level3 hasAnchor" number="16.4.3">
 <h3><span class="header-section-number">16.4.3</span> Other types of splines<a href="accounting-for-spatial-effects.html#other-types-of-splines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -547,7 +547,7 @@ Now, with <span class="math inline">\(m=2\)</span> we will have piecewise polyno
 <li>G-side vs. R-side discussion</li>
 </ul>
 <p>How to apply this in the spatial model from before:</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 </div>
 <div id="resources" class="section level2 hasAnchor" number="16.6">
 <h2><span class="header-section-number">16.6</span> Resources<a href="accounting-for-spatial-effects.html#resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
