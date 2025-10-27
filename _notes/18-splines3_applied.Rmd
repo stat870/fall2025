@@ -6,7 +6,9 @@
 
 ## Splines review 
 
-- Piecewise polynomic functions 
+- Piecewise polynomial functions 
+  - pros of local approximation of polynomials without cons of global approximation of polynomials 
+- maximal smoothness 
 - PROS: 
   - Flexibility
   - No need to specify functional 
