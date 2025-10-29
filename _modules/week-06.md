@@ -4,7 +4,7 @@ title: Applied Problems
 
 October 29 
 : Stat Modeling Review  
-  : []()
+  : [html](https://stat870.github.io/fall2025/notes/miscellaneous.html)
 
 November 3 
 : Zero-inflated models  

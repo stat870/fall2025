@@ -9,7 +9,7 @@ knitr::include_graphics("../figures/mindmap_1.jpg")
 ```
 
 - Why we need statistical models 
-- [On Exactitude in Science (J.L. Borges)](https://jlacasa.github.io/stat705_fall2024/classes/misc_plots/Del_rigor_en_la_ciencia.pdf)
+- [On Exactitude in Science (J.L. Borges)](../figures/Del_rigor_en_la_ciencia.pdf)
 
 >"What a useful thing a pocket-map is!" I remarked.
 >
