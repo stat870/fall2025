@@ -97,43 +97,6 @@ Considering that lower logCFU values are better, what is/are the best treatment(
 
 
 
-```{r}
-d4 <- readxl::read_xlsx("../../../../../consulting/aysu/biofilms/data/Sessile Listeria UV OREI data for stats.xlsx")
-
-d4 <- d4 %>% 
-  mutate(Time = as.factor(ifelse(is.na(`Application time (minutes)`), 0,
-                       `Application time (minutes)`)),
-         .before = `Application time (minutes)`)
-
-m <- lmer(y ~  Treatment * Material * Time + (1|Treatment:Time:Material:`Biological Rep`),
-          data = d4)
-DHARMa::simulateResiduals(m, plot =T)
-
-d4$p <- predict(m)
-d4$r <- resid(m)
-
-d4 %>% 
-  filter(!str_detect(Treatment, "SDC") & Treatment != "UV- light only") %>% 
-  ggplot(aes(p, r))+
-  geom_point(aes(color = Treatment))
-
-
-d4$y <- simulate(m)$sim_1
-
-
-unique(d4$Treatment)
-DHARMa::simulateResiduals(m, plot = T)
-
-d4 %>% 
-  mutate(Treatment =as.numeric(as.factor(Treatment)), 
-         Material =LETTERS[as.numeric(as.factor(Material))]) %>% 
-  mutate(Time = ifelse(Time ==0, .5, `Application time (minutes)`)) %>%
-  dplyr::select(-c(`Application time (minutes)`)) %>% 
-  dplyr::select(Treatment, Time, Material, `Biological Rep`, `Technical Rep`, 
-                logCFU = y) %>% 
-  write.csv("../data/sanitizers.csv")
-```
-
 
 
 
