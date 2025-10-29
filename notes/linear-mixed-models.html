@@ -489,7 +489,7 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-89">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-14">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -520,7 +520,7 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-89">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-14">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -562,9 +562,9 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-mixed-models.html#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m), <span class="fu">abs</span>(<span class="fu">resid</span>(m)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-mixed-models.html#cb5-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
 <pre><code>## [1] 109 148</code></pre>
 </details>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-mixed-models.html#cb7-1" tabindex="-1"></a><span class="co"># anova</span></span>
@@ -578,9 +578,7 @@ Model checks
 ## Day:Trt     673.1  10  1.3723 0.1934086    
 ## Residuals 12360.9 252                      
 ## ---
-## Signif. codes:  
-##   0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39;
-##   0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>We can even get the standard errors and, together with the degrees of freedom, get the 95% confidence intervals.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="linear-mixed-models.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
 <span id="cb9-2"><a href="linear-mixed-models.html#cb9-2" tabindex="-1"></a><span class="co"># get the s.e. by hand</span></span>
@@ -649,7 +647,7 @@ Each room has 5 pens of each dietary treatment.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-94">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-19">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -684,7 +682,7 @@ Each room has 5 pens of each dietary treatment.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-94">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
+<caption><span id="tab:unnamed-chunk-19">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -732,7 +730,7 @@ Each room has 5 pens of each dietary treatment.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="linear-mixed-models.html#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m_random), <span class="fu">abs</span>(<span class="fu">resid</span>(m_random)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </details>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-mixed-models.html#cb19-1" tabindex="-1"></a><span class="co"># anova</span></span>
 <span id="cb19-2"><a href="linear-mixed-models.html#cb19-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_random, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
@@ -744,9 +742,7 @@ Model checks
 ## Trt      4.7730  5    250 0.0003483 ***
 ## Day:Trt  1.1153 10    250 0.3509474    
 ## ---
-## Signif. codes:  
-##   0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39;
-##   0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Notice that the 252 degrees of freedom (aka independent observations) from the CRD are now spread across different levels, connected to different variance components, blocks and random error.</p>
 <div id="general-notation-for-linear-mixed-models" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> General notation for linear mixed models<a href="linear-mixed-models.html#general-notation-for-linear-mixed-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -809,7 +805,10 @@ Treatment point estimates don’t change whether blocks are fixed or random.
 <span id="cb25-20"><a href="linear-mixed-models.html#cb25-20" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Fecal DM (%)&quot;</span>,</span>
 <span id="cb25-21"><a href="linear-mixed-models.html#cb25-21" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Treatment&quot;</span>)<span class="sc">+</span></span>
 <span id="cb25-22"><a href="linear-mixed-models.html#cb25-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<pre><code>## Warning in geom_text(aes(x = 4.5, y = 22.75), label = &quot;s.e.(difference)&quot;): All aesthetics have length 1, but the data has 12 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </details>
 <p>More references:</p>
 <ul>

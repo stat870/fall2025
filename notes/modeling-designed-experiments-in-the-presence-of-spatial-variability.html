@@ -426,18 +426,19 @@ In the presence of spatial patterns, there are parametric and non-parametric too
 <h3><span class="header-section-number">13.2.2</span> Applied example<a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#applied-example-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Yield data from an advanced Nebraska Intrastate Nursery (NIN) breeding trial conducted at
 Alliance, Nebraska, in 1988/89.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb104-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-2" tabindex="-1"></a><span class="fu">library</span>(agridat)</span>
-<span id="cb104-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-3" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb104-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(stroup.nin)</span>
-<span id="cb104-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-5" tabindex="-1"></a></span>
-<span id="cb104-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-6" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb104-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
-<span id="cb104-8"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-8" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> rep), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb104-9"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-9" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
-<span id="cb104-10"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Block&quot;</span>)<span class="sc">+</span></span>
-<span id="cb104-11"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-142-1.png" width="672" /></p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb107-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-2" tabindex="-1"></a><span class="fu">library</span>(agridat)</span>
+<span id="cb107-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-3" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ggpubr&#39; was built under R version 4.4.3</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(stroup.nin)</span>
+<span id="cb109-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-2" tabindex="-1"></a></span>
+<span id="cb109-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-3" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb109-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
+<span id="cb109-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-5" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> rep), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb109-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-6" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
+<span id="cb109-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Block&quot;</span>)<span class="sc">+</span></span>
+<span id="cb109-8"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <p>The statistical model:</p>
 <p><span class="math display">\[y_{ij}\sim N(\mu_{ij}, \sigma^2), \\
 \mu_{ij} = \eta_{ij} = \eta_0 + G_i + b_j, \\
@@ -446,70 +447,56 @@ b_j \sim N(0, \sigma^2_b).\]</span></p>
 <ul>
 <li>iid, normal residuals</li>
 </ul>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb105-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb105-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb105-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>rep), <span class="at">data =</span> stroup.nin)</span>
-<span id="cb105-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb105-3" tabindex="-1"></a>data<span class="sc">$</span>res <span class="ot">&lt;-</span> <span class="fu">resid</span>(m)</span></code></pre></div>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb106-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
-<span id="cb106-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-3" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> res), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb106-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-4" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
-<span id="cb106-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-5" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
-<span id="cb106-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
-<span id="cb106-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="fu">expression</span>(Residual<span class="sc">~</span>(bu<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> gen)) <span class="sc">%&gt;%</span> </span>
-<span id="cb107-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>emmean) <span class="sc">%&gt;%</span> </span>
-<span id="cb107-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##  gen        emmean       SE    df lower.CL
-##  NE86503   32.6500 3.855689 66.69 24.95335
-##  NE87619   31.2625 3.855689 66.69 23.56585
-##  NE86501   30.9375 3.855689 66.69 23.24085
-##  Redland   30.5000 3.855689 66.69 22.80335
-##  Centurk78 30.3000 3.855689 66.69 22.60335
-##  NE83498   30.1250 3.855689 66.69 22.42835
-##  upper.CL
-##  40.34665
-##  38.95915
-##  38.63415
-##  38.19665
-##  37.99665
-##  37.82165
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb110-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>rep), <span class="at">data =</span> stroup.nin)</span>
+<span id="cb110-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-3" tabindex="-1"></a>data<span class="sc">$</span>res <span class="ot">&lt;-</span> <span class="fu">resid</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb111-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
+<span id="cb111-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-3" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> res), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb111-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-4" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
+<span id="cb111-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-5" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
+<span id="cb111-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb111-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="fu">expression</span>(Residual<span class="sc">~</span>(bu<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb112-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> gen)) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb112-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>emmean) <span class="sc">%&gt;%</span> </span>
+<span id="cb112-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb112-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##  gen        emmean       SE    df lower.CL upper.CL
+##  NE86503   32.6500 3.855689 66.69 24.95335 40.34665
+##  NE87619   31.2625 3.855689 66.69 23.56585 38.95915
+##  NE86501   30.9375 3.855689 66.69 23.24085 38.63415
+##  Redland   30.5000 3.855689 66.69 22.80335 38.19665
+##  Centurk78 30.3000 3.855689 66.69 22.60335 37.99665
+##  NE83498   30.1250 3.855689 66.69 22.42835 37.82165
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## Confidence level used: 0.95</code></pre>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-1" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
-<span id="cb109-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-2" tabindex="-1"></a></span>
-<span id="cb109-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-3" tabindex="-1"></a>data<span class="sc">$</span>coordinate <span class="ot">&lt;-</span> <span class="fu">numFactor</span>(data<span class="sc">$</span>col, data<span class="sc">$</span>row)</span>
-<span id="cb109-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-4" tabindex="-1"></a>data<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="dv">1</span>) </span>
-<span id="cb109-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-5" tabindex="-1"></a></span>
-<span id="cb109-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb109-6" tabindex="-1"></a>m_spatial <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>rep) <span class="sc">+</span> <span class="fu">mat</span>(coordinate <span class="sc">+</span> <span class="dv">0</span> <span class="sc">|</span> group), <span class="at">data =</span> data)</span></code></pre></div>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-1" tabindex="-1"></a>data<span class="sc">$</span>resid_spatial <span class="ot">&lt;-</span> <span class="fu">resid</span>(m_spatial)</span>
-<span id="cb110-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-2" tabindex="-1"></a></span>
-<span id="cb110-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-3" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb110-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
-<span id="cb110-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-5" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> resid_spatial), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb110-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-6" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
-<span id="cb110-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-7" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
-<span id="cb110-8"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
-<span id="cb110-9"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="fu">expression</span>(Residual<span class="sc">~</span>(bu<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_spatial, <span class="sc">~</span> gen)) <span class="sc">%&gt;%</span> </span>
-<span id="cb111-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>emmean) <span class="sc">%&gt;%</span> </span>
-<span id="cb111-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##  gen        emmean       SE  df lower.CL
-##  Buckskin 33.37166 3.399254 163 26.65941
-##  NE85556  29.35020 3.395673 163 22.64502
-##  NE87619  29.09390 3.397032 163 22.38604
-##  NE83498  28.90073 3.405042 163 22.17705
-##  Redland  28.63517 3.393941 163 21.93341
-##  NE86503  27.51328 3.451773 163 20.69732
-##  upper.CL
-##  40.08391
-##  36.05538
-##  35.80176
-##  35.62441
-##  35.33693
-##  34.32923
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb114-1" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
+<span id="cb114-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb114-2" tabindex="-1"></a></span>
+<span id="cb114-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb114-3" tabindex="-1"></a>data<span class="sc">$</span>coordinate <span class="ot">&lt;-</span> <span class="fu">numFactor</span>(data<span class="sc">$</span>col, data<span class="sc">$</span>row)</span>
+<span id="cb114-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb114-4" tabindex="-1"></a>data<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="dv">1</span>) </span>
+<span id="cb114-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb114-5" tabindex="-1"></a></span>
+<span id="cb114-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb114-6" tabindex="-1"></a>m_spatial <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>rep) <span class="sc">+</span> <span class="fu">mat</span>(coordinate <span class="sc">+</span> <span class="dv">0</span> <span class="sc">|</span> group), <span class="at">data =</span> data)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-1" tabindex="-1"></a>data<span class="sc">$</span>resid_spatial <span class="ot">&lt;-</span> <span class="fu">resid</span>(m_spatial)</span>
+<span id="cb115-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-2" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-3" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb115-4"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(col, row))<span class="sc">+</span></span>
+<span id="cb115-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-5" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> resid_spatial), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb115-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-6" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
+<span id="cb115-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-7" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
+<span id="cb115-8"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb115-9"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb115-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="fu">expression</span>(Residual<span class="sc">~</span>(bu<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb116-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_spatial, <span class="sc">~</span> gen)) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb116-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>emmean) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb116-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<pre><code>##  gen        emmean       SE  df lower.CL upper.CL
+##  Buckskin 33.37166 3.399254 163 26.65941 40.08391
+##  NE85556  29.35020 3.395673 163 22.64502 36.05538
+##  NE87619  29.09390 3.397032 163 22.38604 35.80176
+##  NE83498  28.90073 3.405042 163 22.17705 35.62441
+##  Redland  28.63517 3.393941 163 21.93341 35.33693
+##  NE86503  27.51328 3.451773 163 20.69732 34.32923
 ## 
 ## Confidence level used: 0.95</code></pre>
 

@@ -39,22 +39,19 @@ url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/
 d <- read.csv(url)
 
 d %>% 
-  ggplot(aes(Treatment, Log.CFU.coupon))+
+  ggplot(aes(Treatment, logCFU))+
   geom_point()
 ```
 
 
 ```{r}
 library(lme4)
-m <- lmer(Log.CFU.coupon ~  factor(Treatment) * factor(Material) * Time + (1|Treatment:Time:Material:Biological.Rep),
+m <- lmer(logCFU ~  factor(Treatment) * factor(Material) * factor(Time) + 
+            (1|Treatment:Time:Material:Biological.Rep),
           data = d)
 
-library(mgcv)
-m <- gam(list(Log.CFU.coupon ~  factor(Treatment) * factor(Material) * Time ,  
-              ~ factor(Treatment):factor(Material)),
-          family = gaulss(),
-          data = d)
-plot(m)
+DHARMa::simulateResiduals(m, plot = T)
+emmeans::emmeans(m, ~Treatment:Time|Material)
 
 plot(predict(m)[,2], resid(m))
 
