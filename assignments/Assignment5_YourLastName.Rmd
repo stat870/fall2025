@@ -44,28 +44,6 @@ d %>%
 ```
 
 
-```{r}
-library(lme4)
-m <- lmer(logCFU ~  factor(Treatment) * factor(Material) * factor(Time) + 
-            (1|Treatment:Time:Material:Biological.Rep),
-          data = d)
-
-DHARMa::simulateResiduals(m, plot = T)
-emmeans::emmeans(m, ~Treatment:Time|Material)
-
-plot(predict(m)[,2], resid(m))
-
-ggplot(data.frame(resid = resid(m)), aes(resid)) +
-    stat_qq() +
-    stat_qq_line() +
-    theme_classic() +
-    ggtitle(paste("Q-Q Plot of the residuals:", response))
- 
-qqnorm( resid(m))
-qqline( resid(m))
-
-hist(resid(m))
-```
 
 ### 1.a. 
 
