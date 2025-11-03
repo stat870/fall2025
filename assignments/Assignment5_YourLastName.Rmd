@@ -36,7 +36,8 @@ They wish to study whether the treatments had a different effect on the number o
 library(tidyverse)
 
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/sanitizers.csv"
-d <- read.csv(url)
+d <- read.csv(url) |> 
+  mutate(across(c(Treatment, Time), ~as.factor(.)))
 
 d %>% 
   ggplot(aes(Treatment, logCFU))+
@@ -60,6 +61,17 @@ Write a statistical model that could be fitted to these data.
 ### 1.d.
 
 Fit the statistical model in (1c) to the data. 
+
+```{r}
+library(lme4)
+m_wrong <- lmer(logCFU ~ Treatment * Time * Material + (1|Biological.Rep), data  = d)
+m_right <- lmer(logCFU ~ Treatment * Time * Material + (1|Treatment:Time:Material:Biological.Rep), data  = d)
+```
+
+```{r}
+VarCorr(m_wrong)
+VarCorr(m_right)
+```
 
 ### 1.e. 
 
