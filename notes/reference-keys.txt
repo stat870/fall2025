@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 fig:unnamed-chunk-1
 fig:unnamed-chunk-3
 fig:unnamed-chunk-4
@@ -25,6 +26,35 @@ fig:unnamed-chunk-66
 fig:unnamed-chunk-80
 fig:unnamed-chunk-96
 fig:unnamed-chunk-97
+=======
+fig:unnamed-chunk-11
+fig:unnamed-chunk-13
+fig:unnamed-chunk-14
+fig:unnamed-chunk-15
+fig:unnamed-chunk-16
+fig:unnamed-chunk-17
+fig:unnamed-chunk-18
+fig:unnamed-chunk-19
+fig:unnamed-chunk-20
+fig:unnamed-chunk-21
+tab:unnamed-chunk-24
+tab:unnamed-chunk-29
+tab:unnamed-chunk-34
+fig:unnamed-chunk-36
+fig:unnamed-chunk-41
+fig:unnamed-chunk-42
+fig:unnamed-chunk-43
+fig:unnamed-chunk-57
+fig:unnamed-chunk-58
+fig:unnamed-chunk-72
+fig:unnamed-chunk-73
+fig:unnamed-chunk-74
+fig:unnamed-chunk-75
+fig:unnamed-chunk-76
+fig:unnamed-chunk-90
+fig:unnamed-chunk-106
+fig:unnamed-chunk-107
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 welcome-to-stat-870
 about-this-course
 logistics

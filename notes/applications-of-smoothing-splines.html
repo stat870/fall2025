@@ -475,7 +475,11 @@ Reember that <span class="math inline">\(\mathbf{g} = [g(\mathbf{x}_1), g(\mathb
 <span id="cb125-7"><a href="applications-of-smoothing-splines.html#cb125-7" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()<span class="sc">+</span></span>
 <span id="cb125-8"><a href="applications-of-smoothing-splines.html#cb125-8" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
 <span id="cb125-9"><a href="applications-of-smoothing-splines.html#cb125-9" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+=======
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <p>A (typically) reasonable model could be
 <span class="math display">\[y_{ijk} \sim N(\mu_{ijk}, \sigma^2),\\ \mu_{ijk} = \mu_0 + T_i + l_j + b_{k(j)}, \\ l_j \sim N(0, \sigma^2_l), \\ b_{k(j)} \sim N(0, \sigma^2_b),\]</span>
 where:</p>
@@ -489,7 +493,11 @@ where:</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="applications-of-smoothing-splines.html#cb126-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb126-2"><a href="applications-of-smoothing-splines.html#cb126-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>site<span class="sc">/</span>rep), <span class="at">data =</span> dat)</span>
 <span id="cb126-3"><a href="applications-of-smoothing-splines.html#cb126-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
+<<<<<<< HEAD
 <pre><code>## 0.05 sec elapsed</code></pre>
+=======
+<pre><code>## 0.03 sec elapsed</code></pre>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="applications-of-smoothing-splines.html#cb128-1" tabindex="-1"></a><span class="fu">VarCorr</span>(m1)</span></code></pre></div>
 <pre><code>##  Groups   Name        Std.Dev.
 ##  rep:site (Intercept) 0.10140 
@@ -504,7 +512,11 @@ where:</p>
 <span id="cb131-6"><a href="applications-of-smoothing-splines.html#cb131-6" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
 <span id="cb131-7"><a href="applications-of-smoothing-splines.html#cb131-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">main =</span> <span class="st">&quot;Residuals assuming within-block homogeneity&quot;</span>)<span class="sc">+</span></span>
 <span id="cb131-8"><a href="applications-of-smoothing-splines.html#cb131-8" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+=======
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <p><strong>Relaxing an assumption from the traditional approach</strong></p>
 <p>Alternatively, we could add an element to the linear predictor. Previously, we said <span class="math inline">\(\mu_{ijk} = \mu_0 + T_i + l_j + b_{k(j)}\)</span>.</p>
 <p>Potential risks of assuming within-block homogeneity:</p>
@@ -516,7 +528,11 @@ where:</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="applications-of-smoothing-splines.html#cb132-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb132-2"><a href="applications-of-smoothing-splines.html#cb132-2" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">gam</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> <span class="fu">s</span>(rep, site, <span class="at">bs =</span> <span class="st">&quot;re&quot;</span>) <span class="sc">+</span> <span class="fu">s</span>(row, col, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>, <span class="at">by =</span> site), <span class="at">data =</span> dat)</span>
 <span id="cb132-3"><a href="applications-of-smoothing-splines.html#cb132-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
+<<<<<<< HEAD
 <pre><code>## 9.89 sec elapsed</code></pre>
+=======
+<pre><code>## 9.19 sec elapsed</code></pre>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="applications-of-smoothing-splines.html#cb134-1" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
 <pre><code>## 
 ## Family: gaussian 
@@ -568,7 +584,11 @@ where:</p>
 <span id="cb137-6"><a href="applications-of-smoothing-splines.html#cb137-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">main =</span> <span class="st">&quot;Residuals relaxing the assumption of within-block homogeneity&quot;</span>)<span class="sc">+</span></span>
 <span id="cb137-7"><a href="applications-of-smoothing-splines.html#cb137-7" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
 <span id="cb137-8"><a href="applications-of-smoothing-splines.html#cb137-8" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+=======
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <p><strong>An intuitive visualization of splines</strong></p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="applications-of-smoothing-splines.html#cb138-1" tabindex="-1"></a>d_predict <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> </span>
 <span id="cb138-2"><a href="applications-of-smoothing-splines.html#cb138-2" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">gen =</span> <span class="st">&quot;Merrit&quot;</span>, </span>
@@ -598,7 +618,11 @@ where:</p>
 <span id="cb139-21"><a href="applications-of-smoothing-splines.html#cb139-21" tabindex="-1"></a><span class="fu">ggarrange</span>(sp_effects_trad, sp_effects_splines, </span>
 <span id="cb139-22"><a href="applications-of-smoothing-splines.html#cb139-22" tabindex="-1"></a>          <span class="at">common.legend =</span> T,</span>
 <span id="cb139-23"><a href="applications-of-smoothing-splines.html#cb139-23" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">1</span>)</span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+=======
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <ul>
 <li>Some thoughts on missing data imputation.</li>
 <li>Use of multilevel models for missing data imputation</li>
@@ -618,7 +642,11 @@ where:</p>
 <span id="cb140-7"><a href="applications-of-smoothing-splines.html#cb140-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill  =</span><span class="st">&quot;Diet&quot;</span>, </span>
 <span id="cb140-8"><a href="applications-of-smoothing-splines.html#cb140-8" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(gas<span class="sc">~</span>flux<span class="sc">~</span>cow<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))<span class="sc">+</span></span>
 <span id="cb140-9"><a href="applications-of-smoothing-splines.html#cb140-9" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+=======
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <p>We can generally describe any point as
 <span class="math display">\[y_{ijk} \sim D(\mu_{ijk}, \psi), \\ g(\mu_{ijk}) = \eta_{ijk}\]</span>
 where <span class="math inline">\(y_{ijk}\)</span> is the observation of the flux per head for the <span class="math inline">\(i\)</span>th diet, <span class="math inline">\(j\)</span>th group and <span class="math inline">\(l\)</span>th moment.</p>
@@ -674,7 +702,11 @@ where <span class="math inline">\(y_{ijk}\)</span> is the observation of the flu
 <span id="cb141-37"><a href="applications-of-smoothing-splines.html#cb141-37" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
 <span id="cb141-38"><a href="applications-of-smoothing-splines.html#cb141-38" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill  =</span><span class="st">&quot;Diet&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Diet&quot;</span>,</span>
 <span id="cb141-39"><a href="applications-of-smoothing-splines.html#cb141-39" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(gas<span class="sc">~</span>flux<span class="sc">~</span>cow<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span></code></pre></div>
+<<<<<<< HEAD
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+=======
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+>>>>>>> 61009787eb17e98772c0b225e5822c36da70f50d
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="applications-of-smoothing-splines.html#cb142-1" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
 <pre><code>## 
 ## Family: Gamma 
