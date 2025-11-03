@@ -451,7 +451,7 @@ Alliance, Nebraska, in 1988/89.</p>
 <span id="cb104-9"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-9" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span></span>
 <span id="cb104-10"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Block&quot;</span>)<span class="sc">+</span></span>
 <span id="cb104-11"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb104-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <p>The statistical model:</p>
 <p><span class="math display">\[y_{ij}\sim N(\mu_{ij}, \sigma^2), \\
 \mu_{ij} = \eta_{ij} = \eta_0 + G_i + b_j, \\
@@ -470,7 +470,7 @@ b_j \sim N(0, \sigma^2_b).\]</span></p>
 <span id="cb106-5"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-5" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
 <span id="cb106-6"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
 <span id="cb106-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb106-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="fu">expression</span>(Residual<span class="sc">~</span>(bu<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> gen)) <span class="sc">%&gt;%</span> </span>
 <span id="cb107-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>emmean) <span class="sc">%&gt;%</span> </span>
 <span id="cb107-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb107-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
@@ -499,7 +499,7 @@ b_j \sim N(0, \sigma^2_b).\]</span></p>
 <span id="cb110-7"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-7" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico</span>()<span class="sc">+</span></span>
 <span id="cb110-8"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
 <span id="cb110-9"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb110-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="fu">expression</span>(Residual<span class="sc">~</span>(bu<span class="sc">~</span>ac<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m_spatial, <span class="sc">~</span> gen)) <span class="sc">%&gt;%</span> </span>
 <span id="cb111-2"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>emmean) <span class="sc">%&gt;%</span> </span>
 <span id="cb111-3"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#cb111-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>

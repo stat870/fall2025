@@ -8,7 +8,7 @@ October 29
 
 November 3 
 : Zero-inflated models  
-  : []()
+  : [html](https://stat870.github.io/fall2025/notes/zero-inflated-models.html)
 
 November 5 
 : Zero-inflated models II  
