@@ -1,0 +1,13 @@
+# Zero-inflated models practice
+
+## Announcements 
+
+- Classes for Nov 10 and Nov 13 are replaced for assignments 6 & 7:
+  - Assignment 6:  
+  - Assignment 7: send preliminary results for your project 
+- 
+
+```{r}
+
+```
+
