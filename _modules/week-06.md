@@ -12,7 +12,7 @@ November 3
 
 November 5 
 : Zero-inflated models II  
-  : []()
+  : [html](https://stat870.github.io/fall2025/notes/zero-inflated-models-practice.html)
 
 November 10 
 : Missing data problems   
