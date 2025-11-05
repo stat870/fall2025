@@ -182,6 +182,9 @@ negative-binomial-model
 zero-inflated-nb-model
 marginal-means
 other-related-distributions
+zero-inflated-models-practice
+announcements-19
+in-class-activity-1
 semester-project-1
 learning-objectives
 partial-deadlines

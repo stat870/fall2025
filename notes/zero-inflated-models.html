@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="miscellaneous.html"/>
-<link rel="next" href="semester-project-1.html"/>
+<link rel="next" href="zero-inflated-models-practice.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -376,15 +376,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="20.4" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#other-related-distributions"><i class="fa fa-check"></i><b>20.4</b> Other related distributions</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>21</b> Semester Project</a>
+<li class="chapter" data-level="21" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html"><i class="fa fa-check"></i><b>21</b> Zero-inflated models practice</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>21.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="21.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>21.2</b> Partial deadlines</a>
+<li class="chapter" data-level="21.1" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html#announcements-19"><i class="fa fa-check"></i><b>21.1</b> Announcements</a></li>
+<li class="chapter" data-level="21.2" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html#in-class-activity-1"><i class="fa fa-check"></i><b>21.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>22</b> Semester Project</a>
 <ul>
-<li class="chapter" data-level="21.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>21.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
-<li class="chapter" data-level="21.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>21.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
-<li class="chapter" data-level="21.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>21.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
-<li class="chapter" data-level="21.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>21.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="22.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>22.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="22.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>22.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>22.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="22.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>22.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="22.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>22.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="22.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>22.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -440,33 +445,33 @@ The outcome of interest is fecal egg count in 5 gram of feces (<code>fec</code>)
 <li><code>lact</code> [lactation; multiparous (1) or primiparous (0)],</li>
 <li><code>manure</code> [manure spread on pasture; yes (1) or no (0)],</li>
 </ul>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="zero-inflated-models.html#cb167-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb167-2"><a href="zero-inflated-models.html#cb167-2" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb167-3"><a href="zero-inflated-models.html#cb167-3" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
-<span id="cb167-4"><a href="zero-inflated-models.html#cb167-4" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb167-5"><a href="zero-inflated-models.html#cb167-5" tabindex="-1"></a></span>
-<span id="cb167-6"><a href="zero-inflated-models.html#cb167-6" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fecal_egg_counts.csv&quot;</span></span>
-<span id="cb167-7"><a href="zero-inflated-models.html#cb167-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url) <span class="sc">|&gt;</span>  </span>
-<span id="cb167-8"><a href="zero-inflated-models.html#cb167-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(tx, lact, manure, past_lact), </span>
-<span id="cb167-9"><a href="zero-inflated-models.html#cb167-9" tabindex="-1"></a>                <span class="sc">~</span><span class="fu">as.factor</span>(.))) </span>
-<span id="cb167-10"><a href="zero-inflated-models.html#cb167-10" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
-<span id="cb167-11"><a href="zero-inflated-models.html#cb167-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(fec))<span class="sc">+</span></span>
-<span id="cb167-12"><a href="zero-inflated-models.html#cb167-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">group =</span> tx, <span class="at">fill =</span> tx), </span>
-<span id="cb167-13"><a href="zero-inflated-models.html#cb167-13" tabindex="-1"></a>                 <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">binwidth =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb167-14"><a href="zero-inflated-models.html#cb167-14" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))<span class="sc">+</span></span>
-<span id="cb167-15"><a href="zero-inflated-models.html#cb167-15" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico_d</span>(<span class="at">palette =</span> <span class="st">&quot;hawaii&quot;</span>)<span class="sc">+</span></span>
-<span id="cb167-16"><a href="zero-inflated-models.html#cb167-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Treatment&quot;</span>)<span class="sc">+</span></span>
-<span id="cb167-17"><a href="zero-inflated-models.html#cb167-17" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-114-1.png" width="672"  /></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="zero-inflated-models.html#cb170-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb170-2"><a href="zero-inflated-models.html#cb170-2" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb170-3"><a href="zero-inflated-models.html#cb170-3" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
+<span id="cb170-4"><a href="zero-inflated-models.html#cb170-4" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb170-5"><a href="zero-inflated-models.html#cb170-5" tabindex="-1"></a></span>
+<span id="cb170-6"><a href="zero-inflated-models.html#cb170-6" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/fecal_egg_counts.csv&quot;</span></span>
+<span id="cb170-7"><a href="zero-inflated-models.html#cb170-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url) <span class="sc">|&gt;</span>  </span>
+<span id="cb170-8"><a href="zero-inflated-models.html#cb170-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(tx, lact, manure, past_lact), </span>
+<span id="cb170-9"><a href="zero-inflated-models.html#cb170-9" tabindex="-1"></a>                <span class="sc">~</span><span class="fu">as.factor</span>(.))) </span>
+<span id="cb170-10"><a href="zero-inflated-models.html#cb170-10" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
+<span id="cb170-11"><a href="zero-inflated-models.html#cb170-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(fec))<span class="sc">+</span></span>
+<span id="cb170-12"><a href="zero-inflated-models.html#cb170-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">group =</span> tx, <span class="at">fill =</span> tx), </span>
+<span id="cb170-13"><a href="zero-inflated-models.html#cb170-13" tabindex="-1"></a>                 <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">binwidth =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb170-14"><a href="zero-inflated-models.html#cb170-14" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))<span class="sc">+</span></span>
+<span id="cb170-15"><a href="zero-inflated-models.html#cb170-15" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico_d</span>(<span class="at">palette =</span> <span class="st">&quot;hawaii&quot;</span>)<span class="sc">+</span></span>
+<span id="cb170-16"><a href="zero-inflated-models.html#cb170-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Treatment&quot;</span>)<span class="sc">+</span></span>
+<span id="cb170-17"><a href="zero-inflated-models.html#cb170-17" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <p>ALSO: the data come from a longitudinal study that included multiple cows from different herds and provinces in Canada. That the cows coming from the same herd have more things in common than cows coming from another herd, and same for provinces.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="zero-inflated-models.html#cb168-1" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
-<span id="cb168-2"><a href="zero-inflated-models.html#cb168-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">factor</span>(province)))<span class="sc">+</span></span>
-<span id="cb168-3"><a href="zero-inflated-models.html#cb168-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">factor</span>(herd)), </span>
-<span id="cb168-4"><a href="zero-inflated-models.html#cb168-4" tabindex="-1"></a>           <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
-<span id="cb168-5"><a href="zero-inflated-models.html#cb168-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Province&quot;</span>)<span class="sc">+</span></span>
-<span id="cb168-6"><a href="zero-inflated-models.html#cb168-6" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico_d</span>(<span class="at">palette =</span> <span class="st">&quot;lipari&quot;</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb168-7"><a href="zero-inflated-models.html#cb168-7" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-115-1.png" width="672"  /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="zero-inflated-models.html#cb171-1" tabindex="-1"></a>dat <span class="sc">|&gt;</span> </span>
+<span id="cb171-2"><a href="zero-inflated-models.html#cb171-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">factor</span>(province)))<span class="sc">+</span></span>
+<span id="cb171-3"><a href="zero-inflated-models.html#cb171-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">factor</span>(herd)), </span>
+<span id="cb171-4"><a href="zero-inflated-models.html#cb171-4" tabindex="-1"></a>           <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
+<span id="cb171-5"><a href="zero-inflated-models.html#cb171-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Province&quot;</span>)<span class="sc">+</span></span>
+<span id="cb171-6"><a href="zero-inflated-models.html#cb171-6" tabindex="-1"></a>  scico<span class="sc">::</span><span class="fu">scale_fill_scico_d</span>(<span class="at">palette =</span> <span class="st">&quot;lipari&quot;</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb171-7"><a href="zero-inflated-models.html#cb171-7" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 <div id="poisson-model" class="section level3 hasAnchor" number="20.3.1">
 <h3><span class="header-section-number">20.3.1</span> Poisson model<a href="zero-inflated-models.html#poisson-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So, we know that the groups are herds within province.
@@ -484,24 +489,24 @@ where:</p>
 <li><span class="math inline">\(p_m\)</span> is the effect of the <span class="math inline">\(m\)</span>th province,</li>
 <li><span class="math inline">\(b_{n(m)}\)</span> is the effect of the <span class="math inline">\(n\)</span>th herd in the <span class="math inline">\(m\)</span>th province.</li>
 </ul>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="zero-inflated-models.html#cb169-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
-<span id="cb169-2"><a href="zero-inflated-models.html#cb169-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
-<span id="cb169-3"><a href="zero-inflated-models.html#cb169-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">poisson</span>(),</span>
-<span id="cb169-4"><a href="zero-inflated-models.html#cb169-4" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
-<span id="cb169-5"><a href="zero-inflated-models.html#cb169-5" tabindex="-1"></a></span>
-<span id="cb169-6"><a href="zero-inflated-models.html#cb169-6" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="zero-inflated-models.html#cb172-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
+<span id="cb172-2"><a href="zero-inflated-models.html#cb172-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
+<span id="cb172-3"><a href="zero-inflated-models.html#cb172-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">poisson</span>(),</span>
+<span id="cb172-4"><a href="zero-inflated-models.html#cb172-4" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
+<span id="cb172-5"><a href="zero-inflated-models.html#cb172-5" tabindex="-1"></a></span>
+<span id="cb172-6"><a href="zero-inflated-models.html#cb172-6" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>In the plot below, the grey histogram indicates the amount of zeroes in simulated data generated by the fitted model, and the red line indicates the amount of zeroes in the data.</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="zero-inflated-models.html#cb170-1" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-1.png" width="672"  /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="zero-inflated-models.html#cb173-1" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <pre><code>## 
-##  DHARMa zero-inflation test via comparison to expected zeros with
-##  simulation under H0 = fitted model
+##  DHARMa zero-inflation test via comparison to expected zeros with simulation under H0 = fitted
+##  model
 ## 
 ## data:  simulationOutput
 ## ratioObsSim = 1.6604, p-value &lt; 2.2e-16
 ## alternative hypothesis: two.sided</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="zero-inflated-models.html#cb172-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-2.png" width="672"  /></p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="zero-inflated-models.html#cb175-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
 </div>
 <div id="zero-inflated-poisson-model" class="section level3 hasAnchor" number="20.3.2">
 <h3><span class="header-section-number">20.3.2</span> Zero-inflated Poisson model<a href="zero-inflated-models.html#zero-inflated-poisson-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -514,72 +519,72 @@ where:</p>
 <li><span class="math inline">\(\pi\)</span> is the probability of the process <span class="math inline">\(f(\cdot)\)</span> being “off”,</li>
 <li><span class="math inline">\(1-\pi\)</span> is the probability of the process <span class="math inline">\(f(\cdot)\)</span> being “on”.</li>
 </ul>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="zero-inflated-models.html#cb173-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
-<span id="cb173-2"><a href="zero-inflated-models.html#cb173-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
-<span id="cb173-3"><a href="zero-inflated-models.html#cb173-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">poisson</span>(),</span>
-<span id="cb173-4"><a href="zero-inflated-models.html#cb173-4" tabindex="-1"></a>             <span class="at">ziformula =</span> <span class="sc">~</span><span class="dv">1</span>,</span>
-<span id="cb173-5"><a href="zero-inflated-models.html#cb173-5" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
-<span id="cb173-6"><a href="zero-inflated-models.html#cb173-6" tabindex="-1"></a></span>
-<span id="cb173-7"><a href="zero-inflated-models.html#cb173-7" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="zero-inflated-models.html#cb176-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
+<span id="cb176-2"><a href="zero-inflated-models.html#cb176-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
+<span id="cb176-3"><a href="zero-inflated-models.html#cb176-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">poisson</span>(),</span>
+<span id="cb176-4"><a href="zero-inflated-models.html#cb176-4" tabindex="-1"></a>             <span class="at">ziformula =</span> <span class="sc">~</span><span class="dv">1</span>,</span>
+<span id="cb176-5"><a href="zero-inflated-models.html#cb176-5" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
+<span id="cb176-6"><a href="zero-inflated-models.html#cb176-6" tabindex="-1"></a></span>
+<span id="cb176-7"><a href="zero-inflated-models.html#cb176-7" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>In the plot below, the grey histogram indicates the amount of zeroes in simulated data generated by the fitted model, and the red line indicates the amount of zeroes in the data.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="zero-inflated-models.html#cb174-1" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-119-1.png" width="672"  /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="zero-inflated-models.html#cb177-1" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 <pre><code>## 
-##  DHARMa zero-inflation test via comparison to expected zeros with
-##  simulation under H0 = fitted model
+##  DHARMa zero-inflation test via comparison to expected zeros with simulation under H0 = fitted
+##  model
 ## 
 ## data:  simulationOutput
 ## ratioObsSim = 1.0125, p-value = 0.896
 ## alternative hypothesis: two.sided</code></pre>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="zero-inflated-models.html#cb176-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-119-2.png" width="672"  /></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="zero-inflated-models.html#cb179-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-119-2.png" width="672" /></p>
 </div>
 <div id="negative-binomial-model" class="section level3 hasAnchor" number="20.3.3">
 <h3><span class="header-section-number">20.3.3</span> Negative Binomial model<a href="zero-inflated-models.html#negative-binomial-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the case of overdispersion, negative binomial models come in handy.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="zero-inflated-models.html#cb177-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
-<span id="cb177-2"><a href="zero-inflated-models.html#cb177-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
-<span id="cb177-3"><a href="zero-inflated-models.html#cb177-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">nbinom1</span>(),</span>
-<span id="cb177-4"><a href="zero-inflated-models.html#cb177-4" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
-<span id="cb177-5"><a href="zero-inflated-models.html#cb177-5" tabindex="-1"></a></span>
-<span id="cb177-6"><a href="zero-inflated-models.html#cb177-6" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb177-7"><a href="zero-inflated-models.html#cb177-7" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-1.png" width="672"  /></p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="zero-inflated-models.html#cb180-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
+<span id="cb180-2"><a href="zero-inflated-models.html#cb180-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
+<span id="cb180-3"><a href="zero-inflated-models.html#cb180-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">nbinom1</span>(),</span>
+<span id="cb180-4"><a href="zero-inflated-models.html#cb180-4" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
+<span id="cb180-5"><a href="zero-inflated-models.html#cb180-5" tabindex="-1"></a></span>
+<span id="cb180-6"><a href="zero-inflated-models.html#cb180-6" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb180-7"><a href="zero-inflated-models.html#cb180-7" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <pre><code>## 
-##  DHARMa zero-inflation test via comparison to expected zeros with
-##  simulation under H0 = fitted model
+##  DHARMa zero-inflation test via comparison to expected zeros with simulation under H0 = fitted
+##  model
 ## 
 ## data:  simulationOutput
 ## ratioObsSim = 0.93316, p-value = 0.584
 ## alternative hypothesis: two.sided</code></pre>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="zero-inflated-models.html#cb179-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-2.png" width="672"  /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="zero-inflated-models.html#cb182-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-2.png" width="672" /></p>
 </div>
 <div id="zero-inflated-nb-model" class="section level3 hasAnchor" number="20.3.4">
 <h3><span class="header-section-number">20.3.4</span> Zero-inflated NB model<a href="zero-inflated-models.html#zero-inflated-nb-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="zero-inflated-models.html#cb180-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
-<span id="cb180-2"><a href="zero-inflated-models.html#cb180-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
-<span id="cb180-3"><a href="zero-inflated-models.html#cb180-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">nbinom1</span>(),</span>
-<span id="cb180-4"><a href="zero-inflated-models.html#cb180-4" tabindex="-1"></a>             <span class="at">ziformula =</span> <span class="sc">~</span> <span class="dv">1</span> , </span>
-<span id="cb180-5"><a href="zero-inflated-models.html#cb180-5" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
-<span id="cb180-6"><a href="zero-inflated-models.html#cb180-6" tabindex="-1"></a></span>
-<span id="cb180-7"><a href="zero-inflated-models.html#cb180-7" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb180-8"><a href="zero-inflated-models.html#cb180-8" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672"  /></p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="zero-inflated-models.html#cb183-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(fec <span class="sc">~</span> tx <span class="sc">+</span> lact <span class="sc">+</span> manure <span class="sc">+</span></span>
+<span id="cb183-2"><a href="zero-inflated-models.html#cb183-2" tabindex="-1"></a>               province <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>province<span class="sc">:</span>herd),</span>
+<span id="cb183-3"><a href="zero-inflated-models.html#cb183-3" tabindex="-1"></a>             <span class="at">family =</span> <span class="fu">nbinom1</span>(),</span>
+<span id="cb183-4"><a href="zero-inflated-models.html#cb183-4" tabindex="-1"></a>             <span class="at">ziformula =</span> <span class="sc">~</span> <span class="dv">1</span> , </span>
+<span id="cb183-5"><a href="zero-inflated-models.html#cb183-5" tabindex="-1"></a>             <span class="at">data =</span> dat)</span>
+<span id="cb183-6"><a href="zero-inflated-models.html#cb183-6" tabindex="-1"></a></span>
+<span id="cb183-7"><a href="zero-inflated-models.html#cb183-7" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m, <span class="at">refit =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb183-8"><a href="zero-inflated-models.html#cb183-8" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">testZeroInflation</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 <pre><code>## 
-##  DHARMa zero-inflation test via comparison to expected zeros with
-##  simulation under H0 = fitted model
+##  DHARMa zero-inflation test via comparison to expected zeros with simulation under H0 = fitted
+##  model
 ## 
 ## data:  simulationOutput
 ## ratioObsSim = 0.92838, p-value = 0.528
 ## alternative hypothesis: two.sided</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="zero-inflated-models.html#cb182-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-2.png" width="672"  /></p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="zero-inflated-models.html#cb185-1" tabindex="-1"></a><span class="fu">plot</span>(residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-2.png" width="672" /></p>
 </div>
 <div id="marginal-means" class="section level3 hasAnchor" number="20.3.5">
 <h3><span class="header-section-number">20.3.5</span> Marginal means<a href="zero-inflated-models.html#marginal-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="zero-inflated-models.html#cb183-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span> tx, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, </span>
-<span id="cb183-2"><a href="zero-inflated-models.html#cb183-2" tabindex="-1"></a>        <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="zero-inflated-models.html#cb186-1" tabindex="-1"></a><span class="fu">emmeans</span>(m, <span class="sc">~</span> tx, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, </span>
+<span id="cb186-2"><a href="zero-inflated-models.html#cb186-2" tabindex="-1"></a>        <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)))</span></code></pre></div>
 <pre><code>## $emmeans
 ##  tx response   SE  df asymp.LCL asymp.UCL
 ##  0     15.86 3.92 Inf      9.78      25.7
@@ -625,7 +630,7 @@ where:</p>
         </div>
       </div>
 <a href="miscellaneous.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="zero-inflated-models-practice.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
