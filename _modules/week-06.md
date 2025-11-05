@@ -15,19 +15,19 @@ November 5
   : [html](https://stat870.github.io/fall2025/notes/zero-inflated-models-practice.html)
 
 November 10 
-: Missing data problems   
+: Work on your project 
   : []()
 
 November 13 
-: Missing data problems II   
+: Work on your project 
   : []()
 
 November 17 
-: Including environmental covariates  
+: Missing data problems  
   : []()
 
 November 19 
-: Including environmental covariates II  
+: Including environmental covariates   
   : []()
 
 November 24 
