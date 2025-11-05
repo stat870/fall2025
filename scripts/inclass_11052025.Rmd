@@ -1,0 +1,62 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+library(glmmTMB)
+```
+
+```{r}
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/herbicide_study.csv"
+d <- read.csv(url) |> 
+  mutate(location = as.factor(location))
+```
+
+```{r}
+m0 <- glmmTMB(plant_count ~ herbicide,
+              family = poisson(link = "log"),
+              data = d)
+r <- DHARMa::simulateResiduals(m0)
+DHARMa::testZeroInflation(m0)
+summary(m0)
+emmeans(m0, ~ herbicide, type = "response")
+```
+
+```{r}
+m1 <- glmmTMB(plant_count ~ herbicide,
+              ziformula = ~1,
+              family = poisson(link = "log"),
+              data = d)
+r <- DHARMa::simulateResiduals(m1)
+DHARMa::testZeroInflation(m1)
+plot(r)
+```
+
+
+
+```{r}
+m2 <- glmmTMB(plant_count ~ herbicide + (1|location),
+              ziformula = ~1 + herbicide,
+              family = poisson(link = "log"),
+              data = d)
+r <- DHARMa::simulateResiduals(m2)
+DHARMa::testZeroInflation(m2)
+plot(r)
+```
+
+```{r}
+m0;m1;m2
+AIC(m0,m1, m2)
+```
+
+```{r}
+summary(m2)
+```
+
+```{r}
+library(emmeans)
+emmeans(m1, ~ herbicide, type = "response")
+```

@@ -1,15 +1,12 @@
-# Zero-inflated models practice
+---
+title: "In-class exercise"
+author: "STAT 870"
+date: "2025-11-05"
+output: pdf_document
+---
 
-## Announcements 
+**Task: answer this email to your colleague, mentioning statistical models in your justification for (yes it's ok / no it's not ok).**   
 
-- Classes for Nov 10 and Nov 13 are replaced for assignments 6 & 7:
-  - Assignment 6: [Google Docs](https://docs.google.com/document/d/1axPnXe0YlGSshK6ou8AiwzVfu5VsplvUOd0Z4w-5YK8/edit?usp=sharing) due Friday 11/14
-  - Assignment 7: Project
-
-
-## In-class activity 
-
-A collaborator has sent you the following question:
 
 >Dear Sir or Madam, 
 >
@@ -25,15 +22,15 @@ A collaborator has sent you the following question:
 >My question: does that mean that this model is usable? If not, what changes would you make?
 >Below is the model I am trying to fit and some diagnostic plots for your reference.  
 
-**Task: answer this email to your colleague, mentioning statistical models in your justification for (yes it's ok / no it's not ok).**   
 
 
-```{r}
+```{r warning=FALSE, message=FALSE, fig.height=3, fig.width=4}
 library(tidyverse)
 library(ggpubr)
 library(glmmTMB)
 
-url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/herbicide_study.csv"
+url <-
+  "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/herbicide_study.csv"
 d <- read.csv(url) |> 
   mutate(location = as.factor(location))
 
@@ -46,10 +43,8 @@ d |>
   scico::scale_fill_scico_d(palette = "hawaii")
 ```
 
-```{r}
+```{r }
 m0 <- glmmTMB(plant_count ~ herbicide + location, data = d)
 r <- DHARMa::simulateResiduals(m0)
 plot(r)
 ```
-
-[In-class code](../scripts/inclass_11052025.Rmd)
