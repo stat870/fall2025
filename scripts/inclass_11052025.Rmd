@@ -38,7 +38,7 @@ plot(r)
 
 
 ```{r}
-m2 <- glmmTMB(plant_count ~ herbicide + (1|location),
+m2 <- glmmTMB(plant_count ~ herbicide + (1|location/herbicide),
               ziformula = ~1 + herbicide,
               family = poisson(link = "log"),
               data = d)
