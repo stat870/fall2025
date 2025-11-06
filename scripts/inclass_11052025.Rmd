@@ -1,6 +1,6 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output: html_document
 ---
 
 ```{r}
@@ -16,47 +16,74 @@ d <- read.csv(url) |>
 ```
 
 ```{r}
-m0 <- glmmTMB(plant_count ~ herbicide,
-              family = poisson(link = "log"),
-              data = d)
-r <- DHARMa::simulateResiduals(m0)
-DHARMa::testZeroInflation(m0)
-summary(m0)
-emmeans(m0, ~ herbicide, type = "response")
+d |> 
+  ggplot(aes(plant_count))+
+  geom_histogram(aes(group = herbicide, fill = herbicide), 
+                 bins = 30, color = "black")+
+  labs(fill = "Herbicide", 
+       y = "Plant count")+
+  theme_pubclean()+
+  scico::scale_fill_scico_d(palette = "hawaii")
 ```
-
-```{r}
-m1 <- glmmTMB(plant_count ~ herbicide,
-              ziformula = ~1,
-              family = poisson(link = "log"),
-              data = d)
-r <- DHARMa::simulateResiduals(m1)
-DHARMa::testZeroInflation(m1)
-plot(r)
-```
-
 
 
 ```{r}
-m2 <- glmmTMB(plant_count ~ herbicide + (1|location/herbicide),
-              ziformula = ~1 + herbicide,
-              family = poisson(link = "log"),
-              data = d)
-r <- DHARMa::simulateResiduals(m2)
-DHARMa::testZeroInflation(m2)
-plot(r)
+m_pois <- glmmTMB(plant_count ~ herbicide + (1|location/herbicide),
+        family = poisson(link = "log"),
+        REML = T,
+        data = d)
+
+res <- DHARMa::simulateResiduals(m_pois)
+
+DHARMa::testZeroInflation(res)
+plot(res)
 ```
 
-```{r}
-m0;m1;m2
-AIC(m0,m1, m2)
-```
 
 ```{r}
-summary(m2)
+m_zipois <- glmmTMB(plant_count ~ herbicide + (1|location/herbicide),
+        family = poisson(link = "log"),
+        ziformula = ~1,
+        REML = T,
+        data = d)
+
+res <- DHARMa::simulateResiduals(m_zipois)
+
+DHARMa::testZeroInflation(res)
+plot(res)
 ```
 
+
 ```{r}
-library(emmeans)
-emmeans(m1, ~ herbicide, type = "response")
+m_zipois2 <- glmmTMB(plant_count ~ herbicide + (1|location),
+        family = nbinom1(link = "log"),
+        ziformula = ~1 + herbicide,
+        REML = T,
+        data = d)
+
+res <- DHARMa::simulateResiduals(m_zipois2)
+
+DHARMa::testZeroInflation(res)
+plot(res)
+
+summary(m_zipois2)
+emmeans::emmeans(m_zipois2, ~herbicide)
 ```
+
+
+```{r}
+m_zinb <- glmmTMB(plant_count ~ herbicide + (1|location/herbicide),
+        family = nbinom1(link = "log"),
+        ziformula = ~1,
+        REML = T,
+        data = d)
+
+res <- DHARMa::simulateResiduals(m_zinb)
+
+DHARMa::testZeroInflation(res)
+plot(res)
+summary(m_zinb)
+```
+
+
+
