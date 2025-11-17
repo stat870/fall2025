@@ -6,14 +6,14 @@ Sites,Genotype,Rep,Nrates_kg_ha,W_ton_ha,Nupt_kg_ha,Sampling_time
 "PPAC, Wanatah, IN",2T789,2,224,0.44,0.020548,t1
 "PPAC, Wanatah, IN",2T789,3,224,0.42,0.022512,t1
 "PPAC, Wanatah, IN",2M750,1,224,0.2,0.0077,t1
-"PPAC, Wanatah, IN",2M750,2,224,0.29,0.011368,t1
+"PPAC, Wanatah, IN",2M750,2,224,,0.011368,t1
 "PPAC, Wanatah, IN",2M750,3,224,0.31,0.015717,t1
 "PPAC, Wanatah, IN",2T789,1,224,0.24,0.009576,t1
 "PPAC, Wanatah, IN",2T789,2,224,0.26,0.012532,t1
-"PPAC, Wanatah, IN",2T789,3,224,,0.012771,t1
+"PPAC, Wanatah, IN",2T789,3,224,0.33,0.012771,t1
 "PPAC, Wanatah, IN",2M750,1,224,2.14,0.066126,t2
 "PPAC, Wanatah, IN",2M750,2,224,3.65,0.105485,t2
-"PPAC, Wanatah, IN",2M750,3,224,3.82,0.10696,t2
+"PPAC, Wanatah, IN",2M750,3,224,,0.10696,t2
 "PPAC, Wanatah, IN",2T789,1,224,2.77,0.079776,t2
 "PPAC, Wanatah, IN",2T789,2,224,3.14,0.099538,t2
 "PPAC, Wanatah, IN",2T789,3,224,3.38,0.112216,t2
