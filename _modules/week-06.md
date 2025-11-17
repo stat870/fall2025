@@ -24,7 +24,7 @@ November 13
 
 November 17 
 : Missing data problems  
-  : []()
+  : [html](https://stat870.github.io/fall2025/notes/missing-values.html)
 
 November 19 
 : Including environmental covariates   
