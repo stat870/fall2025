@@ -1,0 +1,194 @@
+# Missing values 
+
+## Announcements 
+
+- Homework 6 -- some discussions
+
+## Missing data 
+
+- A meme 
+- Missing response vs. missing predictor 
+- Sources of uncertainty
+
+**Types of missing data**  
+
+- Data missing completely at random (MCAR) 
+  - no additional assumptions 
+- Data missing not at random
+  - certain values of outcomes or predictors are more likely to induce missingness 
+
+**Types of imputation**  
+
+Overall logic 
+
+> "[I]nformation flows (...) from present data to missing data, as long as we are willing to make a model of the whole variable" McElreath, Statistical Rethinking. 
+
+- Multiple imputation 
+- Bayesian imputation 
+
+### Bayesian imputation - MCAR Example 
+
+The data below come from a typical problem in agronomy/crop science: scientists wish to study the realtionship between Nitrogen content (N%) and biomass (W). 
+Generally speaking, scientists consider a power function 
+$$N_{i} = \alpha \cdot W_i^\beta,$$
+where:
+
+- $N_i$ is the N content of the $i$th sample, 
+- $\alpha$ is the scale parameter of the power function, 
+- $W_i$ is the biomass of the $i$th sample, and 
+- $\beta$ is the shape parameter of the power curve. 
+
+```{r echo=FALSE, fig.cap="Relationships between N uptake by aerial biomass and aerial biomass accumulation (W) in maize crops. Figure 6 in Plenet and Lemaire (2000).", out.width = '100%', fig.align='center'}
+knitr::include_graphics("../figures/plenet_lemaire_2000.jpg")
+```
+
+**A couple questions:** 
+
+- Is this a statistical model? 
+- How can we make this a statistical model? 
+
+
+#### Applied example  
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/N_W.csv"
+df <- read.csv(url) 
+
+df |> 
+  ggplot(aes(W_ton_ha, Nupt_kg_ha))+
+  geom_point(aes())+
+  theme_pubclean()+
+  labs(
+    x = expression(W~(Mg~ha^{-1})), 
+    y = expression(N~uptake~(Mg~ha^{-1}))
+  )
+
+df |> 
+  filter(is.na(W_ton_ha))
+```
+
+
+```{r message=FALSE, warning=FALSE}
+library(cmdstanr)
+library(bayesplot)
+library(ggpubr)
+
+BI_model <- cmdstan_model("../scripts/missing_data.stan")
+
+BI_model$print()
+
+W_missing <- as.numeric(is.na(df$W_ton_ha))
+W_missing <- sapply(1:length(W_missing),
+                    function(n) W_missing[n]*sum(W_missing[1:n]) )
+W_missing
+
+stan_data <- list(
+  N = nrow(df),
+  W_num_missing = sum(is.na(df$W_ton_ha)), 
+  W =  replace_na(df$W_ton_ha, 0),
+  y = df$Nupt_kg_ha,
+  W_missing = W_missing)
+
+samples <- BI_model$sample(
+  data = stan_data, 
+  seed = 33, 
+  chains = 3, 
+  cores = 3, 
+  iter_warmup = 1500, 
+  iter_sampling = 1000
+)
+
+mcmc_trace(samples$draws())
+mcmc_pairs(samples$draws(c("alpha", "beta")))
+```
+
+```{r message=FALSE, warning=FALSE}
+fitted <- samples$summary(c("alpha", "beta"))
+W_imputed <- samples$summary() |> 
+  filter(str_detect(variable, "W_impute"))
+
+W_imputed_mean <- c(NA,W_imputed$mean)
+W_imputed_sd <- c(NA,W_imputed$sd)
+
+merged_data <- data.frame(
+  W_ton_ha =  df$W_ton_ha, y = df$Nupt_kg_ha, W_missing_id = factor(W_missing)) |> 
+  mutate(W_merged = 
+           ifelse(is.na(W_ton_ha), 
+                  W_imputed_mean[W_missing_id], 
+                  W_ton_ha), 
+         W_sd = 
+           ifelse(is.na(W_ton_ha), 
+                  W_imputed_sd[W_missing_id], 
+                  NA))
+  
+merged_data |> 
+  ggplot(aes(W_merged, y))+
+  stat_function(fun = function(x){fitted$mean[1] * x ^ fitted$mean[2]})+
+  geom_errorbarh(aes(xmin = W_merged - W_sd, xmax = W_merged + W_sd ), 
+                 height = 0)+
+  geom_point(aes(fill = W_missing==0), shape = 21, show.legend = F)+
+  scale_fill_manual(values = c("white", "grey20"))+
+  theme_pubclean()+
+  labs(
+    x = expression(W~merged~(Mg~ha^{-1})), 
+    y = expression(N~uptake~(Mg~ha^{-1}))
+  )
+```
+
+
+#### What if we didn't have imputation and just dropped those rows? 
+
+```{r message=FALSE, warning=FALSE}
+small_model <- cmdstan_model("../scripts/small_model.stan")
+
+small_model$print()
+
+df_small <- drop_na(df)
+
+stan_data_small <- list(
+  N = nrow(df_small),
+  W = df_small$W_ton_ha,
+  y = df_small$Nupt_kg_ha)
+
+samples_small <- small_model$sample(
+  data = stan_data_small, 
+  seed = 33, 
+  chains = 3, 
+  cores = 3, 
+  iter_warmup = 1500, 
+  iter_sampling = 1000
+)
+
+mcmc_trace(samples_small$draws())
+mcmc_pairs(samples_small$draws(c("alpha", "beta")))
+
+fitted_small <- samples_small$summary(c("alpha", "beta"))
+
+df_small |> 
+  ggplot(aes(W_ton_ha, Nupt_kg_ha))+
+  stat_function(fun = function(x){fitted_small$mean[1] * x ^ fitted_small$mean[2]})+
+  geom_point(aes(), shape = 21, fill = "grey20")+
+  theme_pubclean()+
+  labs(
+    x = expression(W~(Mg~ha^{-1})), 
+    y = expression(N~uptake~(Mg~ha^{-1}))
+  )
+```
+
+
+
+### Data missing in all observations & latent variables 
+
+Class discussion: the problem of yield gaps and yield potential 
+
+
+![](https://www.yieldgap.org/files/lfpics2022/production-levels.jpg)
+
+## References 
+
+- Chapter 14 in [Statistical Rethinking (McElreath, 2015)](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
+- [Multiple Imputation for Incomplete Data in Epidemiologic Studies (Harel et al., 2017)](https://academic.oup.com/aje/article/187/3/576/4642952)
+
+
+
