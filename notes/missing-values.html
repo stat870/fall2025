@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 22 Missing values | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 22 Missing values | STAT 870 - Analysis of Messy Data" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 22 Missing values | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 22 Missing values | STAT 870 - Analysis of Messy Data" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="zero-inflated-models-practice.html"/>
+<link rel="next" href="semester-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 870</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#announcements-1"><i class="fa fa-check"></i><b>3.1</b> Announcements</a></li>
+<li class="chapter" data-level="3.2" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#semester-project"><i class="fa fa-check"></i><b>3.2</b> Semester project</a></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#designed-experiments-1"><i class="fa fa-check"></i><b>3.3</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.3.1</b> Design structures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.4</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.5" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.5</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#announcements-2"><i class="fa fa-check"></i><b>4.1</b> Announcements</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#statistical-models"><i class="fa fa-check"></i><b>4.2</b> Statistical models</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.3</b> The general linear model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#applied-example"><i class="fa fa-check"></i><b>4.3.1</b> Applied example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments"><i class="fa fa-check"></i><b>4.4</b> Linear mixed models applied to designed experiments</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#general-notation-for-linear-mixed-models"><i class="fa fa-check"></i><b>4.4.1</b> General notation for linear mixed models</a></li>
+<li class="chapter" data-level="4.4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#class-discussion-blocks---random-or-fixed"><i class="fa fa-check"></i><b>4.4.2</b> Class discussion: Blocks - random or fixed?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#homework"><i class="fa fa-check"></i><b>4.5</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html"><i class="fa fa-check"></i><b>5</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#announcements-3"><i class="fa fa-check"></i><b>5.1</b> Announcements</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#linear-mixed-models-2"><i class="fa fa-check"></i><b>5.2</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#why-do-we-call-these-multi-level-models"><i class="fa fa-check"></i><b>5.2.1</b> Why do we call these multi-level models?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#degrees-of-freedom-in-a-mixed-model"><i class="fa fa-check"></i><b>5.2.2</b> Degrees of freedom in a mixed model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#next-week"><i class="fa fa-check"></i><b>5.3</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html"><i class="fa fa-check"></i><b>6</b> Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#announcements-4"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#mixed-models-review"><i class="fa fa-check"></i><b>6.2</b> Mixed Models Review</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-parameters-in-mixed-models"><i class="fa fa-check"></i><b>6.3</b> Estimation of parameters in Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>6.3.1</b> Analysis of variance (ANOVA)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-fixed-effects"><i class="fa fa-check"></i><b>6.3.2</b> Estimation of fixed effects</a></li>
+<li class="chapter" data-level="6.3.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-variance-components"><i class="fa fa-check"></i><b>6.3.3</b> Estimation of variance components</a></li>
+<li class="chapter" data-level="6.3.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimating-random-effects"><i class="fa fa-check"></i><b>6.3.4</b> Estimating random effects</a></li>
+<li class="chapter" data-level="6.3.5" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#degrees-of-freedom-in-mixed-models"><i class="fa fa-check"></i><b>6.3.5</b> Degrees of freedom in mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#r-demo"><i class="fa fa-check"></i><b>6.4</b> R demo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#announcements-5"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#review-about-the-general-linear-mixed-model"><i class="fa fa-check"></i><b>7.2</b> Review about the (general) linear mixed model</a></li>
+<li class="chapter" data-level="7.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data"><i class="fa fa-check"></i><b>7.3.1</b> Three steps to modeling data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-model-fitting"><i class="fa fa-check"></i><b>7.3.2</b> Implications for model fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#reading"><i class="fa fa-check"></i><b>7.4</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><i class="fa fa-check"></i><b>8</b> Inference – Estimability, degrees of freedom, hypothesis tests, contrasts</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#announcements-6"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#review-hypothesis-tests-t-tests-f-tests"><i class="fa fa-check"></i><b>8.2</b> Review: Hypothesis tests, t-tests, F tests</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#hypothesis-tests"><i class="fa fa-check"></i><b>8.2.1</b> Hypothesis tests</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#on-p-values"><i class="fa fa-check"></i><b>8.2.2</b> On p-values</a></li>
+<li class="chapter" data-level="8.2.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests"><i class="fa fa-check"></i><b>8.2.3</b> t-tests</a></li>
+<li class="chapter" data-level="8.2.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests"><i class="fa fa-check"></i><b>8.2.4</b> F-tests are multivariate t-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-1"><i class="fa fa-check"></i><b>8.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test"><i class="fa fa-check"></i><b>8.3.1</b> t-test</a></li>
+<li class="chapter" data-level="8.3.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-test"><i class="fa fa-check"></i><b>8.3.2</b> F-test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#estimability"><i class="fa fa-check"></i><b>8.4</b> Estimability</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#contrasts"><i class="fa fa-check"></i><b>8.4.1</b> Contrasts</a></li>
+<li class="chapter" data-level="8.4.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models"><i class="fa fa-check"></i><b>8.4.2</b> Adjusting degrees of freedom for mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-ii"><i class="fa fa-check"></i><b>8.5</b> Applied example II</a></li>
+<li class="chapter" data-level="8.6" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday"><i class="fa fa-check"></i><b>8.6</b> Wednesday</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>9</b> Practice</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="practice.html"><a href="practice.html#announcements-7"><i class="fa fa-check"></i><b>9.1</b> Announcements</a></li>
+<li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#in-class-activity"><i class="fa fa-check"></i><b>9.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html"><i class="fa fa-check"></i><b>10</b> Repeated Measures, Practice II</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#announcements-8"><i class="fa fa-check"></i><b>10.1</b> Announcements</a></li>
+<li class="chapter" data-level="10.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#repeated-measures"><i class="fa fa-check"></i><b>10.2</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#correlation-functions"><i class="fa fa-check"></i><b>10.2.1</b> Correlation functions</a></li>
+<li class="chapter" data-level="10.2.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#deciding-which-covariance-function-for-a-given-problem"><i class="fa fa-check"></i><b>10.2.2</b> Deciding which covariance function for a given problem</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#last-weeks-practice"><i class="fa fa-check"></i><b>10.3</b> Last week’s practice</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#weight"><i class="fa fa-check"></i><b>10.3.1</b> Weight</a></li>
+<li class="chapter" data-level="10.3.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#jaw-deformity"><i class="fa fa-check"></i><b>10.3.2</b> Jaw deformity</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#task-for-today"><i class="fa fa-check"></i><b>10.4</b> Task for today</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html"><i class="fa fa-check"></i><b>11</b> Repeated Measures II</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#announcements-9"><i class="fa fa-check"></i><b>11.1</b> Announcements</a></li>
+<li class="chapter" data-level="11.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#linear-mixed-models-review"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models review</a></li>
+<li class="chapter" data-level="11.3" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#repeated-measures-1"><i class="fa fa-check"></i><b>11.3</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#correlation---g-side-conditional-and-r-side-marginal"><i class="fa fa-check"></i><b>11.3.1</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="11.3.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#review-correlation-functions"><i class="fa fa-check"></i><b>11.3.2</b> Review – correlation functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html"><i class="fa fa-check"></i><b>12</b> Repeated Measures III</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#announcements-10"><i class="fa fa-check"></i><b>12.1</b> Announcements</a></li>
+<li class="chapter" data-level="12.2" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#where-were-standing-in-this-course"><i class="fa fa-check"></i><b>12.2</b> Where we’re standing in this course</a></li>
+<li class="chapter" data-level="12.3" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#repeated-measures-2"><i class="fa fa-check"></i><b>12.3</b> Repeated measures</a></li>
+<li class="chapter" data-level="12.4" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#correlation---g-side-conditional-and-r-side-marginal-1"><i class="fa fa-check"></i><b>12.4</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="12.5" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#repeated-measures-in-glmms"><i class="fa fa-check"></i><b>12.5</b> Repeated measures in GLMMs</a></li>
+<li class="chapter" data-level="12.6" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#appendix-a-common-response-variable-y-b-distributions"><i class="fa fa-check"></i><b>12.6</b> Appendix A: Common Response Variable (<span class="math inline">\(y | b\)</span>) Distributions</a></li>
+<li class="chapter" data-level="12.7" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#applied-example-using-r"><i class="fa fa-check"></i><b>12.7</b> Applied example using R</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><i class="fa fa-check"></i><b>13</b> Modeling designed experiments in the presence of spatial variability</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#announcements-11"><i class="fa fa-check"></i><b>13.1</b> Announcements</a></li>
+<li class="chapter" data-level="13.2" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#spatial-variability"><i class="fa fa-check"></i><b>13.2</b> Spatial variability</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#spatial-patterns"><i class="fa fa-check"></i><b>13.2.1</b> Spatial patterns</a></li>
+<li class="chapter" data-level="13.2.2" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#applied-example-2"><i class="fa fa-check"></i><b>13.2.2</b> Applied example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html"><i class="fa fa-check"></i><b>14</b> Software Implementation of LMMs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#announcements-12"><i class="fa fa-check"></i><b>14.1</b> Announcements</a></li>
+<li class="chapter" data-level="14.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#model-review"><i class="fa fa-check"></i><b>14.2</b> Model review</a></li>
+<li class="chapter" data-level="14.3" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#computational-tricks"><i class="fa fa-check"></i><b>14.3</b> Computational tricks</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#improving-computational-stability"><i class="fa fa-check"></i><b>14.3.1</b> Improving computational stability</a></li>
+<li class="chapter" data-level="14.3.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#nonlinear-optimizing-algorithms"><i class="fa fa-check"></i><b>14.3.2</b> Nonlinear optimizing algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#references"><i class="fa fa-check"></i><b>14.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html"><i class="fa fa-check"></i><b>15</b> Software Implementation of LMMs</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#announcements-13"><i class="fa fa-check"></i><b>15.1</b> Announcements</a></li>
+<li class="chapter" data-level="15.2" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#issues"><i class="fa fa-check"></i><b>15.2</b> Issues</a></li>
+<li class="chapter" data-level="15.3" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#references-1"><i class="fa fa-check"></i><b>15.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html"><i class="fa fa-check"></i><b>16</b> Accounting for spatial effects</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#announcements-14"><i class="fa fa-check"></i><b>16.1</b> Announcements</a></li>
+<li class="chapter" data-level="16.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#parametric-tools"><i class="fa fa-check"></i><b>16.2</b> Parametric tools</a></li>
+<li class="chapter" data-level="16.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#non-parametric-tools"><i class="fa fa-check"></i><b>16.3</b> Non-parametric tools</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#splines"><i class="fa fa-check"></i><b>16.3.1</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#b-splines"><i class="fa fa-check"></i><b>16.4</b> B-splines</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#illustrating-splines"><i class="fa fa-check"></i><b>16.4.1</b> Illustrating splines</a></li>
+<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.2</b> Penalized splines</a></li>
+<li class="chapter" data-level="16.4.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.3</b> Other types of splines</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#final-comments"><i class="fa fa-check"></i><b>16.5</b> Final comments</a></li>
+<li class="chapter" data-level="16.6" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#resources"><i class="fa fa-check"></i><b>16.6</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>17</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#announcements-15"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
+<li class="chapter" data-level="17.2" data-path="smoothing-splines.html"><a href="smoothing-splines.html#non-parametric-tools-1"><i class="fa fa-check"></i><b>17.2</b> Non-parametric tools</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#splines-1"><i class="fa fa-check"></i><b>17.2.1</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="smoothing-splines.html"><a href="smoothing-splines.html#thin-plate-regression-splines"><i class="fa fa-check"></i><b>17.3</b> Thin-plate regression splines</a></li>
+<li class="chapter" data-level="17.4" data-path="smoothing-splines.html"><a href="smoothing-splines.html#final-comments-1"><i class="fa fa-check"></i><b>17.4</b> Final comments</a></li>
+<li class="chapter" data-level="17.5" data-path="smoothing-splines.html"><a href="smoothing-splines.html#resources-1"><i class="fa fa-check"></i><b>17.5</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html"><i class="fa fa-check"></i><b>18</b> Applications of Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html#announcements-16"><i class="fa fa-check"></i><b>18.1</b> Announcements</a></li>
+<li class="chapter" data-level="18.2" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html#splines-review"><i class="fa fa-check"></i><b>18.2</b> Splines review</a></li>
+<li class="chapter" data-level="18.3" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html#applications-of-splines"><i class="fa fa-check"></i><b>18.3</b> Applications of splines</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>19</b> Miscellaneous</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="miscellaneous.html"><a href="miscellaneous.html#announcements-17"><i class="fa fa-check"></i><b>19.1</b> Announcements</a></li>
+<li class="chapter" data-level="19.2" data-path="miscellaneous.html"><a href="miscellaneous.html#statistical-models-1"><i class="fa fa-check"></i><b>19.2</b> Statistical models</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="miscellaneous.html"><a href="miscellaneous.html#general-linear-model"><i class="fa fa-check"></i><b>19.2.1</b> General linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="miscellaneous.html"><a href="miscellaneous.html#illustrating-this-with-a-simulation"><i class="fa fa-check"></i><b>19.3</b> Illustrating this with a simulation</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="miscellaneous.html"><a href="miscellaneous.html#what-is-a-simulation"><i class="fa fa-check"></i><b>19.3.1</b> What is a simulation?</a></li>
+<li class="chapter" data-level="19.3.2" data-path="miscellaneous.html"><a href="miscellaneous.html#simulation-with-3-repetitions"><i class="fa fa-check"></i><b>19.3.2</b> Simulation with 3 repetitions</a></li>
+<li class="chapter" data-level="19.3.3" data-path="miscellaneous.html"><a href="miscellaneous.html#simulation-with-5-repetitions"><i class="fa fa-check"></i><b>19.3.3</b> Simulation with 5 repetitions</a></li>
+<li class="chapter" data-level="19.3.4" data-path="miscellaneous.html"><a href="miscellaneous.html#demonstrating-the-bias-variance-tradeoff"><i class="fa fa-check"></i><b>19.3.4</b> Demonstrating the bias-variance tradeoff</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="miscellaneous.html"><a href="miscellaneous.html#wrap-up-discussion"><i class="fa fa-check"></i><b>19.4</b> Wrap-up &amp; Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html"><i class="fa fa-check"></i><b>20</b> Zero-inflated models</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#announcements-18"><i class="fa fa-check"></i><b>20.1</b> Announcements</a></li>
+<li class="chapter" data-level="20.2" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#zero-inflated-models-1"><i class="fa fa-check"></i><b>20.2</b> Zero-inflated models</a></li>
+<li class="chapter" data-level="20.3" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#applied-example-3"><i class="fa fa-check"></i><b>20.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#poisson-model"><i class="fa fa-check"></i><b>20.3.1</b> Poisson model</a></li>
+<li class="chapter" data-level="20.3.2" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#zero-inflated-poisson-model"><i class="fa fa-check"></i><b>20.3.2</b> Zero-inflated Poisson model</a></li>
+<li class="chapter" data-level="20.3.3" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#negative-binomial-model"><i class="fa fa-check"></i><b>20.3.3</b> Negative Binomial model</a></li>
+<li class="chapter" data-level="20.3.4" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#zero-inflated-nb-model"><i class="fa fa-check"></i><b>20.3.4</b> Zero-inflated NB model</a></li>
+<li class="chapter" data-level="20.3.5" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#marginal-means"><i class="fa fa-check"></i><b>20.3.5</b> Marginal means</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#other-related-distributions"><i class="fa fa-check"></i><b>20.4</b> Other related distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html"><i class="fa fa-check"></i><b>21</b> Zero-inflated models practice</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html#announcements-19"><i class="fa fa-check"></i><b>21.1</b> Announcements</a></li>
+<li class="chapter" data-level="21.2" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html#in-class-activity-1"><i class="fa fa-check"></i><b>21.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>22</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="missing-values.html"><a href="missing-values.html#announcements-20"><i class="fa fa-check"></i><b>22.1</b> Announcements</a></li>
+<li class="chapter" data-level="22.2" data-path="missing-values.html"><a href="missing-values.html#missing-data"><i class="fa fa-check"></i><b>22.2</b> Missing data</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="missing-values.html"><a href="missing-values.html#bayesian-imputation---mcar-example"><i class="fa fa-check"></i><b>22.2.1</b> Bayesian imputation - MCAR Example</a></li>
+<li class="chapter" data-level="22.2.2" data-path="missing-values.html"><a href="missing-values.html#data-missing-in-all-observations-latent-variables"><i class="fa fa-check"></i><b>22.2.2</b> Data missing in all observations &amp; latent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="missing-values.html"><a href="missing-values.html#references-2"><i class="fa fa-check"></i><b>22.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>23</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>23.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="23.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>23.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>23.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="23.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-thursday-november-27-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>23.2.2</b> Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="23.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>23.2.3</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="23.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>23.2.4</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="missing-values" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">Day 22</span> Missing values<a href="missing-values.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-20" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Announcements<a href="missing-values.html#announcements-20" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Homework 6 – some discussions</li>
+</ul>
+</div>
+<div id="missing-data" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Missing data<a href="missing-values.html#missing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>A meme</li>
+<li>Missing response vs. missing predictor</li>
+<li>Sources of uncertainty</li>
+</ul>
+<p><strong>Types of missing data</strong></p>
+<ul>
+<li>Data missing completely at random (MCAR)
+<ul>
+<li>no additional assumptions</li>
+</ul></li>
+<li>Data missing not at random
+<ul>
+<li>certain values of outcomes or predictors are more likely to induce missingness</li>
+</ul></li>
+</ul>
+<p><strong>Types of imputation</strong></p>
+<p>Overall logic</p>
+<blockquote>
+<p>“[I]nformation flows (…) from present data to missing data, as long as we are willing to make a model of the whole variable” McElreath, Statistical Rethinking.</p>
+</blockquote>
+<ul>
+<li>Multiple imputation</li>
+<li>Bayesian imputation</li>
+</ul>
+<div id="bayesian-imputation---mcar-example" class="section level3 hasAnchor" number="22.2.1">
+<h3><span class="header-section-number">22.2.1</span> Bayesian imputation - MCAR Example<a href="missing-values.html#bayesian-imputation---mcar-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data below come from a typical problem in agronomy/crop science: scientists wish to study the realtionship between Nitrogen content (N%) and biomass (W).
+Generally speaking, scientists consider a power function
+<span class="math display">\[N_{i} = \alpha \cdot W_i^\beta,\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(N_i\)</span> is the N content of the <span class="math inline">\(i\)</span>th sample,</li>
+<li><span class="math inline">\(\alpha\)</span> is the scale parameter of the power function,</li>
+<li><span class="math inline">\(W_i\)</span> is the biomass of the <span class="math inline">\(i\)</span>th sample, and</li>
+<li><span class="math inline">\(\beta\)</span> is the shape parameter of the power curve.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-126"></span>
+<img src="../figures/plenet_lemaire_2000.jpg" alt="Relationships between N uptake by aerial biomass and aerial biomass accumulation (W) in maize crops. Figure 6 in Plenet and Lemaire (2000)." width="100%" />
+<p class="caption">
+Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass accumulation (W) in maize crops. Figure 6 in Plenet and Lemaire (2000).
+</p>
+</div>
+<p><strong>A couple questions:</strong></p>
+<ul>
+<li>Is this a statistical model?</li>
+<li>How can we make this a statistical model?</li>
+</ul>
+<div id="applied-example-4" class="section level4 hasAnchor" number="22.2.1.1">
+<h4><span class="header-section-number">22.2.1.1</span> Applied example<a href="missing-values.html#applied-example-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="missing-values.html#cb187-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb187-2"><a href="missing-values.html#cb187-2" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/N_W.csv&quot;</span></span>
+<span id="cb187-3"><a href="missing-values.html#cb187-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url) </span>
+<span id="cb187-4"><a href="missing-values.html#cb187-4" tabindex="-1"></a></span>
+<span id="cb187-5"><a href="missing-values.html#cb187-5" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb187-6"><a href="missing-values.html#cb187-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(W_ton_ha, Nupt_kg_ha))<span class="sc">+</span></span>
+<span id="cb187-7"><a href="missing-values.html#cb187-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>())<span class="sc">+</span></span>
+<span id="cb187-8"><a href="missing-values.html#cb187-8" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
+<span id="cb187-9"><a href="missing-values.html#cb187-9" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb187-10"><a href="missing-values.html#cb187-10" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(W<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), </span>
+<span id="cb187-11"><a href="missing-values.html#cb187-11" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(N<span class="sc">~</span>uptake<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span>
+<span id="cb187-12"><a href="missing-values.html#cb187-12" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="missing-values.html#cb188-1" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb188-2"><a href="missing-values.html#cb188-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(W_ton_ha))</span></code></pre></div>
+<pre><code>##               Sites Genotype Rep Nrates_kg_ha W_ton_ha Nupt_kg_ha Sampling_time
+## 1 PPAC, Wanatah, IN    2M750   2          224       NA   0.011368            t1
+## 2 PPAC, Wanatah, IN    2M750   3          224       NA   0.106960            t2
+## 3 PPAC, Wanatah, IN    2T789   2          224       NA   0.116508            t2
+## 4 PPAC, Wanatah, IN    2M750   1          224       NA   0.142486            t3
+## 5 PPAC, Wanatah, IN    2M750   1          224       NA   0.192324            t4
+## 6 PPAC, Wanatah, IN    2T789   3          224       NA   0.267631            t5
+## 7 PPAC, Wanatah, IN    2T789   1          224       NA   0.279180            t5
+## 8 PPAC, Wanatah, IN    2M750   2          224       NA   0.289454            t6
+## 9 PPAC, Wanatah, IN    2M750   2          224       NA   0.254864            t6</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="missing-values.html#cb190-1" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb190-2"><a href="missing-values.html#cb190-2" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb190-3"><a href="missing-values.html#cb190-3" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb190-4"><a href="missing-values.html#cb190-4" tabindex="-1"></a></span>
+<span id="cb190-5"><a href="missing-values.html#cb190-5" tabindex="-1"></a>BI_model <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">&quot;../scripts/missing_data.stan&quot;</span>)</span>
+<span id="cb190-6"><a href="missing-values.html#cb190-6" tabindex="-1"></a></span>
+<span id="cb190-7"><a href="missing-values.html#cb190-7" tabindex="-1"></a>BI_model<span class="sc">$</span><span class="fu">print</span>()</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; W_num_missing;
+##   vector[N] W;
+##   vector[N] y;
+##   array[N] int W_missing;
+## }
+## 
+## parameters {
+##   real alpha;
+##   real beta;
+##   real&lt;lower=0&gt; sigma;
+##   vector[W_num_missing] W_impute;
+##   real mu_W;
+##   real&lt;lower=0&gt; sigma_W;
+## }
+## 
+## model {
+##   vector[N] W_merged;
+##   alpha ~ normal(50, 10);
+##   beta ~ normal(1, 2);
+##   sigma ~ gamma(10,2);
+##   
+##   mu_W ~ normal(10, 6);
+##   sigma_W ~ gamma(4, 1);
+##   
+##   
+##   for (i in 1:N) {
+##     W_merged[i] = W[i];
+##     if ( W_missing[i] &gt; 0 ) W_merged[i] = W_impute[W_missing[i]];
+##     }
+##     // imputation
+##     W_merged ~ normal(mu_W, sigma_W);
+##     for (i in 1:N){
+##       y[i] ~ normal(alpha * W_merged[i]^beta, sigma);
+##       }
+## }</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="missing-values.html#cb192-1" tabindex="-1"></a>W_missing <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>W_ton_ha))</span>
+<span id="cb192-2"><a href="missing-values.html#cb192-2" tabindex="-1"></a>W_missing <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(W_missing),</span>
+<span id="cb192-3"><a href="missing-values.html#cb192-3" tabindex="-1"></a>                    <span class="cf">function</span>(n) W_missing[n]<span class="sc">*</span><span class="fu">sum</span>(W_missing[<span class="dv">1</span><span class="sc">:</span>n]) )</span>
+<span id="cb192-4"><a href="missing-values.html#cb192-4" tabindex="-1"></a>W_missing</span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0
+## [48] 0 0 0 0 0 0 6 0 0 0 7 0 0 0 8 0 0 0 0 0 9 0 0 0 0</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="missing-values.html#cb194-1" tabindex="-1"></a>stan_data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb194-2"><a href="missing-values.html#cb194-2" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">nrow</span>(df),</span>
+<span id="cb194-3"><a href="missing-values.html#cb194-3" tabindex="-1"></a>  <span class="at">W_num_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>W_ton_ha)), </span>
+<span id="cb194-4"><a href="missing-values.html#cb194-4" tabindex="-1"></a>  <span class="at">W =</span>  <span class="fu">replace_na</span>(df<span class="sc">$</span>W_ton_ha, <span class="dv">0</span>),</span>
+<span id="cb194-5"><a href="missing-values.html#cb194-5" tabindex="-1"></a>  <span class="at">y =</span> df<span class="sc">$</span>Nupt_kg_ha,</span>
+<span id="cb194-6"><a href="missing-values.html#cb194-6" tabindex="-1"></a>  <span class="at">W_missing =</span> W_missing)</span>
+<span id="cb194-7"><a href="missing-values.html#cb194-7" tabindex="-1"></a></span>
+<span id="cb194-8"><a href="missing-values.html#cb194-8" tabindex="-1"></a>samples <span class="ot">&lt;-</span> BI_model<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb194-9"><a href="missing-values.html#cb194-9" tabindex="-1"></a>  <span class="at">data =</span> stan_data, </span>
+<span id="cb194-10"><a href="missing-values.html#cb194-10" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">33</span>, </span>
+<span id="cb194-11"><a href="missing-values.html#cb194-11" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">3</span>, </span>
+<span id="cb194-12"><a href="missing-values.html#cb194-12" tabindex="-1"></a>  <span class="at">cores =</span> <span class="dv">3</span>, </span>
+<span id="cb194-13"><a href="missing-values.html#cb194-13" tabindex="-1"></a>  <span class="at">iter_warmup =</span> <span class="dv">1500</span>, </span>
+<span id="cb194-14"><a href="missing-values.html#cb194-14" tabindex="-1"></a>  <span class="at">iter_sampling =</span> <span class="dv">1000</span></span>
+<span id="cb194-15"><a href="missing-values.html#cb194-15" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running MCMC with 3 parallel chains...</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2500 [  8%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:  300 / 2500 [ 12%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2500 [ 16%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2500 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2500 [ 24%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:  700 / 2500 [ 28%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:  800 / 2500 [ 32%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2500 [ 36%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2500 [ 40%]  (Warmup) 
+## Chain 3 Iteration: 1100 / 2500 [ 44%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration: 1200 / 2500 [ 48%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration: 1300 / 2500 [ 52%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration: 1400 / 2500 [ 56%]  (Warmup) 
+## Chain 3 Iteration: 1500 / 2500 [ 60%]  (Warmup) 
+## Chain 3 Iteration: 1501 / 2500 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2500 [ 64%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 1700 / 2500 [ 68%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
+## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
+## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 finished in 6.3 seconds.
+## The remaining chains had a mean execution time of 6.7 seconds.</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="missing-values.html#cb211-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="missing-values.html#cb212-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-2.png" width="672" /></p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="missing-values.html#cb213-1" tabindex="-1"></a>fitted <span class="ot">&lt;-</span> samples<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>))</span>
+<span id="cb213-2"><a href="missing-values.html#cb213-2" tabindex="-1"></a>W_imputed <span class="ot">&lt;-</span> samples<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb213-3"><a href="missing-values.html#cb213-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(variable, <span class="st">&quot;W_impute&quot;</span>))</span>
+<span id="cb213-4"><a href="missing-values.html#cb213-4" tabindex="-1"></a></span>
+<span id="cb213-5"><a href="missing-values.html#cb213-5" tabindex="-1"></a>W_imputed_mean <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>,W_imputed<span class="sc">$</span>mean)</span>
+<span id="cb213-6"><a href="missing-values.html#cb213-6" tabindex="-1"></a>W_imputed_sd <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>,W_imputed<span class="sc">$</span>sd)</span>
+<span id="cb213-7"><a href="missing-values.html#cb213-7" tabindex="-1"></a></span>
+<span id="cb213-8"><a href="missing-values.html#cb213-8" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb213-9"><a href="missing-values.html#cb213-9" tabindex="-1"></a>  <span class="at">W_ton_ha =</span>  df<span class="sc">$</span>W_ton_ha, <span class="at">y =</span> df<span class="sc">$</span>Nupt_kg_ha, <span class="at">W_missing_id =</span> <span class="fu">factor</span>(W_missing)) <span class="sc">|&gt;</span> </span>
+<span id="cb213-10"><a href="missing-values.html#cb213-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">W_merged =</span> </span>
+<span id="cb213-11"><a href="missing-values.html#cb213-11" tabindex="-1"></a>           <span class="fu">ifelse</span>(<span class="fu">is.na</span>(W_ton_ha), </span>
+<span id="cb213-12"><a href="missing-values.html#cb213-12" tabindex="-1"></a>                  W_imputed_mean[W_missing_id], </span>
+<span id="cb213-13"><a href="missing-values.html#cb213-13" tabindex="-1"></a>                  W_ton_ha), </span>
+<span id="cb213-14"><a href="missing-values.html#cb213-14" tabindex="-1"></a>         <span class="at">W_sd =</span> </span>
+<span id="cb213-15"><a href="missing-values.html#cb213-15" tabindex="-1"></a>           <span class="fu">ifelse</span>(<span class="fu">is.na</span>(W_ton_ha), </span>
+<span id="cb213-16"><a href="missing-values.html#cb213-16" tabindex="-1"></a>                  W_imputed_sd[W_missing_id], </span>
+<span id="cb213-17"><a href="missing-values.html#cb213-17" tabindex="-1"></a>                  <span class="cn">NA</span>))</span>
+<span id="cb213-18"><a href="missing-values.html#cb213-18" tabindex="-1"></a>  </span>
+<span id="cb213-19"><a href="missing-values.html#cb213-19" tabindex="-1"></a>merged_data <span class="sc">|&gt;</span> </span>
+<span id="cb213-20"><a href="missing-values.html#cb213-20" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(W_merged, y))<span class="sc">+</span></span>
+<span id="cb213-21"><a href="missing-values.html#cb213-21" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x){fitted<span class="sc">$</span>mean[<span class="dv">1</span>] <span class="sc">*</span> x <span class="sc">^</span> fitted<span class="sc">$</span>mean[<span class="dv">2</span>]})<span class="sc">+</span></span>
+<span id="cb213-22"><a href="missing-values.html#cb213-22" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> W_merged <span class="sc">-</span> W_sd, <span class="at">xmax =</span> W_merged <span class="sc">+</span> W_sd ), </span>
+<span id="cb213-23"><a href="missing-values.html#cb213-23" tabindex="-1"></a>                 <span class="at">height =</span> <span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb213-24"><a href="missing-values.html#cb213-24" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill =</span> W_missing<span class="sc">==</span><span class="dv">0</span>), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">show.legend =</span> F)<span class="sc">+</span></span>
+<span id="cb213-25"><a href="missing-values.html#cb213-25" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;grey20&quot;</span>))<span class="sc">+</span></span>
+<span id="cb213-26"><a href="missing-values.html#cb213-26" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
+<span id="cb213-27"><a href="missing-values.html#cb213-27" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb213-28"><a href="missing-values.html#cb213-28" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(W<span class="sc">~</span>merged<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), </span>
+<span id="cb213-29"><a href="missing-values.html#cb213-29" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(N<span class="sc">~</span>uptake<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span>
+<span id="cb213-30"><a href="missing-values.html#cb213-30" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+</div>
+<div id="what-if-we-didnt-have-imputation-and-just-dropped-those-rows" class="section level4 hasAnchor" number="22.2.1.2">
+<h4><span class="header-section-number">22.2.1.2</span> What if we didn’t have imputation and just dropped those rows?<a href="missing-values.html#what-if-we-didnt-have-imputation-and-just-dropped-those-rows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="missing-values.html#cb214-1" tabindex="-1"></a>small_model <span class="ot">&lt;-</span> <span class="fu">cmdstan_model</span>(<span class="st">&quot;../scripts/small_model.stan&quot;</span>)</span>
+<span id="cb214-2"><a href="missing-values.html#cb214-2" tabindex="-1"></a></span>
+<span id="cb214-3"><a href="missing-values.html#cb214-3" tabindex="-1"></a>small_model<span class="sc">$</span><span class="fu">print</span>()</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   vector[N] W;
+##   vector[N] y;
+## }
+## 
+## parameters {
+##   real alpha;
+##   real beta;
+##   real&lt;lower=0&gt; sigma;
+## }
+## 
+## model {
+##   alpha ~ normal(50, 10);
+##   beta ~ normal(1, 2);
+##   sigma ~ gamma(10,2);
+##   for (i in 1:N){
+##     y[i] ~ normal(alpha * W[i]^beta, sigma);
+##     }
+## }</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="missing-values.html#cb216-1" tabindex="-1"></a>df_small <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(df)</span>
+<span id="cb216-2"><a href="missing-values.html#cb216-2" tabindex="-1"></a></span>
+<span id="cb216-3"><a href="missing-values.html#cb216-3" tabindex="-1"></a>stan_data_small <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb216-4"><a href="missing-values.html#cb216-4" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">nrow</span>(df_small),</span>
+<span id="cb216-5"><a href="missing-values.html#cb216-5" tabindex="-1"></a>  <span class="at">W =</span> df_small<span class="sc">$</span>W_ton_ha,</span>
+<span id="cb216-6"><a href="missing-values.html#cb216-6" tabindex="-1"></a>  <span class="at">y =</span> df_small<span class="sc">$</span>Nupt_kg_ha)</span>
+<span id="cb216-7"><a href="missing-values.html#cb216-7" tabindex="-1"></a></span>
+<span id="cb216-8"><a href="missing-values.html#cb216-8" tabindex="-1"></a>samples_small <span class="ot">&lt;-</span> small_model<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb216-9"><a href="missing-values.html#cb216-9" tabindex="-1"></a>  <span class="at">data =</span> stan_data_small, </span>
+<span id="cb216-10"><a href="missing-values.html#cb216-10" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">33</span>, </span>
+<span id="cb216-11"><a href="missing-values.html#cb216-11" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">3</span>, </span>
+<span id="cb216-12"><a href="missing-values.html#cb216-12" tabindex="-1"></a>  <span class="at">cores =</span> <span class="dv">3</span>, </span>
+<span id="cb216-13"><a href="missing-values.html#cb216-13" tabindex="-1"></a>  <span class="at">iter_warmup =</span> <span class="dv">1500</span>, </span>
+<span id="cb216-14"><a href="missing-values.html#cb216-14" tabindex="-1"></a>  <span class="at">iter_sampling =</span> <span class="dv">1000</span></span>
+<span id="cb216-15"><a href="missing-values.html#cb216-15" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running MCMC with 3 parallel chains...
+## 
+## Chain 1 Iteration:    1 / 2500 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2500 [  4%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2500 [  8%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2500 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2500 [  4%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Iteration:  300 / 2500 [ 12%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2500 [ 16%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2500 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2500 [ 24%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2500 [ 28%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2500 [ 32%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2500 [ 36%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2500 [ 40%]  (Warmup) 
+## Chain 1 Iteration: 1100 / 2500 [ 44%]  (Warmup) 
+## Chain 1 Iteration: 1200 / 2500 [ 48%]  (Warmup) 
+## Chain 1 Iteration: 1300 / 2500 [ 52%]  (Warmup) 
+## Chain 1 Iteration: 1400 / 2500 [ 56%]  (Warmup) 
+## Chain 1 Iteration: 1500 / 2500 [ 60%]  (Warmup) 
+## Chain 1 Iteration: 1501 / 2500 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2500 [ 64%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2500 [ 68%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2500 [ 76%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
+## Chain 2 Iteration:  200 / 2500 [  8%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2500 [ 12%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2500 [ 16%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2500 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2500 [ 24%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2500 [ 28%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2500 [ 32%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2500 [ 36%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2500 [ 40%]  (Warmup) 
+## Chain 2 Iteration: 1100 / 2500 [ 44%]  (Warmup) 
+## Chain 2 Iteration: 1200 / 2500 [ 48%]  (Warmup) 
+## Chain 2 Iteration: 1300 / 2500 [ 52%]  (Warmup) 
+## Chain 2 Iteration: 1400 / 2500 [ 56%]  (Warmup) 
+## Chain 2 Iteration: 1500 / 2500 [ 60%]  (Warmup) 
+## Chain 2 Iteration: 1501 / 2500 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2500 [ 64%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2500 [ 68%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2500 [ 76%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
+## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2500 [  8%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2500 [ 12%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2500 [ 16%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2500 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2500 [ 24%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2500 [ 28%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2500 [ 32%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2500 [ 36%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2500 [ 40%]  (Warmup) 
+## Chain 3 Iteration: 1100 / 2500 [ 44%]  (Warmup) 
+## Chain 3 Iteration: 1200 / 2500 [ 48%]  (Warmup) 
+## Chain 3 Iteration: 1300 / 2500 [ 52%]  (Warmup) 
+## Chain 3 Iteration: 1400 / 2500 [ 56%]  (Warmup) 
+## Chain 3 Iteration: 1500 / 2500 [ 60%]  (Warmup) 
+## Chain 3 Iteration: 1501 / 2500 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2500 [ 64%]  (Sampling) 
+## Chain 1 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
+## Chain 1 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
+## Chain 1 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
+## Chain 1 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
+## Chain 1 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 2 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
+## Chain 2 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
+## Chain 2 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
+## Chain 2 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2500 [ 68%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
+## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
+## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
+## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
+## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 1 finished in 0.4 seconds.
+## Chain 2 finished in 0.3 seconds.
+## Chain 3 finished in 0.4 seconds.
+## 
+## All 3 chains finished successfully.
+## Mean chain execution time: 0.4 seconds.
+## Total execution time: 0.6 seconds.</code></pre>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="missing-values.html#cb221-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="missing-values.html#cb222-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-2.png" width="672" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="missing-values.html#cb223-1" tabindex="-1"></a>fitted_small <span class="ot">&lt;-</span> samples_small<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>))</span>
+<span id="cb223-2"><a href="missing-values.html#cb223-2" tabindex="-1"></a></span>
+<span id="cb223-3"><a href="missing-values.html#cb223-3" tabindex="-1"></a>df_small <span class="sc">|&gt;</span> </span>
+<span id="cb223-4"><a href="missing-values.html#cb223-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(W_ton_ha, Nupt_kg_ha))<span class="sc">+</span></span>
+<span id="cb223-5"><a href="missing-values.html#cb223-5" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x){fitted_small<span class="sc">$</span>mean[<span class="dv">1</span>] <span class="sc">*</span> x <span class="sc">^</span> fitted_small<span class="sc">$</span>mean[<span class="dv">2</span>]})<span class="sc">+</span></span>
+<span id="cb223-6"><a href="missing-values.html#cb223-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;grey20&quot;</span>)<span class="sc">+</span></span>
+<span id="cb223-7"><a href="missing-values.html#cb223-7" tabindex="-1"></a>  <span class="fu">theme_pubclean</span>()<span class="sc">+</span></span>
+<span id="cb223-8"><a href="missing-values.html#cb223-8" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb223-9"><a href="missing-values.html#cb223-9" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(W<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), </span>
+<span id="cb223-10"><a href="missing-values.html#cb223-10" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(N<span class="sc">~</span>uptake<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span>
+<span id="cb223-11"><a href="missing-values.html#cb223-11" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-3.png" width="672" /></p>
+</div>
+</div>
+<div id="data-missing-in-all-observations-latent-variables" class="section level3 hasAnchor" number="22.2.2">
+<h3><span class="header-section-number">22.2.2</span> Data missing in all observations &amp; latent variables<a href="missing-values.html#data-missing-in-all-observations-latent-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Class discussion: the problem of yield gaps and yield potential</p>
+<p><img src="https://www.yieldgap.org/files/lfpics2022/production-levels.jpg" /></p>
+</div>
+</div>
+<div id="references-2" class="section level2 hasAnchor" number="22.3">
+<h2><span class="header-section-number">22.3</span> References<a href="missing-values.html#references-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Chapter 14 in <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking (McElreath, 2015)</a></li>
+<li><a href="https://academic.oup.com/aje/article/187/3/576/4642952">Multiple Imputation for Incomplete Data in Epidemiologic Studies (Harel et al., 2017)</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="zero-inflated-models-practice.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/22-missing.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/22-missing.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
