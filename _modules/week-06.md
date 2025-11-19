@@ -28,7 +28,7 @@ November 17
 
 November 19 
 : Including environmental covariates   
-  : []()
+  : [html](https://stat870.github.io/fall2025/notes/integrating-multi-environment-trials-with-weather-data.html)
 
 November 24 
 : Fall Break -- no class 
