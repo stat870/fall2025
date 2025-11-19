@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Day 23 Integrating multi-environment trials with weather data | STAT 870 - Analysis of Messy Data</title>
+  <meta name="description" content="Day 23 Integrating multi-environment trials with weather data | STAT 870 - Analysis of Messy Data" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Day 23 Integrating multi-environment trials with weather data | STAT 870 - Analysis of Messy Data" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Day 23 Integrating multi-environment trials with weather data | STAT 870 - Analysis of Messy Data" />
+  
+  
+  
+
+<meta name="author" content="Josefina Lacasa" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="missing-values.html"/>
+<link rel="next" href="semester-project-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">STAT 870</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to STAT 870!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-this-course"><i class="fa fa-check"></i><b>1.1</b> About this course:</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#logistics"><i class="fa fa-check"></i><b>1.1.1</b> Logistics</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#learning-goals"><i class="fa fa-check"></i><b>1.2</b> Learning goals</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#overview-of-the-course"><i class="fa fa-check"></i><b>1.3</b> Overview of the course</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#what-is-messy-data-anyways"><i class="fa fa-check"></i><b>1.4</b> What is messy data anyways?</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#linear-models-review"><i class="fa fa-check"></i><b>1.5</b> Linear Models review</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#on-notation"><i class="fa fa-check"></i><b>1.6</b> On notation</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#homework-announcements"><i class="fa fa-check"></i><b>1.7</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html"><i class="fa fa-check"></i><b>2</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#announcements"><i class="fa fa-check"></i><b>2.1</b> Announcements</a></li>
+<li class="chapter" data-level="2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#designed-experiments"><i class="fa fa-check"></i><b>2.2</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#treatment-structure"><i class="fa fa-check"></i><b>2.2.1</b> Treatment structure</a></li>
+<li class="chapter" data-level="2.2.2" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#design-structure"><i class="fa fa-check"></i><b>2.2.2</b> Design structure</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="designed-experiments-review.html"><a href="designed-experiments-review.html#homework-announcements-1"><i class="fa fa-check"></i><b>2.3</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html"><i class="fa fa-check"></i><b>3</b> Designed Experiments Review</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#announcements-1"><i class="fa fa-check"></i><b>3.1</b> Announcements</a></li>
+<li class="chapter" data-level="3.2" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#semester-project"><i class="fa fa-check"></i><b>3.2</b> Semester project</a></li>
+<li class="chapter" data-level="3.3" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#designed-experiments-1"><i class="fa fa-check"></i><b>3.3</b> Designed experiments</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#design-structures"><i class="fa fa-check"></i><b>3.3.1</b> Design structures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#applied-example-fungicide-effects-on-barley-genotypes"><i class="fa fa-check"></i><b>3.4</b> Applied example: fungicide effects on barley genotypes</a></li>
+<li class="chapter" data-level="3.5" data-path="designed-experiments-review-1.html"><a href="designed-experiments-review-1.html#homework-announcements-2"><i class="fa fa-check"></i><b>3.5</b> Homework &amp; Announcements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html"><i class="fa fa-check"></i><b>4</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#announcements-2"><i class="fa fa-check"></i><b>4.1</b> Announcements</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#statistical-models"><i class="fa fa-check"></i><b>4.2</b> Statistical models</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.3</b> The general linear model</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#applied-example"><i class="fa fa-check"></i><b>4.3.1</b> Applied example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#linear-mixed-models-applied-to-designed-experiments"><i class="fa fa-check"></i><b>4.4</b> Linear mixed models applied to designed experiments</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#general-notation-for-linear-mixed-models"><i class="fa fa-check"></i><b>4.4.1</b> General notation for linear mixed models</a></li>
+<li class="chapter" data-level="4.4.2" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#class-discussion-blocks---random-or-fixed"><i class="fa fa-check"></i><b>4.4.2</b> Class discussion: Blocks - random or fixed?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="linear-mixed-models.html"><a href="linear-mixed-models.html#homework"><i class="fa fa-check"></i><b>4.5</b> Homework</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html"><i class="fa fa-check"></i><b>5</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#announcements-3"><i class="fa fa-check"></i><b>5.1</b> Announcements</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#linear-mixed-models-2"><i class="fa fa-check"></i><b>5.2</b> Linear mixed models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#why-do-we-call-these-multi-level-models"><i class="fa fa-check"></i><b>5.2.1</b> Why do we call these multi-level models?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#degrees-of-freedom-in-a-mixed-model"><i class="fa fa-check"></i><b>5.2.2</b> Degrees of freedom in a mixed model</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="linear-mixed-models-1.html"><a href="linear-mixed-models-1.html#next-week"><i class="fa fa-check"></i><b>5.3</b> Next week</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html"><i class="fa fa-check"></i><b>6</b> Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#announcements-4"><i class="fa fa-check"></i><b>6.1</b> Announcements</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#mixed-models-review"><i class="fa fa-check"></i><b>6.2</b> Mixed Models Review</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-parameters-in-mixed-models"><i class="fa fa-check"></i><b>6.3</b> Estimation of parameters in Mixed Models</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#analysis-of-variance-anova"><i class="fa fa-check"></i><b>6.3.1</b> Analysis of variance (ANOVA)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-fixed-effects"><i class="fa fa-check"></i><b>6.3.2</b> Estimation of fixed effects</a></li>
+<li class="chapter" data-level="6.3.3" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimation-of-variance-components"><i class="fa fa-check"></i><b>6.3.3</b> Estimation of variance components</a></li>
+<li class="chapter" data-level="6.3.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#estimating-random-effects"><i class="fa fa-check"></i><b>6.3.4</b> Estimating random effects</a></li>
+<li class="chapter" data-level="6.3.5" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#degrees-of-freedom-in-mixed-models"><i class="fa fa-check"></i><b>6.3.5</b> Degrees of freedom in mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-mixed-models-3.html"><a href="linear-mixed-models-3.html#r-demo"><i class="fa fa-check"></i><b>6.4</b> R demo</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Mixed Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#announcements-5"><i class="fa fa-check"></i><b>7.1</b> Announcements</a></li>
+<li class="chapter" data-level="7.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#review-about-the-general-linear-mixed-model"><i class="fa fa-check"></i><b>7.2</b> Review about the (general) linear mixed model</a></li>
+<li class="chapter" data-level="7.3" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#generalized-linear-mixed-models-1"><i class="fa fa-check"></i><b>7.3</b> Generalized linear mixed models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#three-steps-to-modeling-data"><i class="fa fa-check"></i><b>7.3.1</b> Three steps to modeling data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#implications-for-model-fitting"><i class="fa fa-check"></i><b>7.3.2</b> Implications for model fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="generalized-linear-mixed-models.html"><a href="generalized-linear-mixed-models.html#reading"><i class="fa fa-check"></i><b>7.4</b> Reading</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><i class="fa fa-check"></i><b>8</b> Inference – Estimability, degrees of freedom, hypothesis tests, contrasts</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#announcements-6"><i class="fa fa-check"></i><b>8.1</b> Announcements</a></li>
+<li class="chapter" data-level="8.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#review-hypothesis-tests-t-tests-f-tests"><i class="fa fa-check"></i><b>8.2</b> Review: Hypothesis tests, t-tests, F tests</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#hypothesis-tests"><i class="fa fa-check"></i><b>8.2.1</b> Hypothesis tests</a></li>
+<li class="chapter" data-level="8.2.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#on-p-values"><i class="fa fa-check"></i><b>8.2.2</b> On p-values</a></li>
+<li class="chapter" data-level="8.2.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests"><i class="fa fa-check"></i><b>8.2.3</b> t-tests</a></li>
+<li class="chapter" data-level="8.2.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests"><i class="fa fa-check"></i><b>8.2.4</b> F-tests are multivariate t-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-1"><i class="fa fa-check"></i><b>8.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-test"><i class="fa fa-check"></i><b>8.3.1</b> t-test</a></li>
+<li class="chapter" data-level="8.3.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-test"><i class="fa fa-check"></i><b>8.3.2</b> F-test</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#estimability"><i class="fa fa-check"></i><b>8.4</b> Estimability</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#contrasts"><i class="fa fa-check"></i><b>8.4.1</b> Contrasts</a></li>
+<li class="chapter" data-level="8.4.2" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#adjusting-degrees-of-freedom-for-mixed-models"><i class="fa fa-check"></i><b>8.4.2</b> Adjusting degrees of freedom for mixed models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#applied-example-ii"><i class="fa fa-check"></i><b>8.5</b> Applied example II</a></li>
+<li class="chapter" data-level="8.6" data-path="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#wednesday"><i class="fa fa-check"></i><b>8.6</b> Wednesday</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="practice.html"><a href="practice.html"><i class="fa fa-check"></i><b>9</b> Practice</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="practice.html"><a href="practice.html#announcements-7"><i class="fa fa-check"></i><b>9.1</b> Announcements</a></li>
+<li class="chapter" data-level="9.2" data-path="practice.html"><a href="practice.html#in-class-activity"><i class="fa fa-check"></i><b>9.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html"><i class="fa fa-check"></i><b>10</b> Repeated Measures, Practice II</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#announcements-8"><i class="fa fa-check"></i><b>10.1</b> Announcements</a></li>
+<li class="chapter" data-level="10.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#repeated-measures"><i class="fa fa-check"></i><b>10.2</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#correlation-functions"><i class="fa fa-check"></i><b>10.2.1</b> Correlation functions</a></li>
+<li class="chapter" data-level="10.2.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#deciding-which-covariance-function-for-a-given-problem"><i class="fa fa-check"></i><b>10.2.2</b> Deciding which covariance function for a given problem</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#last-weeks-practice"><i class="fa fa-check"></i><b>10.3</b> Last week’s practice</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#weight"><i class="fa fa-check"></i><b>10.3.1</b> Weight</a></li>
+<li class="chapter" data-level="10.3.2" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#jaw-deformity"><i class="fa fa-check"></i><b>10.3.2</b> Jaw deformity</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="repeated-measures-practice-ii.html"><a href="repeated-measures-practice-ii.html#task-for-today"><i class="fa fa-check"></i><b>10.4</b> Task for today</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html"><i class="fa fa-check"></i><b>11</b> Repeated Measures II</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#announcements-9"><i class="fa fa-check"></i><b>11.1</b> Announcements</a></li>
+<li class="chapter" data-level="11.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#linear-mixed-models-review"><i class="fa fa-check"></i><b>11.2</b> Linear mixed models review</a></li>
+<li class="chapter" data-level="11.3" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#repeated-measures-1"><i class="fa fa-check"></i><b>11.3</b> Repeated measures</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#correlation---g-side-conditional-and-r-side-marginal"><i class="fa fa-check"></i><b>11.3.1</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="11.3.2" data-path="repeated-measures-ii.html"><a href="repeated-measures-ii.html#review-correlation-functions"><i class="fa fa-check"></i><b>11.3.2</b> Review – correlation functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html"><i class="fa fa-check"></i><b>12</b> Repeated Measures III</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#announcements-10"><i class="fa fa-check"></i><b>12.1</b> Announcements</a></li>
+<li class="chapter" data-level="12.2" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#where-were-standing-in-this-course"><i class="fa fa-check"></i><b>12.2</b> Where we’re standing in this course</a></li>
+<li class="chapter" data-level="12.3" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#repeated-measures-2"><i class="fa fa-check"></i><b>12.3</b> Repeated measures</a></li>
+<li class="chapter" data-level="12.4" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#correlation---g-side-conditional-and-r-side-marginal-1"><i class="fa fa-check"></i><b>12.4</b> Correlation - G side (conditional) and R side (marginal)</a></li>
+<li class="chapter" data-level="12.5" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#repeated-measures-in-glmms"><i class="fa fa-check"></i><b>12.5</b> Repeated measures in GLMMs</a></li>
+<li class="chapter" data-level="12.6" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#appendix-a-common-response-variable-y-b-distributions"><i class="fa fa-check"></i><b>12.6</b> Appendix A: Common Response Variable (<span class="math inline">\(y | b\)</span>) Distributions</a></li>
+<li class="chapter" data-level="12.7" data-path="repeated-measures-iii.html"><a href="repeated-measures-iii.html#applied-example-using-r"><i class="fa fa-check"></i><b>12.7</b> Applied example using R</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><i class="fa fa-check"></i><b>13</b> Modeling designed experiments in the presence of spatial variability</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#announcements-11"><i class="fa fa-check"></i><b>13.1</b> Announcements</a></li>
+<li class="chapter" data-level="13.2" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#spatial-variability"><i class="fa fa-check"></i><b>13.2</b> Spatial variability</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#spatial-patterns"><i class="fa fa-check"></i><b>13.2.1</b> Spatial patterns</a></li>
+<li class="chapter" data-level="13.2.2" data-path="modeling-designed-experiments-in-the-presence-of-spatial-variability.html"><a href="modeling-designed-experiments-in-the-presence-of-spatial-variability.html#applied-example-2"><i class="fa fa-check"></i><b>13.2.2</b> Applied example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html"><i class="fa fa-check"></i><b>14</b> Software Implementation of LMMs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#announcements-12"><i class="fa fa-check"></i><b>14.1</b> Announcements</a></li>
+<li class="chapter" data-level="14.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#model-review"><i class="fa fa-check"></i><b>14.2</b> Model review</a></li>
+<li class="chapter" data-level="14.3" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#computational-tricks"><i class="fa fa-check"></i><b>14.3</b> Computational tricks</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#improving-computational-stability"><i class="fa fa-check"></i><b>14.3.1</b> Improving computational stability</a></li>
+<li class="chapter" data-level="14.3.2" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#nonlinear-optimizing-algorithms"><i class="fa fa-check"></i><b>14.3.2</b> Nonlinear optimizing algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="software-implementation-of-lmms.html"><a href="software-implementation-of-lmms.html#references"><i class="fa fa-check"></i><b>14.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html"><i class="fa fa-check"></i><b>15</b> Software Implementation of LMMs</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#announcements-13"><i class="fa fa-check"></i><b>15.1</b> Announcements</a></li>
+<li class="chapter" data-level="15.2" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#issues"><i class="fa fa-check"></i><b>15.2</b> Issues</a></li>
+<li class="chapter" data-level="15.3" data-path="software-implementation-of-lmms-1.html"><a href="software-implementation-of-lmms-1.html#references-1"><i class="fa fa-check"></i><b>15.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html"><i class="fa fa-check"></i><b>16</b> Accounting for spatial effects</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#announcements-14"><i class="fa fa-check"></i><b>16.1</b> Announcements</a></li>
+<li class="chapter" data-level="16.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#parametric-tools"><i class="fa fa-check"></i><b>16.2</b> Parametric tools</a></li>
+<li class="chapter" data-level="16.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#non-parametric-tools"><i class="fa fa-check"></i><b>16.3</b> Non-parametric tools</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#splines"><i class="fa fa-check"></i><b>16.3.1</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#b-splines"><i class="fa fa-check"></i><b>16.4</b> B-splines</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#illustrating-splines"><i class="fa fa-check"></i><b>16.4.1</b> Illustrating splines</a></li>
+<li class="chapter" data-level="16.4.2" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#penalized-splines"><i class="fa fa-check"></i><b>16.4.2</b> Penalized splines</a></li>
+<li class="chapter" data-level="16.4.3" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#other-types-of-splines"><i class="fa fa-check"></i><b>16.4.3</b> Other types of splines</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#final-comments"><i class="fa fa-check"></i><b>16.5</b> Final comments</a></li>
+<li class="chapter" data-level="16.6" data-path="accounting-for-spatial-effects.html"><a href="accounting-for-spatial-effects.html#resources"><i class="fa fa-check"></i><b>16.6</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>17</b> Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#announcements-15"><i class="fa fa-check"></i><b>17.1</b> Announcements</a></li>
+<li class="chapter" data-level="17.2" data-path="smoothing-splines.html"><a href="smoothing-splines.html#non-parametric-tools-1"><i class="fa fa-check"></i><b>17.2</b> Non-parametric tools</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#splines-1"><i class="fa fa-check"></i><b>17.2.1</b> Splines</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="smoothing-splines.html"><a href="smoothing-splines.html#thin-plate-regression-splines"><i class="fa fa-check"></i><b>17.3</b> Thin-plate regression splines</a></li>
+<li class="chapter" data-level="17.4" data-path="smoothing-splines.html"><a href="smoothing-splines.html#final-comments-1"><i class="fa fa-check"></i><b>17.4</b> Final comments</a></li>
+<li class="chapter" data-level="17.5" data-path="smoothing-splines.html"><a href="smoothing-splines.html#resources-1"><i class="fa fa-check"></i><b>17.5</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html"><i class="fa fa-check"></i><b>18</b> Applications of Smoothing Splines</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html#announcements-16"><i class="fa fa-check"></i><b>18.1</b> Announcements</a></li>
+<li class="chapter" data-level="18.2" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html#splines-review"><i class="fa fa-check"></i><b>18.2</b> Splines review</a></li>
+<li class="chapter" data-level="18.3" data-path="applications-of-smoothing-splines.html"><a href="applications-of-smoothing-splines.html#applications-of-splines"><i class="fa fa-check"></i><b>18.3</b> Applications of splines</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="miscellaneous.html"><a href="miscellaneous.html"><i class="fa fa-check"></i><b>19</b> Miscellaneous</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="miscellaneous.html"><a href="miscellaneous.html#announcements-17"><i class="fa fa-check"></i><b>19.1</b> Announcements</a></li>
+<li class="chapter" data-level="19.2" data-path="miscellaneous.html"><a href="miscellaneous.html#statistical-models-1"><i class="fa fa-check"></i><b>19.2</b> Statistical models</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="miscellaneous.html"><a href="miscellaneous.html#general-linear-model"><i class="fa fa-check"></i><b>19.2.1</b> General linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="miscellaneous.html"><a href="miscellaneous.html#illustrating-this-with-a-simulation"><i class="fa fa-check"></i><b>19.3</b> Illustrating this with a simulation</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="miscellaneous.html"><a href="miscellaneous.html#what-is-a-simulation"><i class="fa fa-check"></i><b>19.3.1</b> What is a simulation?</a></li>
+<li class="chapter" data-level="19.3.2" data-path="miscellaneous.html"><a href="miscellaneous.html#simulation-with-3-repetitions"><i class="fa fa-check"></i><b>19.3.2</b> Simulation with 3 repetitions</a></li>
+<li class="chapter" data-level="19.3.3" data-path="miscellaneous.html"><a href="miscellaneous.html#simulation-with-5-repetitions"><i class="fa fa-check"></i><b>19.3.3</b> Simulation with 5 repetitions</a></li>
+<li class="chapter" data-level="19.3.4" data-path="miscellaneous.html"><a href="miscellaneous.html#demonstrating-the-bias-variance-tradeoff"><i class="fa fa-check"></i><b>19.3.4</b> Demonstrating the bias-variance tradeoff</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="miscellaneous.html"><a href="miscellaneous.html#wrap-up-discussion"><i class="fa fa-check"></i><b>19.4</b> Wrap-up &amp; Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html"><i class="fa fa-check"></i><b>20</b> Zero-inflated models</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#announcements-18"><i class="fa fa-check"></i><b>20.1</b> Announcements</a></li>
+<li class="chapter" data-level="20.2" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#zero-inflated-models-1"><i class="fa fa-check"></i><b>20.2</b> Zero-inflated models</a></li>
+<li class="chapter" data-level="20.3" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#applied-example-3"><i class="fa fa-check"></i><b>20.3</b> Applied example</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#poisson-model"><i class="fa fa-check"></i><b>20.3.1</b> Poisson model</a></li>
+<li class="chapter" data-level="20.3.2" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#zero-inflated-poisson-model"><i class="fa fa-check"></i><b>20.3.2</b> Zero-inflated Poisson model</a></li>
+<li class="chapter" data-level="20.3.3" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#negative-binomial-model"><i class="fa fa-check"></i><b>20.3.3</b> Negative Binomial model</a></li>
+<li class="chapter" data-level="20.3.4" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#zero-inflated-nb-model"><i class="fa fa-check"></i><b>20.3.4</b> Zero-inflated NB model</a></li>
+<li class="chapter" data-level="20.3.5" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#marginal-means"><i class="fa fa-check"></i><b>20.3.5</b> Marginal means</a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="zero-inflated-models.html"><a href="zero-inflated-models.html#other-related-distributions"><i class="fa fa-check"></i><b>20.4</b> Other related distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html"><i class="fa fa-check"></i><b>21</b> Zero-inflated models practice</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html#announcements-19"><i class="fa fa-check"></i><b>21.1</b> Announcements</a></li>
+<li class="chapter" data-level="21.2" data-path="zero-inflated-models-practice.html"><a href="zero-inflated-models-practice.html#in-class-activity-1"><i class="fa fa-check"></i><b>21.2</b> In-class activity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>22</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="missing-values.html"><a href="missing-values.html#announcements-20"><i class="fa fa-check"></i><b>22.1</b> Announcements</a></li>
+<li class="chapter" data-level="22.2" data-path="missing-values.html"><a href="missing-values.html#missing-data"><i class="fa fa-check"></i><b>22.2</b> Missing data</a>
+<ul>
+<li class="chapter" data-level="22.2.1" data-path="missing-values.html"><a href="missing-values.html#bayesian-imputation---mcar-example"><i class="fa fa-check"></i><b>22.2.1</b> Bayesian imputation - MCAR Example</a></li>
+<li class="chapter" data-level="22.2.2" data-path="missing-values.html"><a href="missing-values.html#data-missing-in-all-observations-latent-variables"><i class="fa fa-check"></i><b>22.2.2</b> Data missing in all observations &amp; latent variables</a></li>
+</ul></li>
+<li class="chapter" data-level="22.3" data-path="missing-values.html"><a href="missing-values.html#references-2"><i class="fa fa-check"></i><b>22.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="integrating-multi-environment-trials-with-weather-data.html"><a href="integrating-multi-environment-trials-with-weather-data.html"><i class="fa fa-check"></i><b>23</b> Integrating multi-environment trials with weather data</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="integrating-multi-environment-trials-with-weather-data.html"><a href="integrating-multi-environment-trials-with-weather-data.html#announcements-21"><i class="fa fa-check"></i><b>23.1</b> Announcements</a></li>
+<li class="chapter" data-level="23.2" data-path="integrating-multi-environment-trials-with-weather-data.html"><a href="integrating-multi-environment-trials-with-weather-data.html#opportunistic-use-of-multi-environment-trials"><i class="fa fa-check"></i><b>23.2</b> Opportunistic use of multi-environment trials</a></li>
+<li class="chapter" data-level="23.3" data-path="integrating-multi-environment-trials-with-weather-data.html"><a href="integrating-multi-environment-trials-with-weather-data.html#power-analyses"><i class="fa fa-check"></i><b>23.3</b> Power analyses</a>
+<ul>
+<li class="chapter" data-level="23.3.1" data-path="integrating-multi-environment-trials-with-weather-data.html"><a href="integrating-multi-environment-trials-with-weather-data.html#power-calculations"><i class="fa fa-check"></i><b>23.3.1</b> Power calculations</a></li>
+</ul></li>
+<li class="chapter" data-level="23.4" data-path="integrating-multi-environment-trials-with-weather-data.html"><a href="integrating-multi-environment-trials-with-weather-data.html#precision-analyses"><i class="fa fa-check"></i><b>23.4</b> Precision analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>24</b> Semester Project</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="semester-project-1.html"><a href="semester-project-1.html#learning-objectives"><i class="fa fa-check"></i><b>24.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="24.2" data-path="semester-project-1.html"><a href="semester-project-1.html#partial-deadlines"><i class="fa fa-check"></i><b>24.2</b> Partial deadlines</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="semester-project-1.html"><a href="semester-project-1.html#project-proposal---due-friday-september-24-at-1159pm-ct"><i class="fa fa-check"></i><b>24.2.1</b> Project proposal - Due Friday September 24 at 11:59pm CT</a></li>
+<li class="chapter" data-level="24.2.2" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report-for-peer-review---due-friday-november-28-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>24.2.2</b> Written report for peer review - Due Friday November 28 at 11:59pm CT for peer review</a></li>
+<li class="chapter" data-level="24.2.3" data-path="semester-project-1.html"><a href="semester-project-1.html#peer-review---due-friday-december-5-at-1159pm"><i class="fa fa-check"></i><b>24.2.3</b> Peer review - Due Friday December 5 at 11:59pm</a></li>
+<li class="chapter" data-level="24.2.4" data-path="semester-project-1.html"><a href="semester-project-1.html#oral-presentation---somewhere-between-december-3---december-12"><i class="fa fa-check"></i><b>24.2.4</b> Oral presentation - Somewhere between December 3 - December 12</a></li>
+<li class="chapter" data-level="24.2.5" data-path="semester-project-1.html"><a href="semester-project-1.html#written-report---due-friday-december-19-at-1159pm-ct-for-peer-review"><i class="fa fa-check"></i><b>24.2.5</b> Written report - Due Friday December 19 at 11:59pm CT for peer review</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">STAT 870 - Analysis of Messy Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="integrating-multi-environment-trials-with-weather-data" class="section level1 hasAnchor" number="23">
+<h1><span class="header-section-number">Day 23</span> Integrating multi-environment trials with weather data<a href="integrating-multi-environment-trials-with-weather-data.html#integrating-multi-environment-trials-with-weather-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="announcements-21" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Announcements<a href="integrating-multi-environment-trials-with-weather-data.html#announcements-21" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Office hours tomorrow have moved to 11.30-12.30.</li>
+<li>Project deadlines:
+<ul>
+<li><strong>November 28th:</strong> send your project to your classmate(s) for peer review.</li>
+<li><strong>December 5th:</strong> return your peer review to your classmate(s).</li>
+<li><strong>December 12th:</strong> give your presentation by this date (it can be earlier than this also). You will need to schedule a 30min meeting with me.</li>
+<li><strong>December 19th:</strong> submit your final project and tutorial on canvas, including both your classmate’s and my feedback.</li>
+</ul></li>
+</ul>
+</div>
+<div id="opportunistic-use-of-multi-environment-trials" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Opportunistic use of multi-environment trials<a href="integrating-multi-environment-trials-with-weather-data.html#opportunistic-use-of-multi-environment-trials" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Objective of an experiment</li>
+<li>Review of designed experiments</li>
+<li>Bias-Variance tradeoff</li>
+<li>Power in these analyses</li>
+</ul>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb230-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb230-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb230-2" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb230-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb230-3" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb231-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../data/multiyear_env.csv&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb232-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(yield <span class="sc">~</span> srad_total <span class="sc">+</span>  ppt_total <span class="sc">+</span> <span class="fu">factor</span>(hyb),</span>
+<span id="cb232-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb232-2" tabindex="-1"></a>         <span class="at">data =</span> d)</span>
+<span id="cb232-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb232-3" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = yield ~ srad_total + ppt_total + factor(hyb), data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.1482 -0.4294  0.0000  0.4380  1.8558 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -60.69421    5.01929 -12.092  &lt; 2e-16 ***
+## srad_total     29.73582    2.01150  14.783  &lt; 2e-16 ***
+## ppt_total       0.78573    0.11883   6.612 3.70e-10 ***
+## factor(hyb)2    4.48472    0.75051   5.976 1.10e-08 ***
+## factor(hyb)3    1.52404    0.65572   2.324 0.021166 *  
+## factor(hyb)4    0.64319    0.75051   0.857 0.392520    
+## factor(hyb)5   -2.87003    0.64272  -4.465 1.36e-05 ***
+## factor(hyb)6   -1.15626    0.64272  -1.799 0.073596 .  
+## factor(hyb)7    0.96009    0.64272   1.494 0.136878    
+## factor(hyb)8   -2.78208    0.64272  -4.329 2.42e-05 ***
+## factor(hyb)9  -10.40201    0.90894 -11.444  &lt; 2e-16 ***
+## factor(hyb)10  -1.13644    0.92639  -1.227 0.221430    
+## factor(hyb)11  -2.41343    0.68319  -3.533 0.000516 ***
+## factor(hyb)12  -4.23456    0.93800  -4.514 1.11e-05 ***
+## factor(hyb)13   6.11476    0.63617   9.612  &lt; 2e-16 ***
+## factor(hyb)14  -2.50853    0.96169  -2.608 0.009815 ** 
+## factor(hyb)15  -4.25297    0.58881  -7.223 1.18e-11 ***
+## factor(hyb)16  -7.72464    0.96768  -7.983 1.30e-13 ***
+## factor(hyb)17   3.78123    0.60713   6.228 2.94e-09 ***
+## factor(hyb)18   5.02229    0.75550   6.648 3.04e-10 ***
+## factor(hyb)19  -2.23794    0.78424  -2.854 0.004799 ** 
+## factor(hyb)20   3.02746    0.71538   4.232 3.59e-05 ***
+## factor(hyb)21  -4.70163    0.72448  -6.490 7.22e-10 ***
+## factor(hyb)22  -1.74531    0.64657  -2.699 0.007571 ** 
+## factor(hyb)23   1.44812    0.57856   2.503 0.013154 *  
+## factor(hyb)24   4.72568    0.98698   4.788 3.37e-06 ***
+## factor(hyb)25   4.51208    0.67110   6.723 2.00e-10 ***
+## factor(hyb)26  -6.35203    0.64657  -9.824  &lt; 2e-16 ***
+## factor(hyb)27   2.85905    0.68246   4.189 4.27e-05 ***
+## factor(hyb)28   3.69420    0.93439   3.954 0.000108 ***
+## factor(hyb)29   4.46544    0.81506   5.479 1.34e-07 ***
+## factor(hyb)30  -8.46296    0.75320 -11.236  &lt; 2e-16 ***
+## factor(hyb)31   3.31140    0.75051   4.412 1.71e-05 ***
+## factor(hyb)32  -4.10483    0.64657  -6.349 1.55e-09 ***
+## factor(hyb)33   2.71563    0.78424   3.463 0.000660 ***
+## factor(hyb)34   9.05725    0.96889   9.348  &lt; 2e-16 ***
+## factor(hyb)35   2.63563    0.71858   3.668 0.000317 ***
+## factor(hyb)36   9.73918    0.92639  10.513  &lt; 2e-16 ***
+## factor(hyb)37  -2.28390    0.75550  -3.023 0.002846 ** 
+## factor(hyb)38   1.27240    0.66491   1.914 0.057161 .  
+## factor(hyb)39  -2.61287    0.71683  -3.645 0.000345 ***
+## factor(hyb)40   3.51171    0.96889   3.624 0.000371 ***
+## factor(hyb)41  -3.98966    0.64272  -6.207 3.28e-09 ***
+## factor(hyb)42  -0.42630    0.67561  -0.631 0.528805    
+## factor(hyb)43   0.48600    0.61137   0.795 0.427644    
+## factor(hyb)44  -0.58237    0.68137  -0.855 0.393787    
+## factor(hyb)45   4.15067    0.71683   5.790 2.85e-08 ***
+## factor(hyb)46  -3.64700    0.81667  -4.466 1.36e-05 ***
+## factor(hyb)47  -0.72016    0.64548  -1.116 0.265957    
+## factor(hyb)48  -0.84831    0.67275  -1.261 0.208866    
+## factor(hyb)49  -4.22068    0.67296  -6.272 2.33e-09 ***
+## factor(hyb)50  -1.12484    0.60208  -1.868 0.063258 .  
+## factor(hyb)51  -2.69567    0.63375  -4.254 3.29e-05 ***
+## factor(hyb)52  -1.93346    0.55661  -3.474 0.000635 ***
+## factor(hyb)53   0.02128    0.64272   0.033 0.973619    
+## factor(hyb)54   5.52610    0.71858   7.690 7.57e-13 ***
+## factor(hyb)55 -10.20572    0.64657 -15.784  &lt; 2e-16 ***
+## factor(hyb)56   1.75090    0.75550   2.318 0.021533 *  
+## factor(hyb)57  -1.29931    0.75500  -1.721 0.086879 .  
+## factor(hyb)58   1.65498    0.62242   2.659 0.008504 ** 
+## factor(hyb)59   2.70007    0.64657   4.176 4.51e-05 ***
+## factor(hyb)60  -4.65485    0.64657  -7.199 1.35e-11 ***
+## factor(hyb)61  -2.50210    0.67296  -3.718 0.000264 ***
+## factor(hyb)62  -3.38133    0.61137  -5.531 1.04e-07 ***
+## factor(hyb)63  -0.65019    0.71538  -0.909 0.364565    
+## factor(hyb)64   1.03107    0.59772   1.725 0.086144 .  
+## factor(hyb)65   5.33124    0.93840   5.681 4.93e-08 ***
+## factor(hyb)66  -5.10546    0.62532  -8.165 4.28e-14 ***
+## factor(hyb)67   5.22070    0.93840   5.563 8.85e-08 ***
+## factor(hyb)68   0.94839    0.62532   1.517 0.131007    
+## factor(hyb)69   2.17529    0.63509   3.425 0.000752 ***
+## factor(hyb)70  -0.96006    0.73261  -1.310 0.191615    
+## factor(hyb)71   1.94152    0.81667   2.377 0.018424 *  
+## factor(hyb)72  -0.18008    0.60062  -0.300 0.764639    
+## factor(hyb)73  -1.91320    0.54730  -3.496 0.000588 ***
+## factor(hyb)74  -2.21349    0.52530  -4.214 3.87e-05 ***
+## factor(hyb)75  -6.69256    0.96768  -6.916 6.80e-11 ***
+## factor(hyb)76  -0.44575    0.93800  -0.475 0.635175    
+## factor(hyb)77   3.10083    0.73261   4.233 3.59e-05 ***
+## factor(hyb)78  -1.00358    0.67617  -1.484 0.139399    
+## factor(hyb)79   4.84662    0.67617   7.168 1.62e-11 ***
+## factor(hyb)80  -3.09158    0.65462  -4.723 4.50e-06 ***
+## factor(hyb)81   1.34925    0.55397   2.436 0.015785 *  
+## factor(hyb)82  -0.74675    0.81667  -0.914 0.361666    
+## factor(hyb)83   3.46643    0.62903   5.511 1.15e-07 ***
+## factor(hyb)84  -4.02740    0.74602  -5.398 1.98e-07 ***
+## factor(hyb)85  -1.88953    0.95563  -1.977 0.049450 *  
+## factor(hyb)86  -2.39751    0.57486  -4.171 4.61e-05 ***
+## factor(hyb)87   0.62381    0.71538   0.872 0.384307    
+## factor(hyb)88  -0.37733    0.73261  -0.515 0.607117    
+## factor(hyb)89  -2.43654    0.64272  -3.791 0.000201 ***
+## factor(hyb)90  -2.70215    0.64272  -4.204 4.02e-05 ***
+## factor(hyb)91  -4.50509    0.64272  -7.009 4.01e-11 ***
+## factor(hyb)92  -7.89450    0.95563  -8.261 2.37e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7872 on 191 degrees of freedom
+## Multiple R-squared:  0.9653, Adjusted R-squared:  0.9484 
+## F-statistic: 57.12 on 93 and 191 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-1" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> srad_total <span class="sc">+</span> ppt_total <span class="sc">+</span> <span class="fu">factor</span>(hyb) <span class="sc">+</span></span>
+<span id="cb234-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-2" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">|</span>sy),</span>
+<span id="cb234-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-3" tabindex="-1"></a>         <span class="at">data =</span> d)</span>
+<span id="cb234-4"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-4" tabindex="-1"></a></span>
+<span id="cb234-5"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-5" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m2, <span class="at">plot =</span> T)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
+<pre><code>## Object of Class DHARMa with simulated residuals based on 250 simulations with refit = FALSE . See ?DHARMa::simulateResiduals for help. 
+##  
+## Scaled residual values: 0.532 0.528 0.552 0.448 0.196 0.604 0.128 0.34 0.696 0.296 0.592 0.368 0.452 0.704 0.136 0.276 0.512 0.324 0.364 0.144 ...</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb236-1" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: yield ~ srad_total + ppt_total + factor(hyb) + (1 | sy)
+##    Data: d
+## 
+## REML criterion at convergence: 537.1
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -2.6232 -0.5357  0.0000  0.5625  2.2864 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  sy       (Intercept) 0.0912   0.3020  
+##  Residual             0.5826   0.7633  
+## Number of obs: 285, groups:  sy, 16
+## 
+## Fixed effects:
+##                Estimate Std. Error t value
+## (Intercept)   -58.38763    7.17973  -8.132
+## srad_total     28.89046    2.87023  10.066
+## ppt_total       0.78771    0.16758   4.700
+## factor(hyb)2    4.34381    0.80391   5.403
+## factor(hyb)3    1.30026    0.70485   1.845
+## factor(hyb)4    0.50228    0.80391   0.625
+## factor(hyb)5   -2.87003    0.62319  -4.605
+## factor(hyb)6   -1.15626    0.62319  -1.855
+## factor(hyb)7    0.96009    0.62319   1.541
+## factor(hyb)8   -2.78208    0.62319  -4.464
+## factor(hyb)9  -10.40201    0.88133 -11.803
+## factor(hyb)10  -1.38617    0.96221  -1.441
+## factor(hyb)11  -3.01797    0.74751  -4.037
+## factor(hyb)12  -4.83909    0.97321  -4.972
+## factor(hyb)13   5.63725    0.69455   8.116
+## factor(hyb)14  -2.81518    0.99068  -2.842
+## factor(hyb)15  -4.62097    0.65763  -7.027
+## factor(hyb)16  -8.02757    1.02003  -7.870
+## factor(hyb)17   3.38958    0.67239   5.041
+## factor(hyb)18   4.52533    0.79784   5.672
+## factor(hyb)19  -2.54459    0.83076  -3.063
+## factor(hyb)20   2.72081    0.77011   3.533
+## factor(hyb)21  -4.77889    0.78588  -6.081
+## factor(hyb)22  -2.17785    0.68954  -3.158
+## factor(hyb)23   1.29865    0.64397   2.017
+## factor(hyb)24   4.55199    0.99712   4.565
+## factor(hyb)25   4.30745    0.72587   5.934
+## factor(hyb)26  -6.78457    0.68954  -9.839
+## factor(hyb)27   2.61889    0.71997   3.638
+## factor(hyb)28   3.55329    0.96827   3.670
+## factor(hyb)29   4.29175    0.83843   5.119
+## factor(hyb)30  -8.66084    0.80181 -10.802
+## factor(hyb)31   3.17049    0.80391   3.944
+## factor(hyb)32  -4.53737    0.68954  -6.580
+## factor(hyb)33   2.40898    0.83076   2.900
+## factor(hyb)34   8.50653    1.01009   8.422
+## factor(hyb)35   2.63563    0.69675   3.783
+## factor(hyb)36   9.48946    0.96221   9.862
+## factor(hyb)37  -2.78086    0.79784  -3.486
+## factor(hyb)38   0.95652    0.71715   1.334
+## factor(hyb)39  -2.88135    0.75661  -3.808
+## factor(hyb)40   2.96099    1.01009   2.931
+## factor(hyb)41  -3.98966    0.62319  -6.402
+## factor(hyb)42  -0.74645    0.72544  -1.029
+## factor(hyb)43   0.43157    0.67208   0.642
+## factor(hyb)44  -0.85947    0.72467  -1.186
+## factor(hyb)45   3.88219    0.75661   5.131
+## factor(hyb)46  -3.85761    0.86285  -4.471
+## factor(hyb)47  -0.80340    0.63635  -1.263
+## factor(hyb)48  -1.20209    0.71876  -1.672
+## factor(hyb)49  -4.62825    0.72615  -6.374
+## factor(hyb)50  -1.37456    0.67809  -2.027
+## factor(hyb)51  -3.12280    0.69476  -4.495
+## factor(hyb)52  -1.93346    0.53970  -3.582
+## factor(hyb)53   0.02128    0.62319   0.034
+## factor(hyb)54   5.52610    0.69675   7.931
+## factor(hyb)55 -10.63825    0.68954 -15.428
+## factor(hyb)56   1.25394    0.79784   1.572
+## factor(hyb)57  -1.90384    0.80985  -2.351
+## factor(hyb)58   1.36786    0.67695   2.021
+## factor(hyb)59   2.26754    0.68954   3.288
+## factor(hyb)60  -5.08738    0.68954  -7.378
+## factor(hyb)61  -2.90967    0.72615  -4.007
+## factor(hyb)62  -3.43575    0.67208  -5.112
+## factor(hyb)63  -0.95683    0.77011  -1.242
+## factor(hyb)64   0.85349    0.64680   1.320
+## factor(hyb)65   4.83428    0.96323   5.019
+## factor(hyb)66  -5.38115    0.67549  -7.966
+## factor(hyb)67   4.72374    0.96323   4.904
+## factor(hyb)68   0.67270    0.67549   0.996
+## factor(hyb)69   1.85635    0.69229   2.681
+## factor(hyb)70  -0.99164    0.78813  -1.258
+## factor(hyb)71   1.73092    0.86285   2.006
+## factor(hyb)72  -0.65737    0.66100  -0.995
+## factor(hyb)73  -2.14247    0.55117  -3.887
+## factor(hyb)74  -2.35766    0.51826  -4.549
+## factor(hyb)75  -6.99549    1.02003  -6.858
+## factor(hyb)76  -1.05028    0.97321  -1.079
+## factor(hyb)77   3.06925    0.78813   3.894
+## factor(hyb)78  -1.38186    0.72665  -1.902
+## factor(hyb)79   4.46835    0.72665   6.149
+## factor(hyb)80  -3.46014    0.69722  -4.963
+## factor(hyb)81   1.06771    0.61617   1.733
+## factor(hyb)82  -0.95736    0.86285  -1.110
+## factor(hyb)83   3.20216    0.68216   4.694
+## factor(hyb)84  -4.45452    0.79267  -5.620
+## factor(hyb)85  -2.19680    0.99851  -2.200
+## factor(hyb)86  -2.39751    0.55740  -4.301
+## factor(hyb)87   0.31716    0.77011   0.412
+## factor(hyb)88  -0.40892    0.78813  -0.519
+## factor(hyb)89  -2.43654    0.62319  -3.910
+## factor(hyb)90  -2.70215    0.62319  -4.336
+## factor(hyb)91  -4.50509    0.62319  -7.229
+## factor(hyb)92  -8.20178    0.99851  -8.214</code></pre>
+<pre><code>## 
+## Correlation matrix not shown by default, as p = 94 &gt; 12.
+## Use print(x, correlation=TRUE)  or
+##     vcov(x)        if you need it</code></pre>
+</div>
+<div id="power-analyses" class="section level2 hasAnchor" number="23.3">
+<h2><span class="header-section-number">23.3</span> Power analyses<a href="integrating-multi-environment-trials-with-weather-data.html#power-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s first review the different types of errors:</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-139"></span>
+<img src="../figures/error_types.jpg" alt="Types of error" width="100%" />
+<p class="caption">
+Figure 23.1: Types of error
+</p>
+</div>
+<p>We normally control <span class="math inline">\(\alpha\)</span>, the probability of doing an error of type I.
+TO describe our experiment’s ability to detect scientific discoveries, we consider power: the <span class="math inline">\(P(\text{reject } H_0 | H_0 \text{ false}) = 1- \beta\)</span>.
+Very often, research teams consider 0.8 power as the minimum for an experiment.</p>
+<div id="power-calculations" class="section level3 hasAnchor" number="23.3.1">
+<h3><span class="header-section-number">23.3.1</span> Power calculations<a href="integrating-multi-environment-trials-with-weather-data.html#power-calculations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="analytical-solutions" class="section level4 hasAnchor" number="23.3.1.1">
+<h4><span class="header-section-number">23.3.1.1</span> Analytical solutions<a href="integrating-multi-environment-trials-with-weather-data.html#analytical-solutions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>t-test</strong></p>
+<ul>
+<li>Used to evaluate differences between treatment effects or means.</li>
+<li>Example testing against zero: <span class="math inline">\(t^{\star} = \frac{\hat\theta - 0}{s.e.(\hat\theta)} = \frac{\hat\theta - 0}{s.d.(\hat\theta)/\sqrt{n}}\)</span></li>
+<li>Note the sensibility to sample size.</li>
+<li>Also, remember the <span class="math inline">\(s.e.(\hat\theta)\)</span> may differ depending on the design:
+<ul>
+<li><span class="math inline">\(s.e.(\hat\theta)\)</span> may depend on <span class="math inline">\(\sigma^2_\varepsilon\)</span> only (e.g., CRD, RCBD, mean comparisons between treatment levels of the treatment at the split-plot level), <span class="math inline">\(s.e.(\hat\theta) = \sqrt{\frac{2 \sigma^2_{\varepsilon}}{r t}}\)</span>.</li>
+<li><span class="math inline">\(s.e.(\hat\theta)\)</span> may depend on <span class="math inline">\(\sigma^2_\varepsilon\)</span> and <span class="math inline">\(\sigma^2_{whole \ plot}\)</span> (e.g., mean comparisons between treatment levels of the treatment at the whole-plot level), <span class="math inline">\(s.e.(\hat\theta) = \sqrt{\frac{2 (\sigma^2_{\varepsilon} + b \cdot \sigma^2_w)}{b \cdot r}}\)</span></li>
+</ul></li>
+</ul>
+<p><strong>To detect a difference</strong> <span class="math inline">\(\delta\)</span>:
+<span class="math display">\[n = \frac{2\hat{\sigma}^2}{\delta^2}[t_{\alpha/2, \nu} + t_{\beta, \nu}]^2,\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(n\)</span> is the sample size,</li>
+<li><span class="math inline">\(\hat\sigma^2\)</span> is the estimate of <span class="math inline">\(\sigma^2\)</span> based on <span class="math inline">\(\nu\)</span> degrees of freedom,</li>
+<li><span class="math inline">\(\alpha\)</span> is the type I error rate,</li>
+<li><span class="math inline">\(\beta\)</span> is the type II error rate,</li>
+<li>And note that: <span class="math inline">\(Var(\delta)=2\sigma^2/n\)</span>.</li>
+</ul>
+</div>
+<div id="simulation-solutions" class="section level4 hasAnchor" number="23.3.1.2">
+<h4><span class="header-section-number">23.3.1.2</span> Simulation solutions<a href="integrating-multi-environment-trials-with-weather-data.html#simulation-solutions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Below is a simulation comparing 3 different scenarios of multi-environment trials with different number of environments tested.
+We assume that, within each environment, the trial is an RCBD with three repetitions.
+<em>[Context: this is perhaps the most common design in agronomy.]</em></p>
+<p>We assume the following data generating process:
+<span class="math display">\[y_{ijk} = \mu_i + b_{j(k)} + u_k +\varepsilon_{ijk}, \\
+b_{j(k)} \sim N(0, \sigma_{b}^2), \\
+u_k \sim N(0, \sigma_{u}^2), \\
+\varepsilon_{ijk} \sim N(0, \sigma_{\varepsilon}^2),\]</span>
+where:</p>
+<ul>
+<li><span class="math inline">\(\mu_i\)</span> is the treatment mean for the <span class="math inline">\(i\)</span>th treatment (<span class="math inline">\(i = 1,2, ..., 30\)</span>),</li>
+<li><span class="math inline">\(b_{j(k)}\)</span> is the effect of the <span class="math inline">\(j\)</span>th block in the <span class="math inline">\(k\)</span>th environment (<span class="math inline">\(j = 1,2,3\)</span>),</li>
+<li><span class="math inline">\(u_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th environment (<span class="math inline">\(k = 1,2,..., E\)</span>), and</li>
+<li><span class="math inline">\(\varepsilon_{ijk}\)</span> is the residual for the observation corresponding to the <span class="math inline">\(i\)</span>th treatment, <span class="math inline">\(j\)</span>th block in the <span class="math inline">\(k\)</span>th environment.</li>
+</ul>
+<p>For this simulation, we assume that all <span class="math inline">\(b_{j(k)}\)</span>, <span class="math inline">\(u_k\)</span> and <span class="math inline">\(\varepsilon_{ijk}\)</span> arise from independent normal distributions, with variances <span class="math inline">\(\sigma_{b}^2 = 3\)</span>, <span class="math inline">\(\sigma_{u}^2 = 35\)</span>, <span class="math inline">\(\sigma_{\varepsilon}^2 = 10\)</span>.</p>
+<p>Each simulation consists of 3 steps:</p>
+<ol style="list-style-type: decimal">
+<li>Set “true” states (i.e., set <span class="math inline">\(\mu_i\)</span>). We assume the same “ground truth” for all cases. To demonstrate the properties of the designs, we will assume some treatments have no difference (i.e., <span class="math inline">\(\mu_i = \mu_{i&#39;}\)</span>) and others are different (i.e., <span class="math inline">\(\mu_i \neq \mu_{i&#39;}\)</span>). <em>Note: this step does not depend on sample size.</em></li>
+<li>Draw random samples from <span class="math inline">\(b_{j(k)}\)</span>, <span class="math inline">\(u_k\)</span> and <span class="math inline">\(\varepsilon_{ijk}\)</span> to simulate observed values <span class="math inline">\(y_{ijk}\)</span>. <em>Note: this step depends on sample size.</em></li>
+<li>Estimate the <span class="math inline">\(\mu_i\)</span>s and test the type I error rate (count of times when <span class="math inline">\(p&lt;0.05\)</span> when the truth was actually <span class="math inline">\(\mu_i = \mu_{i&#39;}\)</span> – reject <span class="math inline">\(H_0\)</span> when it was true), and the statistical power (count of times when <span class="math inline">\(p&lt;0.05\)</span> when the truth was <span class="math inline">\(\mu_i \ne \mu_{i&#39;}\)</span> – reject <span class="math inline">\(H_0\)</span> when it was false).</li>
+</ol>
+<p><strong>R packages required for this simulation</strong></p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb239-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># data wrangling &amp; data viz  </span></span>
+<span id="cb239-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb239-2" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># model fitting</span></span>
+<span id="cb239-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb239-3" tabindex="-1"></a><span class="fu">library</span>(emmeans) <span class="co"># marginal means </span></span></code></pre></div>
+<p><strong>Simulate 100 hypothetical experiments for 3 scenarios:</strong></p>
+<ul>
+<li><strong>10 environments, 3 blocks each</strong></li>
+</ul>
+<details>
+<summary>
+Click to show code for the simulation
+</summary>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-1" tabindex="-1"></a>sigma_env.truth <span class="ot">&lt;-</span> <span class="dv">35</span> </span>
+<span id="cb240-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-2" tabindex="-1"></a>sigma_block.truth <span class="ot">&lt;-</span> <span class="dv">3</span> </span>
+<span id="cb240-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-3" tabindex="-1"></a>sigma.truth <span class="ot">&lt;-</span> <span class="dv">10</span> </span>
+<span id="cb240-4"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-4" tabindex="-1"></a></span>
+<span id="cb240-5"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-5" tabindex="-1"></a>trts <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;t&quot;</span>, <span class="dv">11</span><span class="sc">:</span><span class="dv">40</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb240-6"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-6" tabindex="-1"></a>n_envs <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb240-7"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-7" tabindex="-1"></a>n_rep <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb240-8"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-8" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">250</span></span>
+<span id="cb240-9"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-9" tabindex="-1"></a></span>
+<span id="cb240-10"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-10" tabindex="-1"></a>df_me <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">trt =</span> trts,</span>
+<span id="cb240-11"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-11" tabindex="-1"></a>                     <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>n_rep, </span>
+<span id="cb240-12"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-12" tabindex="-1"></a>                     <span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb240-13"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-13" tabindex="-1"></a></span>
+<span id="cb240-14"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-14" tabindex="-1"></a>pval_0diff <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb240-15"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-15" tabindex="-1"></a>pval_20diff <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb240-16"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-16" tabindex="-1"></a></span>
+<span id="cb240-17"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-17" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims) {</span>
+<span id="cb240-18"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-18" tabindex="-1"></a>  env_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_envs, <span class="dv">0</span>, sigma_env.truth)</span>
+<span id="cb240-19"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-19" tabindex="-1"></a>  block_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_envs<span class="sc">*</span>n_rep, <span class="dv">0</span>, sigma_block.truth)</span>
+<span id="cb240-20"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-20" tabindex="-1"></a>  </span>
+<span id="cb240-21"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-21" tabindex="-1"></a>  df_envs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>), </span>
+<span id="cb240-22"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-22" tabindex="-1"></a>                        env_re)</span>
+<span id="cb240-23"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-23" tabindex="-1"></a>  df_blocks <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb240-24"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-24" tabindex="-1"></a>                           <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>n_rep) <span class="sc">%&gt;%</span> </span>
+<span id="cb240-25"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-25" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">block_re =</span> block_re)</span>
+<span id="cb240-26"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-26" tabindex="-1"></a>  </span>
+<span id="cb240-27"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-27" tabindex="-1"></a>  df_me <span class="ot">&lt;-</span> df_me <span class="sc">%&gt;%</span></span>
+<span id="cb240-28"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-28" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">mu_t =</span> <span class="fu">case_when</span>(trt <span class="sc">==</span> <span class="st">&quot;t11&quot;</span> <span class="sc">~</span> <span class="dv">200</span>, </span>
+<span id="cb240-29"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-29" tabindex="-1"></a>                            trt <span class="sc">==</span> <span class="st">&quot;t12&quot;</span> <span class="sc">~</span> <span class="dv">200</span>, </span>
+<span id="cb240-30"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-30" tabindex="-1"></a>                            trt <span class="sc">==</span> <span class="st">&quot;t13&quot;</span> <span class="sc">~</span> <span class="dv">180</span>, </span>
+<span id="cb240-31"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-31" tabindex="-1"></a>                            <span class="at">.default =</span> <span class="dv">220</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb240-32"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-32" tabindex="-1"></a>    <span class="fu">left_join</span>(df_envs) <span class="sc">%&gt;%</span> </span>
+<span id="cb240-33"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-33" tabindex="-1"></a>    <span class="fu">left_join</span>(df_blocks) <span class="sc">%&gt;%</span> </span>
+<span id="cb240-34"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-34" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">e =</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(df_me), <span class="dv">0</span>, sigma.truth), </span>
+<span id="cb240-35"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-35" tabindex="-1"></a>           <span class="at">y =</span> mu_t <span class="sc">+</span> env_re <span class="sc">+</span> block_re <span class="sc">+</span> e)</span>
+<span id="cb240-36"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-36" tabindex="-1"></a>  </span>
+<span id="cb240-37"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-37" tabindex="-1"></a>  </span>
+<span id="cb240-38"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-38" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> trt <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>environm<span class="sc">/</span>rep), <span class="at">data =</span> df_me)</span>
+<span id="cb240-39"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-39" tabindex="-1"></a>  pval_0diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">28</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
+<span id="cb240-40"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-40" tabindex="-1"></a>  pval_20diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">26</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
+<span id="cb240-41"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-41" tabindex="-1"></a>} </span></code></pre></div>
+</details>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb241-1" tabindex="-1"></a><span class="co"># type I error rate</span></span>
+<span id="cb241-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb241-2" tabindex="-1"></a><span class="fu">mean</span>(pval_0diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.056</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb243-1" tabindex="-1"></a><span class="co"># statistical power</span></span>
+<span id="cb243-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb243-2" tabindex="-1"></a><span class="fu">mean</span>(pval_20diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<ul>
+<li><strong>2 environments, 3 blocks each</strong></li>
+</ul>
+<details>
+<summary>
+Click to show code for the simulation
+</summary>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-1" tabindex="-1"></a>sigma_env.truth <span class="ot">&lt;-</span> <span class="dv">35</span> </span>
+<span id="cb245-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-2" tabindex="-1"></a>sigma_block.truth <span class="ot">&lt;-</span> <span class="dv">3</span> </span>
+<span id="cb245-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-3" tabindex="-1"></a>sigma.truth <span class="ot">&lt;-</span> <span class="dv">10</span> </span>
+<span id="cb245-4"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-4" tabindex="-1"></a></span>
+<span id="cb245-5"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-5" tabindex="-1"></a>trts <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;t&quot;</span>, <span class="dv">11</span><span class="sc">:</span><span class="dv">40</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb245-6"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-6" tabindex="-1"></a>n_envs <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb245-7"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-7" tabindex="-1"></a>n_rep <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb245-8"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-8" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb245-9"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-9" tabindex="-1"></a></span>
+<span id="cb245-10"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-10" tabindex="-1"></a>df_me <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">trt =</span> trts,</span>
+<span id="cb245-11"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-11" tabindex="-1"></a>                     <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>n_rep, </span>
+<span id="cb245-12"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-12" tabindex="-1"></a>                     <span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb245-13"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-13" tabindex="-1"></a></span>
+<span id="cb245-14"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-14" tabindex="-1"></a>pval_0diff <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb245-15"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-15" tabindex="-1"></a>pval_20diff <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb245-16"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-16" tabindex="-1"></a></span>
+<span id="cb245-17"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-17" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb245-18"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-18" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims) {</span>
+<span id="cb245-19"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-19" tabindex="-1"></a>  env_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_envs, <span class="dv">0</span>, sigma_env.truth)</span>
+<span id="cb245-20"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-20" tabindex="-1"></a>  block_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_envs<span class="sc">*</span>n_rep, <span class="dv">0</span>, sigma_block.truth)</span>
+<span id="cb245-21"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-21" tabindex="-1"></a>  </span>
+<span id="cb245-22"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-22" tabindex="-1"></a>  df_envs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>), </span>
+<span id="cb245-23"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-23" tabindex="-1"></a>                        env_re)</span>
+<span id="cb245-24"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-24" tabindex="-1"></a>  df_blocks <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb245-25"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-25" tabindex="-1"></a>                           <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>n_rep) <span class="sc">%&gt;%</span> </span>
+<span id="cb245-26"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-26" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">block_re =</span> block_re)</span>
+<span id="cb245-27"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-27" tabindex="-1"></a>  </span>
+<span id="cb245-28"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-28" tabindex="-1"></a>  df_me <span class="ot">&lt;-</span> df_me <span class="sc">%&gt;%</span></span>
+<span id="cb245-29"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-29" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">mu_t =</span> <span class="fu">case_when</span>(trt <span class="sc">==</span> <span class="st">&quot;t11&quot;</span> <span class="sc">~</span> <span class="dv">200</span>, </span>
+<span id="cb245-30"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-30" tabindex="-1"></a>                            trt <span class="sc">==</span> <span class="st">&quot;t12&quot;</span> <span class="sc">~</span> <span class="dv">200</span>, </span>
+<span id="cb245-31"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-31" tabindex="-1"></a>                            trt <span class="sc">==</span> <span class="st">&quot;t13&quot;</span> <span class="sc">~</span> <span class="dv">180</span>, </span>
+<span id="cb245-32"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-32" tabindex="-1"></a>                            <span class="at">.default =</span> <span class="dv">220</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb245-33"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-33" tabindex="-1"></a>    <span class="fu">left_join</span>(df_envs) <span class="sc">%&gt;%</span> </span>
+<span id="cb245-34"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-34" tabindex="-1"></a>    <span class="fu">left_join</span>(df_blocks) <span class="sc">%&gt;%</span> </span>
+<span id="cb245-35"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-35" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">e =</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(df_me), <span class="dv">0</span>, sigma.truth), </span>
+<span id="cb245-36"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-36" tabindex="-1"></a>           <span class="at">y =</span> mu_t <span class="sc">+</span> env_re <span class="sc">+</span> block_re <span class="sc">+</span> e)</span>
+<span id="cb245-37"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-37" tabindex="-1"></a>  </span>
+<span id="cb245-38"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-38" tabindex="-1"></a>  </span>
+<span id="cb245-39"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-39" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> trt <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>environm<span class="sc">/</span>rep), <span class="at">data =</span> df_me)</span>
+<span id="cb245-40"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-40" tabindex="-1"></a>  pval_0diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">28</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
+<span id="cb245-41"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-41" tabindex="-1"></a>  pval_20diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">26</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
+<span id="cb245-42"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-42" tabindex="-1"></a>}</span></code></pre></div>
+</details>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb246-1" tabindex="-1"></a><span class="co"># type I error rate</span></span>
+<span id="cb246-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb246-2" tabindex="-1"></a><span class="fu">mean</span>(pval_0diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.05</code></pre>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb248-1" tabindex="-1"></a><span class="co"># statistical power</span></span>
+<span id="cb248-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb248-2" tabindex="-1"></a><span class="fu">mean</span>(pval_20diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.9</code></pre>
+<ul>
+<li><strong>1 environment, 3 blocks each</strong></li>
+</ul>
+<details>
+<summary>
+Click to show code for the simulation
+</summary>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-1" tabindex="-1"></a>sigma_env.truth <span class="ot">&lt;-</span> <span class="dv">35</span> </span>
+<span id="cb250-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-2" tabindex="-1"></a>sigma_block.truth <span class="ot">&lt;-</span> <span class="dv">3</span> </span>
+<span id="cb250-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-3" tabindex="-1"></a>sigma.truth <span class="ot">&lt;-</span> <span class="dv">10</span> </span>
+<span id="cb250-4"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-4" tabindex="-1"></a></span>
+<span id="cb250-5"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-5" tabindex="-1"></a>trts <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;t&quot;</span>, <span class="dv">11</span><span class="sc">:</span><span class="dv">40</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb250-6"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-6" tabindex="-1"></a>n_envs <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb250-7"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-7" tabindex="-1"></a>n_rep <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb250-8"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-8" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb250-9"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-9" tabindex="-1"></a></span>
+<span id="cb250-10"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-10" tabindex="-1"></a>df_me <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">trt =</span> trts,</span>
+<span id="cb250-11"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-11" tabindex="-1"></a>                     <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>n_rep, </span>
+<span id="cb250-12"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-12" tabindex="-1"></a>                     <span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb250-13"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-13" tabindex="-1"></a></span>
+<span id="cb250-14"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-14" tabindex="-1"></a>pval_0diff <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb250-15"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-15" tabindex="-1"></a>pval_20diff <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_sims)</span>
+<span id="cb250-16"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-16" tabindex="-1"></a></span>
+<span id="cb250-17"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-17" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb250-18"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-18" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_sims) {</span>
+<span id="cb250-19"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-19" tabindex="-1"></a>  env_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_envs, <span class="dv">0</span>, sigma_env.truth)</span>
+<span id="cb250-20"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-20" tabindex="-1"></a>  block_re <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_envs<span class="sc">*</span>n_rep, <span class="dv">0</span>, sigma_block.truth)</span>
+<span id="cb250-21"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-21" tabindex="-1"></a>  </span>
+<span id="cb250-22"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-22" tabindex="-1"></a>  df_envs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>), </span>
+<span id="cb250-23"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-23" tabindex="-1"></a>                        env_re)</span>
+<span id="cb250-24"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-24" tabindex="-1"></a>  df_blocks <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">environm =</span> <span class="fu">paste</span>(<span class="st">&quot;e&quot;</span>, <span class="dv">11</span><span class="sc">:</span>(<span class="dv">10</span><span class="sc">+</span>n_envs), <span class="at">sep =</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb250-25"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-25" tabindex="-1"></a>                           <span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span>n_rep) <span class="sc">%&gt;%</span> </span>
+<span id="cb250-26"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-26" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">block_re =</span> block_re)</span>
+<span id="cb250-27"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-27" tabindex="-1"></a>  </span>
+<span id="cb250-28"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-28" tabindex="-1"></a>  df_me <span class="ot">&lt;-</span> df_me <span class="sc">%&gt;%</span></span>
+<span id="cb250-29"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-29" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">mu_t =</span> <span class="fu">case_when</span>(trt <span class="sc">==</span> <span class="st">&quot;t11&quot;</span> <span class="sc">~</span> <span class="dv">200</span>, </span>
+<span id="cb250-30"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-30" tabindex="-1"></a>                            trt <span class="sc">==</span> <span class="st">&quot;t12&quot;</span> <span class="sc">~</span> <span class="dv">200</span>, </span>
+<span id="cb250-31"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-31" tabindex="-1"></a>                            trt <span class="sc">==</span> <span class="st">&quot;t13&quot;</span> <span class="sc">~</span> <span class="dv">180</span>, </span>
+<span id="cb250-32"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-32" tabindex="-1"></a>                            <span class="at">.default =</span> <span class="dv">220</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb250-33"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-33" tabindex="-1"></a>    <span class="fu">left_join</span>(df_envs) <span class="sc">%&gt;%</span> </span>
+<span id="cb250-34"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-34" tabindex="-1"></a>    <span class="fu">left_join</span>(df_blocks) <span class="sc">%&gt;%</span> </span>
+<span id="cb250-35"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-35" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">e =</span> <span class="fu">rnorm</span>(<span class="fu">nrow</span>(df_me), <span class="dv">0</span>, sigma.truth), </span>
+<span id="cb250-36"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-36" tabindex="-1"></a>           <span class="at">y =</span> mu_t <span class="sc">+</span> env_re <span class="sc">+</span> block_re <span class="sc">+</span> e)</span>
+<span id="cb250-37"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-37" tabindex="-1"></a>  </span>
+<span id="cb250-38"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-38" tabindex="-1"></a>  </span>
+<span id="cb250-39"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-39" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> trt <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>rep), <span class="at">data =</span> df_me)</span>
+<span id="cb250-40"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-40" tabindex="-1"></a>  pval_0diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">28</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
+<span id="cb250-41"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-41" tabindex="-1"></a>  pval_20diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">26</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
+<span id="cb250-42"><a href="integrating-multi-environment-trials-with-weather-data.html#cb250-42" tabindex="-1"></a>}</span></code></pre></div>
+</details>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb251-1" tabindex="-1"></a><span class="co"># type I error rate</span></span>
+<span id="cb251-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb251-2" tabindex="-1"></a><span class="fu">mean</span>(pval_0diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.05</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb253-1" tabindex="-1"></a><span class="co"># statistical power</span></span>
+<span id="cb253-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb253-2" tabindex="-1"></a><span class="fu">mean</span>(pval_20diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 0.67</code></pre>
+</div>
+</div>
+</div>
+<div id="precision-analyses" class="section level2 hasAnchor" number="23.4">
+<h2><span class="header-section-number">23.4</span> Precision analyses<a href="integrating-multi-environment-trials-with-weather-data.html#precision-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Focus on uncertainty, not hypothesis tests</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="missing-values.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="semester-project-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/stat720/book2025/edit/main/23-weather.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/stat720/book2025/blob/main/23-weather.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

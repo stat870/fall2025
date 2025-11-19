@@ -1,0 +1,348 @@
+# Integrating multi-environment trials with weather data 
+
+## Announcements 
+
+- Office hours tomorrow have moved to 11.30-12.30. 
+- Project deadlines:
+  - **November 28th:** send your project to your classmate(s) for peer review.
+  - **December 5th:** return your peer review to your classmate(s).
+  - **December 12th:** give your presentation by this date (it can be earlier than this also). You will need to schedule a 30min meeting with me. 
+  - **December 19th:** submit your final project and tutorial on canvas, including both your classmate's and my feedback.
+
+## Opportunistic use of multi-environment trials   
+
+- Objective of an experiment 
+- Review of designed experiments 
+- Bias-Variance tradeoff 
+- Power in these analyses 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(lme4)
+library(emmeans)
+```
+
+```{r}
+d <- read.csv("../data/multiyear_env.csv") 
+```
+
+
+```{r}
+m1 <- lm(yield ~ srad_total +  ppt_total + factor(hyb),
+         data = d)
+summary(m1)
+```
+
+
+
+```{r}
+m2 <- lmer(yield ~ srad_total + ppt_total + factor(hyb) +
+             (1|sy),
+         data = d)
+
+DHARMa::simulateResiduals(m2, plot = T)
+
+summary(m2)
+```
+
+## Power analyses 
+
+
+Let's first review the different types of errors: 
+
+```{r echo=FALSE, fig.cap="Types of error", out.width = '100%'}
+knitr::include_graphics("../figures/error_types.jpg")
+```
+
+We normally control $\alpha$, the probability of doing an error of type I. 
+TO describe our experiment's ability to detect scientific discoveries, we consider power: the $P(\text{reject } H_0 | H_0 \text{ false}) = 1- \beta$. 
+Very often, research teams consider 0.8 power as the minimum for an experiment. 
+
+### Power calculations
+
+#### Analytical solutions 
+**t-test** 
+
+- Used to evaluate differences between treatment effects or means. 
+- Example testing against zero: $t^{\star} = \frac{\hat\theta - 0}{s.e.(\hat\theta)} = \frac{\hat\theta - 0}{s.d.(\hat\theta)/\sqrt{n}}$ 
+- Note the sensibility to sample size. 
+- Also, remember the $s.e.(\hat\theta)$ may differ depending on the design:
+  - $s.e.(\hat\theta)$ may depend on $\sigma^2_\varepsilon$ only (e.g., CRD, RCBD, mean comparisons between treatment levels of the treatment at the split-plot level), $s.e.(\hat\theta) = \sqrt{\frac{2 \sigma^2_{\varepsilon}}{r t}}$. 
+  - $s.e.(\hat\theta)$ may depend on $\sigma^2_\varepsilon$ and $\sigma^2_{whole \ plot}$ (e.g., mean comparisons between treatment levels of the treatment at the whole-plot level), $s.e.(\hat\theta) = \sqrt{\frac{2 (\sigma^2_{\varepsilon} + b \cdot \sigma^2_w)}{b \cdot r}}$
+
+**To detect a difference** $\delta$: 
+$$n = \frac{2\hat{\sigma}^2}{\delta^2}[t_{\alpha/2, \nu} + t_{\beta, \nu}]^2,$$
+where: 
+
+- $n$ is the sample size, 
+- $\hat\sigma^2$ is the estimate of $\sigma^2$ based on $\nu$ degrees of freedom, 
+- $\alpha$ is the type I error rate, 
+- $\beta$ is the type II error rate, 
+- And note that: $Var(\delta)=2\sigma^2/n$.
+
+
+#### Simulation solutions 
+
+Below is a simulation comparing 3 different scenarios of multi-environment trials with different number of environments tested. 
+We assume that, within each environment, the trial is an RCBD with three repetitions. 
+*[Context: this is perhaps the most common design in agronomy.]* 
+
+We assume the following data generating process: 
+$$y_{ijk} = \mu_i + b_{j(k)} + u_k +\varepsilon_{ijk}, \\
+b_{j(k)} \sim N(0, \sigma_{b}^2), \\
+u_k \sim N(0, \sigma_{u}^2), \\
+\varepsilon_{ijk} \sim N(0, \sigma_{\varepsilon}^2),$$
+where:
+
+- $\mu_i$ is the treatment mean for the $i$th treatment ($i = 1,2, ..., 30$), 
+- $b_{j(k)}$ is the effect of the $j$th block in the $k$th environment ($j = 1,2,3$), 
+- $u_k$ is the effect of the $k$th environment ($k = 1,2,..., E$), and 
+- $\varepsilon_{ijk}$ is the residual for the observation corresponding to the $i$th treatment, $j$th block in the $k$th environment. 
+
+For this simulation, we assume that all $b_{j(k)}$, $u_k$ and $\varepsilon_{ijk}$ arise from independent normal distributions, with variances $\sigma_{b}^2 = 3$, $\sigma_{u}^2 = 35$, $\sigma_{\varepsilon}^2 = 10$.
+
+Each simulation consists of 3 steps: 
+
+1. Set "true" states (i.e., set $\mu_i$). We assume the same "ground truth" for all cases. To demonstrate the properties of the designs, we will assume some treatments have no difference (i.e., $\mu_i = \mu_{i'}$) and others are different (i.e., $\mu_i \neq \mu_{i'}$). *Note: this step does not depend on sample size.* 
+2. Draw random samples from $b_{j(k)}$, $u_k$ and $\varepsilon_{ijk}$ to simulate observed values $y_{ijk}$. *Note: this step depends on sample size.*
+3. Estimate the $\mu_i$s and test the type I error rate (count of times when $p<0.05$ when the truth was actually $\mu_i = \mu_{i'}$ -- reject $H_0$ when it was true), and the statistical power (count of times when $p<0.05$ when the truth was $\mu_i \ne \mu_{i'}$ -- reject $H_0$ when it was false). 
+
+
+**R packages required for this simulation** 
+```{r message=FALSE, warning=FALSE}
+library(tidyverse) # data wrangling & data viz  
+library(lme4) # model fitting
+library(emmeans) # marginal means 
+```
+
+**Simulate 100 hypothetical experiments for 3 scenarios:** 
+
+- **10 environments, 3 blocks each**
+
+<details>
+<summary>Click to show code for the simulation</summary>
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=TRUE}
+sigma_env.truth <- 35 
+sigma_block.truth <- 3 
+sigma.truth <- 10 
+
+trts <- paste("t", 11:40, sep = "")
+n_envs <- 10
+n_rep <- 3
+n_sims <- 250
+
+df_me <- expand.grid(trt = trts,
+                     rep = 1:n_rep, 
+                     environm = paste("e", 11:(10+n_envs), sep = ""))
+
+pval_0diff <- numeric(n_sims)
+pval_20diff <- numeric(n_sims)
+
+for (i in 1:n_sims) {
+  env_re <- rnorm(n_envs, 0, sigma_env.truth)
+  block_re <- rnorm(n_envs*n_rep, 0, sigma_block.truth)
+  
+  df_envs <- data.frame(environm = paste("e", 11:(10+n_envs), sep = ""), 
+                        env_re)
+  df_blocks <- expand.grid(environm = paste("e", 11:(10+n_envs), sep = ""),
+                           rep = 1:n_rep) %>% 
+    mutate(block_re = block_re)
+  
+  df_me <- df_me %>%
+    mutate(mu_t = case_when(trt == "t11" ~ 200, 
+                            trt == "t12" ~ 200, 
+                            trt == "t13" ~ 180, 
+                            .default = 220)) %>% 
+    left_join(df_envs) %>% 
+    left_join(df_blocks) %>% 
+    mutate(e = rnorm(nrow(df_me), 0, sigma.truth), 
+           y = mu_t + env_re + block_re + e)
+  
+  
+  m <- lmer(y ~ trt + (1|environm/rep), data = df_me)
+  pval_0diff[i] <- as.data.frame(emmeans(m, ~ trt, contr = list(c(1, -1, rep(0, 28))))$contr)$p.value
+  pval_20diff[i] <- as.data.frame(emmeans(m, ~ trt, contr = list(c(1, 0, 0, -1, rep(0, 26))))$contr)$p.value
+} 
+```
+
+</details>
+
+```{r eval=TRUE, echo=FALSE}
+pval_0diff <- read_rds("../../rds/pval_0diff_sim1.rds")
+pval_20diff <- read_rds("../../rds/pval_20diff_sim1.rds")
+```
+
+```{r eval=TRUE, echo=FALSE}
+hist(pval_0diff, main = "P-values testing a difference that, in reality, is zero. E = 10", 
+     breaks = seq(0, 1, by = 0.05))
+```
+
+```{r eval=TRUE, echo=FALSE}
+hist(pval_20diff, main = "P-values testing a difference that, in reality, is 20. E = 10", 
+     breaks = seq(0, 1, by = 0.05))
+```
+
+
+```{r}
+# type I error rate
+mean(pval_0diff<0.05)
+# statistical power
+mean(pval_20diff<0.05)
+```
+
+- **2 environments, 3 blocks each**
+
+<details>
+<summary>Click to show code for the simulation</summary>
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=TRUE}
+sigma_env.truth <- 35 
+sigma_block.truth <- 3 
+sigma.truth <- 10 
+
+trts <- paste("t", 11:40, sep = "")
+n_envs <- 2
+n_rep <- 3
+n_sims <- 100
+
+df_me <- expand.grid(trt = trts,
+                     rep = 1:n_rep, 
+                     environm = paste("e", 11:(10+n_envs), sep = ""))
+
+pval_0diff <- numeric(n_sims)
+pval_20diff <- numeric(n_sims)
+
+set.seed(3)
+for (i in 1:n_sims) {
+  env_re <- rnorm(n_envs, 0, sigma_env.truth)
+  block_re <- rnorm(n_envs*n_rep, 0, sigma_block.truth)
+  
+  df_envs <- data.frame(environm = paste("e", 11:(10+n_envs), sep = ""), 
+                        env_re)
+  df_blocks <- expand.grid(environm = paste("e", 11:(10+n_envs), sep = ""),
+                           rep = 1:n_rep) %>% 
+    mutate(block_re = block_re)
+  
+  df_me <- df_me %>%
+    mutate(mu_t = case_when(trt == "t11" ~ 200, 
+                            trt == "t12" ~ 200, 
+                            trt == "t13" ~ 180, 
+                            .default = 220)) %>% 
+    left_join(df_envs) %>% 
+    left_join(df_blocks) %>% 
+    mutate(e = rnorm(nrow(df_me), 0, sigma.truth), 
+           y = mu_t + env_re + block_re + e)
+  
+  
+  m <- lmer(y ~ trt + (1|environm/rep), data = df_me)
+  pval_0diff[i] <- as.data.frame(emmeans(m, ~ trt, contr = list(c(1, -1, rep(0, 28))))$contr)$p.value
+  pval_20diff[i] <- as.data.frame(emmeans(m, ~ trt, contr = list(c(1, 0, 0, -1, rep(0, 26))))$contr)$p.value
+}
+```
+
+</details>
+
+
+```{r eval=TRUE, echo=FALSE}
+pval_0diff <- read_rds("../../rds/pval_0diff_sim2.rds")
+pval_20diff <- read_rds("../../rds/pval_20diff_sim2.rds")
+```
+
+```{r eval=TRUE, echo=FALSE}
+hist(pval_0diff, main = "P-values testing a difference that, in reality, is zero. E = 2", 
+     breaks = seq(0, 1, by = 0.05))
+```
+
+```{r eval=TRUE, echo=FALSE}
+hist(pval_20diff, main = "P-values testing a difference that, in reality, is 20. E = 2", 
+     breaks = seq(0, 1, by = 0.05))
+```
+
+```{r}
+# type I error rate
+mean(pval_0diff<0.05)
+# statistical power
+mean(pval_20diff<0.05)
+```
+
+- **1 environment, 3 blocks each**
+
+<details>
+<summary>Click to show code for the simulation</summary>
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=TRUE}
+sigma_env.truth <- 35 
+sigma_block.truth <- 3 
+sigma.truth <- 10 
+
+trts <- paste("t", 11:40, sep = "")
+n_envs <- 1
+n_rep <- 3
+n_sims <- 100
+
+df_me <- expand.grid(trt = trts,
+                     rep = 1:n_rep, 
+                     environm = paste("e", 11:(10+n_envs), sep = ""))
+
+pval_0diff <- numeric(n_sims)
+pval_20diff <- numeric(n_sims)
+
+set.seed(3)
+for (i in 1:n_sims) {
+  env_re <- rnorm(n_envs, 0, sigma_env.truth)
+  block_re <- rnorm(n_envs*n_rep, 0, sigma_block.truth)
+  
+  df_envs <- data.frame(environm = paste("e", 11:(10+n_envs), sep = ""), 
+                        env_re)
+  df_blocks <- expand.grid(environm = paste("e", 11:(10+n_envs), sep = ""),
+                           rep = 1:n_rep) %>% 
+    mutate(block_re = block_re)
+  
+  df_me <- df_me %>%
+    mutate(mu_t = case_when(trt == "t11" ~ 200, 
+                            trt == "t12" ~ 200, 
+                            trt == "t13" ~ 180, 
+                            .default = 220)) %>% 
+    left_join(df_envs) %>% 
+    left_join(df_blocks) %>% 
+    mutate(e = rnorm(nrow(df_me), 0, sigma.truth), 
+           y = mu_t + env_re + block_re + e)
+  
+  
+  m <- lmer(y ~ trt + (1|rep), data = df_me)
+  pval_0diff[i] <- as.data.frame(emmeans(m, ~ trt, contr = list(c(1, -1, rep(0, 28))))$contr)$p.value
+  pval_20diff[i] <- as.data.frame(emmeans(m, ~ trt, contr = list(c(1, 0, 0, -1, rep(0, 26))))$contr)$p.value
+}
+```
+
+</details>
+
+```{r eval=TRUE, echo=FALSE}
+pval_0diff <- read_rds("../../rds/pval_0diff_sim3.rds")
+pval_20diff <- read_rds("../../rds/pval_20diff_sim3.rds")
+```
+
+```{r eval=TRUE, echo=FALSE}
+hist(pval_0diff, main = "P-values testing a difference that, in reality, is zero. E = 1", 
+     breaks = seq(0, 1, by = 0.05))
+```
+
+```{r eval=TRUE, echo=FALSE}
+hist(pval_20diff, main = "P-values testing a difference that, in reality, is 20. E = 1", 
+     breaks = seq(0, 1, by = 0.05))
+```
+
+```{r}
+# type I error rate
+mean(pval_0diff<0.05)
+# statistical power
+mean(pval_20diff<0.05)
+```
+
+
+## Precision analyses 
+
+- Focus on uncertainty, not hypothesis tests 
+
+

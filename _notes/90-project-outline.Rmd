@@ -14,7 +14,11 @@ Broadly, projects are expected to (i) identify a research problem, (ii) develop 
 ### Project proposal - Due Friday September 24 at 11:59pm CT 
 Write a page-long project proposal that states your research problem and the objective of your project. An example of an appropriate project proposal can be found [here](https://stat870.github.io/fall2025/assignments/proposal_example.pdf).
 
-### Written report for peer review - Due Thursday November 27 at 11:59pm CT for peer review 
+### Written report for peer review - Due Friday November 28 at 11:59pm CT for peer review  
+Only e-mails between you.
+
+### Peer review - Due Friday December 5 at 11:59pm  
+Copy me in your e-mail.
 
 ### Oral presentation - Somewhere between December 3 - December 12
 Prepare a 15 minute presentation of the core aspects of your project. 

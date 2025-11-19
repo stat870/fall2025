@@ -103,6 +103,7 @@ mcmc_trace(samples$draws())
 mcmc_pairs(samples$draws(c("alpha", "beta")))
 ```
 
+
 ```{r message=FALSE, warning=FALSE}
 fitted <- samples$summary(c("alpha", "beta"))
 W_imputed <- samples$summary() |> 
