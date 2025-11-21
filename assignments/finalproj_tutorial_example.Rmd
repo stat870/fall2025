@@ -1,0 +1,325 @@
+---
+title: "Untitled"
+author: "J Lacasa"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse) # data wrangling, data viz
+library(mgcv) # fitting generalized additive models 
+library(latex2exp) # math notation in plots
+library(ggpubr) # plot aesthetics
+```
+
+## Loading the data  
+
+```{r}
+# dd_finalproj <- read.csv("../classes/data/dd_finalproj.csv")
+url <- "https://raw.githubusercontent.com/jlacasa/stat705_fall2024/main/classes/data/dd_finalproj.csv"
+dd_finalproj <- read.csv(url)
+dd_finalproj$doy_f <- factor(dd_finalproj$doy)
+```
+
+## Exploratory Data Analysis  
+
+```{r}
+dd_finalproj %>% 
+  ggplot(aes(doy, fitted))+
+  geom_point(aes(y = agb_g, fill = trt), shape = 21)+
+  facet_wrap(~species)+
+  scale_fill_manual(values = c("#FC4C02", "#008E97"))+
+  labs(y = expression(Aboveground~Biomass~(Mg~ha^{-1})), 
+       x= "Day of the Year", 
+       color = "Treatment", 
+       fill = "Treatment")+
+  theme_pubclean()+
+  theme(aspect.ratio = 1)
+```
+
+## Model Fitting  
+
+Firstly, fit a simple model 
+$$y_{ijkl} \sim N(\mu_{ijk}, \sigma^2)$$
+$$\mu_{ijk}=\beta_0 + \tau_i + \rho_j + \alpha_k + (\tau \rho)_{ij} + (\tau \alpha)_{ik} +  (\rho \alpha)_{ik} +  (\tau \rho \alpha)_{ijk},$$
+
+where $y_{ijkl}$ is the observation of aboveground biomass (in g) for the $i$th treatment, $j$th species, $k$th moment (i.e., time), and $l$th repetition, that arises from a Normal distribution with mean $mu_{ijk}$ and variance $sigma^2$. The $\beta_0$ is the general intercept, $\tau_i$ is the effect of the $i$th treatment, $\rho_j$ is the effect of the $j$th species, and $(\tau \rho)_{ij}$, $(\tau \alpha)_{ik}$, and $(\rho \alpha)_{ik}$ are the two-way interactions between the factors mentioned above, and $(\tau \rho \alpha)_{ijk}$ is the three-way interaction of the factors mentioned above. Note that there is a single variance for all observations.    
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+m1 <- lm(agb_g ~ species*trt*factor(doy), data = dd_finalproj)
+# m1 <- lm(agb_g ~ species+trt+doy_f+
+#            species:trt+species:doy_f+trt:doy_f+
+#            species:trt:doy_f, data = dd_finalproj)
+# View(model.matrix(m1))
+```
+
+### Model diagnostics  
+
+#### Constant variance  
+```{r}
+plot(m1$fitted.values, abs(residuals(m1, type = "deviance")), 
+     xlab = TeX("$\\hat{y}_i$"), 
+     ylab = TeX("|$\\hat{\\epsilon}_i$|"), 
+     main = "Residuals versus fitted values", 
+     sub = "Note that the errors increase together with the means")
+```
+
+```{r}
+lm(log(agb_g) ~ species*trt*doy_f, data = dd_finalproj)
+```
+
+### Model fitting II  
+
+The first, simpler, model (i.e., `m1`) does not seem to have constant variance. We can follow two routes: (1) transform the response and keep the assumptions, or (2) keep the data as is and change our model assumptions.  
+
+Following the second option, we can model 
+
+$$y_{ijkl} \sim N(\mu_{ijk}, \sigma^2_k)$$
+$$\mu_{ijk}=\beta_0 + \tau_i + \rho_j + \alpha_k + (\tau \rho)_{ij} + (\tau \alpha)_{ik} +  (\rho \alpha)_{ik} +  (\tau \rho \alpha)_{ijk},$$  
+
+where $y_{ijkl}$ is the observation of aboveground biomass (in g) for the $i$th treatment, $j$th species, $k$th moment (i.e., time), and $l$th repetition, that arises from a Normal distribution with mean $mu_{ijk}$ and variance at time $k$, $sigma^2_k$. The $\beta_0$ is the general intercept, $\tau_i$ is the effect of the $i$th treatment, $\rho_j$ is the effect of the $j$th species, and $(\tau \rho)_{ij}$, $(\tau \alpha)_{ik}$, and $(\rho \alpha)_{ik}$ are the two-way interactions between the factors mentioned above, and $(\tau \rho \alpha)_{ijk}$ is the three-way interaction of the factors mentioned above. Note that the variance is a function of time.  
+
+
+```{r}
+m2 <- gam(list(agb_g ~ species*trt*factor(doy),
+               ~ doy),
+          family = gaulss(),
+          data = dd_finalproj)
+m2_fitted <- predict(m2)[,1]
+m2_residuals <- residuals(m2, type = "deviance")
+```
+
+### Model diagnostics II  
+
+#### Constant variance  
+
+```{r}
+plot(m2_fitted, abs(m2_residuals), 
+     xlab = TeX("$\\hat{y}_i$"), 
+     ylab = TeX("$\\hat{\\epsilon}_i$"), 
+     main = "Residuals versus fitted values", 
+     sub = "The errors no longer increase together with the means, 
+     but there seems to be different dispersions for different species")
+```
+
+
+### Model fitting III    
+
+The second, model (i.e., `m2`) fixes the issue of constant variance. However, the variance seems to be different depending on the groups.  
+
+We can thus further model $\sigma^2$:  
+
+$$y_{ijkl} \sim N(\mu_{ijk}, \sigma^2_{jk})$$
+$$\mu_{ijk}=\beta_0 + \tau_i + \rho_j + \alpha_k + (\tau \rho)_{ij} + (\tau \alpha)_{ik} +  (\rho \alpha)_{ik} +  (\tau \rho \alpha)_{ijk},$$  
+
+where $y_{ijkl}$ is the observation of aboveground biomass (in g) for the $i$th treatment, $j$th species, $k$th moment (i.e., time), and $l$th repetition, that arises from a Normal distribution with mean $mu_{ijk}$ and variance at time $k$ for species $j$, $sigma^2_{jk}$. The $\beta_0$ is the general intercept, $\tau_i$ is the effect of the $i$th treatment, $\rho_j$ is the effect of the $j$th species, and $(\tau \rho)_{ij}$, $(\tau \alpha)_{ik}$, and $(\rho \alpha)_{ik}$ are the two-way interactions between the factors mentioned above, and $(\tau \rho \alpha)_{ijk}$ is the three-way interaction of the factors mentioned above. Note that the variance is a function of time.  
+
+```{r}
+m3 <- gam(list(agb_g ~ species*trt*factor(doy),
+               ~ doy + species),
+          family = gaulss(),
+          data = dd_finalproj)
+m3_fitted <- predict(m3)[,1]
+m3_residuals <- residuals(m3, type = "deviance")
+```
+
+### Model diagnostics III  
+
+#### Constant variance  
+
+```{r}
+plot(m3_fitted, abs(m3_residuals), 
+     xlab = TeX("$\\hat{y}_i$"), 
+     ylab = TeX("$\\hat{\\epsilon}_i$"), 
+     main = "Residuals versus fitted values", 
+     sub = "These look OK")
+```
+
+#### Normal distribution    
+
+```{r}
+car::qqPlot(m2_residuals)
+car::qqPlot(m3_residuals)
+```
+
+```{r}
+hist(m2_residuals)
+hist(m3_residuals)
+```
+
+### AIC, BIC 
+
+
+```{r}
+left_join(AIC(m1,m2,m3) %>% rownames_to_column("model"), 
+          BIC(m1,m2,m3) %>% rownames_to_column("model"))
+```
+
+
+### Other checks  
+
+```{r}
+gam.check(m3)
+```
+
+### Inference  
+
+#### Summary  
+```{r}
+summary(m3)
+```
+
+#### ANOVA  
+```{r}
+anova(m3)
+```
+
+#### Means, Mean comparisons  
+```{r message=FALSE, warning=FALSE}
+means <- emmeans::emmeans(m3,
+                          ~trt:species, at = list("doy" = c(237)))
+
+mean_comparisons <- multcomp::cld(means,
+                                  level = 0.05,
+                                  adjust = "none",
+                                  decreasing = TRUE,
+                                  Letters = letters) %>%
+  mutate(.group = trimws(.group))
+
+mean_comparisons %>% 
+  transmute(species, trt,SE=round(SE,2),
+            emmean = round(emmean, 2), group = .group,
+            lower.CL = round(lower.CL,2), upper.CL = round(upper.CL,2))
+```
+
+
+```{r message=FALSE, warning=FALSE}
+ggplot(mean_comparisons, aes(emmean, species))+
+  geom_errorbarh(aes(xmin = emmean-SE, xmax = emmean + SE, color = trt), height = 0.1)+
+  geom_point(aes(color = trt) , position = "dodge")+
+  scale_fill_manual(values = c("#FC4C02", "#008E97"))+
+  scale_color_manual(values = c("#FC4C02", "#008E97"))+
+  theme_pubclean()+
+  labs(x = expression(Aboveground~Biomass~(Mg~ha^{-1})), 
+       y = "Species",
+       color = "Treatment", 
+       fill = "Treatment")+
+  theme(aspect.ratio = 1, 
+        legend.position = "bottom")
+
+# ggsave("finalproj_figure1.png", width = 5, height = 5)
+```
+
+```{r}
+means2 <- emmeans::emmeans(m3,
+                          ~trt:species, at = list("doy" = c(155)))
+
+mean_comparisons2 <- multcomp::cld(means2,
+                                  level = 0.05,
+                                  adjust = "none",
+                                  decreasing = TRUE,
+                                  Letters = letters) %>%
+  mutate(.group = trimws(.group))
+
+ggplot(mean_comparisons2, aes(emmean, species))+
+  geom_errorbarh(aes(xmin = emmean-SE, xmax = emmean + SE, color = trt), height = 0.1)+
+  geom_point(aes(color = trt) , position = "dodge")+
+  scale_fill_manual(values = c("#FC4C02", "#008E97"))+
+  scale_color_manual(values = c("#FC4C02", "#008E97"))+
+  theme_pubclean()+
+  labs(x = expression(Aboveground~Biomass~(Mg~ha^{-1})), 
+       y = "Species",
+       color = "Treatment", 
+       fill = "Treatment")+
+  theme(aspect.ratio = 1, 
+        legend.position = "bottom")
+
+means3 <- emmeans::emmeans(m3,
+                          ~trt:species, at = list("doy" = c(194)))
+
+mean_comparisons3 <- multcomp::cld(means3,
+                                  level = 0.05,
+                                  adjust = "none",
+                                  decreasing = TRUE,
+                                  Letters = letters) %>%
+  mutate(.group = trimws(.group))
+ggplot(mean_comparisons3, aes(emmean, species))+
+  geom_errorbarh(aes(xmin = emmean-SE, xmax = emmean + SE, color = trt), height = 0.1)+
+  geom_point(aes(color = trt) , position = "dodge")+
+  scale_fill_manual(values = c("#FC4C02", "#008E97"))+
+  scale_color_manual(values = c("#FC4C02", "#008E97"))+
+  theme_pubclean()+
+  labs(x = expression(Aboveground~Biomass~(Mg~ha^{-1})), 
+       y = "Species",
+       color = "Treatment", 
+       fill = "Treatment")+
+  theme(aspect.ratio = 1, 
+        legend.position = "bottom")
+
+```
+
+```{r}
+plot_data <- expand.grid(doy = unique(dd_finalproj$doy), 
+                         species = c("A", "B", "C", "D", "E"), 
+                         trt = c("ctrl", "flood"))
+
+plot_data <- bind_cols(plot_data, 
+                       predict(m3, newdata = plot_data, type = "link"))
+
+plot_data <- plot_data %>% 
+  rename(fitted = `...4`, sd = `...5`) %>% 
+  mutate(sd = .01+exp(sd))
+
+plot_data %>% 
+  ggplot(aes(doy, fitted))+
+  geom_line(aes(color = trt))+
+  geom_ribbon(aes(ymin = fitted-sd*1.96, ymax = fitted+sd*1.96, fill = trt), alpha = .4)+
+  geom_point(aes(y = agb_g, color = trt), data = dd_finalproj, shape = 21, alpha = .3)+
+  facet_wrap(~species)+
+  scale_fill_manual(values = c("#FC4C02", "#008E97"))+
+  scale_color_manual(values = c("#FC4C02", "#008E97"))+
+  labs(y = expression(Aboveground~Biomass~(Mg~ha^{-1})), 
+       x= "Day of the Year", 
+       color = "Treatment", 
+       fill = "Treatment")+
+  theme_pubclean()+
+  theme(aspect.ratio = 1, 
+        strip.background = element_rect(fill = NA, color = "black"))
+```
+
+
+### Bonus: What if we hadn't changed our model?  
+
+This is just a demonstration of what happens when we design a model that does not describe our data generating process well. This does not necessarily have to go in your project. 
+
+```{r}
+plot_data <- expand.grid(doy = unique(dd_finalproj$doy), 
+                         species = c("A", "B", "C", "D", "E"), 
+                         trt = c("ctrl", "flood"))
+
+plot_data <- bind_cols(plot_data, 
+                       predict(m1, newdata = plot_data, interval = "prediction"))
+
+plot_data %>% 
+  ggplot(aes(doy, fit))+
+  geom_line(aes(color = trt))+
+  geom_ribbon(aes(ymin = lwr, ymax = upr, fill = trt), alpha = .4)+
+  geom_point(aes(y = agb_g, color = trt), data = dd_finalproj, shape = 21, alpha = .3)+
+  facet_wrap(~species)+
+  scale_fill_manual(values = c("#FC4C02", "#008E97"))+
+  scale_color_manual(values = c("#FC4C02", "#008E97"))+
+  labs(y = expression(Aboveground~Biomass~(Mg~ha^{-1})), 
+       x= "Day of the Year", 
+       color = "Treatment", 
+       fill = "Treatment")+
+  theme_pubclean()+
+  theme(aspect.ratio = 1, 
+        strip.background = element_rect(fill = NA, color = "black"))
+```
+

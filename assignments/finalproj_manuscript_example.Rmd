@@ -1,0 +1,152 @@
+---
+title: "Legume tolerance to waterlogging"
+author: "J Lacasa"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction (150-400 words)  
+
+Legume species are an important component of pasture systems because they impact both cattle nutrition and sustainability. 
+Legumes are good sources of protein and improve the nutritional quality of a pasture mix (Provenza et al., 2003). 
+In addition, legumes can establish symbiotic relationships with nitrogen-fixating bacteria and thus represent a sustainable source of nitrogen (N) for the system. 
+Consequently, the N balance of a system is favored by the presence of forage legumes in the species community. 
+
+Legume species, however, often present growth requirements that may restrict their growth under stressful environments. 
+More specifically, waterlogging (i.e., periods of flooding that result in anaerobic soil conditions) is a common challenge in many cattle operations.
+Waterlogging may hinder plant growth and thus, ultimately may affect cattle nutrition. 
+There is evidence about genotypic difference in the tolerance to waterlogging (Malik et al., 2015; Striker and Colmer, 2017). 
+The objective of this study was to determine the effect of waterlogging on plant growth for five legume species both right after experiencing flood stress, and after a recovery period.  
+
+## Methods (200-400 words)  
+
+An experiment studying flooding tolerance in legumes was carried out in the spring of 2023 in Buenos Aires, Argentina. 
+The experiment was performed in a greenhouse in a completely randomized design with 12 replications with a 5 by 2 factorial treatment structure. 
+The treatment factors were legume species (five levels: A, B, C, D, and E) and waterlogging treatment (two levels: control and flooded for 39 days). 
+Plants were grown separately in different pots in the greenhouse.
+The plants were grown for 155 days before applying the flooding treatment. 
+Dry biomass was measured at three points in time: the day when the flooding started, the day it ended (i.e., 39 days later), and 43 days after recovery from the flooding stress. 
+
+The biomass data were fitted to a linear model that studies plant growth (in grams) as a result of the flooding treatment, as  
+$$y_{ijkl}\sim N(\mu_{ijk}, \sigma_{jk}^2)$$
+$$\mu_{ijk} = \mu + \tau_i + \rho_j + (\tau\rho)_{ij},$$
+where: 
+
+- $y_{ijk}$ is the biomass observation of the $i$th treatment, $j$th species, $k$th moment, and $l$th repetition,
+- $\mu_{ijk}$ is the expected biomass for the $i$th treatment, $j$th species, $k$th moment, 
+- $\sigma^2_{jk}$ is the biomass variance at the $j$th species and $k$th moment, 
+- $\mu$ is the overall mean, 
+- $\tau_i$ ($i$ = 1, 2) is the treatment effect, 
+- $\rho_j$ ($j$ = 1, 2, 3, 4, 5) is the species effect, 
+- $(\tau\rho)_{ij}$ is the treatment by species interaction. 
+
+After model fitting, an ANOVA using type III errors was performed to compare the different sources of variation. 
+Next, post-hoc mean comparisons were performed to compare means of all species and treatment combinations at days 194 (i.e., right after flooding) and 237 (i.e., right after recovering). 
+
+## Results (150-400 words)    
+
+Differences between treatments and between species were found, suggesting different levels of adaptive ability to flooding conditions among the species evaluated in this study.
+The ANOVA results (Table 1) show that the variability in the data is clearly driven by species, time, and the species$\times$time and treatment$\times$time interactions.
+Moreover, the variance in the data increased with plant growth and depending on the species (Table 1). 
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse) # data wrangling, data viz
+library(mgcv) # fitting generalized additive models 
+library(latex2exp) # math notation in plots
+library(ggpubr) # plot aesthetics
+```
+
+```{r include=FALSE}
+url <- "https://raw.githubusercontent.com/jlacasa/stat705_fall2024/main/classes/data/dd_finalproj.csv"
+dd_finalproj <- read.csv(url)
+dd_finalproj$doy_f <- factor(dd_finalproj$doy)
+```
+
+```{r include=FALSE}
+m3 <- gam(list(agb_g ~ species*trt*factor(doy),
+               ~ doy + species),
+          family = gaulss(),
+          data = dd_finalproj)
+m3_fitted <- predict(m3)[,1]
+m3_residuals <- residuals(m3, type = "deviance")
+```
+
+```{r echo=FALSE}
+results_anova <- anova(m3)
+
+knitr::kable(as.data.frame(results_anova$pTerms.table) %>%
+               mutate(across(df:`p-value`, ~round(., 2)), 
+                      `p-value` = ifelse(`p-value` == 0, "<0.001", `p-value`)),
+             caption = "ANOVA results. 'df' indicates degrees of freedom, 'Chi.sq' indicates the calculated value for the value for the test chi square, and the p-value indicates the probability of observing that chi squared value if the null hypothesis is true.")
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+means <- emmeans::emmeans(m3,
+                          ~trt:species, at = list("doy" = c(237)))
+
+mean_comparisons <- multcomp::cld(means,
+                                  level = 0.05,
+                                  adjust = "none",
+                                  decreasing = TRUE,
+                                  Letters = letters) %>%
+  mutate(.group = trimws(.group))
+```
+
+The effects of species on plant growth were present early on, before the recovery period (Table 2). 
+At the same time, no clear differences in biomass between flooded and control plants were found before the recovery period.
+Then, differences between species' responses to flooding could be found after the recovery period. 
+Overall, species B showed the smallest differences among flooded and control plants (i.e., showed the greatest adaptive ability under flooded conditions), although it presented the greatest variance (i.e., greatest plant-to-plant variability). 
+In contrast, species E showed the greatest biomass (i.e., for the control conditions), but also the greatest difference among flooded and control plants (i.e., the lowest adaptive ability under flooded conditions).
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+means2 <- emmeans::emmeans(m3,
+                          ~trt:species, at = list("doy" = c(194)))
+
+mean_comparisons2 <- multcomp::cld(means2,
+                                  level = 0.05,
+                                  adjust = "none",
+                                  decreasing = TRUE,
+                                  Letters = letters) %>%
+  mutate(.group = trimws(.group), 
+         across(emmean:df, ~round(.,2))) %>% 
+  dplyr::select(-c(lower.CL, upper.CL))
+
+knitr::kable(mean_comparisons2, 
+             caption = "Post-hoc mean comparisons for different treatment-species combinations right after concluding the flooding treatment. 'trt' indicates treatment (flood or control, ctrl), 'species' indicates the species, 'emmean' indicates expected marginal mean, 'SE' indicates standard error of the mean, 'df' indicates degrees of freedom, and group indicates the results of the multiple comparisons: two means that share at least one letter were found to be not statistically different.")
+```
+
+
+## Discussion (150-300 words)  
+
+The present study compared five legume species in their tolerance to flooding and suggests different adaptive strategies between species that affected their growth capacity after the flooding treatment was concluded. 
+Consistent with the literature, we did not find great differences right after the application of flooding stress (Striker and Colmer, 2017). 
+However, the 43 day-long recovery period allowed the expression of differential tolerance levels among species.
+The genotypic background, bred for high potential environments, of species E may be partially responsible for the lower performance under stressed conditions (Striker et al., 2005).
+Striker et al. (2005) found similar differences between species B and species E, while Zhou et al. (2020) found similar relationships between species A, C, and D.
+
+![Aboveground biomass (in grams) of five species under flooded and treated conditions at harvest]("finalproj_figure1.png")
+
+Further research may focus on studying the morphological and metabolic adaptations presented by the different species under field conditions.
+While species B presented better overall performance, investigating the adaptive mechanisms driving this performance is relevant for understanding the environment where this species may strive as a major forage species.
+Although these results seem promising for incorporating species B in production settings, it is crucial to demonstrate that this species would succeed in a competition with other species.
+
+## Conclusions (50-150 words)  
+
+The results indicate different effects of flooded treatments on biomass depending on the species, suggesting different adaptive strategies. 
+Species B showed the greatest overall performance and may be researched further for potential uses in cattle nutrition.
+Further research studying the adaptive mechanisms of the different species would help informing better management recommendations. 
+
+## References  
+
+Al Imran Malik, Tadhamin Iskander Ailewe, William Erskine, Tolerance of three grain legume species to transient waterlogging, AoB PLANTS, Volume 7, 2015. [https://doi.org/10.1093/aobpla/plv040](https://doi.org/10.1093/aobpla/plv040).  
+
+F.D Provenza, J.J Villalba, L.E Dziba, S.B Atwood, R.E Banner, Linking herbivore experience, varied diets, and plant biochemical diversity, Small Ruminant Research, Volume 49, Issue 3, 2003. [https://doi.org/10.1016/S0921-4488(03)00143-3](https://doi.org/10.1016/S0921-4488(03)00143-3).
+
+Striker, G.G., Insausti, P., Grimoldi, A.A. et al. Physiological and Anatomical Basis of Differential Tolerance to Soil Flooding of Lotus corniculatus L. and Lotus glaber Mill. Plant Soil 276, 301–311, 2005. [https://doi.org/10.1007/s11104-005-5084-0](https://doi.org/10.1007/s11104-005-5084-0)
+
+GG Striker, TD Colmer, Flooding tolerance of forage legumes, Journal of experimental botany, Volume 68, Issue 8, 2017. [https://doi.org/10.1093/jxb/erw239](https://doi.org/10.1093/jxb/erw239).
+
+W. Zhou, F. Chen, Y. Meng, U. Chandrasekaran, X. Luo, W. Yang, K. Shu, Plant waterlogging/flooding stress responses: From seed germination to maturation, Plant Physiology and Biochemistry, Volume 148, 2020. [https://doi.org/10.1016/j.plaphy.2020.01.020](https://doi.org/10.1016/j.plaphy.2020.01.020)
