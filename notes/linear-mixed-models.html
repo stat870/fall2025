@@ -407,15 +407,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24.1" data-path="model-selection.html"><a href="model-selection.html#announcements-22"><i class="fa fa-check"></i><b>24.1</b> Announcements</a></li>
 <li class="chapter" data-level="24.2" data-path="model-selection.html"><a href="model-selection.html#model-selection-1"><i class="fa fa-check"></i><b>24.2</b> Model selection</a>
 <ul>
-<li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#model-selection-in-other-contexts"><i class="fa fa-check"></i><b>24.2.1</b> Model selection in other contexts</a></li>
-<li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#a-few-thoughts"><i class="fa fa-check"></i><b>24.2.2</b> A few thoughts</a></li>
+<li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#the-coefficient-of-determination-r2"><i class="fa fa-check"></i><b>24.2.1</b> The coefficient of determination R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#adjusted-r2"><i class="fa fa-check"></i><b>24.2.2</b> Adjusted R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#out-of-sample-r2"><i class="fa fa-check"></i><b>24.2.3</b> Out-of-Sample R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.4" data-path="model-selection.html"><a href="model-selection.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>24.2.4</b> Akaike Information Criterion (AIC)</a></li>
+<li class="chapter" data-level="24.2.5" data-path="model-selection.html"><a href="model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>24.2.5</b> Bayesian Information Criterion (BIC)</a></li>
 </ul></li>
-<li class="chapter" data-level="24.3" data-path="model-selection.html"><a href="model-selection.html#applied-example-5"><i class="fa fa-check"></i><b>24.3</b> Applied example</a>
+<li class="chapter" data-level="24.3" data-path="model-selection.html"><a href="model-selection.html#regularization"><i class="fa fa-check"></i><b>24.3</b> Regularization</a>
 <ul>
-<li class="chapter" data-level="24.3.1" data-path="model-selection.html"><a href="model-selection.html#example-i-a-designed-experiment"><i class="fa fa-check"></i><b>24.3.1</b> Example I: A designed experiment</a></li>
-<li class="chapter" data-level="24.3.2" data-path="model-selection.html"><a href="model-selection.html#example-ii-not-a-designed-experiment"><i class="fa fa-check"></i><b>24.3.2</b> Example II: Not a designed experiment</a></li>
+<li class="chapter" data-level="24.3.1" data-path="model-selection.html"><a href="model-selection.html#ridge-regression"><i class="fa fa-check"></i><b>24.3.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="24.3.2" data-path="model-selection.html"><a href="model-selection.html#lasso-regression"><i class="fa fa-check"></i><b>24.3.2</b> Lasso Regression</a></li>
+<li class="chapter" data-level="24.3.3" data-path="model-selection.html"><a href="model-selection.html#elastic-net-regression"><i class="fa fa-check"></i><b>24.3.3</b> Elastic Net Regression</a></li>
+<li class="chapter" data-level="24.3.4" data-path="model-selection.html"><a href="model-selection.html#some-thoghts-about-regularization"><i class="fa fa-check"></i><b>24.3.4</b> Some thoghts about regularization</a></li>
 </ul></li>
-<li class="chapter" data-level="24.4" data-path="model-selection.html"><a href="model-selection.html#references-3"><i class="fa fa-check"></i><b>24.4</b> References</a></li>
+<li class="chapter" data-level="24.4" data-path="model-selection.html"><a href="model-selection.html#a-few-thoughts"><i class="fa fa-check"></i><b>24.4</b> A few thoughts</a></li>
+<li class="chapter" data-level="24.5" data-path="model-selection.html"><a href="model-selection.html#applied-examples"><i class="fa fa-check"></i><b>24.5</b> Applied examples</a></li>
+<li class="chapter" data-level="24.6" data-path="model-selection.html"><a href="model-selection.html#references-3"><i class="fa fa-check"></i><b>24.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>25</b> Semester Project</a>
 <ul>
@@ -545,7 +552,7 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-239">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-15">Table 4.1: </span>ANOVA table for a CRD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -576,7 +583,7 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-239">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
+<caption><span id="tab:unnamed-chunk-15">Table 4.1: </span>ANOVA table for the diet CRD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -618,9 +625,9 @@ One (randomly selected) pig per pen was observed at 3 points in time.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-mixed-models.html#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m), <span class="fu">abs</span>(<span class="fu">resid</span>(m)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-mixed-models.html#cb5-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">qqPlot</span>(m)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-241-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
 <pre><code>## [1] 109 148</code></pre>
 </details>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-mixed-models.html#cb7-1" tabindex="-1"></a><span class="co"># anova</span></span>
@@ -703,7 +710,7 @@ Each room has 5 pens of each dietary treatment.</p>
 </ul>
 <p>A reasonable ANOVA shell could be:</p>
 <table>
-<caption><span id="tab:unnamed-chunk-244">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
+<caption><span id="tab:unnamed-chunk-20">Table 4.2: </span>ANOVA table for a GRCBD with a two-way factorial treatment structure.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -738,7 +745,7 @@ Each room has 5 pens of each dietary treatment.</p>
 </tbody>
 </table>
 <table>
-<caption><span id="tab:unnamed-chunk-244">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
+<caption><span id="tab:unnamed-chunk-20">Table 4.2: </span>ANOVA table for the diet GRCBD.</caption>
 <thead>
 <tr class="header">
 <th align="left">Source</th>
@@ -786,7 +793,7 @@ Each room has 5 pens of each dietary treatment.</p>
 Model checks
 </summary>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="linear-mixed-models.html#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(m_random), <span class="fu">abs</span>(<span class="fu">resid</span>(m_random)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </details>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="linear-mixed-models.html#cb19-1" tabindex="-1"></a><span class="co"># anova</span></span>
 <span id="cb19-2"><a href="linear-mixed-models.html#cb19-2" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">Anova</span>(m_random, <span class="at">type =</span> <span class="dv">2</span>, <span class="at">test.statistic =</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
@@ -861,7 +868,7 @@ Treatment point estimates don’t change whether blocks are fixed or random.
 <span id="cb25-20"><a href="linear-mixed-models.html#cb25-20" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Fecal DM (%)&quot;</span>,</span>
 <span id="cb25-21"><a href="linear-mixed-models.html#cb25-21" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Treatment&quot;</span>)<span class="sc">+</span></span>
 <span id="cb25-22"><a href="linear-mixed-models.html#cb25-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 </details>
 <p>More references:</p>
 <ul>

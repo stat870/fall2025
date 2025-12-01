@@ -37,3 +37,7 @@ November 24
 November 27 
 : Fall Break -- no class 
   : []()
+
+December 1 
+: Model selection 
+  : [html](https://stat870.github.io/fall2025/notes/model-selection.html)

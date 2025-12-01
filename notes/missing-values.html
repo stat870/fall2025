@@ -407,15 +407,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24.1" data-path="model-selection.html"><a href="model-selection.html#announcements-22"><i class="fa fa-check"></i><b>24.1</b> Announcements</a></li>
 <li class="chapter" data-level="24.2" data-path="model-selection.html"><a href="model-selection.html#model-selection-1"><i class="fa fa-check"></i><b>24.2</b> Model selection</a>
 <ul>
-<li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#model-selection-in-other-contexts"><i class="fa fa-check"></i><b>24.2.1</b> Model selection in other contexts</a></li>
-<li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#a-few-thoughts"><i class="fa fa-check"></i><b>24.2.2</b> A few thoughts</a></li>
+<li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#the-coefficient-of-determination-r2"><i class="fa fa-check"></i><b>24.2.1</b> The coefficient of determination R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#adjusted-r2"><i class="fa fa-check"></i><b>24.2.2</b> Adjusted R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#out-of-sample-r2"><i class="fa fa-check"></i><b>24.2.3</b> Out-of-Sample R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.4" data-path="model-selection.html"><a href="model-selection.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>24.2.4</b> Akaike Information Criterion (AIC)</a></li>
+<li class="chapter" data-level="24.2.5" data-path="model-selection.html"><a href="model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>24.2.5</b> Bayesian Information Criterion (BIC)</a></li>
 </ul></li>
-<li class="chapter" data-level="24.3" data-path="model-selection.html"><a href="model-selection.html#applied-example-5"><i class="fa fa-check"></i><b>24.3</b> Applied example</a>
+<li class="chapter" data-level="24.3" data-path="model-selection.html"><a href="model-selection.html#regularization"><i class="fa fa-check"></i><b>24.3</b> Regularization</a>
 <ul>
-<li class="chapter" data-level="24.3.1" data-path="model-selection.html"><a href="model-selection.html#example-i-a-designed-experiment"><i class="fa fa-check"></i><b>24.3.1</b> Example I: A designed experiment</a></li>
-<li class="chapter" data-level="24.3.2" data-path="model-selection.html"><a href="model-selection.html#example-ii-not-a-designed-experiment"><i class="fa fa-check"></i><b>24.3.2</b> Example II: Not a designed experiment</a></li>
+<li class="chapter" data-level="24.3.1" data-path="model-selection.html"><a href="model-selection.html#ridge-regression"><i class="fa fa-check"></i><b>24.3.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="24.3.2" data-path="model-selection.html"><a href="model-selection.html#lasso-regression"><i class="fa fa-check"></i><b>24.3.2</b> Lasso Regression</a></li>
+<li class="chapter" data-level="24.3.3" data-path="model-selection.html"><a href="model-selection.html#elastic-net-regression"><i class="fa fa-check"></i><b>24.3.3</b> Elastic Net Regression</a></li>
+<li class="chapter" data-level="24.3.4" data-path="model-selection.html"><a href="model-selection.html#some-thoghts-about-regularization"><i class="fa fa-check"></i><b>24.3.4</b> Some thoghts about regularization</a></li>
 </ul></li>
-<li class="chapter" data-level="24.4" data-path="model-selection.html"><a href="model-selection.html#references-3"><i class="fa fa-check"></i><b>24.4</b> References</a></li>
+<li class="chapter" data-level="24.4" data-path="model-selection.html"><a href="model-selection.html#a-few-thoughts"><i class="fa fa-check"></i><b>24.4</b> A few thoughts</a></li>
+<li class="chapter" data-level="24.5" data-path="model-selection.html"><a href="model-selection.html#applied-examples"><i class="fa fa-check"></i><b>24.5</b> Applied examples</a></li>
+<li class="chapter" data-level="24.6" data-path="model-selection.html"><a href="model-selection.html#references-3"><i class="fa fa-check"></i><b>24.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>25</b> Semester Project</a>
 <ul>
@@ -495,7 +502,7 @@ where:</p>
 <li><span class="math inline">\(W_i\)</span> is the biomass of the <span class="math inline">\(i\)</span>th sample, and</li>
 <li><span class="math inline">\(\beta\)</span> is the shape parameter of the power curve.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-350"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-126"></span>
 <img src="../figures/plenet_lemaire_2000.jpg" alt="Relationships between N uptake by aerial biomass and aerial biomass accumulation (W) in maize crops. Figure 6 in Plenet and Lemaire (2000)." width="100%" />
 <p class="caption">
 Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass accumulation (W) in maize crops. Figure 6 in Plenet and Lemaire (2000).
@@ -520,7 +527,7 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 <span id="cb187-10"><a href="missing-values.html#cb187-10" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(W<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), </span>
 <span id="cb187-11"><a href="missing-values.html#cb187-11" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(N<span class="sc">~</span>uptake<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span>
 <span id="cb187-12"><a href="missing-values.html#cb187-12" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-351-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="missing-values.html#cb188-1" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
 <span id="cb188-2"><a href="missing-values.html#cb188-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(W_ton_ha))</span></code></pre></div>
 <pre><code>##               Sites Genotype Rep Nrates_kg_ha W_ton_ha Nupt_kg_ha Sampling_time
@@ -581,8 +588,8 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 <span id="cb192-2"><a href="missing-values.html#cb192-2" tabindex="-1"></a>W_missing <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(W_missing),</span>
 <span id="cb192-3"><a href="missing-values.html#cb192-3" tabindex="-1"></a>                    <span class="cf">function</span>(n) W_missing[n]<span class="sc">*</span><span class="fu">sum</span>(W_missing[<span class="dv">1</span><span class="sc">:</span>n]) )</span>
 <span id="cb192-4"><a href="missing-values.html#cb192-4" tabindex="-1"></a>W_missing</span></code></pre></div>
-<pre><code>##  [1] 0 0 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0
-## [39] 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 6 0 0 0 7 0 0 0 8 0 0 0 0 0 9 0 0 0 0</code></pre>
+<pre><code>##  [1] 0 0 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0
+## [51] 0 0 0 6 0 0 0 7 0 0 0 8 0 0 0 0 0 9 0 0 0 0</code></pre>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="missing-values.html#cb194-1" tabindex="-1"></a>stan_data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb194-2"><a href="missing-values.html#cb194-2" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">nrow</span>(df),</span>
 <span id="cb194-3"><a href="missing-values.html#cb194-3" tabindex="-1"></a>  <span class="at">W_num_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>W_ton_ha)), </span>
@@ -612,26 +619,26 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 3 Iteration: 1000 / 2500 [ 40%]  (Warmup) 
 ## Chain 3 Iteration: 1100 / 2500 [ 44%]  (Warmup)</code></pre>
 <pre><code>## Chain 3 Iteration: 1200 / 2500 [ 48%]  (Warmup)</code></pre>
-<pre><code>## Chain 3 Iteration: 1300 / 2500 [ 52%]  (Warmup) 
-## Chain 3 Iteration: 1400 / 2500 [ 56%]  (Warmup)</code></pre>
-<pre><code>## Chain 3 Iteration: 1500 / 2500 [ 60%]  (Warmup)</code></pre>
-<pre><code>## Chain 3 Iteration: 1501 / 2500 [ 60%]  (Sampling) 
-## Chain 3 Iteration: 1600 / 2500 [ 64%]  (Sampling) 
-## Chain 3 Iteration: 1700 / 2500 [ 68%]  (Sampling) 
-## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
-## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 1300 / 2500 [ 52%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration: 1400 / 2500 [ 56%]  (Warmup) 
+## Chain 3 Iteration: 1500 / 2500 [ 60%]  (Warmup) 
+## Chain 3 Iteration: 1501 / 2500 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2500 [ 64%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 1700 / 2500 [ 68%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
+## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
+## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling)</code></pre>
 <pre><code>## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 finished in 7.4 seconds.
-## The remaining chains had a mean execution time of 7.9 seconds.</code></pre>
+<pre><code>## Chain 3 finished in 8.2 seconds.
+## The remaining chains had a mean execution time of 8.7 seconds.</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="missing-values.html#cb211-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-352-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="missing-values.html#cb212-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-352-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-2.png" width="672" /></p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="missing-values.html#cb213-1" tabindex="-1"></a>fitted <span class="ot">&lt;-</span> samples<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>))</span>
 <span id="cb213-2"><a href="missing-values.html#cb213-2" tabindex="-1"></a>W_imputed <span class="ot">&lt;-</span> samples<span class="sc">$</span><span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb213-3"><a href="missing-values.html#cb213-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(variable, <span class="st">&quot;W_impute&quot;</span>))</span>
@@ -662,7 +669,7 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 <span id="cb213-28"><a href="missing-values.html#cb213-28" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(W<span class="sc">~</span>merged<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), </span>
 <span id="cb213-29"><a href="missing-values.html#cb213-29" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(N<span class="sc">~</span>uptake<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span>
 <span id="cb213-30"><a href="missing-values.html#cb213-30" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-353-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
 </div>
 <div id="what-if-we-didnt-have-imputation-and-just-dropped-those-rows" class="section level4 hasAnchor" number="22.2.1.2">
 <h4><span class="header-section-number">22.2.1.2</span> What if we didn’t have imputation and just dropped those rows?<a href="missing-values.html#what-if-we-didnt-have-imputation-and-just-dropped-those-rows" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -709,18 +716,15 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 1 Iteration:    1 / 2500 [  0%]  (Warmup) 
 ## Chain 1 Iteration:  100 / 2500 [  4%]  (Warmup) 
 ## Chain 1 Iteration:  200 / 2500 [  8%]  (Warmup) 
-## Chain 1 Iteration:  300 / 2500 [ 12%]  (Warmup) 
-## Chain 1 Iteration:  400 / 2500 [ 16%]  (Warmup) 
-## Chain 1 Iteration:  500 / 2500 [ 20%]  (Warmup) 
-## Chain 1 Iteration:  600 / 2500 [ 24%]  (Warmup)</code></pre>
+## Chain 1 Iteration:  300 / 2500 [ 12%]  (Warmup)</code></pre>
 <pre><code>## Chain 2 Iteration:    1 / 2500 [  0%]  (Warmup) 
 ## Chain 2 Iteration:  100 / 2500 [  4%]  (Warmup) 
-## Chain 2 Iteration:  200 / 2500 [  8%]  (Warmup) 
-## Chain 2 Iteration:  300 / 2500 [ 12%]  (Warmup) 
-## Chain 2 Iteration:  400 / 2500 [ 16%]  (Warmup)</code></pre>
-<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup) 
-## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup)</code></pre>
-<pre><code>## Chain 1 Iteration:  700 / 2500 [ 28%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2500 [  8%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Iteration:  400 / 2500 [ 16%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2500 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2500 [ 24%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2500 [ 28%]  (Warmup) 
 ## Chain 1 Iteration:  800 / 2500 [ 32%]  (Warmup) 
 ## Chain 1 Iteration:  900 / 2500 [ 36%]  (Warmup) 
 ## Chain 1 Iteration: 1000 / 2500 [ 40%]  (Warmup) 
@@ -740,7 +744,8 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 1 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
 ## Chain 1 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
 ## Chain 1 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 1 finished in 0.3 seconds.
+## Chain 2 Iteration:  300 / 2500 [ 12%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2500 [ 16%]  (Warmup) 
 ## Chain 2 Iteration:  500 / 2500 [ 20%]  (Warmup) 
 ## Chain 2 Iteration:  600 / 2500 [ 24%]  (Warmup) 
 ## Chain 2 Iteration:  700 / 2500 [ 28%]  (Warmup) 
@@ -763,7 +768,7 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 2 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
 ## Chain 2 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
 ## Chain 2 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 2 finished in 0.3 seconds.
+## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup) 
 ## Chain 3 Iteration:  200 / 2500 [  8%]  (Warmup) 
 ## Chain 3 Iteration:  300 / 2500 [ 12%]  (Warmup) 
 ## Chain 3 Iteration:  400 / 2500 [ 16%]  (Warmup) 
@@ -787,17 +792,19 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
 ## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
 ## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
+## Chain 1 finished in 0.4 seconds.
+## Chain 2 finished in 0.4 seconds.
 ## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
 ## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 3 finished in 0.3 seconds.
+## Chain 3 finished in 0.4 seconds.
 ## 
 ## All 3 chains finished successfully.
-## Mean chain execution time: 0.3 seconds.
+## Mean chain execution time: 0.4 seconds.
 ## Total execution time: 0.6 seconds.</code></pre>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="missing-values.html#cb221-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-354-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="missing-values.html#cb222-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-354-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-2.png" width="672" /></p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="missing-values.html#cb223-1" tabindex="-1"></a>fitted_small <span class="ot">&lt;-</span> samples_small<span class="sc">$</span><span class="fu">summary</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>))</span>
 <span id="cb223-2"><a href="missing-values.html#cb223-2" tabindex="-1"></a></span>
 <span id="cb223-3"><a href="missing-values.html#cb223-3" tabindex="-1"></a>df_small <span class="sc">|&gt;</span> </span>
@@ -809,7 +816,7 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 <span id="cb223-9"><a href="missing-values.html#cb223-9" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(W<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>})), </span>
 <span id="cb223-10"><a href="missing-values.html#cb223-10" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(N<span class="sc">~</span>uptake<span class="sc">~</span>(Mg<span class="sc">~</span>ha<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}))</span>
 <span id="cb223-11"><a href="missing-values.html#cb223-11" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-354-3.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-3.png" width="672" /></p>
 </div>
 </div>
 <div id="data-missing-in-all-observations-latent-variables" class="section level3 hasAnchor" number="22.2.2">

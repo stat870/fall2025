@@ -407,15 +407,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24.1" data-path="model-selection.html"><a href="model-selection.html#announcements-22"><i class="fa fa-check"></i><b>24.1</b> Announcements</a></li>
 <li class="chapter" data-level="24.2" data-path="model-selection.html"><a href="model-selection.html#model-selection-1"><i class="fa fa-check"></i><b>24.2</b> Model selection</a>
 <ul>
-<li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#model-selection-in-other-contexts"><i class="fa fa-check"></i><b>24.2.1</b> Model selection in other contexts</a></li>
-<li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#a-few-thoughts"><i class="fa fa-check"></i><b>24.2.2</b> A few thoughts</a></li>
+<li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#the-coefficient-of-determination-r2"><i class="fa fa-check"></i><b>24.2.1</b> The coefficient of determination R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#adjusted-r2"><i class="fa fa-check"></i><b>24.2.2</b> Adjusted R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#out-of-sample-r2"><i class="fa fa-check"></i><b>24.2.3</b> Out-of-Sample R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.4" data-path="model-selection.html"><a href="model-selection.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>24.2.4</b> Akaike Information Criterion (AIC)</a></li>
+<li class="chapter" data-level="24.2.5" data-path="model-selection.html"><a href="model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>24.2.5</b> Bayesian Information Criterion (BIC)</a></li>
 </ul></li>
-<li class="chapter" data-level="24.3" data-path="model-selection.html"><a href="model-selection.html#applied-example-5"><i class="fa fa-check"></i><b>24.3</b> Applied example</a>
+<li class="chapter" data-level="24.3" data-path="model-selection.html"><a href="model-selection.html#regularization"><i class="fa fa-check"></i><b>24.3</b> Regularization</a>
 <ul>
-<li class="chapter" data-level="24.3.1" data-path="model-selection.html"><a href="model-selection.html#example-i-a-designed-experiment"><i class="fa fa-check"></i><b>24.3.1</b> Example I: A designed experiment</a></li>
-<li class="chapter" data-level="24.3.2" data-path="model-selection.html"><a href="model-selection.html#example-ii-not-a-designed-experiment"><i class="fa fa-check"></i><b>24.3.2</b> Example II: Not a designed experiment</a></li>
+<li class="chapter" data-level="24.3.1" data-path="model-selection.html"><a href="model-selection.html#ridge-regression"><i class="fa fa-check"></i><b>24.3.1</b> Ridge Regression</a></li>
+<li class="chapter" data-level="24.3.2" data-path="model-selection.html"><a href="model-selection.html#lasso-regression"><i class="fa fa-check"></i><b>24.3.2</b> Lasso Regression</a></li>
+<li class="chapter" data-level="24.3.3" data-path="model-selection.html"><a href="model-selection.html#elastic-net-regression"><i class="fa fa-check"></i><b>24.3.3</b> Elastic Net Regression</a></li>
+<li class="chapter" data-level="24.3.4" data-path="model-selection.html"><a href="model-selection.html#some-thoghts-about-regularization"><i class="fa fa-check"></i><b>24.3.4</b> Some thoghts about regularization</a></li>
 </ul></li>
-<li class="chapter" data-level="24.4" data-path="model-selection.html"><a href="model-selection.html#references-3"><i class="fa fa-check"></i><b>24.4</b> References</a></li>
+<li class="chapter" data-level="24.4" data-path="model-selection.html"><a href="model-selection.html#a-few-thoughts"><i class="fa fa-check"></i><b>24.4</b> A few thoughts</a></li>
+<li class="chapter" data-level="24.5" data-path="model-selection.html"><a href="model-selection.html#applied-examples"><i class="fa fa-check"></i><b>24.5</b> Applied examples</a></li>
+<li class="chapter" data-level="24.6" data-path="model-selection.html"><a href="model-selection.html#references-3"><i class="fa fa-check"></i><b>24.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="semester-project-1.html"><a href="semester-project-1.html"><i class="fa fa-check"></i><b>25</b> Semester Project</a>
 <ul>
@@ -460,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What is the best size of blocks when designing an experiment?</li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-257"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
 <img src="../figures/overview_0922.jpg" alt="Overview of today's class." width="80%" />
 <p class="caption">
 Figure 8.1: Overview of today’s class.
@@ -478,7 +485,7 @@ Figure 8.1: Overview of today’s class.
 <li>In statistics, hypothesis tests evaluate whether a given statistic (i.e., a function of the data) is too extreme for the null hypothesis to be true.</li>
 <li>Normally, the null hypothesis is business as usual, and we want to evaluate if we just made a scientific discovery, or if there’s not enough evidence to say that there’s something different going on.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-258"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
 <img src="../figures/error_types.jpg" alt="Types of errors in hypothesis tests." width="80%" />
 <p class="caption">
 Figure 8.2: Types of errors in hypothesis tests.
@@ -501,7 +508,7 @@ Figure 8.2: Types of errors in hypothesis tests.
 </div>
 <div id="t-tests" class="section level3 hasAnchor" number="8.2.3">
 <h3><span class="header-section-number">8.2.3</span> t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-259-1.png" width="70%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-1.png" width="70%" /></p>
 <ul>
 <li>Usually used to test whether <strong>one</strong> value/parameter/linear combination of parameters is different to a certain number.</li>
 <li>Steps:
@@ -523,7 +530,7 @@ Figure 8.2: Types of errors in hypothesis tests.
 </div>
 <div id="f-tests-are-multivariate-t-tests" class="section level3 hasAnchor" number="8.2.4">
 <h3><span class="header-section-number">8.2.4</span> F-tests are multivariate t-tests<a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#f-tests-are-multivariate-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-260-1.png" width="70%" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-36-1.png" width="70%" /></p>
 <ul>
 <li>Test the relevance of multiple factors at once.</li>
 <li>Consistent with the “bins” concept of ANOVA.</li>
@@ -567,7 +574,7 @@ She carried this process out each of four days when she baked cookies at three d
 <span id="cb42-15"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb42-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
 <span id="cb42-16"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb42-16" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">paste</span>(Temperature, fat_perc),</span>
 <span id="cb42-17"><a href="inference-estimability-degrees-of-freedom-hypothesis-tests-contrasts.html#cb42-17" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="fu">factor</span>(fat_perc)))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-261-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 <p><strong>ANOVA table for cookie RCBD</strong></p>
 <head>
 <meta charset="UTF-8">
