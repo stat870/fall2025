@@ -528,7 +528,7 @@ where:</p>
 <li><span class="math inline">\(J_{md}(f)\)</span> is penalty functional affecting the ‘wiggliness’ of <span class="math inline">\(f\)</span></li>
 <li><span class="math inline">\(\lambda\)</span> is a smoothing parameter controlling the tradeoff between data fitting and smoothness of <span class="math inline">\(f\)</span></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-81"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-80"></span>
 <img src="../figures/basis_functions.jpg" alt="From Wood (2007)" width="80%" />
 <p class="caption">
 Figure 17.1: From Wood (2007)
@@ -538,7 +538,7 @@ Figure 17.1: From Wood (2007)
 <span id="cb117-2"><a href="smoothing-splines.html#cb117-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb117-3"><a href="smoothing-splines.html#cb117-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="dv">15</span><span class="sc">*</span><span class="fu">sin</span>(<span class="fu">sqrt</span>(x<span class="sc">*</span>.<span class="dv">15</span>  <span class="sc">-</span> x<span class="sc">*</span>.<span class="dv">006</span>))<span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
 <span id="cb117-4"><a href="smoothing-splines.html#cb117-4" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="smoothing-splines.html#cb118-1" tabindex="-1"></a>splines_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
 <span id="cb118-2"><a href="smoothing-splines.html#cb118-2" tabindex="-1"></a>m_spline_tp <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">s</span>(x, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>, <span class="at">k =</span> <span class="dv">7</span>), <span class="at">method =</span> <span class="st">&quot;REML&quot;</span>, <span class="at">data =</span> splines_df)</span>
 <span id="cb118-3"><a href="smoothing-splines.html#cb118-3" tabindex="-1"></a></span>
@@ -560,13 +560,13 @@ Figure 17.1: From Wood (2007)
 <span id="cb120-8"><a href="smoothing-splines.html#cb120-8" tabindex="-1"></a><span class="co"># Plot basis functions</span></span>
 <span id="cb120-9"><a href="smoothing-splines.html#cb120-9" tabindex="-1"></a><span class="fu">matplot</span>(x, Xp_smooth, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
 <span id="cb120-10"><a href="smoothing-splines.html#cb120-10" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Spline Basis Functions&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Basis value&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="smoothing-splines.html#cb121-1" tabindex="-1"></a><span class="co"># Add contribution from each basis function</span></span>
 <span id="cb121-2"><a href="smoothing-splines.html#cb121-2" tabindex="-1"></a><span class="co"># multiply basis functions by their contribution </span></span>
 <span id="cb121-3"><a href="smoothing-splines.html#cb121-3" tabindex="-1"></a>y_basis <span class="ot">&lt;-</span> <span class="fu">sweep</span>(Xp_smooth, <span class="dv">2</span>, beta_smooth, <span class="st">&quot;*&quot;</span>)</span>
 <span id="cb121-4"><a href="smoothing-splines.html#cb121-4" tabindex="-1"></a><span class="fu">matplot</span>(x, y_basis, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
 <span id="cb121-5"><a href="smoothing-splines.html#cb121-5" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Contribution of Each Basis Function&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Contribution&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-82-2.png" width="672" /></p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="smoothing-splines.html#cb122-1" tabindex="-1"></a>df_basis <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(x, Xp_smooth)) <span class="sc">%&gt;%</span> </span>
 <span id="cb122-2"><a href="smoothing-splines.html#cb122-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">s(x).1</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">s(x).6</span><span class="st">`</span>)</span>
 <span id="cb122-3"><a href="smoothing-splines.html#cb122-3" tabindex="-1"></a></span>
@@ -588,10 +588,10 @@ Figure 17.1: From Wood (2007)
 <span id="cb122-19"><a href="smoothing-splines.html#cb122-19" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))<span class="sc">+</span></span>
 <span id="cb122-20"><a href="smoothing-splines.html#cb122-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Columns (x1)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y or f(x1)&quot;</span>)<span class="sc">+</span></span>
 <span id="cb122-21"><a href="smoothing-splines.html#cb122-21" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="smoothing-splines.html#cb123-1" tabindex="-1"></a><span class="fu">matplot</span>(x, <span class="fu">rowSums</span>(y_basis), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">ncol</span>(Xp_smooth)),</span>
 <span id="cb123-2"><a href="smoothing-splines.html#cb123-2" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Sum of the contributions of all basis functions&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;f(x)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
 </div>
 <div id="final-comments-1" class="section level2 hasAnchor" number="17.4">
 <h2><span class="header-section-number">17.4</span> Final comments<a href="smoothing-splines.html#final-comments-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>

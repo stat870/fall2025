@@ -600,7 +600,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb228-3"><a href="integrating-multi-environment-trials-with-weather-data.html#cb228-3" tabindex="-1"></a>         <span class="at">data =</span> d)</span>
 <span id="cb228-4"><a href="integrating-multi-environment-trials-with-weather-data.html#cb228-4" tabindex="-1"></a></span>
 <span id="cb228-5"><a href="integrating-multi-environment-trials-with-weather-data.html#cb228-5" tabindex="-1"></a>DHARMa<span class="sc">::</span><span class="fu">simulateResiduals</span>(m2, <span class="at">plot =</span> T)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
 <pre><code>## Object of Class DHARMa with simulated residuals based on 250 simulations with refit = FALSE . See ?DHARMa::simulateResiduals for help. 
 ##  
 ## Scaled residual values: 0.532 0.528 0.552 0.448 0.196 0.604 0.128 0.34 0.696 0.296 0.592 0.368 0.452 0.704 0.136 0.276 0.512 0.324 0.364 0.144 ...</code></pre>
@@ -725,7 +725,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="power-analyses" class="section level2 hasAnchor" number="23.3">
 <h2><span class="header-section-number">23.3</span> Power analyses<a href="integrating-multi-environment-trials-with-weather-data.html#power-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s first review the different types of errors:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-135"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-134"></span>
 <img src="../figures/error_types.jpg" alt="Types of error" width="100%" />
 <p class="caption">
 Figure 23.1: Types of error
@@ -838,8 +838,8 @@ Click to show code for the simulation
 <span id="cb234-40"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-40" tabindex="-1"></a>  pval_20diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">26</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
 <span id="cb234-41"><a href="integrating-multi-environment-trials-with-weather-data.html#cb234-41" tabindex="-1"></a>} </span></code></pre></div>
 </details>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb235-1" tabindex="-1"></a><span class="co"># type I error rate</span></span>
 <span id="cb235-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb235-2" tabindex="-1"></a><span class="fu">mean</span>(pval_0diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 0.056</code></pre>
@@ -896,8 +896,8 @@ Click to show code for the simulation
 <span id="cb239-41"><a href="integrating-multi-environment-trials-with-weather-data.html#cb239-41" tabindex="-1"></a>  pval_20diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">26</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
 <span id="cb239-42"><a href="integrating-multi-environment-trials-with-weather-data.html#cb239-42" tabindex="-1"></a>}</span></code></pre></div>
 </details>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-1" tabindex="-1"></a><span class="co"># type I error rate</span></span>
 <span id="cb240-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb240-2" tabindex="-1"></a><span class="fu">mean</span>(pval_0diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 0.05</code></pre>
@@ -954,8 +954,8 @@ Click to show code for the simulation
 <span id="cb244-41"><a href="integrating-multi-environment-trials-with-weather-data.html#cb244-41" tabindex="-1"></a>  pval_20diff[i] <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">emmeans</span>(m, <span class="sc">~</span> trt, <span class="at">contr =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">26</span>))))<span class="sc">$</span>contr)<span class="sc">$</span>p.value</span>
 <span id="cb244-42"><a href="integrating-multi-environment-trials-with-weather-data.html#cb244-42" tabindex="-1"></a>}</span></code></pre></div>
 </details>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-1" tabindex="-1"></a><span class="co"># type I error rate</span></span>
 <span id="cb245-2"><a href="integrating-multi-environment-trials-with-weather-data.html#cb245-2" tabindex="-1"></a><span class="fu">mean</span>(pval_0diff<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 0.05</code></pre>
