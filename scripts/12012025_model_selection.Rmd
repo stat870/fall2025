@@ -107,6 +107,11 @@ The study was conducted as a multicenter controlled trial.
 Dogs meeting the eligibility criteria for entry into the trial had the tumor surgically removed and then were randomly assigned to one of four treatment group, no treatment, radiation only, chemotherapy only and both radiation and chemotherapy. 
 Dogs were randomly assigned with each center, so the total number of dogs on each treatment group are not exactly equal for all treatments, each dog was followed from the time of treatment until it dies from a relapse of the lymphosarcoma or was lost to follow up and the time to the occurrence of either of those was recorded. 
 
+An appropriate model would be some variation of 
+
+$$y_{ijkl} \sim Bernoulli(p_{ijkl}), \\ \text{logit}(p_{ijkl}) = \eta_{ijkl} = \eta_0 + R_i + Ch_j + (R \times Ch)_{ij} + \beta_{1 ij} \cdot age_{ijk} + u_k, \\ u_k \sim N(0, \sigma^2_{clinic}).$$
+
+
 ```{r}
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/lympho.csv"
 dat <- read.csv(url) |> 
@@ -174,9 +179,15 @@ The dataset includes the following variables:
 - `herd`:herd ID 
 - `cow`: cow ID
 - `tx`: treated with prostaglandin (1) or not treated (0) 
-- `lact`: lactation yes (1) or no (0) 
+- `lact`: lactation #  
 - `thin`: body condition -- thin (1) or not thin (0) 
 - `dar`: days at risk (with low body fat) -- count 
+
+
+An appropriate model would be some variation of 
+
+$$y_{ijkl} \sim Bernoulli(p_{ijkl}), \\ \text{logit}(p_{ijkl}) = \eta_{ijkl} = \eta_0 + T_i + Thin_j + (T \times Thin)_{ij} + \beta_{1 ij} \cdot lact_{ijk} + u_k, \\ u_k \sim N(0, \sigma^2_{herd}).$$
+
 
 ```{r}
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/pgtrial.csv"
@@ -208,5 +219,23 @@ elastic_net_cv <-
             alpha = 0.5,
             standardize  = TRUE)
 plot(elastic_net_cv)
+```
+
+## Example IV 
+
+```{r}
+# install.packages("BiocManager")
+# BiocManager::install("BiocParallel")
+library(oosse)
+
+
+data(Brassica)
+#Linear model
+fitFunLM = function(y, x){lm.fit(y = y, x = cbind(1, x))}
+predFunLM = function(mod, x) {cbind(1,x) %*% mod$coef}
+y = Brassica$Pheno$Leaf_8_width
+R2lm = R2oosse(y = Brassica$Pheno$Leaf_8_width, x = Brassica$Expr[, 1:10],
+fitFun = fitFunLM, predFun = predFunLM, nFolds = 10)
+
 ```
 
