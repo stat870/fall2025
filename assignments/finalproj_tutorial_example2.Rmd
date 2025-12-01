@@ -1,0 +1,7 @@
+---
+title: "Effects of four vaccines on fish weigth and jaw deformity"
+author: "J Lacasa"
+output: pdf_document
+---
+
+

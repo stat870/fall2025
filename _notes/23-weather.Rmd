@@ -27,8 +27,10 @@ d <- read.csv("../data/multiyear_env.csv")
 ```
 
 
+
+
 ```{r}
-m1 <- lm(yield ~ srad_total +  ppt_total + factor(hyb),
+m1 <- lm(yield ~ srad_total +  ppt_total + factor(hyb) ,
          data = d)
 summary(m1)
 ```
