@@ -69,7 +69,7 @@ DHARMa::simulateResiduals(m2, plot = T)
 
 ```{r}
 m3 <- glmmTMB(roots ~ photo * bap, 
-              ziformula = ~ photo,
+              ziformula = ~ 1,
               family = nbinom1(link = "log"),
               data = dat)
 
@@ -100,7 +100,6 @@ BIC(m1, m2, m3, m4)
 
 
 ## Example II - model selection 
-
 
 Clinical trial with dog being the unit of record. 
 These data are from a clinical trial of two treatments for lymphosarcoma in dogs. 
@@ -138,8 +137,9 @@ AIC(m1, m2, m3)
 ```
 
 ```{r}
+X <-  model.matrix(~ 0 + clinic + age*rad*chemo, data = dat)
 elastic_net <- 
-  glmnet(x = as.matrix(dat |> dplyr::select(clinic, age, rad, chemo)),
+  glmnet(x = X,
          y = dat$died,
          family = "binomial",
          alpha = 0.5,
@@ -150,12 +150,20 @@ y <- elastic_net$beta[, length(elastic_net$lambda)]
 labs <- names(y)
 
 plot(elastic_net, xvar="lambda");text(x, y, labels=labs)
-
+```
+```{r}
+elastic_net_cv <- 
+  cv.glmnet(x = X,
+            y = dat$died,
+            family = "binomial",
+            alpha = 0.5,
+            standardize  = TRUE)
+plot(elastic_net_cv)
 ```
 
 ## Example III 
 
-A clinical trial (Jeff Wichtel), with the cow being the unit of records. 
+A clinical trial, with the cow being the unit of records. 
 A clinical trial of the effect of prostaglandin administration at the start of the breeding period was carried out in three North Carolina dairy herds. 
 On each of the three farms, the producer determined when he was ready to start breeding cows in his herd and at that time, cows were randomly assigned to receive a single injection of prostaglandin or a placebo. 
 These cows were followed until they conceived or were culled. In addition to evaluating the effect of treatment on reproductive performance, three other factors were considered (parity, body condition score and herd). 
@@ -174,7 +182,6 @@ The dataset includes the following variables:
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/pgtrial.csv"
 dat <- read.csv(url) |> 
   mutate(across(c(herd:tx,thin), ~ as.factor(.)))
-dat$lact |> unique()
 ```
 
 ```{r}
@@ -191,7 +198,15 @@ y <- elastic_net$beta[, length(elastic_net$lambda)]
 labs <- names(y)
 
 plot(elastic_net, xvar="lambda");text(x, y, labels=labs)
+```
 
-
+```{r}
+elastic_net_cv <- 
+  cv.glmnet(x = X,
+            y = dat$preg,
+            family = "binomial",
+            alpha = 0.5,
+            standardize  = TRUE)
+plot(elastic_net_cv)
 ```
 
