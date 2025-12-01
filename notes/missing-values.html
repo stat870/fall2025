@@ -409,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#the-coefficient-of-determination-r2"><i class="fa fa-check"></i><b>24.2.1</b> The coefficient of determination R<sup>2</sup></a></li>
 <li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#adjusted-r2"><i class="fa fa-check"></i><b>24.2.2</b> Adjusted R<sup>2</sup></a></li>
-<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#out-of-sample-r2"><i class="fa fa-check"></i><b>24.2.3</b> Out-of-Sample R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#some-issues-with-r2"><i class="fa fa-check"></i><b>24.2.3</b> Some issues with R<sup>2</sup></a></li>
 <li class="chapter" data-level="24.2.4" data-path="model-selection.html"><a href="model-selection.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>24.2.4</b> Akaike Information Criterion (AIC)</a></li>
 <li class="chapter" data-level="24.2.5" data-path="model-selection.html"><a href="model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>24.2.5</b> Bayesian Information Criterion (BIC)</a></li>
 </ul></li>
@@ -633,8 +633,8 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling)</code></pre>
 <pre><code>## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling)</code></pre>
 <pre><code>## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 finished in 8.5 seconds.
-## The remaining chains had a mean execution time of 9.0 seconds.</code></pre>
+<pre><code>## Chain 3 finished in 6.1 seconds.
+## The remaining chains had a mean execution time of 6.5 seconds.</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="missing-values.html#cb211-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="missing-values.html#cb212-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
@@ -718,8 +718,10 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 1 Iteration:  200 / 2500 [  8%]  (Warmup) 
 ## Chain 1 Iteration:  300 / 2500 [ 12%]  (Warmup)</code></pre>
 <pre><code>## Chain 2 Iteration:    1 / 2500 [  0%]  (Warmup) 
-## Chain 2 Iteration:  100 / 2500 [  4%]  (Warmup)</code></pre>
-<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup)</code></pre>
+## Chain 2 Iteration:  100 / 2500 [  4%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2500 [  8%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup)</code></pre>
 <pre><code>## Chain 1 Iteration:  400 / 2500 [ 16%]  (Warmup) 
 ## Chain 1 Iteration:  500 / 2500 [ 20%]  (Warmup) 
 ## Chain 1 Iteration:  600 / 2500 [ 24%]  (Warmup) 
@@ -740,10 +742,6 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 1 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
 ## Chain 1 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
 ## Chain 1 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
-## Chain 1 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
-## Chain 1 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
-## Chain 1 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 2 Iteration:  200 / 2500 [  8%]  (Warmup) 
 ## Chain 2 Iteration:  300 / 2500 [ 12%]  (Warmup) 
 ## Chain 2 Iteration:  400 / 2500 [ 16%]  (Warmup) 
 ## Chain 2 Iteration:  500 / 2500 [ 20%]  (Warmup) 
@@ -766,9 +764,6 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 2 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
 ## Chain 2 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
 ## Chain 2 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
-## Chain 2 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
-## Chain 2 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup) 
 ## Chain 3 Iteration:  200 / 2500 [  8%]  (Warmup) 
 ## Chain 3 Iteration:  300 / 2500 [ 12%]  (Warmup) 
 ## Chain 3 Iteration:  400 / 2500 [ 16%]  (Warmup) 
@@ -788,18 +783,23 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 3 Iteration: 1700 / 2500 [ 68%]  (Sampling) 
 ## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
 ## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling) 
+## Chain 1 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
+## Chain 1 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
+## Chain 1 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 1 finished in 0.3 seconds.
+## Chain 2 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
+## Chain 2 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 2 finished in 0.3 seconds.
 ## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
 ## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
-## Chain 1 finished in 0.4 seconds.
-## Chain 2 finished in 0.4 seconds.
 ## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
 ## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
 ## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
 ## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 3 finished in 0.4 seconds.
+## Chain 3 finished in 0.3 seconds.
 ## 
 ## All 3 chains finished successfully.
-## Mean chain execution time: 0.4 seconds.
+## Mean chain execution time: 0.3 seconds.
 ## Total execution time: 0.6 seconds.</code></pre>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="missing-values.html#cb221-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>

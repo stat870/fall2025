@@ -209,7 +209,7 @@ announcements-22
 model-selection-1
 the-coefficient-of-determination-r2
 adjusted-r2
-out-of-sample-r2
+some-issues-with-r2
 akaike-information-criterion-aic
 bayesian-information-criterion-bic
 regularization

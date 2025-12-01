@@ -409,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="24.2.1" data-path="model-selection.html"><a href="model-selection.html#the-coefficient-of-determination-r2"><i class="fa fa-check"></i><b>24.2.1</b> The coefficient of determination R<sup>2</sup></a></li>
 <li class="chapter" data-level="24.2.2" data-path="model-selection.html"><a href="model-selection.html#adjusted-r2"><i class="fa fa-check"></i><b>24.2.2</b> Adjusted R<sup>2</sup></a></li>
-<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#out-of-sample-r2"><i class="fa fa-check"></i><b>24.2.3</b> Out-of-Sample R<sup>2</sup></a></li>
+<li class="chapter" data-level="24.2.3" data-path="model-selection.html"><a href="model-selection.html#some-issues-with-r2"><i class="fa fa-check"></i><b>24.2.3</b> Some issues with R<sup>2</sup></a></li>
 <li class="chapter" data-level="24.2.4" data-path="model-selection.html"><a href="model-selection.html#akaike-information-criterion-aic"><i class="fa fa-check"></i><b>24.2.4</b> Akaike Information Criterion (AIC)</a></li>
 <li class="chapter" data-level="24.2.5" data-path="model-selection.html"><a href="model-selection.html#bayesian-information-criterion-bic"><i class="fa fa-check"></i><b>24.2.5</b> Bayesian Information Criterion (BIC)</a></li>
 </ul></li>
@@ -538,7 +538,7 @@ where:</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="applications-of-smoothing-splines.html#cb126-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb126-2"><a href="applications-of-smoothing-splines.html#cb126-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>site<span class="sc">/</span>rep), <span class="at">data =</span> dat)</span>
 <span id="cb126-3"><a href="applications-of-smoothing-splines.html#cb126-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 0.05 sec elapsed</code></pre>
+<pre><code>## 0.03 sec elapsed</code></pre>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="applications-of-smoothing-splines.html#cb128-1" tabindex="-1"></a><span class="fu">VarCorr</span>(m1)</span></code></pre></div>
 <pre><code>##  Groups   Name        Std.Dev.
 ##  rep:site (Intercept) 0.10140 
@@ -565,7 +565,7 @@ where:</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="applications-of-smoothing-splines.html#cb132-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb132-2"><a href="applications-of-smoothing-splines.html#cb132-2" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">gam</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> <span class="fu">s</span>(rep, site, <span class="at">bs =</span> <span class="st">&quot;re&quot;</span>) <span class="sc">+</span> <span class="fu">s</span>(row, col, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>, <span class="at">by =</span> site), <span class="at">data =</span> dat)</span>
 <span id="cb132-3"><a href="applications-of-smoothing-splines.html#cb132-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 16.76 sec elapsed</code></pre>
+<pre><code>## 8.82 sec elapsed</code></pre>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="applications-of-smoothing-splines.html#cb134-1" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
 <pre><code>## 
 ## Family: gaussian 
