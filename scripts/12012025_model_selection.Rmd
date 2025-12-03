@@ -60,12 +60,9 @@ DHARMa::testZeroInflation(m2)
 ```
 
 ```{r}
-summary(m2)
-```
-
-```{r}
 DHARMa::simulateResiduals(m2, plot = T)
 ```
+
 
 ```{r}
 m3 <- glmmTMB(roots ~ photo * bap, 
@@ -82,7 +79,7 @@ DHARMa::simulateResiduals(m3, plot = T)
 
 ```{r}
 m4 <- glmmTMB(roots ~ photo * bap, 
-              ziformula = ~ photo,
+              ziformula = ~ 1+photo,
               family = nbinom1(link = "log"),
               data = dat)
 
@@ -98,6 +95,28 @@ AIC(m1, m2, m3, m4)
 BIC(m1, m2, m3, m4)
 ```
 
+```{r}
+summary(m4)
+```
+
+```{r}
+library(emmeans)
+plot(emmeans(m4, ~photo:bap, type = "response"))
+plot(emmeans(m4, ~photo, type = "response"))
+plot(emmeans(m4, ~bap, type = "response"))
+```
+
+```{r}
+results <- emmeans(m4, ~photo:bap, type = "response")
+
+as.data.frame(results) |> 
+  ggplot(aes(response, bap))+
+  geom_errorbarh(aes(xmin = asymp.LCL, xmax = asymp.UCL),
+                 height = 0)+
+  geom_point(aes())+
+  facet_wrap(~photo)+
+  theme_pubclean()
+```
 
 ## Example II - model selection 
 
@@ -197,11 +216,12 @@ dat <- read.csv(url) |>
 
 ```{r}
 X <- model.matrix(~ 0 + tx * lact * thin + herd, data = dat)
+
 elastic_net <- 
   glmnet(x = X,
          y = dat$preg,
          family = "binomial",
-         alpha = 0.5,
+         alpha = .5,
          standardize  = TRUE)
 
 x <- -log(elastic_net$lambda[length(elastic_net$lambda)])
