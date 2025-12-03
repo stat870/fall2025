@@ -41,3 +41,7 @@ November 27
 December 1 
 : Model selection 
   : [html](https://stat870.github.io/fall2025/notes/model-selection.html)
+  
+December 3 
+: Model selection II 
+  : [html](https://stat870.github.io/fall2025/notes/model-selection.html))
