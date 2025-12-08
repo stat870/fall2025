@@ -216,7 +216,7 @@ m2 <- glmmTMB(behavior_count ~ timepoint * trt * breed +
 
 What to do? 
 
-[Link to Stan code](../scripts/12082025_stan_desexp.stan)
+[Link to R code](../scripts/12082025_stan_desexp.Rmd)
 
 ## Resources 
 

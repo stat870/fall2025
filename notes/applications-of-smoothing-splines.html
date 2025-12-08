@@ -556,7 +556,7 @@ where:</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="applications-of-smoothing-splines.html#cb126-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb126-2"><a href="applications-of-smoothing-splines.html#cb126-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>site<span class="sc">/</span>rep), <span class="at">data =</span> dat)</span>
 <span id="cb126-3"><a href="applications-of-smoothing-splines.html#cb126-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 0.08 sec elapsed</code></pre>
+<pre><code>## 0.09 sec elapsed</code></pre>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="applications-of-smoothing-splines.html#cb128-1" tabindex="-1"></a><span class="fu">VarCorr</span>(m1)</span></code></pre></div>
 <pre><code>##  Groups   Name        Std.Dev.
 ##  rep:site (Intercept) 0.10140 
@@ -583,7 +583,7 @@ where:</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="applications-of-smoothing-splines.html#cb132-1" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">tic</span>()</span>
 <span id="cb132-2"><a href="applications-of-smoothing-splines.html#cb132-2" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">gam</span>(yield <span class="sc">~</span> gen <span class="sc">+</span> <span class="fu">s</span>(rep, site, <span class="at">bs =</span> <span class="st">&quot;re&quot;</span>) <span class="sc">+</span> <span class="fu">s</span>(row, col, <span class="at">bs =</span> <span class="st">&quot;tp&quot;</span>, <span class="at">by =</span> site), <span class="at">data =</span> dat)</span>
 <span id="cb132-3"><a href="applications-of-smoothing-splines.html#cb132-3" tabindex="-1"></a>tictoc<span class="sc">::</span><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 16.52 sec elapsed</code></pre>
+<pre><code>## 8.69 sec elapsed</code></pre>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="applications-of-smoothing-splines.html#cb134-1" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
 <pre><code>## 
 ## Family: gaussian 

@@ -1,0 +1,97 @@
+---
+title: "Bayesian analysis"
+author: "J Lacasa"
+date: "2025-12-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R packages 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggpubr)
+library(cmdstanr)
+library(bayesplot)
+```
+
+# Data 
+
+
+```{r}
+dat <- readxl::read_xlsx("../../data_confid/Behavior_Counts.xlsx") |> 
+  mutate(calfID = as.numeric(as.factor(calfID)),
+         timepoint_f  = as.numeric(as.factor(timepoint+2)))
+
+# viz
+dat |> 
+  ggplot(aes(timepoint, behavior_count))+
+  geom_point(aes(group = breed, 
+                 fill = breed),
+             shape =21, size= 2.5)+
+  facet_wrap(~trt)+
+  scico::scale_fill_scico_d()+
+  theme_pubclean()
+```
+  int<lower=1> N;                       // Number of observations
+  array[N] int<lower=0> behavior_count;       // Outcome variable (behavior count)
+  int<lower=1> K_mu;                    // Number of fixed effect parameters for the mean model
+  matrix[N, K_mu] X_mu;                 // Design matrix for the mean model (mu)
+  int<lower=1> J_calf;                  // Number of unique calves (calfID)
+  array[N] <lower=1> behavior_count; // Index for calfID random effect
+  int<lower=1> T_max;                   // Number of unique timepoints
+  array[N] int<lower=1> timepoint_f; // Index for timepoint factor (for random effect structure)
+
+
+```{r}
+model <- cmdstan_model("desexp.stan")
+
+X <- model.matrix(behavior_count ~ 0 + timepoint * trt * breed, data = dat)
+
+stan_data <- list(
+  N = nrow(dat), 
+  behavior_count = dat$behavior_count, 
+  K_mu = ncol(X),
+  X_mu = X, 
+  J_calf = n_distinct(dat$calfID), 
+  calfID = dat$calfID, 
+  T_max = n_distinct(dat$timepoint_f), 
+  timepoint_f = dat$timepoint_f)
+
+fitted <- 
+  model$sample(
+    data = stan_data,
+    seed = 42, 
+    chains = 3, 
+    parallel_chains = 3)
+
+```
+
+
+```{r}
+bayesplot::mcmc_trace(fitted$draws(c("alpha_zi", "beta_mu")))
+bayesplot::mcmc_trace(fitted_v02$draws(c("phi", "beta_mu")))
+```
+
+
+
+
+```{r warning=FALSE}
+model2 <- cmdstan_model("desexp_v02.stan")
+
+fitted_v02 <- 
+  model2$sample(
+    data = stan_data,
+    seed = 42, 
+    chains = 3, 
+    parallel_chains = 3, 
+    iter_warmup = 1500, 
+    iter_sampling = 2500)
+
+```
+
+
+

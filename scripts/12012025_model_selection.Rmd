@@ -8,6 +8,7 @@ output: html_document
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
+library(ggpubr)
 library(lme4)
 library(glmmTMB)
 library(DHARMa)
@@ -135,7 +136,15 @@ $$y_{ijkl} \sim Bernoulli(p_{ijkl}), \\ \text{logit}(p_{ijkl}) = \eta_{ijkl} = \
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/lympho.csv"
 dat <- read.csv(url) |> 
   mutate(across(c(rad, chemo, died, clinic), ~ as.factor(.)))
+```
 
+```{r}
+dat |> 
+  dplyr::select(rad, chemo) |> 
+  unique()
+```
+
+```{r}
 dat |> 
   ggplot(aes(months))+
   geom_histogram()+
@@ -146,22 +155,47 @@ dat |>
 ```{r}
 m1 <- glmmTMB(died ~ age * rad * chemo + (1|clinic),
               family = binomial(link = "logit"),
-              data = dat)
-m2 <- glmmTMB(died ~ age + rad * chemo + (1|clinic),
-              family = binomial(link = "logit"),
-              data = dat)
-m3 <- glmmTMB(died ~ age * rad * chemo - age:rad:chemo + (1|clinic),
-              family = binomial(link = "logit"),
-              data = dat)
-m4 <- glmmTMB(died ~ age * rad * chemo - age:rad:chemo + (1|clinic),
-              family = binomial(link = "logit"),
+              REML = T,
               data = dat)
 
-AIC(m1, m2, m3)
+DHARMa::simulateResiduals(m1, plot = T)
+AIC(m1)
+
+m2 <- glmmTMB(died ~ age + rad * chemo + (1|clinic),
+              family = binomial(link = "logit"),
+              REML = T,
+              data = dat)
+
+
+m3 <- glmmTMB(died ~ age * rad * chemo - age:rad:chemo + (1|clinic),
+              family = binomial(link = "logit"),
+              REML = T,
+              data = dat)
+
+m4 <- glmmTMB(died ~ rad * chemo + (1|clinic),
+              family = binomial(link = "logit"),
+              REML = T,
+              data = dat)
+
+
+AIC(m1, m2, m3, m4)
+
+BIC(m1, m2, m3, m4)
+
+DHARMa::simulateResiduals(m2, plot = T)
+DHARMa::simulateResiduals(m3, plot = T)
+DHARMa::simulateResiduals(m4, plot = T)
+
+```
+
+
+```{r}
+summary(m2)
 ```
 
 ```{r}
 X <-  model.matrix(~ 0 + clinic + age*rad*chemo, data = dat)
+
 elastic_net <- 
   glmnet(x = X,
          y = dat$died,
@@ -212,15 +246,18 @@ $$y_{ijkl} \sim Bernoulli(p_{ijkl}), \\ \text{logit}(p_{ijkl}) = \eta_{ijkl} = \
 url <- "https://raw.githubusercontent.com/stat870/fall2025/refs/heads/main/data/pgtrial.csv"
 dat <- read.csv(url) |> 
   mutate(across(c(herd:tx,thin), ~ as.factor(.)))
+
+hist(dat$dar)
 ```
 
 ```{r}
-X <- model.matrix(~ 0 + tx * lact * thin + herd, data = dat)
+X <- model.matrix(~ 0 + tx + lact + thin + dar + herd, data = dat)
 
 elastic_net <- 
   glmnet(x = X,
          y = dat$preg,
          family = "binomial",
+         # lambda = 
          alpha = .5,
          standardize  = TRUE)
 
@@ -239,7 +276,28 @@ elastic_net_cv <-
             alpha = 0.5,
             standardize  = TRUE)
 plot(elastic_net_cv)
+
+
+elastic_net <- 
+  glmnet(x = X,
+         y = dat$preg,
+         family = "binomial",
+         lambda = 0.03944,
+         alpha = .5,
+         standardize  = TRUE)
+
+coef(elastic_net)
 ```
+
+```{r}
+m <- glmmTMB(preg ~ tx + lact*dar*thin - lact:dar:thin + (1|herd) , 
+        family = binomial(link = "logit"),
+        REML = T, 
+        data = dat)
+library(emmeans)
+emmeans(m, ~tx, type = "response")
+```
+
 
 ## Example IV 
 

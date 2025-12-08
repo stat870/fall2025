@@ -606,8 +606,8 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 <span id="cb192-2"><a href="missing-values.html#cb192-2" tabindex="-1"></a>W_missing <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(W_missing),</span>
 <span id="cb192-3"><a href="missing-values.html#cb192-3" tabindex="-1"></a>                    <span class="cf">function</span>(n) W_missing[n]<span class="sc">*</span><span class="fu">sum</span>(W_missing[<span class="dv">1</span><span class="sc">:</span>n]) )</span>
 <span id="cb192-4"><a href="missing-values.html#cb192-4" tabindex="-1"></a>W_missing</span></code></pre></div>
-<pre><code>##  [1] 0 0 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0
-## [39] 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 6 0 0 0 7 0 0 0 8 0 0 0 0 0 9 0 0 0 0</code></pre>
+<pre><code>##  [1] 0 0 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0
+## [40] 0 0 0 5 0 0 0 0 0 0 0 0 0 0 6 0 0 0 7 0 0 0 8 0 0 0 0 0 9 0 0 0 0</code></pre>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="missing-values.html#cb194-1" tabindex="-1"></a>stan_data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb194-2"><a href="missing-values.html#cb194-2" tabindex="-1"></a>  <span class="at">N =</span> <span class="fu">nrow</span>(df),</span>
 <span id="cb194-3"><a href="missing-values.html#cb194-3" tabindex="-1"></a>  <span class="at">W_num_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(df<span class="sc">$</span>W_ton_ha)), </span>
@@ -645,14 +645,14 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 3 Iteration: 1700 / 2500 [ 68%]  (Sampling) 
 ## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling)</code></pre>
 <pre><code>## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
-## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
+## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
+## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling)</code></pre>
 <pre><code>## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling)</code></pre>
-<pre><code>## Chain 3 finished in 8.2 seconds.
-## The remaining chains had a mean execution time of 8.7 seconds.</code></pre>
+<pre><code>## Chain 3 finished in 5.3 seconds.
+## The remaining chains had a mean execution time of 5.7 seconds.</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="missing-values.html#cb211-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="missing-values.html#cb212-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
@@ -738,7 +738,8 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 <pre><code>## Chain 2 Iteration:    1 / 2500 [  0%]  (Warmup) 
 ## Chain 2 Iteration:  100 / 2500 [  4%]  (Warmup) 
 ## Chain 2 Iteration:  200 / 2500 [  8%]  (Warmup)</code></pre>
-<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2500 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup)</code></pre>
 <pre><code>## Chain 1 Iteration:  400 / 2500 [ 16%]  (Warmup) 
 ## Chain 1 Iteration:  500 / 2500 [ 20%]  (Warmup) 
 ## Chain 1 Iteration:  600 / 2500 [ 24%]  (Warmup) 
@@ -761,7 +762,6 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 1 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
 ## Chain 1 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
 ## Chain 1 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
-## Chain 1 Iteration: 2500 / 2500 [100%]  (Sampling) 
 ## Chain 2 Iteration:  300 / 2500 [ 12%]  (Warmup) 
 ## Chain 2 Iteration:  400 / 2500 [ 16%]  (Warmup) 
 ## Chain 2 Iteration:  500 / 2500 [ 20%]  (Warmup) 
@@ -785,8 +785,6 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 2 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
 ## Chain 2 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
 ## Chain 2 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
-## Chain 2 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 3 Iteration:  100 / 2500 [  4%]  (Warmup) 
 ## Chain 3 Iteration:  200 / 2500 [  8%]  (Warmup) 
 ## Chain 3 Iteration:  300 / 2500 [ 12%]  (Warmup) 
 ## Chain 3 Iteration:  400 / 2500 [ 16%]  (Warmup) 
@@ -807,18 +805,20 @@ Figure 22.1: Relationships between N uptake by aerial biomass and aerial biomass
 ## Chain 3 Iteration: 1800 / 2500 [ 72%]  (Sampling) 
 ## Chain 3 Iteration: 1900 / 2500 [ 76%]  (Sampling) 
 ## Chain 3 Iteration: 2000 / 2500 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 1 finished in 0.3 seconds.
+## Chain 2 Iteration: 2500 / 2500 [100%]  (Sampling) 
+## Chain 2 finished in 0.3 seconds.
 ## Chain 3 Iteration: 2100 / 2500 [ 84%]  (Sampling) 
 ## Chain 3 Iteration: 2200 / 2500 [ 88%]  (Sampling) 
-## Chain 1 finished in 0.4 seconds.
-## Chain 2 finished in 0.4 seconds.
 ## Chain 3 Iteration: 2300 / 2500 [ 92%]  (Sampling) 
 ## Chain 3 Iteration: 2400 / 2500 [ 96%]  (Sampling) 
 ## Chain 3 Iteration: 2500 / 2500 [100%]  (Sampling) 
-## Chain 3 finished in 0.4 seconds.
+## Chain 3 finished in 0.3 seconds.
 ## 
 ## All 3 chains finished successfully.
-## Mean chain execution time: 0.4 seconds.
-## Total execution time: 0.6 seconds.</code></pre>
+## Mean chain execution time: 0.3 seconds.
+## Total execution time: 0.5 seconds.</code></pre>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="missing-values.html#cb221-1" tabindex="-1"></a><span class="fu">mcmc_trace</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>())</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="missing-values.html#cb222-1" tabindex="-1"></a><span class="fu">mcmc_pairs</span>(samples_small<span class="sc">$</span><span class="fu">draws</span>(<span class="fu">c</span>(<span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)))</span></code></pre></div>
