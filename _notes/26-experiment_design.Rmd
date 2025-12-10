@@ -32,7 +32,7 @@ where:
 
 Note that $F$ depends on $\sigma^2_\varepsilon$, and $F_c$ depends on $\alpha$.
 
-Suppose we are trying to compare designs to find differences main effects and interactions of a $2 \times 2$ factorial treatment structure. 
+Suppose we are trying to compare designs to find differences main effects and interactions of a $3 \times 2$ factorial treatment structure. 
 Suppose we have: 
 
 - Treatment A: 3 levels, 
@@ -196,11 +196,14 @@ dat <- readxl::read_xlsx("../../data_confid/Behavior_Counts.xlsx")
 # viz
 dat |> 
   ggplot(aes(timepoint, behavior_count))+
+  geom_line(aes(group = calfID, 
+                color = breed))+
   geom_point(aes(group = breed, 
                  fill = breed),
              shape =21, size= 2.5)+
   facet_wrap(~trt)+
   scico::scale_fill_scico_d()+
+  scico::scale_color_scico_d()+
   theme_pubclean()
 ```
 

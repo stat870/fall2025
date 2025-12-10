@@ -30,6 +30,7 @@ fig:unnamed-chunk-134
 fig:unnamed-chunk-151
 fig:unnamed-chunk-152
 fig:unnamed-chunk-153
+fig:unnamed-chunk-165
 welcome-to-stat-870
 about-this-course
 logistics
@@ -235,6 +236,9 @@ precision-analysis
 bayesian-analysis-of-designed-experiments
 applied-example-5
 resources-2
+bayesian-analysis-of-data-generated-by-designed-experiments
+announcements-25
+applied-example-6
 semester-project-1
 learning-objectives
 partial-deadlines

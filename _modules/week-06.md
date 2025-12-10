@@ -44,4 +44,10 @@ December 1
   
 December 3 
 : Model selection II 
-  : [html](https://stat870.github.io/fall2025/notes/model-selection.html))
+  : [html](https://stat870.github.io/fall2025/notes/model-selection.html)) 
+
+December 8
+: Design and analysis of experiments 
+  : [html](https://stat870.github.io/fall2025/notes/planning-designed-experiments.html)
+
+  
