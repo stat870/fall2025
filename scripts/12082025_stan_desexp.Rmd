@@ -24,6 +24,7 @@ library(bayesplot)
 ```{r}
 dat <- readxl::read_xlsx("../../data_confid/Behavior_Counts.xlsx") |> 
   mutate(calfID = as.numeric(as.factor(calfID)),
+         timepoint_n = timepoint+2,
          timepoint_f  = as.numeric(as.factor(timepoint+2)))
 
 # viz
@@ -71,16 +72,23 @@ fitted <-
 ```
 
 
-```{r}
-bayesplot::mcmc_trace(fitted$draws(c("alpha_zi", "beta_mu")))
-bayesplot::mcmc_trace(fitted_v02$draws(c("phi", "beta_mu")))
-```
 
 
 
 
 ```{r warning=FALSE}
 model2 <- cmdstan_model("desexp_v02.stan")
+
+stan_data <- list(
+  N = nrow(dat), 
+  behavior_count = dat$behavior_count, 
+  K_mu = ncol(X),
+  X_mu = X, 
+  J_calf = n_distinct(dat$calfID), 
+  calfID = dat$calfID, 
+  T_max = n_distinct(dat$timepoint_f), 
+  timepoint_f = dat$timepoint_f, 
+  times = unique(dat$timepoint_n))
 
 fitted_v02 <- 
   model2$sample(
@@ -92,6 +100,36 @@ fitted_v02 <-
     iter_sampling = 2500)
 
 ```
+
+
+
+```{r}
+bayesplot::mcmc_trace(fitted$draws(c("alpha_zi", "beta_mu")))
+bayesplot::mcmc_trace(fitted_v02$draws(c("phi", "beta_mu")))
+```
+
+```{r}
+hist(rnorm(1000, 0, sqrt(5)))
+hist(rbeta(1000, 1, 1))
+```
+
+```{r}
+bayesplot::mcmc_hist(fitted_v02$draws(c("phi", "beta_mu")))
+```
+
+```{r}
+hist(rnorm(1000, 0, sqrt(.5)))
+
+bayesplot::mcmc_hist(fitted_v02$draws(c("rho_toep")))
+```
+
+
+
+
+
+
+
+
 
 
 
