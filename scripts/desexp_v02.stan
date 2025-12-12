@@ -7,6 +7,7 @@ data {
   array[N] int<lower=1, upper=J_calf> calfID; // Index for calfID random effect
   int<lower=1> T_max;                   // Number of unique timepoints
   array[N] int<lower=1, upper=T_max> timepoint_f; // Index for timepoint factor (for random effect structure)
+  array[T_max] real times; 
 }
 
 parameters {
@@ -53,7 +54,7 @@ model {
   matrix[T_max, T_max] Sigma_T;
   for (i in 1:T_max) {
     for (j in 1:T_max) {
-      Sigma_T[i, j] = sigma_calf^2 * pow(rho_toep, abs(i - j));
+      Sigma_T[i, j] = sigma_calf^2 * pow(rho_toep, abs(times[i] - times[j]));
     }
   }
   
@@ -69,7 +70,6 @@ model {
   // The zero-inflated Poisson likelihood for each observation
   for (n in 1:N) {
     // Convert logit_phi and log_lambda to their natural scales
-    // real phi = inv_logit(logit_phi[n]);
     real lambda = exp(log_lambda[n]);
     
     if (behavior_count[n] == 0) {
