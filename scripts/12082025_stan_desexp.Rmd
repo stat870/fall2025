@@ -16,6 +16,7 @@ library(tidyverse)
 library(ggpubr)
 library(cmdstanr)
 library(bayesplot)
+library(glmmTMB)
 ```
 
 # Data 
@@ -37,14 +38,16 @@ dat |>
   scico::scale_fill_scico_d()+
   theme_pubclean()
 ```
-  int<lower=1> N;                       // Number of observations
-  array[N] int<lower=0> behavior_count;       // Outcome variable (behavior count)
-  int<lower=1> K_mu;                    // Number of fixed effect parameters for the mean model
-  matrix[N, K_mu] X_mu;                 // Design matrix for the mean model (mu)
-  int<lower=1> J_calf;                  // Number of unique calves (calfID)
-  array[N] <lower=1> behavior_count; // Index for calfID random effect
-  int<lower=1> T_max;                   // Number of unique timepoints
-  array[N] int<lower=1> timepoint_f; // Index for timepoint factor (for random effect structure)
+
+```{r}
+m2 <- glmmTMB(behavior_count ~ timepoint * trt * breed +
+                toep(timepoint + 0 | calfID),
+              ziformula = ~1,
+              family = poisson(link = "log"),
+              REML  =T,
+              data = dat |> mutate(timepoint_f=as.factor(timepoint)))
+```
+
 
 
 ```{r}
@@ -79,6 +82,8 @@ fitted <-
 ```{r warning=FALSE}
 model2 <- cmdstan_model("desexp_v02.stan")
 
+X <- model.matrix(behavior_count ~ 0 + factor(timepoint_f) * trt * breed, data = dat)
+
 stan_data <- list(
   N = nrow(dat), 
   behavior_count = dat$behavior_count, 
@@ -111,6 +116,10 @@ bayesplot::mcmc_trace(fitted_v02$draws(c("phi", "beta_mu")))
 ```{r}
 hist(rnorm(1000, 0, sqrt(5)))
 hist(rbeta(1000, 1, 1))
+```
+
+```{r}
+colnames(X)
 ```
 
 ```{r}
