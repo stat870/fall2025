@@ -110,7 +110,7 @@ fitted_v02 <-
 
 ```{r}
 bayesplot::mcmc_trace(fitted$draws(c("alpha_zi", "beta_mu")))
-bayesplot::mcmc_trace(fitted_v02$draws(c("phi", "beta_mu")))
+bayesplot::mcmc_trace(fitted_v02$draws(c("phi", "beta_mu[1]", "beta_mu[10]")))
 ```
 
 ```{r}
